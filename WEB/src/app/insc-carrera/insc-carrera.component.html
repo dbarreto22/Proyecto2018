@@ -1,0 +1,34 @@
+
+<h4 style="text-align: center; color: darkgray" >Seleccionar Carrera</h4>
+
+<table class="table table-bordered">
+    <!-- Table head -->
+    <thead>
+      <tr>
+        <th>
+          <!-- Default unchecked -->
+          <div class="custom-control custom-checkbox">
+            <th>SELECCIONAR</th>
+          </div>
+        </th>
+        <th style="text-align: center">CODIGO</th>
+        <th style="text-align: center">NOMBRE</th>
+      </tr>
+    </thead>
+    <!-- Table head -->
+
+    <!-- Table body -->
+    <tbody>
+      <tr *ngFor="let carrera of carreras">
+        <th scope="row">
+          <!-- Default unchecked -->
+          <div class="custom-control custom-checkbox">
+              <input type="checkbox" default="true">SELECCION
+          </div>
+        </th>
+        <td> {{carrera.id}} </td>  
+        <td> {{carrera.Nombre}} </td>  
+      </tr>
+
+    </tbody>
+    </table>
