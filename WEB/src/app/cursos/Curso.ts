@@ -1,5 +1,7 @@
 export class Curso{
-    id:number;
-    name:string;
-    tipo:string;
+    constructor(
+        public id:number,
+        public name:string,
+        public tipo:string,
+    ){}
 }

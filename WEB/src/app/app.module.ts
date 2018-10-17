@@ -18,6 +18,7 @@ import { ToolbarDirectorComponent } from './toolbar-director/toolbar-director.co
 import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
 import {ApiService} from '../app/api.service';
 import { LoginComponent } from './login/login.component';
+import {HttpModule,JsonpModule} from '@angular/http';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { LoginComponent } from './login/login.component';
     MatCardModule, MatMenuModule, 
     MatTableModule, MatPaginatorModule, 
     MatSortModule,AgGridModule.withComponents([]),
-    AppRoutingModuleModule
+    AppRoutingModuleModule,HttpModule,JsonpModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

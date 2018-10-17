@@ -8,7 +8,7 @@ import {Http, Response, Headers} from '@angular/http';
 
 @Injectable()
 export class ApiService {
-  API_URL  =  'http://localhost:9444';
+  API_URL  =  'http://localhost:8080';
   rowData;
 constructor(private  httpClient:  HttpClient) { }
 
@@ -21,8 +21,8 @@ createCarrera(carrera){
 }
 
 
-getAsignaturaByCarrera(idCarrera){
-  return this.httpClient.post(`${this.API_URL}/getAsignaturaByCarreras/`,idCarrera);
+getAllCurso(){
+  return this.httpClient.post(`${this.API_URL}/estudiante/curso`,null);
 }
 
 inscripcionCarrera(idUsuario,idCurso){

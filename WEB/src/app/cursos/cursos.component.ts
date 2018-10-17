@@ -11,10 +11,10 @@ import {Curso} from './Curso';
 
 
 export class CursosComponent implements OnInit {
-  //cursos:  Array<object>;
+  cursos:  Array<object>;
 
 
-  displayedColumns = ['ID', 'NOMBRE'];
+  /*displayedColumns = ['ID', 'NOMBRE'];
   
   public  cursos :  Array<object> = [
     {id: 1, name: 'Calculo 1'},
@@ -37,11 +37,14 @@ export class CursosComponent implements OnInit {
     {id: 18, name: 'Proyecto'},
     {id: 19, name: 'Taller de informacion geografica'},
     {id: 20, name: 'Competencias roboticas'}];
-  
+  */
   //private  apiService:  ApiService
-  constructor() { }
+  constructor(private  apiService:  ApiService) { }
   ngOnInit() {
-    this.cursos;
+    this.apiService.getAllCurso().subscribe((data:  Array<object>) => {
+     // this.cursos=data;
+      console.log(data);
+    });
     //  this.getCarreras();
   }
 inscripcionCurso(id, nombre) 
