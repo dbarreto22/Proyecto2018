@@ -1,12 +1,22 @@
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav-content>
-      <mat-toolbar color="primary">
-      <span ><a mat-button href="#"> Ingresar Carrera </a></span>
-      <span ><a mat-button href="#"> Ingresar Asignatura a Carrera </a></span>
-      <span ><a mat-button [routerLink]="['/']"> Definir Previas </a></span>
-            
-      <span class="example-fill-remaining-space"></span>
-      <span>  <a mat-button [routerLink]="['/']"> Proyecto  </a></span>
-    </mat-toolbar>
-  </mat-sidenav-content>
- </mat-sidenav-container>
+
+     <!-- Static navbar -->
+     <nav class="navbar navbar-inverse" style="background: primary">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['/']">Project name</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse" >
+            <ul class="nav navbar-nav">
+              <li routerLinkActive="active"><a [routerLink]="['/']"> Ingresar Carrera </a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/']"> Ingresar Asignatura a Carrera</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/']"> Definir Previas </a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>

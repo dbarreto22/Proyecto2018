@@ -12,10 +12,13 @@ import { CursosComponent } from './cursos/cursos.component';
 import {RouterModule} from '@angular/router';
 import { AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModuleModule } from './app-routing-module/app-routing-module.module';
-import {Grid} from "ag-grid/main";
+
 import { ToolbarAdministradorComponent } from './toolbar-administrador/toolbar-administrador.component';
 import { ToolbarDirectorComponent } from './toolbar-director/toolbar-director.component';
 import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { HttpClientModule } from '@angular/common/http'; 
 
 
 @NgModule({
@@ -37,11 +40,13 @@ import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
     MatListModule, MatGridListModule, 
     MatCardModule, MatMenuModule, 
     MatTableModule, MatPaginatorModule, 
+    HttpClientModule,
     MatSortModule,AgGridModule.withComponents([]),
-    AppRoutingModuleModule
+    AppRoutingModuleModule, MDBBootstrapModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule { }
 export class PizzaPartyAppModule { }

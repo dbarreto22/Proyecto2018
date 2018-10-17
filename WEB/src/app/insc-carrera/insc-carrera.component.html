@@ -1,18 +1,13 @@
-
-   <form  (ngSubmit)="submit()">
+<!--(ngSubmit)="inscCarrerra(idUser, idCarrera)"
+<form  style="align-content: center" method="POST">-->
    <div>
-        <h4 style="text-align: center; color: darkgray" >Seleccionar Carrera</h4>
-        </div>
-<table class="table table-bordered">
+      <h4 style="text-align: center; color: darkgray" >Seleccionar Carrera</h4>
+    </div>
+<table id="table1" class="table table-bordered">
     <!-- Table head -->
     <thead>
-      <tr>
-        <th>
-          <!-- Default unchecked -->
-          <div class="custom-control custom-checkbox">
-            <th>SELECCIONAR</th>
-          </div>
-        </th>
+      <tr> 
+        <th style="text-align: center">SELECCIONAR</th>       
         <th style="text-align: center">CODIGO</th>
         <th style="text-align: center">NOMBRE</th>
       </tr>
@@ -20,12 +15,12 @@
     <!-- Table head -->
 
     <!-- Table body -->
-    <tbody>
+    <tbody style="align-content: center">
       <tr *ngFor="let carrera of carreras">
         <th scope="row">
           <!-- Default unchecked -->
           <div class="custom-control custom-checkbox">
-              <input type="checkbox" default="true">SELECCION
+              <input type="checkbox" default="true">
           </div>
         </th>
         <td> {{carrera.id}} </td>  
@@ -34,10 +29,8 @@
 
     </tbody>
     </table>
-
-    
         <!-- our form array of checkboxes will go here -->
-        <button >submit</button>
-    </form>
+        <button mat-flat-button color="primary">Aceptar</button>
+<!--</form>-->
       
  

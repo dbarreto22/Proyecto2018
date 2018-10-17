@@ -1,12 +1,25 @@
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav-content>
-      <mat-toolbar color="primary">
-      <span ><a mat-button href="#"> Inscripcion asignatura </a></span>
-      <span ><a mat-button [routerLink]="['/inscCarrera']"> Inscripcion carrera  </a></span>
-      <span ><a mat-button [routerLink]="['/cursos']"> Inscripcion examen  </a></span>
-      <span ><a mat-button [routerLink]="['/tabla']"> Consultar calificacion  </a></span>
-      <span class="example-fill-remaining-space"></span>
-      <span><a mat-button [routerLink]="['/']">  Proyecto</a></span>
-    </mat-toolbar>
- </mat-sidenav-content>
-</mat-sidenav-container>
+
+<div class="container" >
+ 
+    <!-- Static navbar -->
+    <nav class="navbar navbar-inverse" style="background:skyblue" >
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['/']">Project name</a>
+          </div>
+          <div  class="navbar-collapse collapse" >
+            <ul class="nav navbar-nav" >
+              <li routerLinkActive="active" ><a [routerLink]="['/inscAsignatura']" > Inscripcion a Asignatura</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/inscCarrera']"> Inscripcion Carrera</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/inscCarrera']"> Inscripcion Examen</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/inscCarrera']"> Consultar Calificacion</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>

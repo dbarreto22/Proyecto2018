@@ -5,16 +5,16 @@ import { HttpClient} from  '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL  =  'http://localhost:9444';
+  API_URL  =  'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
 constructor(private  httpClient:  HttpClient) { }
 
 getAllCarrera(){
-    return  this.httpClient.get(`${this.API_URL}/inscCarrera`);
+    return  this.httpClient.get(`${this.API_URL}/director/carrera`);
 }
 
-createCarrera(carrera){
-  return  this.httpClient.post(`${this.API_URL}/crearCarrera/`,carrera);
+inscripcionCarrera(idUser, idCarrera){
+  return  this.httpClient.post(`${this.API_URL}/inscCarrera/`,idUser, idCarrera);
 }
 
 }
