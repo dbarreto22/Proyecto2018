@@ -16,6 +16,8 @@ import {Grid} from "ag-grid/main";
 import { ToolbarAdministradorComponent } from './toolbar-administrador/toolbar-administrador.component';
 import { ToolbarDirectorComponent } from './toolbar-director/toolbar-director.component';
 import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
+import {ApiService} from '../app/api.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
     CursosComponent,
     ToolbarAdministradorComponent,
     ToolbarDirectorComponent,
-    InscCarreraComponent
+    InscCarreraComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,BrowserAnimationsModule,
@@ -40,7 +43,7 @@ import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
