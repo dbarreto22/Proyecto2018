@@ -1,13 +1,31 @@
-<ag-grid-angular 
-    style="width: 500px; height: 500px;" 
-    class="ag-theme-balham"
-    [rowData]="rowData" 
-    [columnDefs]="columnDefs"
-    >
-    <app-cursos>loadign....</app-cursos>
-</ag-grid-angular>
+<h4 style="text-align: center; color: darkgray" >Seleccionar Curso</h4>
 
-<!--<div id="content">
-    <app-tabla>loading...</app-tabla>
-    <app-cursos>loadign....</app-cursos>
-  </div>-->
+<table class="table table-bordered">
+    <!-- Table head -->
+    <thead>
+      <tr>
+        <th>
+          <!-- Default unchecked -->
+          <div class="custom-control custom-checkbox">
+            <th>SELECCIONAR</th>
+          </div>
+        </th>
+        <th style="text-align: center">Id</th>
+        <th style="text-align: center">nombre</th>
+      </tr>
+    </thead>
+    <!-- Table head -->
+    <!-- Table body -->
+    <tbody>
+      <tr *ngFor="let curso of cursos">
+        <th scope="row">
+          <!-- Default unchecked -->
+          <div class="custom-control custom-checkbox">
+              <input type="checkbox" default="true">SELECCION
+          </div>
+        </th>
+        <td><span (click)="inscripcionCurso(curso.id, curso.name)">{{curso.id}}</span></td>  
+        <td><span (click)="inscripcionCurso(curso.id, curso.name)">{{curso.name}}</span></td>  
+      </tr>
+    </tbody>
+    </table>

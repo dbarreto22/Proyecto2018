@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from  '@angular/common/http';
+import {Curso} from './cursos/Curso';
+import { Observable } from 'rxjs';
+import {Http, Response, Headers} from '@angular/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+
+
+@Injectable()
 export class ApiService {
   API_URL  =  'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
@@ -13,8 +16,17 @@ getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
 }
 
-inscripcionCarrera(idUser, idCarrera){
-  return  this.httpClient.post(`${this.API_URL}/inscCarrera/`,idUser, idCarrera);
+createCarrera(carrera){
+  this.httpClient.post(`${this.API_URL}/crearCarrera/`,carrera);
 }
 
+
+getAsignaturaByCarrera(idCarrera){
+  return this.httpClient.post(`${this.API_URL}/getAsignaturaByCarreras/`,idCarrera);
 }
+
+inscripcionCarrera(idUsuario,idCurso){
+  //this.httpClient.post(`${this.API_URL}/crearCarrera/`,carrera);
+}
+}
+

@@ -19,6 +19,8 @@ import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HttpClientModule } from '@angular/common/http'; 
+import {ApiService} from '../app/api.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     CursosComponent,
     ToolbarAdministradorComponent,
     ToolbarDirectorComponent,
-    InscCarreraComponent
+    InscCarreraComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,BrowserAnimationsModule,
@@ -44,9 +47,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule, MDBBootstrapModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [ NO_ERRORS_SCHEMA ]
+  providers: [ApiService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 export class PizzaPartyAppModule { }
