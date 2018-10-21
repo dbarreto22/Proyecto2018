@@ -1,5 +1,5 @@
-<!--(ngSubmit)="inscCarrerra(idUser, idCarrera)"
-<form  style="align-content: center" method="POST">-->
+<!--(ngSubmit)="inscCarrerra(idUser, idCarrera)"-->
+
    <div>
       <h4 style="text-align: center; color: darkgray" >Seleccionar Carrera</h4>
     </div>
@@ -20,17 +20,17 @@
         <th scope="row">
           <!-- Default unchecked -->
           <div class="custom-control custom-checkbox">
-              <input type="checkbox" default="true">
+              <input (change)="change($event, carrera.codigo)" type="checkbox" default="true">
           </div>
         </th>
-        <td> {{carrera.id}} </td>  
-        <td> {{carrera.Nombre}} </td>  
+        <td> {{carrera.codigo}} </td>  
+        <td> {{carrera.nombre}} </td> 
+        
       </tr>
 
     </tbody>
     </table>
         <!-- our form array of checkboxes will go here -->
-        <button mat-flat-button color="primary">Aceptar</button>
-<!--</form>-->
-      
+        <button (click)="inscCarrerra()" mat-flat-button color="primary">Aceptar</button>
+
  

@@ -26,25 +26,18 @@
     "ag-grid-angular": "^19.0.0",
     "ag-grid-community": "^19.0.0",
     "angular-6-datatable": "^0.8.0",
-<<<<<<< HEAD
-    "angular-bootstrap-md": "^6.2.5",
-=======
     "angular-local-storage": "^0.7.1",
     "angular-webpack-config": "^6.0.1",
->>>>>>> 127e6b3567b8ff02ed55b29201890ee41070b83e
     "angular2-datatable": "^0.6.0",
     "build": "^0.1.4",
     "chart.js": "^2.5.0",
     "configure": "0.0.1",
     "core-js": "^2.5.4",
-<<<<<<< HEAD
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
-=======
     "grunt": "^1.0.3",
     "grunt-contrib-qunit": "^3.0.1",
     "grunt-contrib-uglify": "^4.0.0",
->>>>>>> 127e6b3567b8ff02ed55b29201890ee41070b83e
     "node-waf": "^1.0.0",
     "rxjs": "~6.2.0",
     "vis": "^4.21.0",

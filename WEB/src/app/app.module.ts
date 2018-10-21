@@ -17,7 +17,7 @@ import { ToolbarAdministradorComponent } from './toolbar-administrador/toolbar-a
 import { ToolbarDirectorComponent } from './toolbar-director/toolbar-director.component';
 import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+//import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HttpClientModule } from '@angular/common/http'; 
 import {ApiService} from '../app/api.service';
 import { LoginComponent } from './login/login.component';
@@ -45,7 +45,7 @@ import { LoginComponent } from './login/login.component';
     MatTableModule, MatPaginatorModule, 
     HttpClientModule,
     MatSortModule,AgGridModule.withComponents([]),
-    AppRoutingModuleModule, MDBBootstrapModule.forRoot()
+    AppRoutingModuleModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

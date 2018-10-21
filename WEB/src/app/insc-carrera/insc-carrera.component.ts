@@ -9,9 +9,12 @@ import { ApiService } from  '../api.service';
 })
 export class InscCarreraComponent implements OnInit {
   
-   public iduser;
-   public idCarrera;
-
+  selectedValue = [];
+  
+   public cedula = 3891104;
+   public codigo;
+   carrera;
+   
   displayedColumns = ['ID', 'NOMBRE'];
   
   public  carreras:  Array<object> = [];
@@ -26,13 +29,39 @@ export class InscCarreraComponent implements OnInit {
   public  getCarreras(){
       this.apiService.getAllCarrera().subscribe((data:  Array<object>) => {
           this.carreras  =  data;
-          //console.log(data);
+          console.log(data);
       });
   }
- 
-    public inscCarrerra(idUser, idCarrera){
-      this.apiService.inscripcionCarrera(idUser, idCarrera);
+
+  change(e, type){
+    console.log(e.checked);
+    console.log(type);
+  //  if(e.checked){
+     // this.selectedValue.push(type);
+        this.codigo = type;
+        console.log(this.codigo);
+  //  }
+   /* else{
+     let updateItem = this.selectedValue.find(this.findIndexToUpdate, type.carrera);
+     this.codigo = updateItem;
+     console.log(this.codigo);
+     let index = this.selectedValue.indexOf(updateItem);
+
+     this.selectedValue.splice(index, 1);
+    }*/
+
+  }
+
+  findIndexToUpdate(type) { 
+        return type.carreras === this;
     }
+ 
+    public inscCarrerra(){
+      console.log(this.selectedValue[0]);
+      //this.codigo = this.selectedValue[0];
+      this.apiService.inscripcionCarrera(this.cedula, this.codigo).subscribe();
+    }
+
     
 
 }
