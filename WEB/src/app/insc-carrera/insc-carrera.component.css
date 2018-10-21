@@ -1,0 +1,12 @@
+table#table1 {
+    width:70%; 
+    margin-left:15%; 
+    margin-right:15%;
+  }
+
+td { 
+    padding: 1px 5px;
+    text-align: center;
+    border: 1px solid #999;
+}
+

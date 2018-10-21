@@ -4,29 +4,35 @@ import { ApiService } from  '../api.service';
 @Component({
   selector: 'app-insc-carrera',
   templateUrl: './insc-carrera.component.html',
-  styleUrls: ['./insc-carrera.component.css']
+  styleUrls: ['./insc-carrera.component.css'],
+  providers: [ApiService]
 })
 export class InscCarreraComponent implements OnInit {
   
-   public carrera1;
+   public iduser;
+   public idCarrera;
 
   displayedColumns = ['ID', 'NOMBRE'];
   
-  public  carreras:  Array<object> = [
-  {id: 2, Nombre: 'Carrera 2'},
-  {id: 3, Nombre: 'Carrera 3'},
-  {id: 4, Nombre: 'Carrera 4'}];
+  public  carreras:  Array<object> = [];
   
   //private  apiService:  ApiService
-  constructor() { }
+  constructor(private  apiService:  ApiService) { }
+
   ngOnInit() {
     this.carreras;
-    //  this.getCarreras();
+      this.getCarreras();
   }
-  /*public  getCarreras(){
+  public  getCarreras(){
       this.apiService.getAllCarrera().subscribe((data:  Array<object>) => {
           this.carreras  =  data;
           //console.log(data);
       });
-  }*/
+  }
+ 
+    public inscCarrerra(idUser, idCarrera){
+      this.apiService.inscripcionCarrera(idUser, idCarrera);
+    }
+    
+
 }

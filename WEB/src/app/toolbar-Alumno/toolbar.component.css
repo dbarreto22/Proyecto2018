@@ -20,3 +20,6 @@
 table {
   width: 100%;
 }
+.color-me{
+  text-decoration-color: black;
+}

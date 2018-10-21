@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {EstudianteService} from '../estudiante.service';
 import { ApiService } from  '../api.service';
 import {Curso} from './Curso';
 
@@ -6,16 +7,16 @@ import {Curso} from './Curso';
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.css'],
-  providers:[ApiService]
+  providers:[ApiService,EstudianteService]
 })
 
-
 export class CursosComponent implements OnInit {
-  cursos:  Array<object>;
 
+  public cursos:  Array<object>;
+  public errorMessage;
+  displayedColumns = ['ID', 'NOMBRE'];
 
-  /*displayedColumns = ['ID', 'NOMBRE'];
-  
+  /*
   public  cursos :  Array<object> = [
     {id: 1, name: 'Calculo 1'},
     {id: 2, name: 'Calculo 2'},
@@ -39,22 +40,22 @@ export class CursosComponent implements OnInit {
     {id: 20, name: 'Competencias roboticas'}];
   */
   //private  apiService:  ApiService
-  constructor(private  apiService:  ApiService) { }
+  
+  constructor(private estudianteService:  EstudianteService) { }
+
   ngOnInit() {
-    this.apiService.getAllCurso().subscribe((data:  Array<object>) => {
-     // this.cursos=data;
-      console.log(data);
-    });
+    this.cursos;
+    this.getAllCursos();
     //  this.getCarreras();
   }
 inscripcionCurso(id, nombre) 
 {
     window.confirm('Desea inscribirse a: ' + nombre);//.valueOf()?this.apiService.inscripcionCarrera(nombre,id):null;
 }
-  /*public  getCarreras(){
-      this.apiService.getAllCarrera().subscribe((data:  Array<object>) => {
-          this.carreras  =  data;
-          //console.log(data);
+  public  getAllCursos(){
+      this.estudianteService.getAllCursos().subscribe((data:  Array<object>) => {
+          //this.cursos  =  data;
+          alert(data);
       });
-  }*/
+  }
 }
