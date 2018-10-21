@@ -19,7 +19,7 @@ export class ApiService {
 constructor(private  httpClient:  HttpClient) { }
 
 getAllCarrera(){
-    return  this.httpClient.get(`${this.API_URL}/director/carrera`);
+    return  this.httpClient.get(`${this.API_URL}/estudiante/carrera`);
 }
 
 inscripcionCarrera(cedula,codigo){

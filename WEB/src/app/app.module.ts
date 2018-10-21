@@ -27,6 +27,7 @@ import { StorageService } from './storage.service';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { StorageService } from './storage.service';
     ToolbarAdministradorComponent,
     ToolbarDirectorComponent,
     InscCarreraComponent,
-    LoginComponent
+    LoginComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,BrowserAnimationsModule,
@@ -50,7 +52,7 @@ import { StorageService } from './storage.service';
     HttpClientModule,MatInputModule,
     FormsModule, ReactiveFormsModule,
     MatSortModule,AgGridModule.withComponents([]),
-    AppRoutingModuleModule
+    AppRoutingModuleModule,
     RouterModule
    // MDBBootstrapModule.forRoot()
   ],
