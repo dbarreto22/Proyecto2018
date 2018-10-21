@@ -42,7 +42,7 @@ import { StorageService } from './storage.service';
     AppComponent
   ],
   imports: [
-    BrowserModule,BrowserAnimationsModule,
+    BrowserModule,FormsModule,BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, 
     LayoutModule, MatToolbarModule, 
     MatSidenavModule, MatIconModule, 
