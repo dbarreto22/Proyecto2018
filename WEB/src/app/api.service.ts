@@ -38,8 +38,8 @@ createCarrera(carrera){
 }
 
 
-getAsignaturaByCarrera(idCarrera){
-  return this.httpClient.post(`${this.API_URL}/getAsignaturaByCarreras/`,idCarrera);
+getAllCurso(){
+  return this.httpClient.post(`${this.API_URL}/estudiante/curso`,null);
 }
 
 }
