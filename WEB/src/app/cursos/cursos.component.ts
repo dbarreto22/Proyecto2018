@@ -1,61 +1,93 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ContentChild } from '@angular/core';
 import {EstudianteService} from '../estudiante.service';
 import { ApiService } from  '../api.service';
 import {Curso} from './Curso';
+import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.css'],
-  providers:[ApiService,EstudianteService]
+  providers: [ApiService,NgbPaginationConfig],
 })
 
 export class CursosComponent implements OnInit {
 
-  public cursos:  Array<object>;
-  public errorMessage;
-  displayedColumns = ['ID', 'NOMBRE'];
+  @ContentChild(NgbPagination) pagination: NgbPagination;
+  public cedula = 3891104;
+  public idCurso;
+  carrera;
+  token;
+  pager: any = {};
+  selectedValue: any[];
+   pagedItems: any[];
+   error = '';
+   page = 1;
+   collectionSize;
+ displayedColumns = ['ID', 'NOMBRE'];
+ 
+ public  carreras:  Array<object> = [];
+ 
+ //private  apiService:  ApiService
+ constructor(config: NgbPaginationConfig, private  apiService:  ApiService) {
 
-  /*
-  public  cursos :  Array<object> = [
-    {id: 1, name: 'Calculo 1'},
-    {id: 2, name: 'Calculo 2'},
-    {id: 3, name: 'Fisica 1'},
-    {id: 4, name: 'Gal 1'},
-    {id: 5, name: 'Sistemas Operativos 2'},
-    {id: 6, name: 'Infraestructuras'},
-    {id: 7, name: 'Matematica Discreta 1'},
-    {id: 8, name: 'Logica 1'},
-    {id: 9, name: 'Matematica discreta 2'},
-    {id: 10, name: 'Gal 2'},
-    {id: 11, name: 'Caluclo 3'},
-    {id: 12, name: 'Ecuaciones diferenciales'},
-    {id: 13, name: 'Programacion 1'},
-    {id: 14, name: 'Programacion 2'},
-    {id: 15, name: 'Programacion 4'},
-    {id: 16, name: 'Sistemas operativos'},
-    {id: 17, name: 'Programacion 3'},
-    {id: 18, name: 'Proyecto'},
-    {id: 19, name: 'Taller de informacion geografica'},
-    {id: 20, name: 'Competencias roboticas'}];
-  */
-  //private  apiService:  ApiService
-  
-  constructor(private estudianteService:  EstudianteService) { }
+ }
 
-  ngOnInit() {
-    this.cursos;
-    this.getAllCursos();
-    //  this.getCarreras();
-  }
-inscripcionCurso(id, nombre) 
-{
-    window.confirm('Desea inscribirse a: ' + nombre);//.valueOf()?this.apiService.inscripcionCarrera(nombre,id):null;
+ ngOnInit() {
+   this.carreras;
+   this.getCarreras();
+ 
+ }
+
+ setPage(page: number) {
+   if (page < 1 || page > this.pager.totalPages) {
+       return;
+   }
+   if (isNaN(page)) {
+       page = 1;
+   }
+
+   this.pager = this.apiService.getPager(this.carreras.length, page);
+
+   this.pagedItems = this.carreras.slice(this.pager.startIndex, this.pager.endIndex + 1);
 }
-  public  getAllCursos(){
-      this.estudianteService.getAllCursos().subscribe((data:  Array<object>) => {
-          //this.cursos  =  data;
-          alert(data);
-      });
-  }
+
+
+ public  getCarreras(){
+     this.apiService.getAllCarrera().subscribe((data:  Array<object>) => {
+         this.carreras  =  data;
+         console.log(data);
+     });
+ }
+
+ change(e, type){
+   console.log(e.checked);
+   console.log(type);
+//   if(e.checked){
+     this.selectedValue.push(type);
+       this.idCurso = type;
+       console.log(this.idCurso);
+ }
+/*
+   else{
+    let updateItem = this.selectedValue.find(this.findIndexToUpdate, type.carrera);
+    this.codigo = updateItem;
+    console.log(this.codigo);
+    let index = this.selectedValue.indexOf(updateItem);
+
+    this.selectedValue.splice(index, 1);
+   }
+
+ }
+
+ findIndexToUpdate(type) { 
+       return type.carreras === this;
+   }*/
+
+   public inscCarrerra(){
+  // console.log(this.selectedValue[0]);
+   //  this.idCurso = this.selectedValue[0];
+     this.apiService.inscripcionCurso(this.token,this.cedula, this.idCurso).subscribe();
+   }
 }

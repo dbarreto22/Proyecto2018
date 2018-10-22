@@ -24,6 +24,15 @@ import {ApiService} from '../app/api.service';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { StorageService } from './storage.service';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { JwtModule } from '@auth0/angular-jwt';
+
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
+
 
 
 
@@ -52,8 +61,15 @@ import { StorageService } from './storage.service';
     HttpClientModule,MatInputModule,
     FormsModule, ReactiveFormsModule,
     MatSortModule,AgGridModule.withComponents([]),
-    AppRoutingModuleModule,
-    RouterModule
+    AppRoutingModuleModule,NgxPaginationModule,
+    RouterModule,NgbModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4200'],
+        blacklistedRoutes: ['localhost:4200/api/auth']
+      }
+    })
    // MDBBootstrapModule.forRoot()
   ],
   providers: [ApiService,AuthenticationService,StorageService],
