@@ -15,6 +15,7 @@ import { stringify } from '@angular/core/src/util';
 })
 export class LoginComponent implements OnInit {
 
+  public token : string;
   public loginForm: FormGroup;
   public submitted: Boolean = false;
   public error: {code: number, message: string} = null;
@@ -35,21 +36,16 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.error = null;
     if(this.loginForm.valid){
-      alert(JSON.stringify(this.loginForm.value) + 'En el submit login');
       this.authenticationService.login(new LoginObject(this.loginForm.value)).subscribe((
-        data: string) =>{ this.correctLogin(data);
-                        alert(JSON.stringify(data));
-                        alert(data);
-        },this.error ? (error: any) => alert(JSON.stringify(error)): null);
-     
-        //error => this.error = JSON.parse(error._body)
-       // error =>alert(JSON.stringify(error.string)+'error')
+        res: string) =>{ this.correctLogin(res);
+        },err => {
+          console.log(err);
+        });
       
     }
   }                                                                       
                           
 private correctLogin(data){
-  alert(data.JSON+ 'En el correct login');
     this.storageService.setCurrentSession(new Sesion(data,this.loginForm.value));
     this.router.navigate(['/']);
   }

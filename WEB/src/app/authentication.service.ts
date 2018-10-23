@@ -14,7 +14,7 @@ export class AuthenticationService {
 
   login(loginObj){
     alert(loginObj + 'En el authServ');
-     return this.http.post(this.basePath + 'login', loginObj);
+     return this.http.post(this.basePath + 'login', loginObj, {responseType: 'text'});
   }
 
   logout(){
