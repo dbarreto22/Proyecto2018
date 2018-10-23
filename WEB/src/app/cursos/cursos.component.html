@@ -1,33 +1,38 @@
-<h4 style="text-align: center; color: darkgray" >Seleccionar Curso</h4>
+<div class="container">
+  <div class="text-center">
+    <table id="table1" class="table table-bordered">
+    <!-- Table head -->
+     
+      <thead>
+        <tr> 
+          <th style="text-align: center">SELECCIONAR</th>       
+          <th style="text-align: center">CODIGO</th>
+          <th style="text-align: center">NOMBRE</th>
+        </tr>
+      </thead>
+    <!-- Table head -->
 
-<table class="table table-bordered">
-    <!-- Table head -->
-    <thead>
-      <tr>
-        <th>
-          <!-- Default unchecked -->
-          <div class="custom-control custom-checkbox">
-            <th>SELECCIONAR</th>
-          </div>
-        </th>
-        <th style="text-align: center">Id</th>
-        <th style="text-align: center">nombre</th>
-      </tr>
-    </thead>
-    <!-- Table head -->
     <!-- Table body -->
-    <tbody>
-      <tr *ngFor="let curso of cursos">
-        <th scope="row">
-          <!-- Default unchecked -->
+    
+    <tbody style="align-content: center">
+      <tr *ngFor="let carrera of carreras">
+          <!-- Default unchecked --> 
           <div class="custom-control custom-checkbox">
-              <input type="checkbox" default="true">SELECCION
+              <input (change)="change($event, carrera.codigo)" type="checkbox" default="true">
           </div>
-        </th>
-        <td> {{curso.id}} </td>  
-        <td> {{curso.Nombre}} </td>  
-      <!-- <td><span (click)="inscripcionCurso(curso.id, curso.name)">{{curso.id}}</span></td>  
-        <td><span (click)="inscripcionCurso(curso.id, curso.name)">{{curso.name}}</span></td>  
-     --> </tr>
+        <td> {{carrera.codigo}} </td>  
+        <td> {{carrera.nombre}} </td>    
+      </tr>
     </tbody>
     </table>
+    <ngb-pagination
+    class="d-flex justify-content-center"
+    (pageChange)="setPage(pager.currentPage)"
+    [collectionSize]="pager.totalItem"
+    [(page)]="pager.currentPage"
+    [maxSize]="pager.totalPages"
+    [boundaryLinks]="true">
+  </ngb-pagination>
+  </div>
+  <button class="d-flex justify-content-center" (click)="inscCarrerra()" mat-flat-button color="primary">Aceptar</button>
+</div>

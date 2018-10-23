@@ -1,36 +1,39 @@
-<!--(ngSubmit)="inscCarrerra(idUser, idCarrera)"
-<form  style="align-content: center" method="POST">-->
-   <div>
-      <h4 style="text-align: center; color: darkgray" >Seleccionar Carrera</h4>
-    </div>
-<table id="table1" class="table table-bordered">
+<div class="container">
+  <div class="text-center">
+    <table id="table1" class="table table-bordered">
     <!-- Table head -->
-    <thead>
-      <tr> 
-        <th style="text-align: center">SELECCIONAR</th>       
-        <th style="text-align: center">CODIGO</th>
-        <th style="text-align: center">NOMBRE</th>
-      </tr>
-    </thead>
+     
+      <thead>
+        <tr> 
+          <th style="text-align: center">SELECCIONAR</th>       
+          <th style="text-align: center">CODIGO</th>
+          <th style="text-align: center">NOMBRE</th>
+        </tr>
+      </thead>
     <!-- Table head -->
 
     <!-- Table body -->
+    
     <tbody style="align-content: center">
       <tr *ngFor="let carrera of carreras">
-        <th scope="row">
-          <!-- Default unchecked -->
+          <!-- Default unchecked --> 
           <div class="custom-control custom-checkbox">
-              <input type="checkbox" default="true">
+              <input (change)="change($event, carrera.codigo)" type="checkbox" default="true">
           </div>
-        </th>
         <td> {{carrera.codigo}} </td>  
-        <td> {{carrera.nombre}} </td>  
+        <td> {{carrera.nombre}} </td>    
       </tr>
-
     </tbody>
     </table>
-        <!-- our form array of checkboxes will go here -->
-        <button mat-flat-button color="primary">Aceptar</button>
-<!--</form>-->
-      
- 
+    <ngb-pagination
+    class="d-flex justify-content-center"
+    (pageChange)="setPage(pager.currentPage)"
+    [collectionSize]="pager.totalItem"
+    [(page)]="pager.currentPage"
+    [maxSize]="pager.totalPages"
+    [boundaryLinks]="true">
+  </ngb-pagination>
+  </div>
+  <button class="d-flex justify-content-center" (click)="inscCarrerra()" mat-flat-button color="primary">Aceptar</button>
+</div>
+        

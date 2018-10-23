@@ -25,6 +25,16 @@ import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { StorageService } from './storage.service';
 import {AuthorizatedGuard} from './authorizated.guard';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { JwtModule } from '@auth0/angular-jwt';
+
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
+
+
 
 
 
@@ -38,10 +48,11 @@ import {AuthorizatedGuard} from './authorizated.guard';
     ToolbarAdministradorComponent,
     ToolbarDirectorComponent,
     InscCarreraComponent,
-    LoginComponent
+    LoginComponent,
+    AppComponent
   ],
   imports: [
-    BrowserModule,BrowserAnimationsModule,
+    BrowserModule,FormsModule,BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, 
     LayoutModule, MatToolbarModule, 
     MatSidenavModule, MatIconModule, 
@@ -51,7 +62,15 @@ import {AuthorizatedGuard} from './authorizated.guard';
     HttpClientModule,MatInputModule,
     FormsModule, ReactiveFormsModule,
     MatSortModule,AgGridModule.withComponents([]),
-    AppRoutingModuleModule,RouterModule
+    AppRoutingModuleModule,NgxPaginationModule,
+    RouterModule,NgbModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4200'],
+        blacklistedRoutes: ['localhost:4200/api/auth']
+      }
+    })
    // MDBBootstrapModule.forRoot()
   ],
   providers: [
