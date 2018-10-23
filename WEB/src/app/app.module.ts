@@ -24,6 +24,7 @@ import {ApiService} from '../app/api.service';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { StorageService } from './storage.service';
+import {AuthorizatedGuard} from './authorizated.guard';
 
 
 
@@ -53,7 +54,10 @@ import { StorageService } from './storage.service';
     AppRoutingModuleModule,RouterModule
    // MDBBootstrapModule.forRoot()
   ],
-  providers: [ApiService,AuthenticationService,StorageService],
+  providers: [
+    ApiService,AuthenticationService,
+    StorageService,AuthorizatedGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

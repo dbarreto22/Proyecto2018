@@ -38,7 +38,7 @@ export class StorageService {
   };
 
   isAuthenticated(){
-    return (this.getCurrentToken() != null) ? true : false;
+      return (this.getCurrentToken() != null) ? true : false;
   };
 
   getCurrentToken(){
