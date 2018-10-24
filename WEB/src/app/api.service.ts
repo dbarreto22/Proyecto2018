@@ -18,8 +18,8 @@ const expressJwt = require('express-jwt');*/
 
 @Injectable()
 export class ApiService {
-  API_URL  = //'http://localhost:8080/miudelar-server';   
-    'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
+  API_URL  = 'http://localhost:8080/miudelar-server';   
+    //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
 
 

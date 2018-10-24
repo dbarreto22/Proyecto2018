@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import { Router } from '@angular/router';
 import {Sesion} from "./modelos/sesion.model";
+import { stringify } from "@angular/core/src/util";
 
 @Injectable()
 export class StorageService {
@@ -16,6 +17,7 @@ export class StorageService {
   setCurrentSession(session: Sesion){
     this.currentSession = session;
     this.localStorageService.setItem('currentUser', JSON.stringify(session));
+    alert(this.getCurrentSession().token+ ' en el storage');
   }
 
   loadSessionData(){

@@ -4,12 +4,13 @@ import { ApiService } from  '../api.service';
 import {Curso} from './Curso';
 import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.css'],
-  providers: [ApiService,NgbPaginationConfig],
+  providers: [ApiService,NgbPaginationConfig, StorageService],
 })
 
 export class CursosComponent implements OnInit {
@@ -30,13 +31,15 @@ export class CursosComponent implements OnInit {
  public  carreras:  Array<object> = [];
  
  //private  apiService:  ApiService
- constructor(config: NgbPaginationConfig, private  apiService:  ApiService) {
+ constructor(config: NgbPaginationConfig, private  apiService:  ApiService
+            , private storage:StorageService) {
 
  }
 
  ngOnInit() {
    this.carreras;
    this.getCarreras();
+   
  
  }
 
