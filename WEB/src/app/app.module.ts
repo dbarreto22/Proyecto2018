@@ -28,6 +28,7 @@ import {AuthorizatedGuard} from './authorizated.guard';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 export function tokenGetter() {
@@ -75,7 +76,12 @@ export function tokenGetter() {
   ],
   providers: [
     ApiService,AuthenticationService,
-    StorageService,AuthorizatedGuard
+    StorageService,AuthorizatedGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

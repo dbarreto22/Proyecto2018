@@ -13,6 +13,7 @@ export class AuthenticationService {
   private basePath = 'http://localhost:8080/miudelar-server/admin/';
 
   login(loginObj){
+    console.log(JSON.stringify(loginObj))
      return this.http.post(this.basePath + 'login', loginObj, {responseType: 'text'});
   }
 

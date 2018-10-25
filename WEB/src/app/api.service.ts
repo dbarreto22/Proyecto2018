@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from  '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor} from  '@angular/common/http';
 import {Curso} from './cursos/Curso';
 import { Observable, range } from 'rxjs';
 import {Http, Response, Headers} from '@angular/http';
 import { _ } from 'ag-grid-community';
 import { _createNgProbe } from '@angular/platform-browser/src/dom/debug/ng_probe';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { StorageService } from './storage.service';
+
+
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer {JWT Token}'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+   /*'Authorization': `Bearer ${this.storage.getCurrentToken()}`*/})
 };
 /*
 const bodyParser = require('body-parser');
@@ -23,7 +30,7 @@ export class ApiService {
 
 
 
-constructor(private  httpClient:  HttpClient,private router: Router) { }
+constructor(private  httpClient:  HttpClient,private router: Router, private storage:StorageService) { }
 
 
 canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -85,8 +92,27 @@ getPager(
 }
 
 getAllCarrera(){
-    return  this.httpClient.get(`${this.API_URL}/estudiante/carrera`);
+    return  this.httpClient.get(`${this.API_URL}/director/carrera`);
 }
+
+public getToken(){
+  console.log(this.storage.getCurrentToken);
+  var token = this.storage.getCurrentToken();
+  return token; 
+}
+
+intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+  request = request.clone({
+    setHeaders: {
+      Authorization: `Bearer ${this.storage.getCurrentToken()}`
+    }
+  });
+
+  return next.handle(request);
+}
+
+
 
 
 
@@ -103,12 +129,12 @@ a.codigo = codigo;
 
 
 createCarrera(carrera){
-  this.httpClient.post(`${this.API_URL}/crearCarrera/`,carrera);
+  this.httpClient.post(`${this.API_URL}/crearCarrera/`,carrera, httpOptions);
 }
 
 
 getAllCurso(){
-  return this.httpClient.post(`${this.API_URL}/estudiante/curso`,null);
+  return this.httpClient.post(`${this.API_URL}/estudiante/curso`, httpOptions);
 }
 inscripcionCurso(token,cedula,idCurso){
   var a: any = {};
