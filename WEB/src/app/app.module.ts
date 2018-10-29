@@ -29,15 +29,15 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { InscExamenComponent } from './insc-examen/insc-examen.component';
+
 
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -50,7 +50,8 @@ export function tokenGetter() {
     ToolbarDirectorComponent,
     InscCarreraComponent,
     LoginComponent,
-    AppComponent
+    AppComponent,
+    InscExamenComponent 
   ],
   imports: [
     BrowserModule,FormsModule,BrowserAnimationsModule,
@@ -64,14 +65,15 @@ export function tokenGetter() {
     FormsModule, ReactiveFormsModule,
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule,NgxPaginationModule,
-    RouterModule,NgbModule,
+    RouterModule,NgbModule,GridModule,BrowserAnimationsModule,BrowserModule,InputsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:4200'],
         blacklistedRoutes: ['localhost:4200/api/auth']
       }
-    })
+    }),
+    GridModule
    // MDBBootstrapModule.forRoot()
   ],
   providers: [

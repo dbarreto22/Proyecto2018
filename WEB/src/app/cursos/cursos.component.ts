@@ -5,64 +5,91 @@ import {Curso} from './Curso';
 import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http'; 
+import { CompositeFilterDescriptor, State, process } from '@progress/kendo-data-query';
+import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
 @Component({
   selector: 'app-cursos',
-  templateUrl: './cursos.component.html',
+  //templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.css'],
+  template: `
+  <kendo-grid
+      [data]="cursos"
+      [pageSize]="state.take"
+      [skip]="state.skip"
+      [sort]="state.sort"
+      [filter]="state.filter"t
+      [sortable]="true"
+      [pageable]="true"
+      filterable="menu"
+      (dataStateChange)="dataStateChange($event)"
+  >
+  <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
+  </kendo-grid-column>
+  <kendo-grid-column field="nombre" title="Nombre">
+  </kendo-grid-column>
+  <kendo-grid-column  width="120" filter="boolean">
+      <ng-template kendoGridCellTemplate let-dataItem>
+          <input type="checkbox" (change)="change(dataItem.codigo)" />
+      </ng-template>
+  </kendo-grid-column>
+  </kendo-grid>
+
+  <div class="example-wrapper">
+  <div class="example-col">
+    <button kendoButton (click)="inscCurso()">Aceptar</button>
+  </div>
+  `,
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
 
 export class CursosComponent implements OnInit {
 
   @ContentChild(NgbPagination) pagination: NgbPagination;
-  public cedula = 3891104;
-  public idCurso;
-  carrera;
-  token;
-  pager: any = {};
-  selectedValue: any[];
-   pagedItems: any[];
-   error = '';
-   page = 1;
-   collectionSize;
- displayedColumns = ['ID', 'NOMBRE'];
  
- public  carreras:  Array<object> = [];
+  public idCurso;
+  public checked = false;
+  public filter: CompositeFilterDescriptor;
+  selectedValue: any[];
+ 
+ public  cursos:  Array<object> = [];
  
  //private  apiService:  ApiService
- constructor(config: NgbPaginationConfig, private  apiService:  ApiService
-            , private storage:StorageService) {
+ constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService
+            , private storageService : StorageService) {
 
  }
 
  ngOnInit() {
-   this.carreras;
-   this.getCarreras();
-   
- 
+   this.cursos;
+   this.getCursos();
  }
 
- setPage(page: number) {
-   if (page < 1 || page > this.pager.totalPages) {
-       return;
-   }
-   if (isNaN(page)) {
-       page = 1;
-   }
+ public state: State = {
+  skip: 0,
+  take: 5,
 
-   this.pager = this.apiService.getPager(this.carreras.length, page);
+  // Initial filter descriptor
+ /* filter: {
+    logic: 'and',
+    filters: [{ field: 'ProductName', operator: 'contains', value: 'Chef' }]
+  }*/
+};
 
-   this.pagedItems = this.carreras.slice(this.pager.startIndex, this.pager.endIndex + 1);
+public gridData: GridDataResult = process(this.cursos, this.state);
+
+public dataStateChange(state: DataStateChangeEvent): void {
+  this.state = state;
+  this.gridData = process(this.cursos, this.state);
 }
-
-
- public  getCarreras(){
-     this.apiService.getAllCarrera().subscribe((data:  Array<object>) => {
-         this.carreras  =  data;
+ public  getCursos(){
+     this.apiService.getAllCursos().subscribe((data:  Array<object>) => {
+         this.cursos  =  data;
          console.log(data);
      });
  }
+
 
  change(e, type){
    console.log(e.checked);
@@ -88,9 +115,9 @@ export class CursosComponent implements OnInit {
        return type.carreras === this;
    }*/
 
-   public inscCarrerra(){
+   public inscCursos(){
   // console.log(this.selectedValue[0]);
    //  this.idCurso = this.selectedValue[0];
-     this.apiService.inscripcionCurso(this.token,this.cedula, this.idCurso).subscribe();
+     this.apiService.inscripcionCurso(this.storageService.getCurrentUser, this.idCurso).subscribe();
    }
 }
