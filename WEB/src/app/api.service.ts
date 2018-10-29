@@ -130,6 +130,16 @@ inscripcionCurso(cedula,idCurso){
     console.log(json);
     return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json);
   }
+  inscripcionExamen(cedula,idCurso){
+    var a: any = {};
+
+    a.cedula = cedula;
+    a.idCurso = idCurso;
+    
+      let json = JSON.stringify(a);
+      console.log(json);
+      return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json);
+  }
 
 }
 

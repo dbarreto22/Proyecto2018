@@ -15,15 +15,13 @@ import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-gr
   styleUrls: ['./cursos.component.css'],
   template: `
   <kendo-grid
-      [data]="cursos"
-      [pageSize]="state.take"
-      [skip]="state.skip"
-      [sort]="state.sort"
-      [filter]="state.filter"t
-      [sortable]="true"
-      [pageable]="true"
-      filterable="menu"
-      (dataStateChange)="dataStateChange($event)"
+  [kendoGridBinding]="cursos"
+  [pageSize]="10"
+  [pageable]="true"
+  [sortable]="true"
+  [filterable]="true"
+  [groupable]="true"
+  [height]="510">
   >
   <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
   </kendo-grid-column>

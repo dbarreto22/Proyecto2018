@@ -21,15 +21,13 @@ import { HttpClient } from '@angular/common/http';
  // templateUrl: './insc-examen.component.html',
  template: `
  <kendo-grid
-     [data]="carreras"
-     [pageSize]="state.take"
-     [skip]="state.skip"
-     [sort]="state.sort"
-     [filter]="state.filter"t
-     [sortable]="true"
-     [pageable]="true"
-     filterable="menu"
-     (dataStateChange)="dataStateChange($event)"
+ [kendoGridBinding]="examenes"
+ [pageSize]="10"
+ [pageable]="true"
+ [sortable]="true"
+ [filterable]="true"
+ [groupable]="true"
+ [height]="510">
  >
  <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
  </kendo-grid-column>
@@ -62,7 +60,7 @@ export class InscExamenComponent implements OnInit {
 
   ngOnInit() {
     this.examenes;
-        this.getCarreras();      
+        this.getExamenes();      
       }
       public state: State = {
         skip: 0,

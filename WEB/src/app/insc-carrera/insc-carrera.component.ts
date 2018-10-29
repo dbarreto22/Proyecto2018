@@ -24,17 +24,16 @@ import { HttpClient } from '@angular/common/http';
     //templateUrl: './insc-carrera.component.html',
     template: `
     <kendo-grid
-        [data]="carreras"
-        [pageSize]="state.take"
-        [skip]="state.skip"
-        [sort]="state.sort"
-        [filter]="state.filter"t
-        [sortable]="true"
+        [kendoGridBinding]="carreras"
+        [pageSize]="10"
         [pageable]="true"
-        filterable="menu"
-        (dataStateChange)="dataStateChange($event)"
+        [sortable]="true"
+        [filterable]="true"
+        [groupable]="true"
+        [height]="510">
+       <!-- (dataStateChange)="dataStateChange($event)"-->
     >
-    <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
+    <kendo-grid-column field="codigo" title="Codigo" width="80">
     </kendo-grid-column>
     <kendo-grid-column field="nombre" title="Nombre">
     </kendo-grid-column>
