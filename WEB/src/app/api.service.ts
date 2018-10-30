@@ -13,17 +13,6 @@ import { StorageService } from './storage.service';
 import { Sesion } from './modelos/sesion.model';
 
 
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
-   /*'Authorization': `Bearer ${this.storage.getCurrentToken()}`*/})
-};
-/*
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');*/
-
-
 @Injectable()
 export class ApiService {
   API_URL  = 'http://localhost:8080/miudelar-server';   
@@ -31,7 +20,8 @@ export class ApiService {
 
 
 
-constructor(private  httpClient:  HttpClient,private router: Router, private storage:StorageService) { }
+constructor(private  httpClient:  HttpClient,private router: Router,
+             private storage:StorageService) { }
 
 
 canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -97,6 +87,14 @@ getAllCarrera(){
 }
 
 /*public getToken(){***********Se cambia por local storage
+getAllCursos(){
+  return  this.httpClient.get(`${this.API_URL}/estudiante/curso`);
+}
+getAllExamen(){
+  return  this.httpClient.get(`${this.API_URL}/estudiante/curso`);
+}
+
+public getToken(){
   console.log(this.storage.getCurrentToken);
   var token = this.storage.getCurrentToken();
   return token; 
@@ -119,39 +117,36 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
   return next.handle(request);
 }
 
-
-
-
-
-inscripcionCarrera(token,cedula,codigo){
+inscripcionCarrera(cedula,codigo){
 var a: any = {};
-a.token = token;
 a.cedula = cedula;
 a.codigo = codigo;
 
   let json = JSON.stringify(a);
   console.log(json);
-  return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCarrera`,json, httpOptions);
+  return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCarrera`,json);
 }
 
 
-createCarrera(carrera){
-  this.httpClient.post(`${this.API_URL}/crearCarrera/`,carrera, httpOptions);
-}
-
-
-getAllCurso(){
-  return this.httpClient.post(`${this.API_URL}/estudiante/curso`, httpOptions);
-}
-inscripcionCurso(token,cedula,idCurso){
+inscripcionCurso(cedula,idCurso){
   var a: any = {};
-  a.token = token;
+
   a.cedula = cedula;
   a.idCurso = idCurso;
   
     let json = JSON.stringify(a);
     console.log(json);
-    return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCarrera`,json, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json);
+  }
+  inscripcionExamen(cedula,idCurso){
+    var a: any = {};
+
+    a.cedula = cedula;
+    a.idCurso = idCurso;
+    
+      let json = JSON.stringify(a);
+      console.log(json);
+      return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 getUsuario(cedula){

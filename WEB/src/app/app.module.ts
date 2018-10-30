@@ -34,15 +34,15 @@ import { GraphComponent } from './visuals/graph/graph.component';
 import { SHARED_VISUALS } from './visuals/shared';
 import { GrafoComponent } from './grafo/grafo/grafo.component';
 import { StorageServiceModule } from 'angular-webstorage-service';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { InscExamenComponent } from './insc-examen/insc-examen.component';
+
 
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -60,9 +60,10 @@ export function tokenGetter() {
     ...D3_DIRECTIVES,
     GraphComponent,
     GrafoComponent,
+    InscExamenComponent 
   ],
   imports: [
-    BrowserModule,FormsModule,BrowserAnimationsModule,
+    BrowserModule,
     MatButtonModule, MatCheckboxModule, 
     LayoutModule, MatToolbarModule, 
     MatSidenavModule, MatIconModule, 
@@ -70,17 +71,20 @@ export function tokenGetter() {
     MatCardModule, MatMenuModule, 
     MatTableModule, MatPaginatorModule, 
     HttpClientModule,MatInputModule,
-    FormsModule, ReactiveFormsModule,
+    ReactiveFormsModule,
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule,NgxPaginationModule,
     RouterModule,NgbModule,StorageServiceModule,
+    RouterModule,NgbModule,InputsModule,
+    BrowserModule, BrowserAnimationsModule, FormsModule, GridModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:4200'],
         blacklistedRoutes: ['localhost:4200/api/auth']
       }
-    })
+    }),
+    
    // MDBBootstrapModule.forRoot()
   ],
   providers: [
