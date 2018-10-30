@@ -87,18 +87,16 @@ getAllCarrera(){
 }
 
 /*public getToken(){***********Se cambia por local storage
+*/
+
 getAllCursos(){
   return  this.httpClient.get(`${this.API_URL}/estudiante/curso`);
 }
+
+
 getAllExamen(){
   return  this.httpClient.get(`${this.API_URL}/estudiante/curso`);
 }
-
-public getToken(){
-  console.log(this.storage.getCurrentToken);
-  var token = this.storage.getCurrentToken();
-  return token; 
-}*/
 
 public getToken(){
   var sesion:Sesion = JSON.parse(localStorage.getItem('session'));
