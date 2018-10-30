@@ -15,6 +15,7 @@ import {
     RowArgs, SelectableSettings, SelectableMode
 } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
+import { single } from 'rxjs/operators';
 
 @Component({
   selector: 'app-insc-examen',
@@ -28,16 +29,18 @@ import { HttpClient } from '@angular/common/http';
  [filterable]="true"
  [groupable]="true"
  [height]="510">
+ [selectable]="selectableSettings"
  >
  <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
  </kendo-grid-column>
  <kendo-grid-column field="nombre" title="Nombre">
  </kendo-grid-column>
- <kendo-grid-column  width="120" filter="boolean">
+ <kendo-grid-checkbox-column (change)="change(dataItem.codigo)"></kendo-grid-checkbox-column>
+ <!--<kendo-grid-column  width="120" filter="boolean">
      <ng-template kendoGridCellTemplate let-dataItem>
          <input type="checkbox" (change)="change(dataItem.codigo)" />
      </ng-template>
- </kendo-grid-column>
+ </kendo-grid-column>-->
  </kendo-grid>
 
  <div class="example-wrapper">
@@ -54,14 +57,25 @@ export class InscExamenComponent implements OnInit {
     public checked = false;
     public filter: CompositeFilterDescriptor;
     selectedValue: any[];
+    public checkboxOnly = true;
+    public selectableSettings: SelectableSettings;
 
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-    private storageService: StorageService) { }
+    private storageService: StorageService) {
+        this.setSelectableSettings();
+     }
 
   ngOnInit() {
     this.examenes;
         this.getExamenes();      
       }
+
+      public setSelectableSettings(): void {
+        this.selectableSettings = {
+            checkboxOnly: this.checkboxOnly,
+            mode: "single",
+        };
+    }
       public state: State = {
         skip: 0,
         take: 5,

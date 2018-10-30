@@ -54,7 +54,7 @@ export function tokenGetter() {
     InscExamenComponent 
   ],
   imports: [
-    BrowserModule,FormsModule,BrowserAnimationsModule,
+    BrowserModule,
     MatButtonModule, MatCheckboxModule, 
     LayoutModule, MatToolbarModule, 
     MatSidenavModule, MatIconModule, 
@@ -62,10 +62,11 @@ export function tokenGetter() {
     MatCardModule, MatMenuModule, 
     MatTableModule, MatPaginatorModule, 
     HttpClientModule,MatInputModule,
-    FormsModule, ReactiveFormsModule,
+    ReactiveFormsModule,
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule,NgxPaginationModule,
-    RouterModule,NgbModule,GridModule,BrowserAnimationsModule,BrowserModule,InputsModule,
+    RouterModule,NgbModule,InputsModule,
+    BrowserModule, BrowserAnimationsModule, FormsModule, GridModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -73,7 +74,7 @@ export function tokenGetter() {
         blacklistedRoutes: ['localhost:4200/api/auth']
       }
     }),
-    GridModule
+    
    // MDBBootstrapModule.forRoot()
   ],
   providers: [
