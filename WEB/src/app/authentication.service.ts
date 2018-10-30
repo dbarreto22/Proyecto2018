@@ -1,9 +1,5 @@
 import {Injectable} from "@angular/core";
 import { HttpClient} from  '@angular/common/http';
-import {Observable} from "rxjs";
-import {LoginObject} from "./modelos/login-object.model";
-import {Sesion} from "./modelos/sesion.model";
-import { format } from "util";
 
 @Injectable()
 export class AuthenticationService {

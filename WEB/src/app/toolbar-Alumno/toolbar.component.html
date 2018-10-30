@@ -19,6 +19,12 @@
               <li routerLinkActive="active" ><a [routerLink]="['/cursos']" > Inscripcion a Asignatura</a></li>
               <li routerLinkActive="active"><a [routerLink]="['']"> Inscripcion Examen</a></li>
               <li routerLinkActive="active"><a [routerLink]="['']"> Consultar Calificacion</a></li>
+              <li routerLinkActive="grafo"><a [routerLink]="['/grafo']"> verGrafo</a></li>
+              <div class="dropdown-menu"(change)="onChange($event)">
+                <a class="dropdown-item" href="#" *ngFor="let rol of roles" value="rol.id">{{rol.tipo}}</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+            </div>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->

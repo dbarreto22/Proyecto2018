@@ -18,7 +18,6 @@ import { ToolbarAdministradorComponent } from './toolbar-administrador/toolbar-a
 import { ToolbarDirectorComponent } from './toolbar-director/toolbar-director.component';
 import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-//import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HttpClientModule } from '@angular/common/http'; 
 import {ApiService} from '../app/api.service';
 import { LoginComponent } from './login/login.component';
@@ -29,6 +28,12 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import * as d3 from 'd3';
+import { D3Service, D3_DIRECTIVES } from './d3';
+import { GraphComponent } from './visuals/graph/graph.component';
+import { SHARED_VISUALS } from './visuals/shared';
+import { GrafoComponent } from './grafo/grafo/grafo.component';
+import { StorageServiceModule } from 'angular-webstorage-service';
 
 
 export function tokenGetter() {
@@ -50,7 +55,11 @@ export function tokenGetter() {
     ToolbarDirectorComponent,
     InscCarreraComponent,
     LoginComponent,
-    AppComponent
+    AppComponent,
+    ...SHARED_VISUALS,
+    ...D3_DIRECTIVES,
+    GraphComponent,
+    GrafoComponent,
   ],
   imports: [
     BrowserModule,FormsModule,BrowserAnimationsModule,
@@ -64,7 +73,7 @@ export function tokenGetter() {
     FormsModule, ReactiveFormsModule,
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule,NgxPaginationModule,
-    RouterModule,NgbModule,
+    RouterModule,NgbModule,StorageServiceModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -81,7 +90,8 @@ export function tokenGetter() {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiService,
       multi: true
-    }
+    },
+    D3Service
   ],
   bootstrap: [AppComponent]
 })
