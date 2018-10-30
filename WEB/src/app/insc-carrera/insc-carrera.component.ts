@@ -102,9 +102,9 @@ import { HttpClient } from '@angular/common/http';
       }
      
         public inscCarrerra(){
-            this.cedula = this.storageService.getCurrentUser;
+            this.cedula ='1111111' //this.storageService.getCurrentUser;
             console.log(this.cedula);
-            this.apiService.inscripcionCarrera(this.cedula, this.codigo).subscribe();
+            this.apiService.inscripcionCarrera( this.cedula, this.codigo).subscribe();
         }
 
 

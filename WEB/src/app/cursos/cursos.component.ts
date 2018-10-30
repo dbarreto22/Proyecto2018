@@ -14,29 +14,28 @@ import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-gr
   //templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.css'],
   template: `
-  <kendo-grid
-  [kendoGridBinding]="cursos"
-  [pageSize]="10"
+  <kendo-grid     
+  [kendoGridBinding]="cursos" 
+  [pageSize]="5"
   [pageable]="true"
   [sortable]="true"
   [filterable]="true"
   [groupable]="true"
-  [height]="510">
+  [selectable]="selectableSettings" 
+  (selectionChange) = "change($event)"
+ 
+  [height]="500"
   >
   <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
   </kendo-grid-column>
   <kendo-grid-column field="nombre" title="Nombre">
   </kendo-grid-column>
-  <kendo-grid-column  width="120" filter="boolean">
-      <ng-template kendoGridCellTemplate let-dataItem>
-          <input type="checkbox" (change)="change(dataItem.codigo)" />
-      </ng-template>
-  </kendo-grid-column>
-  </kendo-grid>
+   <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
 
+</kendo-grid>
   <div class="example-wrapper">
   <div class="example-col">
-    <button kendoButton (click)="inscCurso()">Aceptar</button>
+    <button kendoButton (click)="inscCursos()">Aceptar</button>
   </div>
   `,
   providers: [ApiService,NgbPaginationConfig, StorageService],
@@ -47,6 +46,7 @@ export class CursosComponent implements OnInit {
   @ContentChild(NgbPagination) pagination: NgbPagination;
  
   public idCurso;
+  public curso;
   public checked = false;
   public filter: CompositeFilterDescriptor;
   selectedValue: any[];
@@ -67,12 +67,6 @@ export class CursosComponent implements OnInit {
  public state: State = {
   skip: 0,
   take: 5,
-
-  // Initial filter descriptor
- /* filter: {
-    logic: 'and',
-    filters: [{ field: 'ProductName', operator: 'contains', value: 'Chef' }]
-  }*/
 };
 
 public gridData: GridDataResult = process(this.cursos, this.state);
@@ -90,32 +84,12 @@ public dataStateChange(state: DataStateChangeEvent): void {
 
 
  change(e, type){
-   console.log(e.checked);
-   console.log(type);
-//   if(e.checked){
-     this.selectedValue.push(type);
-       this.idCurso = type;
-       console.log(this.idCurso);
+  this.curso =   this.cursos[e.index];
+  this.idCurso =  this.curso.codigo;
+  console.log(this.idCurso);
  }
-/*
-   else{
-    let updateItem = this.selectedValue.find(this.findIndexToUpdate, type.carrera);
-    this.codigo = updateItem;
-    console.log(this.codigo);
-    let index = this.selectedValue.indexOf(updateItem);
-
-    this.selectedValue.splice(index, 1);
-   }
-
- }
-
- findIndexToUpdate(type) { 
-       return type.carreras === this;
-   }*/
 
    public inscCursos(){
-  // console.log(this.selectedValue[0]);
-   //  this.idCurso = this.selectedValue[0];
      this.apiService.inscripcionCurso(this.storageService.getCurrentUser, this.idCurso).subscribe();
    }
 }
