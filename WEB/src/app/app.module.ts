@@ -18,7 +18,6 @@ import { ToolbarAdministradorComponent } from './toolbar-administrador/toolbar-a
 import { ToolbarDirectorComponent } from './toolbar-director/toolbar-director.component';
 import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-//import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HttpClientModule } from '@angular/common/http'; 
 import {ApiService} from '../app/api.service';
 import { LoginComponent } from './login/login.component';
@@ -29,6 +28,12 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import * as d3 from 'd3';
+import { D3Service, D3_DIRECTIVES } from './d3';
+import { GraphComponent } from './visuals/graph/graph.component';
+import { SHARED_VISUALS } from './visuals/shared';
+import { GrafoComponent } from './grafo/grafo/grafo.component';
+import { StorageServiceModule } from 'angular-webstorage-service';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { InscExamenComponent } from './insc-examen/insc-examen.component';
@@ -51,6 +56,10 @@ export function tokenGetter() {
     InscCarreraComponent,
     LoginComponent,
     AppComponent,
+    ...SHARED_VISUALS,
+    ...D3_DIRECTIVES,
+    GraphComponent,
+    GrafoComponent,
     InscExamenComponent 
   ],
   imports: [
@@ -65,6 +74,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule,NgxPaginationModule,
+    RouterModule,NgbModule,StorageServiceModule,
     RouterModule,NgbModule,InputsModule,
     BrowserModule, BrowserAnimationsModule, FormsModule, GridModule,
     JwtModule.forRoot({
@@ -84,7 +94,8 @@ export function tokenGetter() {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiService,
       multi: true
-    }
+    },
+    D3Service
   ],
   bootstrap: [AppComponent]
 })

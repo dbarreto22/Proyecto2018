@@ -10,6 +10,7 @@ import { _ } from 'ag-grid-community';
 import { _createNgProbe } from '@angular/platform-browser/src/dom/debug/ng_probe';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { StorageService } from './storage.service';
+import { Sesion } from './modelos/sesion.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
@@ -34,24 +35,29 @@ getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
 }
 
+/*public getToken(){***********Se cambia por local storage
+*/
+
 getAllCursos(){
   return  this.httpClient.get(`${this.API_URL}/estudiante/curso`,{params});
 }
+
+
 getAllExamen(){
   return  this.httpClient.get(`${this.API_URL}/estudiante/curso`);
 }
 
 public getToken(){
-  console.log(this.storage.getCurrentToken);
-  var token = this.storage.getCurrentToken();
-  return token; 
+  var sesion:Sesion = JSON.parse(localStorage.getItem('session'));
+  return sesion!=null?sesion.token:null; 
 }
+
 
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
   request = request.clone({
     setHeaders: {
-      Authorization: `Bearer ${this.storage.getCurrentToken()}`
+      Authorization: `Bearer ${this.getToken()}`
     }
   });
 
@@ -89,6 +95,10 @@ inscripcionCurso(cedula,idCurso){
       console.log(json);
       return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json, httpOptions);
   }
+//Obtengo los roles y demas datos del usuario que se logueó
+getUsuario(cedula){
+  return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
+}
 
 }
 
