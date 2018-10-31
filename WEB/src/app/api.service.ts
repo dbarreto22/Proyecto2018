@@ -11,6 +11,8 @@ import { _createNgProbe } from '@angular/platform-browser/src/dom/debug/ng_probe
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { StorageService } from './storage.service';
 import { Sesion } from './modelos/sesion.model';
+import { carrera } from './modelos/carrera.model';
+import { asignatura } from './modelos/asignatura.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
@@ -18,6 +20,10 @@ const httpOptions = {
 };
 const params = new HttpParams()
   .set('cedula', '1111111');
+
+let paramsCalificaciones = new HttpParams()
+paramsCalificaciones = paramsCalificaciones.append('cedula', '1111111')
+paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
 
 @Injectable()
 export class ApiService {
@@ -29,7 +35,7 @@ export class ApiService {
 constructor(private  httpClient:  HttpClient,private router: Router,
              private storage:StorageService) { }
 
-public cedula = '1111111'; 
+public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;; 
 
 getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
@@ -43,8 +49,12 @@ getAllCursos(){
 }
 
 
-getAllExamen(){
-  return  this.httpClient.get(`${this.API_URL}/estudiante/curso`);
+getAllExamen(){ 
+  return  this.httpClient.get(`${this.API_URL}/estudiante/examen`,{params});
+}
+ 
+getCalificaciones(){ 
+  return  this.httpClient.get(`${this.API_URL}/estudiante/consultarCalificaciones`,{params : paramsCalificaciones});
 }
 
 public getToken(){
@@ -94,6 +104,26 @@ inscripcionCurso(cedula,idCurso){
       let json = JSON.stringify(a);
       console.log(json);
       return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json, httpOptions);
+  }
+
+  public DtCarrera : carrera;
+  ingresarCarrera(codigoCarrera, nombreCarrera){
+      this.DtCarrera.codigo = codigoCarrera;
+      this.DtCarrera.nombre = nombreCarrera;
+
+    return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,this.DtCarrera, httpOptions);
+
+
+  }
+
+  public DtAsignatura : asignatura;
+  ingresarAsignatura(codigoAsignatura, nombreAsignatura){
+      this.DtAsignatura.codigo = codigoAsignatura;
+      this.DtAsignatura.nombre = nombreAsignatura;
+
+    return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,this.DtAsignatura, httpOptions);
+
+
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 getUsuario(cedula){

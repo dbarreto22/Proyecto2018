@@ -1,8 +1,7 @@
-export class Curso{
+export class Examen{
   
     constructor(){}
     public idCurso:number;
-    public idAsigCarrera:number;
     public nombreAsignatura:string;
     public nombreCarrera:string;
     public codigoCarrera:number;

@@ -31,12 +31,8 @@ export class LoginComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private storageService: StorageService,
               private apiService: ApiService,
-              private router: Router) {
-                this.rolObserver=this.storageService.rolElegido.subscribe({next:(v)=>{
-                  this.rolElegido=v;
-                  console.log('Valor de subscripcion '+v);
-                }});
-               }
+              private router: Router)
+              {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -76,7 +72,7 @@ private correctLogin(){
       //console.log('El usuario tiene '+usuario.nombre);
       let sesion:Sesion=JSON.parse(localStorage.getItem('session'));
       localStorage.setItem('session',JSON.stringify(new Sesion(sesion.token,res)));
-      //console.log(localStorage.getItem('session')+'--- sesion de login');
+      console.log(localStorage.getItem('session')+'--- sesion de login');
       let rolesArray=usuario!=null? usuario.roles:null;
       console.log('roles '+JSON.stringify(rolesArray));
       if(rolesArray!=null){

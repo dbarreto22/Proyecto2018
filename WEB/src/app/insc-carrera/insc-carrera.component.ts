@@ -15,11 +15,16 @@ import {
     RowArgs, SelectableSettings, SelectableMode
 } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 
 @Component({
     selector: 'app-insc-carrera',
     template: `
+    <div class="example-config">
+    Inscripción a Carrera
+    </div>
     <kendo-grid     
     [kendoGridBinding]="carreras" 
     [pageSize]="5"
@@ -29,7 +34,6 @@ import { HttpClient } from '@angular/common/http';
     [groupable]="true"
     [selectable]="selectableSettings" 
     (selectionChange) = "change($event)"
-   
     [height]="500"
     >
     <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
@@ -52,7 +56,7 @@ import { HttpClient } from '@angular/common/http';
 
     public codigo;
     public carrera;
-    public cedula:any;
+    public cedula;
     public carreras:  Array<object> = [];
     public checked = false;
     public filter: CompositeFilterDescriptor;
@@ -62,16 +66,15 @@ import { HttpClient } from '@angular/common/http';
     public mySelection: any[];
 
 
-
     constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-        private storageService: StorageService) {
+        private storageService: StorageService, private router: Router) {
             this.setSelectableSettings();
             
         }
-   
+       
     ngOnInit() {
         this.carreras;
-        this.getCarreras();      
+        this.getCarreras();   
       } 
     
       public setSelectableSettings(): void {
@@ -81,9 +84,6 @@ import { HttpClient } from '@angular/common/http';
         };
     }
 
-    public pageChange(event: PageChangeEvent): void {
-        this.codigo = event.take;
-    }
       public state: State = {
         skip: 0,
         take: 5,
@@ -92,6 +92,7 @@ import { HttpClient } from '@angular/common/http';
       public  getCarreras(){
         this.apiService.getAllCarrera().subscribe((data:  Array<object>) => {
             this.carreras  =  data;
+            console.log(this.carreras);
         });
     }
 
@@ -102,9 +103,13 @@ import { HttpClient } from '@angular/common/http';
       }
      
         public inscCarrerra(){
-            this.cedula ='1111111' //this.storageService.getCurrentUser;
-            console.log(this.cedula);
-            this.apiService.inscripcionCarrera( this.cedula, this.codigo).subscribe();
+            this.cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;
+            console.log(JSON.parse(localStorage.getItem('session')).usr.cedula);
+            this.apiService.inscripcionCarrera( this.cedula, this.codigo).subscribe(
+                data=>{this.router.navigate(['/inscCarrera']);},err=>{
+                alert(err);
+                this.router.navigate(['/inscCarrera']);
+            });
         }
 
 

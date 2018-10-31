@@ -16,10 +16,10 @@
           <div  class="navbar-collapse collapse" >
             <ul class="nav navbar-nav" >
               <li routerLinkActive="active"><a [routerLink]="['/inscCarrera']"> Inscripcion Carrera</a></li>
-              <li routerLinkActive="active" ><a [routerLink]="['/cursos']" > Inscripcion a Asignatura</a></li>
-              <li routerLinkActive="active"><a [routerLink]="['']"> Inscripcion Examen</a></li>
-              <li routerLinkActive="active"><a [routerLink]="['']"> Consultar Calificacion</a></li>
-              <li routerLinkActive="grafo"><a [routerLink]="['/grafo']"> verGrafo</a></li>
+              <li routerLinkActive="active" ><a [routerLink]="['/inscCursos']" > Inscripcion a Asignatura</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/inscExamen']"> Inscripcion Examen</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/calificaciones']"> Consultar Calificacion</a></li>
+              <li routerLinkActive="grafo"><a [routerLink]="['/grafo']"> Consultar Previas</a></li>
               <div class="dropdown-menu"(change)="onChange($event)">
                 <a class="dropdown-item" href="#" *ngFor="let rol of roles" value="rol.id">{{rol.tipo}}</a>
                 <div class="dropdown-divider"></div>

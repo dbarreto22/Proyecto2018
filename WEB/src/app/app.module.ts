@@ -28,7 +28,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import * as d3 from 'd3';
+import * as d3 from './d3';
 import { D3Service, D3_DIRECTIVES } from './d3';
 import { GraphComponent } from './visuals/graph/graph.component';
 import { SHARED_VISUALS } from './visuals/shared';
@@ -37,6 +37,15 @@ import { StorageServiceModule } from 'angular-webstorage-service';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { InscExamenComponent } from './insc-examen/insc-examen.component';
+import { CalificacionesComponent } from './calificaciones/calificaciones.component';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { IngrCarrerasComponent } from './ingr-carreras/ingr-carreras.component';
+import { LabelModule } from '@progress/kendo-angular-label';
+import { IngrAsignaturaComponent } from './ingr-asignatura/ingr-asignatura.component';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
+
+
+
 
 
 
@@ -60,7 +69,11 @@ export function tokenGetter() {
     ...D3_DIRECTIVES,
     GraphComponent,
     GrafoComponent,
-    InscExamenComponent 
+    InscExamenComponent,
+    CalificacionesComponent,
+    IngrCarrerasComponent,
+    IngrAsignaturaComponent,
+    CrearUsuarioComponent 
   ],
   imports: [
     BrowserModule,
@@ -78,12 +91,14 @@ export function tokenGetter() {
     RouterModule,NgbModule,InputsModule,
     BrowserModule, BrowserAnimationsModule, FormsModule, GridModule,
     JwtModule.forRoot({
-      config: {
+      config: { 
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:4200'],
         blacklistedRoutes: ['localhost:4200/api/auth']
       }
     }),
+    DropDownsModule,
+    LabelModule,
     
    // MDBBootstrapModule.forRoot()
   ],
