@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from 'selenium-webdriver/http';
+import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ApiService } from '../api.service';
+import { StorageService } from 'angular-webstorage-service';
+import { Router } from '@angular/router';
+import { usuario } from '../modelos/usuario.model';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -44,9 +50,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrearUsuarioComponent implements OnInit {
 
-  constructor() { }
+   public DtUsuario :usuario;
+
+
+  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
+    private storageService: StorageService, private router: Router) { }
 
   ngOnInit() {
   }
+
+
+
+crearUsuario(){
+
+    this.DtUsuario.cedula =document.getElementById("cedula").nodeValue
+    console.log(this.DtUsuario.cedula);
+}
 
 }
