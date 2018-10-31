@@ -66,7 +66,7 @@ import { StorageService } from '../storage.service';
     
 </kendo-grid>
 
-</div>
+
 `,
   styleUrls: ['./calificaciones.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService]

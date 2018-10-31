@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from 'selenium-webdriver/http';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../api.service';
-import { StorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
 import { usuario } from '../modelos/usuario.model';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-crear-usuario',
-  template: `<div class="row example-wrapper">
+  template: `
+  <div class="row example-wrapper">
     <div class="col-xs-12 col-sm-6 offset-sm-3 example-col">
         <div class="card">
             <div class="card-block">
@@ -35,18 +36,19 @@ import { usuario } from '../modelos/usuario.model';
                             <span>Password</span>
                             <input name= "password" type="password" class="k-textbox" value="" placeholder="password"/>
                         </label>
-                        <div class="text-right">
+                    <div class="text-right">
                       <button type="button" class="k-button">Cancelar</button>
                       <button type="button" class="k-button k-primary">Aceptar</button>
                     </div>
+                </fieldset>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
   `,
-  styleUrls: ['./crear-usuario.component.css']
+  styleUrls: ['./crear-usuario.component.css'],
+  providers: [ApiService,NgbPaginationConfig, StorageService],
 })
 export class CrearUsuarioComponent implements OnInit {
 

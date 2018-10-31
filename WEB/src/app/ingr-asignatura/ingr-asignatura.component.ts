@@ -2,8 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from 'selenium-webdriver/http';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../api.service';
-import { StorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
+import { StorageService } from '../storage.service';
+import { process, State,filterBy, FilterDescriptor, CompositeFilterDescriptor} from '@progress/kendo-data-query';
+import {
+    GridComponent,
+    GridDataResult,
+    DataStateChangeEvent,
+    PageChangeEvent,
+    RowArgs, SelectableSettings, SelectableMode
+} from '@progress/kendo-angular-grid';
 
 @Component({
   selector: 'app-ingr-asignatura',
@@ -36,8 +44,10 @@ import { Router } from '@angular/router';
 </div>
 </div>
   `,
-  styleUrls: ['./ingr-asignatura.component.css']
+  styleUrls: ['./ingr-asignatura.component.css'],
+  providers: [ApiService,NgbPaginationConfig, StorageService],
 })
+
 export class IngrAsignaturaComponent implements OnInit {
 
   public nombreAsigantura;
@@ -56,7 +66,7 @@ export class IngrAsignaturaComponent implements OnInit {
   
   getNombreIngresado(value: string){
     
-    this.nombreAsigantura = value;
+    this.nombreAsigantura = value; 
     }
   
   cancelar(){
@@ -67,7 +77,7 @@ export class IngrAsignaturaComponent implements OnInit {
       this.apiService.ingresarAsignatura(this.codigoAsignatura, this.nombreAsigantura).subscribe(
         data=>{this.router.navigate(['/ingAsignatura']);},err=>{
         alert(err);
-        this.router.navigate(['/inscCarrera']);
+        this.router.navigate(['/ingAsignatura']);
     });
     }
 }

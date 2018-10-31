@@ -43,6 +43,8 @@ import { IngrCarrerasComponent } from './ingr-carreras/ingr-carreras.component';
 import { LabelModule } from '@progress/kendo-angular-label';
 import { IngrAsignaturaComponent } from './ingr-asignatura/ingr-asignatura.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
+
 
 
 
@@ -99,6 +101,7 @@ export function tokenGetter() {
     }),
     DropDownsModule,
     LabelModule,
+    ButtonsModule,
     
    // MDBBootstrapModule.forRoot()
   ],

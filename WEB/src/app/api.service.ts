@@ -19,10 +19,10 @@ const httpOptions = {
    })
 };
 const params = new HttpParams()
-  .set('cedula', '1111111');
+  .set('cedula', this.cedula);
 
-let paramsCalificaciones = new HttpParams()
-paramsCalificaciones = paramsCalificaciones.append('cedula', '1111111')
+let paramsCalificaciones = new HttpParams();
+paramsCalificaciones = paramsCalificaciones.append('cedula', this.cedula);
 paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
 
 @Injectable()
@@ -54,7 +54,8 @@ getAllExamen(){
 }
  
 getCalificaciones(){ 
-  return  this.httpClient.get(`${this.API_URL}/estudiante/consultarCalificaciones`,{params : paramsCalificaciones});
+  return  this.httpClient.get(`${this.API_URL}/estudiante/consultarCalificaciones`
+  ,{params : paramsCalificaciones});
 }
 
 public getToken(){
@@ -119,7 +120,7 @@ inscripcionCurso(cedula,idCurso){
   public DtAsignatura : asignatura;
   ingresarAsignatura(codigoAsignatura, nombreAsignatura){
       this.DtAsignatura.codigo = codigoAsignatura;
-      this.DtAsignatura.nombre = nombreAsignatura;
+      this.DtAsignatura.nombre = nombreAsignatura ;
 
     return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,this.DtAsignatura, httpOptions);
 

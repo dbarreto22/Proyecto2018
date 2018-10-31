@@ -37,7 +37,7 @@ import { Router } from '@angular/router';
 <div class="row">
 <div class="col-sm-12 example-col">
   <p>Seleccione una Opción</p>
-  <kendo-buttongroup [width]="'100%'"  [selection]="'single'">
+  <kendo-buttongroup  [selection]="'single'">
       <button kendoButton [toggleable]="true"  (click)="insgCarrerra()">Aceptar</button>
       <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
   </kendo-buttongroup>
