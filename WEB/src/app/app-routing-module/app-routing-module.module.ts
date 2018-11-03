@@ -14,6 +14,8 @@ import { IngrAsignaturaComponent } from '../ingr-asignatura/ingr-asignatura.comp
 import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
 import { ElegirCarreraComponent } from '../elegir-carrera/elegir-carrera.component';
 import { AsignarAsigCarreraComponent } from '../asignar-asig-carrera/asignar-asig-carrera.component';
+import { ABMUsuarioComponent } from '../abmusuario/abmusuario.component';
+import { ModificarUsuarioComponent } from '../modificar-usuario/modificar-usuario.component';
 
 
 const routes: Routes = [
@@ -29,7 +31,9 @@ const routes: Routes = [
   {path: 'crearUsr', component:CrearUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'grafo', component: GrafoComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'seleccionarCarrera', component: ElegirCarreraComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'setingsUser', component: ABMUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'asignarAsigCarrera', component: AsignarAsigCarreraComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'modificarUsr', component: ModificarUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '**', redirectTo: '/'}
 ];

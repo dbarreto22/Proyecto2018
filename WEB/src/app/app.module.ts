@@ -47,6 +47,10 @@ import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { EliminarUsuarioComponent } from './eliminar-usuario/eliminar-usuario.component';
 import { ElegirCarreraComponent } from './elegir-carrera/elegir-carrera.component';
 import { AsignarAsigCarreraComponent } from './asignar-asig-carrera/asignar-asig-carrera.component';
+import { ABMUsuarioComponent } from './abmusuario/abmusuario.component';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { ModificarUsuarioComponent } from './modificar-usuario/modificar-usuario.component';
+
 
 
 
@@ -81,7 +85,9 @@ export function tokenGetter() {
     CrearUsuarioComponent,
     EliminarUsuarioComponent,
     ElegirCarreraComponent,
-    AsignarAsigCarreraComponent 
+    AsignarAsigCarreraComponent,
+    ABMUsuarioComponent,
+    ModificarUsuarioComponent 
   ],
   imports: [
     BrowserModule,
@@ -109,6 +115,7 @@ export function tokenGetter() {
     LabelModule,
     ButtonsModule,
     HttpClientJsonpModule,
+    DialogsModule,
     
     //MDBBootstrapModule.forRoot()
   ],

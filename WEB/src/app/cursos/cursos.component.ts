@@ -28,38 +28,24 @@ import { Router } from '@angular/router';
   [groupable]="true"
   [selectable]="selectableSettings" 
   (selectionChange) = "change($event)"
- 
   [height]="500"
   >
-  <kendo-grid-column field="codigoCarrera" title="Codigo Carrera" width="130" [filterable]="false">
-  </kendo-grid-column>
-  <kendo-grid-column field="nombreCarrera" title="Carrera">
-  </kendo-grid-column>
-  <kendo-grid-column field="codigoAsignatura" title="Codigo Curso" width="130" [filterable]="false">
-  </kendo-grid-column>
-  <kendo-grid-column field="nombreAsignatura" title="Curso">
-  </kendo-grid-column>
-   <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-   </kendo-grid>
+  <kendo-grid-column field="codigoCarrera" title="Codigo Carrera" width="130" [filterable]="false"></kendo-grid-column>
+  <kendo-grid-column field="nombreCarrera" title="Carrera"></kendo-grid-column>
+  <kendo-grid-column field="codigoAsignatura" title="Codigo Curso" width="130" [filterable]="false"></kendo-grid-column>
+  <kendo-grid-column field="nombreAsignatura" title="Curso"></kendo-grid-column>
+  <kendo-grid-checkbox-column ></kendo-grid-checkbox-column></kendo-grid>
 
-<<<<<<< HEAD
+
 <div class="row">
 <div class="col-sm-12 example-col">
   <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-      <button kendoButton [toggleable]="true"  (click)="inscCursos()">Aceptar</button>
-      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-  </kendo-buttongroup>
-</div>
-</div>
-   
-=======
-</kendo-grid>
-  <div class="example-wrapper">
-  <div class="example-col">
     <button kendoButton (click)="inscCursos()">Inscripción a curso</button>
     <button kendoButton (click)="verPrevias()">Ver previas</button>
+    <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+    </kendo-buttongroup>
   </div>
->>>>>>> 63348014248a9ec46a57683e752e988be9a676d7
+  </div>
   `,
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })

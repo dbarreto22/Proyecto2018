@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from 'selenium-webdriver/http';
+
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import {
     RowArgs, SelectableSettings, SelectableMode
 } from '@progress/kendo-angular-grid';
 import { asignatura } from '../modelos/asignatura.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-ingr-asignatura',
@@ -38,7 +39,7 @@ import { asignatura } from '../modelos/asignatura.model';
 
 <div class="row">
 <div class="col-sm-12 example-col">
-<kendo-buttongroup  [selection]="'single'"  [width]="'70%'">
+<kendo-buttongroup  [selection]="'single'"  [width]="'100%'">
     <button kendoButton [toggleable]="true"  (click)="insgCarrerra()">Aceptar</button>
     <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
 </kendo-buttongroup>

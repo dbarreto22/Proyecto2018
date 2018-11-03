@@ -51,13 +51,15 @@ constructor(private  httpClient:  HttpClient,private router: Router,
               params.set('cedula', this.cedula);
             }
 
-public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula; 
+public cedula = '1111111'// JSON.parse(localStorage.getItem('session')).usr.cedula; 
 
 getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
 }
 
-
+getAllUser(){
+  return  this.httpClient.get(`${this.API_URL}/admin/usuario`);
+}
  
 getAsignaturaByCarrera(){
 
@@ -85,6 +87,13 @@ getAllCalificaciones(){
 public getToken(){
   var sesion:Sesion = JSON.parse(localStorage.getItem('session'));
   return sesion!=null?sesion.token:null; 
+}
+
+getUsuario(cedula){
+  return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
+}
+getprevias(idCurso){
+  return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
 }
 
 
@@ -157,13 +166,16 @@ inscripcionCurso(cedula,idCurso){
 
     return  this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`,json, httpOptions);
   }
+
+  deleteUser(usuario :usuario){
+    return  this.httpClient.post(`${this.API_URL}/admim/usuario.delete`,usuario);
+  }
+
+  modificarUser(usuario :usuario){
+    return  this.httpClient.post(`${this.API_URL}/admim/usuario.edit`,usuario);
+  }
 //Obtengo los roles y demas datos del usuario que se logueó
-getUsuario(cedula){
-  return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
-}
-getprevias(idCurso){
-  return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
-}
+
 
 }
 

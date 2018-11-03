@@ -32,7 +32,7 @@ import { carrera } from '../modelos/carrera.model';
 
 <div class="row">
 <div class="col-sm-12 example-col">
-  <kendo-buttongroup  [selection]="'single'" [width]="'70%'">
+  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
       <button kendoButton [toggleable]="true"  (click)="insgCarrerra()">Aceptar</button>
       <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
   </kendo-buttongroup>
