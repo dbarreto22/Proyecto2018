@@ -64,6 +64,7 @@
     "jsonwebtoken": "^8.3.0",
     "ngx-pagination": "^3.2.1",
     "node-waf": "^1.0.0",
+    "puppeteer": "^1.7.0",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.0.0",
     "vis": "^4.21.0",

@@ -15,10 +15,14 @@ import { Router } from '@angular/router';
   selector: 'app-cursos',
   styleUrls: ['./cursos.component.css'],
   template: `
+<<<<<<< HEAD
   <div class="example-config">
   Inscripción a Curso
   </div>
 
+=======
+  <h4> Cursos </h4>
+>>>>>>> 63348014248a9ec46a57683e752e988be9a676d7
   <kendo-grid     
   [kendoGridBinding]="cursosGrid" 
   [pageSize]="5"
@@ -42,6 +46,7 @@ import { Router } from '@angular/router';
    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
    </kendo-grid>
 
+<<<<<<< HEAD
 <div class="row">
 <div class="col-sm-12 example-col">
   <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
@@ -51,6 +56,14 @@ import { Router } from '@angular/router';
 </div>
 </div>
    
+=======
+</kendo-grid>
+  <div class="example-wrapper">
+  <div class="example-col">
+    <button kendoButton (click)="inscCursos()">Inscripción a curso</button>
+    <button kendoButton (click)="verPrevias()">Ver previas</button>
+  </div>
+>>>>>>> 63348014248a9ec46a57683e752e988be9a676d7
   `,
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
@@ -129,10 +142,13 @@ public getCursosGrid(){
       console.log(this.cursosGrid);
  }
 
+<<<<<<< HEAD
  cancelar(){
   this.router.navigate(['/']);
   } 
   
+=======
+>>>>>>> 63348014248a9ec46a57683e752e988be9a676d7
  change(e){
   this.idCurso  = this.cursosGrid[e.index].idCurso;
   console.log(this.idCurso);
@@ -145,5 +161,13 @@ public getCursosGrid(){
         alert(err);
         this.router.navigate(['/inscCursos']);}
      );
+   }
+
+   public verPrevias(){
+     if(this.idCurso!=null){
+        localStorage.setItem('idCurso',this.idCurso);
+        this.router.navigate(['/grafo']);
+      }  
+      else alert('Debe seleccionar un curso');
    }
 }

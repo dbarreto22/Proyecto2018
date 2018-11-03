@@ -29,6 +29,7 @@ let paramsCalificaciones = new HttpParams();
 paramsCalificaciones = paramsCalificaciones.append('cedula', '1111111');
 paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
 
+
 @Injectable()
 export class ApiService {
   API_URL  = 'http://localhost:8080/miudelar-server';   
@@ -41,9 +42,16 @@ constructor(private  httpClient:  HttpClient,private router: Router,
              private storage:StorageService) {
               let paramsA: URLSearchParams = new URLSearchParams();
               paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
-              }
+              
 
 //public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;; 
+           
+              paramsCalificaciones = paramsCalificaciones.append('cedula', this.cedula);
+              paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
+              params.set('cedula', this.cedula);
+            }
+
+public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula; 
 
 getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
@@ -152,6 +160,9 @@ inscripcionCurso(cedula,idCurso){
 //Obtengo los roles y demas datos del usuario que se logueó
 getUsuario(cedula){
   return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
+}
+getprevias(idCurso){
+  return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
 }
 
 }

@@ -7,5 +7,8 @@ export class asignaturaCarrera {
     public carrera: carrera,
     public asignatura: asignatura,
     
-){}
+){ 
+    this.previas=new Array<asignaturaCarrera>();
+}
+public previas:Array<asignaturaCarrera>;
 }
