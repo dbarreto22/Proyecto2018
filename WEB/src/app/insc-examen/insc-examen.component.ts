@@ -1,11 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ContentChild, Type} from '@angular/core';
 import { ApiService } from  '../api.service';
-import { NgForOf } from '@angular/common';
 import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
-import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { StorageService } from '../storage.service';
-import { HttpClientModule } from '@angular/common/http'; 
 import { process, State,filterBy, FilterDescriptor, CompositeFilterDescriptor} from '@progress/kendo-data-query';
 import {
     GridComponent,
@@ -15,26 +11,24 @@ import {
     RowArgs, SelectableSettings, SelectableMode
 } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
-import { single } from 'rxjs/operators';
-import {Examen} from '../modelos/examen.model'
-import {examenes} from '../modelos/examenes.model'
 import { Router } from '@angular/router';
+import { examenes } from '../modelos/examenes.model';
+import { Examen } from '../modelos/examen.model';
 
 @Component({
   selector: 'app-insc-examen',
  template: `
  <div class="example-config">
-    Inscripción a Examen
-  </div>
+    Inscripción a Examenes
+    </div>
   <kendo-grid     
-  [data]="examenGrid" 
+  [kendoGridBinding]="examenGrid" 
   [pageSize]="5"
   [pageable]="true"
   [sortable]="true"
   [filterable]="true"
   [groupable]="true"
   [selectable]="selectableSettings" 
-  (selectionChange) = "change($event)"
   [height]="500"
   >
   <kendo-grid-column field="codigoCarrera" title="Codigo Carrera" width="130" [filterable]="false">
@@ -48,10 +42,16 @@ import { Router } from '@angular/router';
    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
 
 </kendo-grid>
-  <div class="example-wrapper">
-  <div class="example-col">
-    <button kendoButton (click)="inscExamen()">Aceptar</button>
-  </div>
+
+<div class="row">
+<div class="col-sm-12 example-col">
+  <kendo-buttongroup  [selection]="'single'" [width]="'70%'">
+      <button kendoButton [toggleable]="true"  (click)="inscExamen()">Aceptar</button>
+      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+  </kendo-buttongroup>
+</div>
+</div>
+
   `,
   styleUrls: ['./insc-examen.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
@@ -70,11 +70,14 @@ export class InscExamenComponent implements OnInit {
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
     private storageService: StorageService, private router: Router) {
         this.setSelectableSettings();
+        this.examenes;
+        this.getExamenes();
      }
 
   ngOnInit() {
         this.examenes;
-        this.getExamenes();      
+        this.getExamenes(); 
+        this.getExamenGrid();     
       }
 
       public setSelectableSettings(): void {
@@ -98,7 +101,7 @@ export class InscExamenComponent implements OnInit {
       public  getExamenes(){
         this.apiService.getAllExamen().subscribe((data : examenes[]) => {
             this.examenes  =  data;
-            this.getExamenGrid;
+           
         });
     }
     
@@ -107,7 +110,6 @@ export class InscExamenComponent implements OnInit {
       var examen= new Examen();
       console.log(this.examenes);
       this.examenes.forEach(element => {
-        console.log(JSON.stringify(element.asignatura_Carrera.asignatura.codigo));
         examen.codigoAsignatura = element.asignatura_Carrera.asignatura.codigo ; 
         examen.codigoCarrera= element.asignatura_Carrera.carrera.codigo;
         examen.idCurso= element.id;
@@ -120,6 +122,9 @@ export class InscExamenComponent implements OnInit {
  }
 
 
+ cancelar(){
+  this.router.navigate(['/']);
+  }
   
     change(e){
 
@@ -130,9 +135,9 @@ export class InscExamenComponent implements OnInit {
         public inscExamen(){
             this.cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;
             this.apiService.inscripcionCurso(this.cedula, this.idExamen).subscribe(
-             data=>{this.router.navigate(['/inscCursos']);},err=>{
+             data=>{this.router.navigate(['/inscExamen']);},err=>{
                alert(err);
-               this.router.navigate(['/inscCursos']);}
+               this.router.navigate(['/inscExamen']);}
             );
           }
         

@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpRequest,
   HttpInterceptor,HttpParams} from  '@angular/common/http';
 import {Curso} from './cursos/Curso';
 import { Observable, range } from 'rxjs';
-import {Http, Response, Headers} from '@angular/http';
+import {Http, Response, Headers,URLSearchParams} from '@angular/http';
 import { _ } from 'ag-grid-community';
 import { _createNgProbe } from '@angular/platform-browser/src/dom/debug/ng_probe';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
@@ -13,16 +13,20 @@ import { StorageService } from './storage.service';
 import { Sesion } from './modelos/sesion.model';
 import { carrera } from './modelos/carrera.model';
 import { asignatura } from './modelos/asignatura.model';
+import { usuario } from './modelos/usuario.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
    })
+
 };
 const params = new HttpParams()
-  .set('cedula', this.cedula);
+  .set('cedula', '1111111');
+
+
 
 let paramsCalificaciones = new HttpParams();
-paramsCalificaciones = paramsCalificaciones.append('cedula', this.cedula);
+paramsCalificaciones = paramsCalificaciones.append('cedula', '1111111');
 paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
 
 @Injectable()
@@ -31,16 +35,28 @@ export class ApiService {
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
 
+  
 
 constructor(private  httpClient:  HttpClient,private router: Router,
-             private storage:StorageService) { }
+             private storage:StorageService) {
+              let paramsA: URLSearchParams = new URLSearchParams();
+              paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+              }
 
-public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;; 
+//public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;; 
 
 getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
 }
 
+
+ 
+getAsignaturaByCarrera(){
+
+  let data = {idCarrera: localStorage.getItem('codigoCarreraSelecionada')};
+ 
+  return  this.httpClient.get(`${this.API_URL}/director/asignatura/carrera`,{params: data});
+}
 /*public getToken(){***********Se cambia por local storage
 */
 
@@ -53,9 +69,9 @@ getAllExamen(){
   return  this.httpClient.get(`${this.API_URL}/estudiante/examen`,{params});
 }
  
-getCalificaciones(){ 
+getAllCalificaciones(){ 
   return  this.httpClient.get(`${this.API_URL}/estudiante/consultarCalificaciones`
-  ,{params : paramsCalificaciones});
+  ,{params});
 }
 
 public getToken(){
@@ -104,27 +120,34 @@ inscripcionCurso(cedula,idCurso){
     
       let json = JSON.stringify(a);
       console.log(json);
-      return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json, httpOptions);
+      return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionExamen`,json, httpOptions);
   }
 
-  public DtCarrera : carrera;
-  ingresarCarrera(codigoCarrera, nombreCarrera){
-      this.DtCarrera.codigo = codigoCarrera;
-      this.DtCarrera.nombre = nombreCarrera;
-
-    return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,this.DtCarrera, httpOptions);
-
-
+  
+  ingresarCarrera(DtCarrera :carrera){
+    console.log(DtCarrera);
+    return  this.httpClient.post(`${this.API_URL}/director/carrera`,DtCarrera);
   }
 
-  public DtAsignatura : asignatura;
-  ingresarAsignatura(codigoAsignatura, nombreAsignatura){
-      this.DtAsignatura.codigo = codigoAsignatura;
-      this.DtAsignatura.nombre = nombreAsignatura ;
+ 
+  ingresarAsignatura(DtAsignatura : asignatura){
+    return  this.httpClient.post(`${this.API_URL}/director/asignatura`,DtAsignatura);
+  }
 
-    return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,this.DtAsignatura, httpOptions);
+  ingresarUsuario(DtUsuario : usuario){
+    console.log(DtUsuario);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario`,DtUsuario);
+  }
 
+  asignarAsigCarrera(codAsig, codCarrera){
+    var a: any = {};
 
+    a.codigoAsignatura = codAsig;
+    a.codigoCarrera = codCarrera;
+    
+      let json = JSON.stringify(a);
+
+    return  this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`,json, httpOptions);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 getUsuario(cedula){

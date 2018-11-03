@@ -1,11 +1,7 @@
 import { Component, OnInit ,ContentChild, Type} from '@angular/core';
 import { ApiService } from  '../api.service';
-import { NgForOf } from '@angular/common';
 import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
-import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { StorageService } from '../storage.service';
-import { HttpClientModule } from '@angular/common/http'; 
 import { process, State,filterBy, FilterDescriptor, CompositeFilterDescriptor} from '@progress/kendo-data-query';
 import {
     GridComponent,
@@ -26,27 +22,31 @@ import { Router } from '@angular/router';
     Inscripción a Carrera
     </div>
     <kendo-grid     
-    [kendoGridBinding]="carreras" 
-    [pageSize]="5"
-    [pageable]="true"
-    [sortable]="true"
-    [filterable]="true"
-    [groupable]="true"
-    [selectable]="selectableSettings" 
-    (selectionChange) = "change($event)"
-    [height]="500"
+        [kendoGridBinding]="carreras" 
+        [pageSize]="5"
+        [pageable]="true"
+        [sortable]="true"
+        [filterable]="true"
+        [groupable]="true"
+        [selectable]="selectableSettings" 
+        (selectionChange) = "change($event)"
+        [height]="500"
     >
     <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
-    </kendo-grid-column>
+        </kendo-grid-column>
     <kendo-grid-column field="nombre" title="Nombre">
-    </kendo-grid-column>
-     <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
+        </kendo-grid-column>
+    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
+        </kendo-grid>
 
- </kendo-grid>
-    <div class="example-wrapper">
-    <div class="example-col">
-      <button kendoButton (click)="inscCarrerra()">Aceptar</button>
-    </div>
+<div class="row">
+<div class="col-sm-12 example-col">
+  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+      <button kendoButton [toggleable]="true"  (click)="inscCarrerra()">Aceptar</button>
+      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+  </kendo-buttongroup>
+</div>
+</div>
     `,
     styleUrls: ['./insc-carrera.component.css'],
     providers: [ApiService,NgbPaginationConfig, StorageService],
@@ -69,12 +69,15 @@ import { Router } from '@angular/router';
     constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
         private storageService: StorageService, private router: Router) {
             this.setSelectableSettings();
+            this.carreras;
+            this.getCarreras();  
             
         }
        
     ngOnInit() {
+        this.getCarreras(); 
         this.carreras;
-        this.getCarreras();   
+          
       } 
     
       public setSelectableSettings(): void {
@@ -94,7 +97,12 @@ import { Router } from '@angular/router';
             this.carreras  =  data;
             console.log(this.carreras);
         });
+       
     }
+
+    cancelar(){
+        this.router.navigate(['/']);
+        }
 
     change(e){
         this.carrera =   this.carreras[e.index];

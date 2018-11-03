@@ -18,7 +18,7 @@ import { ToolbarAdministradorComponent } from './toolbar-administrador/toolbar-a
 import { ToolbarDirectorComponent } from './toolbar-director/toolbar-director.component';
 import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http'; 
 import {ApiService} from '../app/api.service';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
@@ -44,6 +44,9 @@ import { LabelModule } from '@progress/kendo-angular-label';
 import { IngrAsignaturaComponent } from './ingr-asignatura/ingr-asignatura.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { EliminarUsuarioComponent } from './eliminar-usuario/eliminar-usuario.component';
+import { ElegirCarreraComponent } from './elegir-carrera/elegir-carrera.component';
+import { AsignarAsigCarreraComponent } from './asignar-asig-carrera/asignar-asig-carrera.component';
 
 
 
@@ -75,7 +78,10 @@ export function tokenGetter() {
     CalificacionesComponent,
     IngrCarrerasComponent,
     IngrAsignaturaComponent,
-    CrearUsuarioComponent 
+    CrearUsuarioComponent,
+    EliminarUsuarioComponent,
+    ElegirCarreraComponent,
+    AsignarAsigCarreraComponent 
   ],
   imports: [
     BrowserModule,
@@ -102,8 +108,9 @@ export function tokenGetter() {
     DropDownsModule,
     LabelModule,
     ButtonsModule,
+    HttpClientJsonpModule,
     
-   // MDBBootstrapModule.forRoot()
+    //MDBBootstrapModule.forRoot()
   ],
   providers: [
     ApiService,AuthenticationService,

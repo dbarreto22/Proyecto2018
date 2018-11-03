@@ -1,8 +1,7 @@
 
 export class asignatura {
-    constructor(
-    public codigo: number,
-    public nombre: string,
+    constructor(){}
     
-){}
+public codigo: string;
+public nombre: string;
 }

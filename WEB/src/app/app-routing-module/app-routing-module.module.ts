@@ -11,6 +11,9 @@ import { InscExamenComponent } from '../insc-examen/insc-examen.component';
 import { CalificacionesComponent } from '../calificaciones/calificaciones.component';
 import { IngrCarrerasComponent } from '../ingr-carreras/ingr-carreras.component';
 import { IngrAsignaturaComponent } from '../ingr-asignatura/ingr-asignatura.component';
+import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
+import { ElegirCarreraComponent } from '../elegir-carrera/elegir-carrera.component';
+import { AsignarAsigCarreraComponent } from '../asignar-asig-carrera/asignar-asig-carrera.component';
 
 
 const routes: Routes = [
@@ -23,7 +26,10 @@ const routes: Routes = [
   {path: 'calificaciones', component:CalificacionesComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'ingCarrera', component:IngrCarrerasComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'ingAsignatura', component:IngrAsignaturaComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'crearUsr', component:CrearUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'grafo', component: GrafoComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'seleccionarCarrera', component: ElegirCarreraComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'asignarAsigCarrera', component: AsignarAsigCarreraComponent, canActivate: [ AuthorizatedGuard ]},
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '**', redirectTo: '/'}
 ];

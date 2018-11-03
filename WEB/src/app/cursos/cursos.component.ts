@@ -15,9 +15,12 @@ import { Router } from '@angular/router';
   selector: 'app-cursos',
   styleUrls: ['./cursos.component.css'],
   template: `
-  <h4> Inscripción a Curso </h4>
+  <div class="example-config">
+  Inscripción a Curso
+  </div>
+
   <kendo-grid     
-  [data]="cursosGrid" 
+  [kendoGridBinding]="cursosGrid" 
   [pageSize]="5"
   [pageable]="true"
   [sortable]="true"
@@ -37,12 +40,17 @@ import { Router } from '@angular/router';
   <kendo-grid-column field="nombreAsignatura" title="Curso">
   </kendo-grid-column>
    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
+   </kendo-grid>
 
-</kendo-grid>
-  <div class="example-wrapper">
-  <div class="example-col">
-    <button kendoButton (click)="inscCursos()">Aceptar</button>
-  </div>
+<div class="row">
+<div class="col-sm-12 example-col">
+  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+      <button kendoButton [toggleable]="true"  (click)="inscCursos()">Aceptar</button>
+      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+  </kendo-buttongroup>
+</div>
+</div>
+   
   `,
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
@@ -66,11 +74,13 @@ export class CursosComponent implements OnInit {
  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService
             , private storageService : StorageService, private router: Router) {
               this.setSelectableSettings();
+              this.getCursos();
+              this.cursos;
  }
 
  ngOnInit() {
-   this.cursos;
-   this.getCursos();
+  this.getCursos();
+  this.cursos; 
  }
 
  public setSelectableSettings(): void {
@@ -119,7 +129,10 @@ public getCursosGrid(){
       console.log(this.cursosGrid);
  }
 
-
+ cancelar(){
+  this.router.navigate(['/']);
+  } 
+  
  change(e){
   this.idCurso  = this.cursosGrid[e.index].idCurso;
   console.log(this.idCurso);

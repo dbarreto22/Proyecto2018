@@ -12,35 +12,36 @@ import {
     PageChangeEvent,
     RowArgs, SelectableSettings, SelectableMode
 } from '@progress/kendo-angular-grid';
+import { asignatura } from '../modelos/asignatura.model';
 
 @Component({
   selector: 'app-ingr-asignatura',
   template: `
-<div class="example-config">
-  Ingresar Asignatura
+  <div class="example-config">
+  Crear Asignatura
 </div>
-<p>Codigo de Asignatura</p>
-<kendo-textbox-container
-  (afterValueChanged)="getCodigoIngresado($event)"
-  [style.width]="'400px'"
-  floatingLabel="Codigo">
-  <input kendoTextBox />
-</kendo-textbox-container>
-<p>Nombre De Asignatura</p>
-<kendo-textbox-container
-  (afterValueChanged)="getNombreIngresado($event)"
-  [style.width]="'400px'"
-  floatingLabel="Nombre">
-<input kendoTextBox />
 
+<div class="col-xs-12 col-sm-12 example-col">
+<kendo-textbox-container floatingLabel="Codigo" >
+  <input  #codigo (keyup)=getCodigoIngresado(codigo.value) kendoTextBox />
 </kendo-textbox-container>
+</div>
+<hr/> 
+
+  <div class="col-xs-12 col-md-12 example-col">
+  <kendo-textbox-container floatingLabel="Nombre" >
+  <input  #nombre (keyup)=getNombreIngresado(nombre.value) kendoTextBox />
+</kendo-textbox-container>
+</div>
+<hr/> 
+<hr/> 
+
 <div class="row">
 <div class="col-sm-12 example-col">
-  <p>Seleccione una Opción</p>
-  <kendo-buttongroup [width]="'100%'"  [selection]="'single'">
-      <button kendoButton [toggleable]="true"  (click)="insgAsignatura()">Aceptar</button>
-      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-  </kendo-buttongroup>
+<kendo-buttongroup  [selection]="'single'"  [width]="'70%'">
+    <button kendoButton [toggleable]="true"  (click)="insgCarrerra()">Aceptar</button>
+    <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+</kendo-buttongroup>
 </div>
 </div>
   `,
@@ -53,20 +54,24 @@ export class IngrAsignaturaComponent implements OnInit {
   public nombreAsigantura;
   public codigoAsignatura;
 
+  public DtAsignatura = new asignatura();
+
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
     private storageService: StorageService, private router: Router) {}
 
   ngOnInit() {
   }
-  getCodigoIngresado(value: string){
-    
+
+  getCodigoIngresado(value:String){
+  
     this.codigoAsignatura = value;
+   
     }
   
   
-  getNombreIngresado(value: string){
+  getNombreIngresado(value:String){
     
-    this.nombreAsigantura = value; 
+    this.nombreAsigantura = value;
     }
   
   cancelar(){
@@ -74,7 +79,10 @@ export class IngrAsignaturaComponent implements OnInit {
     }
 
     insgAsignatura(){
-      this.apiService.ingresarAsignatura(this.codigoAsignatura, this.nombreAsigantura).subscribe(
+      this.DtAsignatura.codigo = this.codigoAsignatura;
+      this.DtAsignatura.nombre = this.nombreAsigantura;
+
+      this.apiService.ingresarAsignatura(this.DtAsignatura).subscribe(
         data=>{this.router.navigate(['/ingAsignatura']);},err=>{
         alert(err);
         this.router.navigate(['/ingAsignatura']);

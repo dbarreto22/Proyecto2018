@@ -28,7 +28,7 @@ export class ToolbarComponent implements OnInit{
       console.log('El valor elegido en el componente es: '+v);  
     }})
     var sesion:Sesion=JSON.parse(localStorage.getItem('session'));
-    var roles: Array<any>=sesion.usr.roles;
+    //var roles: Array<any>=sesion.usr.roles;
   }
 
   ngOnInit(){

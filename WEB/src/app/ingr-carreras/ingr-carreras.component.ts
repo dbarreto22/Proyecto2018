@@ -1,43 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
-import { process, State,filterBy, FilterDescriptor, CompositeFilterDescriptor} from '@progress/kendo-data-query';
-import {
-    GridComponent,
-    GridDataResult,
-    DataStateChangeEvent,
-    PageChangeEvent,
-    RowArgs, SelectableSettings, SelectableMode
-} from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor} from '@progress/kendo-data-query';
+import { SelectableSettings} from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { carrera } from '../modelos/carrera.model';
 
 @Component({
   selector: 'app-ingr-carreras',
   template: `
-<div class="example-config">
-  Ingresar Carreras
-</div>
-<p>Codigo de Carrera</p>
-<kendo-textbox-container
-  (afterValueChanged)="getCodigoIngresado($event)"
-  [style.width]="'400px'"
-  floatingLabel="Codigo">
-  <input kendoTextBox />
-</kendo-textbox-container>
-<p>Nombre De Carrera</p>
-<kendo-textbox-container
-  (afterValueChanged)="getNombreIngresado($event)"
-  [style.width]="'400px'"
-  floatingLabel="Nombre">
-<input kendoTextBox />
+  <div class="example-config">
+    Crear Carrera
+  </div>
 
-</kendo-textbox-container>
+  <div class="col-xs-12 col-sm-12 example-col">
+  <kendo-textbox-container floatingLabel="Codigo" >
+    <input  #codigo (keyup)=getCodigoIngresado(codigo.value) kendoTextBox />
+  </kendo-textbox-container>
+</div>
+<hr/> 
+
+    <div class="col-xs-12 col-md-12 example-col">
+    <kendo-textbox-container floatingLabel="Nombre" >
+    <input  #nombre (keyup)=getNombreIngresado(nombre.value) kendoTextBox />
+  </kendo-textbox-container>
+</div>
+<hr/> 
+<hr/> 
+
 <div class="row">
 <div class="col-sm-12 example-col">
-  <p>Seleccione una Opción</p>
-  <kendo-buttongroup  [selection]="'single'">
+  <kendo-buttongroup  [selection]="'single'" [width]="'70%'">
       <button kendoButton [toggleable]="true"  (click)="insgCarrerra()">Aceptar</button>
       <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
   </kendo-buttongroup>
@@ -47,11 +42,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./ingr-carreras.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
-export class IngrCarrerasComponent implements OnInit {
+export class IngrCarrerasComponent implements  OnInit {
 
-
-  public nombreCarrera;
   public codigoCarrera;
+  public nombreCarrera;
   public checked = false;
   public filter: CompositeFilterDescriptor;
   selectedValue: any[];
@@ -71,13 +65,14 @@ export class IngrCarrerasComponent implements OnInit {
     }    
 
 
-  getCodigoIngresado(value: string){
-    
+  getCodigoIngresado(value:string){
+  
     this.codigoCarrera = value;
+   
     }
   
   
-  getNombreIngresado(value: string){
+  getNombreIngresado(value:string){
     
     this.nombreCarrera = value;
     }
@@ -86,11 +81,20 @@ export class IngrCarrerasComponent implements OnInit {
     this.router.navigate(['/']);
     }
 
+    public DtCarrera = new carrera();
     insgCarrerra(){
-      this.apiService.ingresarCarrera(this.codigoCarrera, this.nombreCarrera).subscribe(
+
+      console.log(this.codigoCarrera);
+      console.log(this.nombreCarrera);
+
+      this.DtCarrera.codigo = this.codigoCarrera;
+      this.DtCarrera.nombre = this.nombreCarrera;
+
+      console.log(this.DtCarrera);
+      this.apiService.ingresarCarrera(this.DtCarrera).subscribe(
         data=>{this.router.navigate(['/ingCarrera']);},err=>{
         alert(err);
-        this.router.navigate(['/inscCarrera']);
+        this.router.navigate(['/ingCarrera']);
     });
     }
 

@@ -3,7 +3,7 @@ import {carrera} from './carrera.model';
 
 export class asignaturaCarrera {
     constructor(
-    public id: number,
+    public id: string,
     public carrera: carrera,
     public asignatura: asignatura,
     

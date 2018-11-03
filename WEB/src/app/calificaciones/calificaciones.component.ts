@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from 'selenium-webdriver/http';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
@@ -16,6 +15,7 @@ import {
     RowArgs, SelectableMode
 } from '@progress/kendo-angular-grid';
 import { StorageService } from '../storage.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-calificaciones',
@@ -23,15 +23,24 @@ import { StorageService } from '../storage.service';
   <div class="example-config">
   Consulta de Calificaciones
   </div>
-  <div class="example-wrapper">
-  <kendo-combobox
-      [data]="nombreCarrera"
-      [value]="carreraSelecionada"
-      [allowCustom]="true"
-      (valueChange)="ChangeCarrera($event)"
-  >
-  </kendo-combobox>
-</div>
+  
+  <div class="col-lg-4 col-sm-10 form-group">
+    <div class="input-group">
+        <kendo-combobox
+          [data]="carreras"
+          [textField]="'nombre'"
+          [(ngModel)]="codigo"
+          [placeholder]="'Seleccione Carrera'">    
+        >
+        </kendo-combobox>
+    </div>
+  </div>
+
+
+  <div class="example-config">
+  Seleccione Curso
+  </div>
+
 
 <kendo-grid     
     [kendoGridBinding]="cursosCarreraSelect" 
@@ -50,6 +59,7 @@ import { StorageService } from '../storage.service';
     </kendo-grid-column>
 <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
 </kendo-grid>
+
 
 <kendo-grid     
     [kendoGridBinding]="calificaciones" 
@@ -73,10 +83,10 @@ import { StorageService } from '../storage.service';
 })
 export class CalificacionesComponent implements OnInit {
   public codigoCarrera;
-  public carrera;
+  public carrera ;
   public cedula;
   public carreras:  Array<carrera> = [];
-  public carreraSelecionada: string ;
+  public carreraSelecionada ;
   public  cursos:  Array<cursos> = [];
   public  calificaciones:  Array<object> = [];
   public idAsigCarrera;
@@ -91,6 +101,8 @@ export class CalificacionesComponent implements OnInit {
   ngOnInit() {
     this.carreras;
     this.getCarreras();
+    this.getCursos();
+    this.getCalificaciones();
   }
   public setSelectableSettings(): void {
     this.selectableSettings = {
@@ -106,6 +118,22 @@ public  getCarreras(){
     });
 }
 
+public  getCursos(){
+  this.apiService.getAllCursos().subscribe((data:  Array<cursos>) => {
+      this.cursos  =  data;
+      console.log(this.cursos);
+  });
+}
+
+public  getCalificaciones(){
+  this.apiService.getAllCalificaciones().subscribe((data:  Array<Object>) => {
+      this.calificaciones  =  data;
+      console.log(this.calificaciones);
+  });
+}
+
+
+/*
 nombreCarrera : Array<String> = [];
   public getNombreCarrera(){
     var nombre:String;
@@ -113,16 +141,18 @@ nombreCarrera : Array<String> = [];
       nombre = element.nombre;
       this.nombreCarrera.push(nombre);
     });
-  }
+    console.log(this.nombreCarrera);
+  }*/
 
 
-  public ChangeCarrera(value) {
+  public ChangeCarrera(value:string) {
     this.carreraSelecionada = value;
-    localStorage.setItem('carreraSelecionada', this.carreraSelecionada)
+    console.log(this.carreraSelecionada);
+    localStorage.setItem('carreraSelecionada', this.carreraSelecionada);
 }
 
 
-
+/*
   public  getCursos(){
     this.apiService.getAllCursos().subscribe((data:cursos[]) => {
         this.cursos  =  data;
@@ -130,7 +160,7 @@ nombreCarrera : Array<String> = [];
         this.getCursosGrid()
     });
 
-}
+}*/
 
 public cursosGrid = new Array<Curso>();
 public getCursosGrid(){
@@ -153,7 +183,7 @@ public getCursosGrid(){
  public cursosCarreraSelect = new Array<Curso>();
  getCursosCarreraSelect(){
     this.cursosGrid.forEach(element => {
-      if(element.nombreCarrera == this.carreraSelecionada){
+      if(element.codigoCarrera == this.carreraSelecionada){
         this.cursosCarreraSelect.push(element);
       }
       
@@ -165,13 +195,13 @@ public getCursosGrid(){
   localStorage.setItem('idAsigCarrera', this.idAsigCarrera)
   console.log(this.idAsigCarrera);
  }
-
+/*
  public  getCalificaciones(){
   this.apiService.getCalificaciones().subscribe((data:  Array<Object>) => {
       this.calificaciones  =  data;
       console.log(this.carreras);
   });
-}
+}*/
 
 
 

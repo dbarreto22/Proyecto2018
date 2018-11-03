@@ -1,10 +1,10 @@
 export class Curso{
   
     constructor(){}
-    public idCurso:number;
-    public idAsigCarrera:number;
+    public idCurso:string;
+    public idAsigCarrera:string;
     public nombreAsignatura:string;
     public nombreCarrera:string;
-    public codigoCarrera:number;
-    public codigoAsignatura:number;
+    public codigoCarrera:string;
+    public codigoAsignatura:string;
 }

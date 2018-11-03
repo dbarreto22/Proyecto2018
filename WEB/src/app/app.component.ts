@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy{
   usr:User;
   roles:Array<any>;
   loged:boolean;
-  rolElegido:number=4;
+  rolElegido:number=1;
   message: string;
   subscription: Subscription;
   constructor(public storageService:StorageService){

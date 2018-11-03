@@ -1,9 +1,10 @@
 export class usuario {
     constructor(
-    public cedula: string,
-    public nombre: string,
-    public apellido: string,
-    public email: string,
-    public password: string,
+    
 ){}
+    public cedula;
+    public nombre;
+    public apellido;
+    public email;
+    public password;
 }

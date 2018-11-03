@@ -1,17 +1,17 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-toolbar-administrador *ngIf = "loged && (getrol()  == 1)">loading...</app-toolbar-administrador>
+<app-toolbar-administrador *ngIf = "loged && (rolElegido  == 1)">loading...</app-toolbar-administrador>
 <div class="mat-sidenav-container" style="text-align:center">
   <router-outlet></router-outlet>
 </div>
 
 
-<app-toolbar-director *ngIf="loged && (getrol() == 2)">loading...</app-toolbar-director>
+<app-toolbar-director *ngIf="loged && (rolElegido == 2)">loading...</app-toolbar-director>
 <div class="mat-sidenav-container" style="text-align:center">
   <router-outlet></router-outlet>
 </div>
 
 
-<app-toolbar *ngIf="loged && (getrol() == 4)">loading...</app-toolbar>
+<app-toolbar *ngIf="loged && (rolElegido == 4)">loading...</app-toolbar>
 <div class="mat-sidenav-container" style="text-align:center">
   <router-outlet></router-outlet>
 </div>
