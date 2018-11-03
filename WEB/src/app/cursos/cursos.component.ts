@@ -15,14 +15,10 @@ import { Router } from '@angular/router';
   selector: 'app-cursos',
   styleUrls: ['./cursos.component.css'],
   template: `
-<<<<<<< HEAD
   <div class="example-config">
-  Inscripción a Curso
+  Cursos
   </div>
 
-=======
-  <h4> Cursos </h4>
->>>>>>> 63348014248a9ec46a57683e752e988be9a676d7
   <kendo-grid     
   [kendoGridBinding]="cursosGrid" 
   [pageSize]="5"
@@ -142,13 +138,10 @@ public getCursosGrid(){
       console.log(this.cursosGrid);
  }
 
-<<<<<<< HEAD
  cancelar(){
   this.router.navigate(['/']);
   } 
   
-=======
->>>>>>> 63348014248a9ec46a57683e752e988be9a676d7
  change(e){
   this.idCurso  = this.cursosGrid[e.index].idCurso;
   console.log(this.idCurso);
