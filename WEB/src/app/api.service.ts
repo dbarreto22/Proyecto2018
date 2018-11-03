@@ -18,12 +18,11 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
    })
 };
-const params = new HttpParams()
-  .set('cedula', this.cedula);
+let params = new HttpParams()
+  
 
 let paramsCalificaciones = new HttpParams();
-paramsCalificaciones = paramsCalificaciones.append('cedula', this.cedula);
-paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
+
 
 @Injectable()
 export class ApiService {
@@ -33,9 +32,13 @@ export class ApiService {
 
 
 constructor(private  httpClient:  HttpClient,private router: Router,
-             private storage:StorageService) { }
+             private storage:StorageService) { 
+              paramsCalificaciones = paramsCalificaciones.append('cedula', this.cedula);
+              paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
+              params.set('cedula', this.cedula);
+            }
 
-public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;; 
+public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula; 
 
 getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
@@ -129,6 +132,9 @@ inscripcionCurso(cedula,idCurso){
 //Obtengo los roles y demas datos del usuario que se logueó
 getUsuario(cedula){
   return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
+}
+getprevias(idCurso){
+  return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
 }
 
 }

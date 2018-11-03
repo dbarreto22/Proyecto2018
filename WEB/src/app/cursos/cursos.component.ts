@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   selector: 'app-cursos',
   styleUrls: ['./cursos.component.css'],
   template: `
-  <h4> Inscripción a Curso </h4>
+  <h4> Cursos </h4>
   <kendo-grid     
   [data]="cursosGrid" 
   [pageSize]="5"
@@ -41,7 +41,8 @@ import { Router } from '@angular/router';
 </kendo-grid>
   <div class="example-wrapper">
   <div class="example-col">
-    <button kendoButton (click)="inscCursos()">Aceptar</button>
+    <button kendoButton (click)="inscCursos()">Inscripción a curso</button>
+    <button kendoButton (click)="verPrevias()">Ver previas</button>
   </div>
   `,
   providers: [ApiService,NgbPaginationConfig, StorageService],
@@ -119,7 +120,6 @@ public getCursosGrid(){
       console.log(this.cursosGrid);
  }
 
-
  change(e){
   this.idCurso  = this.cursosGrid[e.index].idCurso;
   console.log(this.idCurso);
@@ -132,5 +132,13 @@ public getCursosGrid(){
         alert(err);
         this.router.navigate(['/inscCursos']);}
      );
+   }
+
+   public verPrevias(){
+     if(this.idCurso!=null){
+        localStorage.setItem('idCurso',this.idCurso);
+        this.router.navigate(['/grafo']);
+      }  
+      else alert('Debe seleccionar un curso');
    }
 }
