@@ -74,30 +74,9 @@ getUsuario(){
     console.log(this.usuario);
 });
 }
-/*
-
-getCedulaIngresado(value:string){
-  this.cedula = value;
-}
-
-getNombreIngresado(value:string){
-  this.nombre = value;
-}
-
-getApellidoIngresado(value:string){
-  this.apellido = value;
-}
-
-getMailIngresado(value:string){
-  this.mail = value;
-}
-
-getPasswordIngresado(value:string){
-  this.pass = value;
-}*/
 
 cancelar(){
-  this.router.navigate(['/']);
+  this.router.navigate(['/setingsUser']);
   }
 
 

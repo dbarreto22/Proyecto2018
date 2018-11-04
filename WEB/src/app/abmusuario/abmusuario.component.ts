@@ -41,7 +41,9 @@ import { usuario } from '../modelos/usuario.model';
 <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
     <button kendoButton [toggleable]="true"  (click)="crearUsuario()">Crear Usuario</button>
     <button kendoButton [toggleable]="true"  (click)="modificarUsuario()">Modificar Usuario</button>
+    <button kendoButton [toggleable]="true"  (click)="asignarRol()">Asignar Rol a Usuario</button>
     <button kendoButton [toggleable]="true"  (click)="eliminarUsuario()">Eliminar Usuario</button>
+    
 </kendo-buttongroup>
 </div>
 </div>
@@ -50,7 +52,7 @@ import { usuario } from '../modelos/usuario.model';
 <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
         <p style="margin: 30px; text-align: center;">Desea eliminar al Usuario seleccionado?</p>
         <kendo-dialog-actions>
-            <button kendoButton (click)="confirmarEliminarUsr()" primary="true">Yes</button>
+            <button kendoButton (click)="confirmarEliminarUsr()" primary="true">Confirmar</button>
             <button kendoButton (click)="action()" >No</button>  
         </kendo-dialog-actions>
     </kendo-dialog>
@@ -107,9 +109,7 @@ change(e){
   console.log(this.cedulaSelect);
 }
 
-guardarCedula(){
-    this.apiService.seveCedula(this.cedulaSelect);
-}
+
 
 
 public crearUsuario(){
@@ -138,6 +138,11 @@ public action() {
 public modificarUsuario(){
     localStorage.setItem('cedulaABM', this.cedulaSelect);
     this.router.navigate(['/modificarUsr']);
+}
+
+public asignarRol(){
+    localStorage.setItem('cedulaABM', this.cedulaSelect);
+    this.router.navigate(['/asignarRol']);
 }
 
 

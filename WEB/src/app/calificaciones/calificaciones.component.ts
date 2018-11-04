@@ -30,6 +30,7 @@ import { HttpClient } from '@angular/common/http';
           [data]="carreras"
           [textField]="'nombre'"
           [(ngModel)]="codigo"
+          
           [placeholder]="'Seleccione Carrera'">    
         >
         </kendo-combobox>

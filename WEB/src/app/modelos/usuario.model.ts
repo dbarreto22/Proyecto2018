@@ -7,4 +7,5 @@ export class usuario {
     public apellido;
     public email;
     public password;
+    public roles: Array<any>;
 }

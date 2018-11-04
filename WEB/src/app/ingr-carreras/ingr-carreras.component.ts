@@ -78,7 +78,7 @@ export class IngrCarrerasComponent implements  OnInit {
     }
   
   cancelar(){
-    this.router.navigate(['/']);
+    this.router.navigate(['/setingsCarrera']);
     }
 
     public DtCarrera = new carrera();

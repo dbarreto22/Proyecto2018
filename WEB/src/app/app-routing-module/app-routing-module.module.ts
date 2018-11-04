@@ -16,6 +16,8 @@ import { ElegirCarreraComponent } from '../elegir-carrera/elegir-carrera.compone
 import { AsignarAsigCarreraComponent } from '../asignar-asig-carrera/asignar-asig-carrera.component';
 import { ABMUsuarioComponent } from '../abmusuario/abmusuario.component';
 import { ModificarUsuarioComponent } from '../modificar-usuario/modificar-usuario.component';
+import { AsociarRolComponent } from '../asociar-rol/asociar-rol.component';
+import { ModificarCarreraComponent } from '../modificar-carrera/modificar-carrera.component';
 
 
 const routes: Routes = [
@@ -34,6 +36,9 @@ const routes: Routes = [
   {path: 'setingsUser', component: ABMUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'asignarAsigCarrera', component: AsignarAsigCarreraComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'modificarUsr', component: ModificarUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'asignarRol', component: AsociarRolComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'setingsCarrera', component: ABMUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'modificarCarrera', component: ModificarCarreraComponent, canActivate: [ AuthorizatedGuard ]},
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '**', redirectTo: '/'}
 ];
