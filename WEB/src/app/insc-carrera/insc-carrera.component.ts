@@ -68,15 +68,19 @@ import { Router } from '@angular/router';
 
     constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
         private storageService: StorageService, private router: Router) {
-            this.setSelectableSettings();
-            this.carreras;
-            this.getCarreras();  
-            
+            this.setSelectableSettings();    
+            this.apiService.reload().subscribe(
+            data=>{this.router.navigate(['/inscCarrera']);
+        });;      
         }
        
     ngOnInit() {
+        
         this.getCarreras(); 
         this.carreras;
+        this.apiService.reload().subscribe((data : Boolean) => {
+            this.router.navigate(['/inscCarrera']);   
+        });
           
       } 
     

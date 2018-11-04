@@ -90,7 +90,7 @@ export function tokenGetter() {
     ModificarUsuarioComponent 
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,FormsModule,
     MatButtonModule, MatCheckboxModule, 
     LayoutModule, MatToolbarModule, 
     MatSidenavModule, MatIconModule, 
@@ -103,7 +103,7 @@ export function tokenGetter() {
     AppRoutingModuleModule,NgxPaginationModule,
     RouterModule,NgbModule,StorageServiceModule,
     RouterModule,NgbModule,InputsModule,
-    BrowserModule, BrowserAnimationsModule, FormsModule, GridModule,
+    BrowserModule, BrowserAnimationsModule,GridModule,
     JwtModule.forRoot({
       config: { 
         tokenGetter: tokenGetter,

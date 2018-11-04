@@ -1,40 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { usuario } from '../modelos/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ABMUsuarioComponent } from '../abmusuario/abmusuario.component';
 
 @Component({
   selector: 'app-modificar-usuario',
   template: `
+  
   <div class="row example-wrapper">
-    <div class="col-xs-20 col-sm-6 offset-sm-3 example-col">
+    <div class="col-xs-40 col-sm-6 offset-sm-3 example-col">
         <div class="card">
             <div class="card-block">
                 <form class="k-form">
                     <fieldset>
-                        <legend>Ingresar Usuario</legend>
+                        <legend>Modificar Usuario</legend>
                         <label class="k-form-field">
-                            <span>Cedula<span class="k-required">*</span></span>
-                            <input #cedula (keyup)=getCedulaIngresado(cedula.value) value ={{usuario.cedula}} class="k-textbox" placeholder="Cedula" />
+                            <span>Cedula</span>
+                            <input #cedula   [(ngModel)]="usuario.cedula" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
                         </label>
                         <label class="k-form-field">
-                            <span>Nombre<span class="k-required">*</span></span>
-                            <input  #nombre (keyup)=getNombreIngresado(nombre.value) value ={{usuario.nombre}} class="k-textbox" placeholder="Nombre" />
+                            <span>Nombre</span>
+                            <input  #nombre  [(ngModel)]="usuario.nombre" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
                         </label>
                         <label class="k-form-field">
-                            <span>Apellido<span class="k-required">*</span></span>
-                            <input #apellido (keyup)=getApellidoIngresado(apellido.value) value ={{usuario.apellido}} class="k-textbox" placeholder="Apellido" />
+                            <span>Apellido</span>
+                            <input #apellido   [(ngModel)]="usuario.apellido" [ngModelOptions]="{standalone: true}" class="k-textbox" />
                         </label>
                         <label class="k-form-field">
-                        <span>Email <span class="k-required">*</span></span>
-                        <input #mail (keyup)=getMailIngresado(mail.value) type="email" value ={{usuario.cedula}} class="k-textbox"  placeholder="Mail" />
+                        <span>Email </span>
+                        <input #mail  type="email"  [(ngModel)]="usuario.email" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
                         </label>
                     </fieldset>
                     <div class="text-right">
-                      <button type="button" class="k-button k-primary" (click)="modificarUsuario()">Aceptar</button>
+                      <button type="button" class="k-button k-primary" (click)="modificarUsuario(cedula.value, nombre.value,apellido.value,mail.value)">
+                      Aceptar</button>
                       <button type="button" class="k-button" (click)="cancelar()">Cancelar</button>
                       </div>               
                 </form>
@@ -47,39 +50,31 @@ import { Router } from '@angular/router';
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
 export class ModificarUsuarioComponent implements OnInit {
+  //@Input() public cedula: string;
 
   public cedula;
-  public nombre;
-  public apellido;
-  public mail;
-  public pass; 
   public usuario  = new usuario();
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-    private storageService: StorageService, private router: Router) { }
+    private storageService: StorageService, private router: Router) {
+      
+     }
 
   ngOnInit() {
+
+      this.cedula = localStorage.getItem('cedulaABM');
+      console.log(this.cedula);
       this.getUsuario();
       this.usuario;
   }
 
 getUsuario(){
-  this.apiService.getUsuario(localStorage.getItem('')).subscribe((data: usuario)=> {
+  console.log(this.cedula);
+  this.apiService.getUsuario(this.cedula).subscribe((data: usuario)=> {
     this.usuario  =  data;
     console.log(this.usuario);
 });
 }
-
-
-
-
-modificarUsuario(){
-  this.apiService.modificarUser(this.usuario).subscribe(
-    data=>{this.router.navigate(['/setingsUser']);},err=>{
-    alert(err);
-    this.router.navigate(['/setingsUser']);
-});
-
-}
+/*
 
 getCedulaIngresado(value:string){
   this.cedula = value;
@@ -99,29 +94,24 @@ getMailIngresado(value:string){
 
 getPasswordIngresado(value:string){
   this.pass = value;
-}
-
-
-
+}*/
 
 cancelar(){
   this.router.navigate(['/']);
   }
 
 
-crearUsuario(){
+modificarUsuario(cedula:string, nombre:string , apellido:string, mail:string){
+  this.usuario.cedula = cedula;
+  this.usuario.nombre = nombre;
+  this.usuario.apellido =apellido;
+  this.usuario.email= mail;
 
-  console.log(this.apellido);
-  this.usuario.cedula = this.cedula;
-  this.usuario.nombre = this.nombre;
-  this.usuario.apellido =this.apellido;
-  this.usuario.email= this.mail;
-  this.usuario.password = this.pass;
-  this.apiService.ingresarUsuario(this.usuario).subscribe(
-      data=>{this.router.navigate(['/setingsUsr']);},err=>{
-      alert(err);
-      this.router.navigate(['/setingsUser']);
-  });
+  this.apiService.modificarUser(this.usuario).subscribe(
+    data=>{this.router.navigate(['/setingsUser']);},err=>{
+    alert(err);
+    this.router.navigate(['/setingsUser']);
+});
 }
 
 }

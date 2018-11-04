@@ -53,6 +53,7 @@ constructor(private  httpClient:  HttpClient,private router: Router,
 
 public cedula = '1111111'// JSON.parse(localStorage.getItem('session')).usr.cedula; 
 
+
 getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
 }
@@ -95,6 +96,7 @@ getUsuario(cedula){
 getprevias(idCurso){
   return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
 }
+
 
 
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
