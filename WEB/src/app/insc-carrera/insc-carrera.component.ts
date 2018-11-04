@@ -1,4 +1,4 @@
-import { Component, OnInit ,ContentChild, Type} from '@angular/core';
+import { Component, OnInit ,ContentChild, Type, Directive} from '@angular/core';
 import { ApiService } from  '../api.service';
 import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
     </div>
     <kendo-grid     
         [kendoGridBinding]="carreras" 
-        [pageSize]="5"
+        [pageSize]="10"
         [pageable]="true"
         [sortable]="true"
         [filterable]="true"
@@ -52,6 +52,9 @@ import { Router } from '@angular/router';
     providers: [ApiService,NgbPaginationConfig, StorageService],
     })
     
+    @Directive({
+        selector: '[carreras]'
+    })
   export class InscCarreraComponent implements OnInit {
 
     public codigo;
@@ -68,16 +71,15 @@ import { Router } from '@angular/router';
 
     constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
         private storageService: StorageService, private router: Router) {
-            this.setSelectableSettings();
-            this.carreras;
-            this.getCarreras();  
+            this.setSelectableSettings();    
             
         }
        
     ngOnInit() {
+        
         this.getCarreras(); 
         this.carreras;
-          
+       
       } 
     
       public setSelectableSettings(): void {

@@ -50,6 +50,9 @@ import { AsignarAsigCarreraComponent } from './asignar-asig-carrera/asignar-asig
 import { ABMUsuarioComponent } from './abmusuario/abmusuario.component';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { ModificarUsuarioComponent } from './modificar-usuario/modificar-usuario.component';
+import { AsociarRolComponent } from './asociar-rol/asociar-rol.component';
+import { ABMCarreraComponent } from './abmcarrera/abmcarrera.component';
+import { ModificarCarreraComponent } from './modificar-carrera/modificar-carrera.component';
 
 
 
@@ -87,10 +90,13 @@ export function tokenGetter() {
     ElegirCarreraComponent,
     AsignarAsigCarreraComponent,
     ABMUsuarioComponent,
-    ModificarUsuarioComponent 
+    ModificarUsuarioComponent,
+    AsociarRolComponent,
+    ABMCarreraComponent,
+    ModificarCarreraComponent 
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,FormsModule,
     MatButtonModule, MatCheckboxModule, 
     LayoutModule, MatToolbarModule, 
     MatSidenavModule, MatIconModule, 
@@ -103,7 +109,7 @@ export function tokenGetter() {
     AppRoutingModuleModule,NgxPaginationModule,
     RouterModule,NgbModule,StorageServiceModule,
     RouterModule,NgbModule,InputsModule,
-    BrowserModule, BrowserAnimationsModule, FormsModule, GridModule,
+    BrowserModule, BrowserAnimationsModule,GridModule,
     JwtModule.forRoot({
       config: { 
         tokenGetter: tokenGetter,

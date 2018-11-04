@@ -23,6 +23,9 @@ const httpOptions = {
 const params = new HttpParams()
   .set('cedula', '1111111');
 
+  const paramsCarrera = new HttpParams()
+  .set('codigo', localStorage.getItem('codigoABM'));
+
 
 
 let paramsCalificaciones = new HttpParams();
@@ -52,6 +55,7 @@ constructor(private  httpClient:  HttpClient,private router: Router,
             }
 
 public cedula = '1111111'// JSON.parse(localStorage.getItem('session')).usr.cedula; 
+public codigo = localStorage.getItem('codigoABM');
 
 getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
@@ -75,6 +79,7 @@ getAllCursos(){
 }
 
 
+
 getAllExamen(){ 
   return  this.httpClient.get(`${this.API_URL}/estudiante/examen`,{params});
 }
@@ -92,9 +97,20 @@ public getToken(){
 getUsuario(cedula){
   return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
 }
+
+getCarrera(){
+  return this.httpClient.get(`${this.API_URL}/director/carrera/`,{params :paramsCarrera})
+}
+
+
 getprevias(idCurso){
   return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
 }
+
+getUserRol(){
+  return this.httpClient.get(`${this.API_URL}/admin/rol/`);
+}
+
 
 
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -173,6 +189,32 @@ inscripcionCurso(cedula,idCurso){
 
   modificarUser(usuario :usuario){
     return  this.httpClient.post(`${this.API_URL}/admim/usuario.edit`,usuario);
+  }
+
+  deleteCarrera(carrera :carrera){
+    return  this.httpClient.post(`${this.API_URL}/director/carrera.delete`,carrera);
+  }
+
+  modificarCarrera(carrera :carrera){
+    return  this.httpClient.post(`${this.API_URL}/director/carrera.edit`,carrera);
+  }
+
+
+  
+
+ 
+
+  asignarRol(cedula,idRol){
+
+    var a: any = {};
+
+    a.cedula = cedula;
+    a.idRol = idRol;
+    
+      let json = JSON.stringify(a);
+
+    return  this.httpClient.post(`${this.API_URL}/admim/usuario.addRol`, json, httpOptions);
+
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 
