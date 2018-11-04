@@ -17,7 +17,7 @@ export class GrafoComponent implements OnInit {
 
   constructor(private apiService:ApiService) {
     this.idCurso=localStorage.getItem('idCurso');
-    this.apiService.getprevias(this.idCurso).subscribe((datos : asignaturaCarrera)=>
+    this.apiService.getprevias('8').subscribe((datos : asignaturaCarrera)=>
     {
       var link = new Link(datos.id,null);
       this.crearNodos(datos,link);

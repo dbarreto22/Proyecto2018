@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit,ChangeDetectionStrategy, Input } from '@angular/core';
 import {Validators, FormGroup, FormBuilder} from "@angular/forms";
 import {LoginObject} from "../modelos/login-object.model";
 import {AuthenticationService} from "../authentication.service";
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   public error: {code: number, message: string} = null;
   rolElegido:number;
   rolObserver:Subscription;
+  @Input() public errorMsg:string;
   //private roles:Array<any>=[{'id':'1','nombre':'Director'},{'id':'2','nombre':'Administrador'},{'id':'4','nombre':'Alumno'}];
 
   constructor(private formBuilder: FormBuilder,
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
      })
+     console.log(this.errorMsg+ ' error');
 //     this.rolElegido$=this.storageService.getRolElegido();
     // this.rolSubscription=this.rolElegido$.subscribe(rol=>this.rolElegido=rol);
 //    this.storageService.sendMessage('putitoooo');
@@ -54,7 +56,11 @@ export class LoginComponent implements OnInit {
           //this.storageService.setCurrentSession(new Sesion(res,null)); 
           this.correctLogin();
         },err => {
-          console.log('Error en el login '+err);
+          console.log('Error en el login '+err.message);
+          if(err.status==403 || err.status==401){
+            this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
+          //  this.router.navigate(['/login']);
+          }
         });
       
     }
@@ -64,6 +70,7 @@ export class LoginComponent implements OnInit {
 private correctLogin(){
   var cedula=this.loginForm.get('username').value;
   var usuario:User;
+  let rol
   //this.storageService.setCurrentSession(new Sesion(data,null));
   this.apiService.getUsuario(cedula).subscribe((
     res:User) =>{ 
@@ -77,14 +84,19 @@ private correctLogin(){
       console.log('roles '+JSON.stringify(rolesArray));
       if(rolesArray!=null){
       //  console.log('Entro a roles ');
-        localStorage.setItem('rolElegido',rolesArray[rolesArray.length-1]!=3?
-      rolesArray[rolesArray.length-1].id:rolesArray[rolesArray.length-2].id)
-
-      this.storageService.setRolElegido(localStorage.getItem('rolElegido'));}
+      rol=rolesArray[rolesArray.length-1]!=3?
+      rolesArray[rolesArray.length-1].id:rolesArray[rolesArray.length-2].id;
+      localStorage.setItem('rolElegido',rol);
+      this.storageService.setRolElegido(localStorage.getItem('rolElegido'));
+      this.router.navigate(['/inscCursos',rol]);}
      // console.log(localStorage.getItem('rolElegido')+' Despues del login');
     },err => {
-      console.log('Error al obtener usuario---'+err);
+      console.log('Error al obtener usuario codigo: '+ err.message);
+      if(err.status==403 || err.status==401){
+        this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
+     //   this.router.navigate(['/login']);
+      }
     });
-    this.router.navigate(['/cursos']);
+   // 
   }
 }
