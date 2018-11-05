@@ -12,7 +12,7 @@ import { CalificacionesComponent } from '../calificaciones/calificaciones.compon
 import { IngrCarrerasComponent } from '../ingr-carreras/ingr-carreras.component';
 import { IngrAsignaturaComponent } from '../ingr-asignatura/ingr-asignatura.component';
 import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
-import { ElegirCarreraComponent } from '../elegir-carrera/elegir-carrera.component';
+import { ElegirCarreraComponent } from '../abmasignatura/abmasignatura.component';
 import { AsignarAsigCarreraComponent } from '../asignar-asig-carrera/asignar-asig-carrera.component';
 import { ABMUsuarioComponent } from '../abmusuario/abmusuario.component';
 import { ModificarUsuarioComponent } from '../modificar-usuario/modificar-usuario.component';
@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'ingAsignatura', component:IngrAsignaturaComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'crearUsr', component:CrearUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'grafo', component: GrafoComponent, canActivate: [ AuthorizatedGuard ]},
-  {path: 'seleccionarCarrera', component: ElegirCarreraComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'setingsAsignatura', component: ElegirCarreraComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'setingsUser', component: ABMUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'asignarAsigCarrera', component: AsignarAsigCarreraComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'modificarUsr', component: ModificarUsuarioComponent, canActivate: [ AuthorizatedGuard ]},

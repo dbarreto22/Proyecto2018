@@ -36,6 +36,7 @@ import { carrera } from '../modelos/carrera.model';
   <button kendoButton [toggleable]="true"  (click)="crearCarrera()">Crear Carrera</button>
   <button kendoButton [toggleable]="true"  (click)="modificarCarrera()">Modificar Carrera</button>
   <button kendoButton [toggleable]="true"  (click)="eliminarCarrera()">Eliminar Carrera</button>
+  <button kendoButton [toggleable]="true"  (click)="carreraAsignatura()">Asignar Asignatura-Carrera</button>
 </kendo-buttongroup>
 </div>
 </div>
@@ -61,6 +62,7 @@ export class ABMCarreraComponent implements OnInit {
   public carrera : carrera;
   public carreras : Array<carrera>;
   public codigo;
+  public nombreCarrera;
 
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
     private storageService: StorageService, private router: Router) {
@@ -106,12 +108,19 @@ cancelar(){
 change(e){
   this.carrera =   this.carreras[e.index];
   this.codigo =  this.carrera.codigo;
+  this.nombreCarrera = this.carrera.nombre;
   console.log(this.codigo);
 }
 
 public modificarCarrera(){
   localStorage.setItem('codigoABM', this.codigo);
   this.router.navigate(['/modificarCarrera']);
+}
+
+public carreraAsignatura(){
+  localStorage.setItem('codigoABM', this.codigo);
+  localStorage.setItem('nombreABM', this.nombreCarrera);
+  this.router.navigate(['/asignarAsigCarrera']);
 }
 
 public confirmarEliminarCarrera(){

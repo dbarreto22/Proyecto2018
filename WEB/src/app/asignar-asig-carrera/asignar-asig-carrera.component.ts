@@ -54,8 +54,8 @@ public asignaturas : Array<asignatura>;
 
   ngOnInit() {
     
-    this.nombreCarrera= localStorage.getItem('nombreCarreraSelecionada');
-    this.codigoCarrera= localStorage.getItem('codigoCarreraSelecionada');
+    this.nombreCarrera= localStorage.getItem('nombreABM');
+    this.codigoCarrera= localStorage.getItem('codigoABM');
     this.getAsignaturas();
   }
 
@@ -75,14 +75,14 @@ public asignaturas : Array<asignatura>;
 
 
   cancelar(){
-    this.router.navigate(['/']);
+    this.router.navigate(['/setingsCarrera']);
     }
 
   asignarACarrera(){
     this.apiService.asignarAsigCarrera( this.codigoAsignatura, this.codigoCarrera).subscribe(
-      data=>{this.router.navigate(['/seleccionarCarrera']);},err=>{
+      data=>{this.router.navigate(['/setingsCarrera']);},err=>{
       alert(err);
-      this.router.navigate(['/seleccionarCarrera']);
+      this.router.navigate(['/setingsCarrera']);
     });
   }
 

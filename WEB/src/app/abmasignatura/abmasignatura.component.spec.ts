@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ElegirCarreraComponent } from './elegir-carrera.component';
+import { ElegirCarreraComponent } from './abmasignatura.component';
 
 describe('ElegirCarreraComponent', () => {
   let component: ElegirCarreraComponent;

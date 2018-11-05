@@ -53,6 +53,7 @@ import { ModificarUsuarioComponent } from './modificar-usuario/modificar-usuario
 import { AsociarRolComponent } from './asociar-rol/asociar-rol.component';
 import { ABMCarreraComponent } from './abmcarrera/abmcarrera.component';
 import { ModificarCarreraComponent } from './modificar-carrera/modificar-carrera.component';
+import { ModificarAsignaturaComponent } from './modificar-asignatura/modificar-asignatura.component';
 
 
 
@@ -93,7 +94,8 @@ export function tokenGetter() {
     ModificarUsuarioComponent,
     AsociarRolComponent,
     ABMCarreraComponent,
-    ModificarCarreraComponent 
+    ModificarCarreraComponent,
+    ModificarAsignaturaComponent 
   ],
   imports: [
     BrowserModule,FormsModule,

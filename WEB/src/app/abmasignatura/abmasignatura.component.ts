@@ -38,14 +38,24 @@ import {
   </kendo-grid>
 
 
-<div class="row">
-<div class="col-sm-16 example-col">
-  <kendo-buttongroup  [selection]="'single'" [width]="'100%'" >
-      <button kendoButton [toggleable]="true"  (click)="accionConCarreraSeleccionada()">Aceptar</button>
-      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+  <div class="row">
+  <div class="col-sm-12 example-col">
+  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+    <button kendoButton [toggleable]="true"  (click)="crearAsignatura()">Crear Asignatura</button>
+    <button kendoButton [toggleable]="true"  (click)="modificarAsignatura()">Modificar Asignatura</button>
+    <button kendoButton [toggleable]="true"  (click)="eliminarAsignatura()">Eliminar Asignatura</button>
   </kendo-buttongroup>
-</div>
-</div>`,
+  </div>
+  </div>
+  
+  <div class="example-wrapper">
+  <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
+        <p style="margin: 30px; text-align: center;">Desea eliminar la Carrera seleccionada?</p>
+        <kendo-dialog-actions>
+            <button kendoButton (click)="confirmarEliminarCarrera()" primary="true">Confirmar</button>
+            <button kendoButton (click)="action()" >No</button>  
+        </kendo-dialog-actions>
+    </kendo-dialog>`,
 
   styleUrls: ['./elegir-carrera.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService]
@@ -63,6 +73,7 @@ export class ElegirCarreraComponent implements OnInit {
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
   public mySelection: any[];
+  public dialogOpened = false;
 
 
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
@@ -100,9 +111,21 @@ export class ElegirCarreraComponent implements OnInit {
     
 }
 
-  cancelar(){
-      this.router.navigate(['/']);
-      }
+public action() {
+  this.dialogOpened = false;
+}
+
+
+public crearAsignatura(){
+  this.router.navigate(['/ingAsignatura']);
+
+}
+
+public eliminarCarrera(){
+this.dialogOpened = true;
+}
+
+
 
   change(e){
       this.carrera =   this.carreras[e.index];
@@ -111,13 +134,23 @@ export class ElegirCarreraComponent implements OnInit {
       console.log(this.codigo);
     }
 
-public accionConCarreraSeleccionada(){
-
-  localStorage.setItem('codigoCarreraSelecionada', this.codigo);
-  localStorage.setItem('nombreCarreraSelecionada', this.nombreCarrera);
-  this.router.navigate(['/asignarAsigCarrera']);
-
-  }
+    public modificarCarrera(){
+      localStorage.setItem('codigoAsignaturaABM', this.codigo);
+      this.router.navigate(['/modificarCarrera']);
+    }
+    
+    public confirmarEliminarCarrera(){
+    
+      this.apiService.deleteCarrera(this.carrera).subscribe(
+        data=>{this.router.navigate(['/setingsCarrera']);
+        alert('Carrera eliminada correctamente.')
+      },err=>{
+        alert(err);
+        this.router.navigate(['/setingsCarrera']);
+    });
+    this.dialogOpened = false;
+    }
+    
 
 
 }

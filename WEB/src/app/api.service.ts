@@ -23,9 +23,11 @@ const httpOptions = {
 const params = new HttpParams()
   .set('cedula', '1111111');
 
-  const paramsCarrera = new HttpParams()
+const paramsCarrera = new HttpParams()
   .set('codigo', localStorage.getItem('codigoABM'));
 
+const paramsAsignatura = new HttpParams()
+  .set('codigo', localStorage.getItem('codigoAsignaturaABM'));
 
 
 let paramsCalificaciones = new HttpParams();
@@ -100,6 +102,10 @@ getUsuario(cedula){
 
 getCarrera(){
   return this.httpClient.get(`${this.API_URL}/director/carrera/`,{params :paramsCarrera})
+}
+
+getAsignatura(){
+  return this.httpClient.get(`${this.API_URL}/director/asignatura/`,{params :paramsAsignatura})
 }
 
 
