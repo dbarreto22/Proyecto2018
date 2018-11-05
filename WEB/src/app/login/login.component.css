@@ -5,3 +5,12 @@ mat-card {
     background: gainsboro;
     box-shadow: 1px;
   }
+  .title{
+    
+    align-content: left;
+    padding-left: 2%;
+    border-width: 1px;
+    border-color: black;
+    margin-top: 3%;
+    
+  }

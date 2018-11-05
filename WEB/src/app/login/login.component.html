@@ -1,7 +1,13 @@
-<div class="aligner" style="margin-top: 10%;">
+
+<div id="title" >
+  <img src='../../assets/Logo MiUdelar3.jpg'width="10%" height= "10%px">
+  MiUdelar
+</div>
+<div class="aligner" style="margin-top: 2%;">
   <mat-card class="aligner-center-item">
     <mat-card-title>
       Bienvenido...
+      <p style="color:red">{{errorMsg}}</p>
     </mat-card-title>
     <mat-card-content>
       <form id="login-form" #lForm="ngForm" [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
