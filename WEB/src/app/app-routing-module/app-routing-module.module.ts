@@ -48,7 +48,7 @@ const routes: Routes = [
   {path: 'modificarAsignatura', component: ModificarAsignaturaComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'calificacionesCurso', component: CalificacionesCursoComponent, canActivate: [ AuthorizatedGuard ]},
   { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: '**', redirectTo: '/'}
+  { path: '**', redirectTo: '/'},
   { path: '', redirectTo: '/', pathMatch: 'full' },*/
   { path: '', component: HomeLayoutComponent, canActivate:[AuthorizatedGuard],
        children:[{path:'',component:HomeComponentComponent}]},

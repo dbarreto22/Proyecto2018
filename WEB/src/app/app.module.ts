@@ -45,11 +45,7 @@ import { IngrAsignaturaComponent } from './ingr-asignatura/ingr-asignatura.compo
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { EliminarUsuarioComponent } from './eliminar-usuario/eliminar-usuario.component';
-<<<<<<< HEAD
-import { ElegirCarreraComponent } from './abmasignatura/abmasignatura.component';
-=======
 import { abmAsignaturaComponent } from './abmasignatura/abmasignatura.component';
->>>>>>> 5154ecbe8e9165db606c567b386ec81bf51f314c
 import { AsignarAsigCarreraComponent } from './asignar-asig-carrera/asignar-asig-carrera.component';
 import { ABMUsuarioComponent } from './abmusuario/abmusuario.component';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
@@ -58,7 +54,6 @@ import { AsociarRolComponent } from './asociar-rol/asociar-rol.component';
 import { ABMCarreraComponent } from './abmcarrera/abmcarrera.component';
 import { ModificarCarreraComponent } from './modificar-carrera/modificar-carrera.component';
 import { ModificarAsignaturaComponent } from './modificar-asignatura/modificar-asignatura.component';
-<<<<<<< HEAD
 import { CalificacionesCursoComponent } from './calificaciones-curso/calificaciones-curso.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -68,11 +63,9 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 
 
 
-=======
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { LoginLayoutComponent } from './login/loginLayout';
 import { HomeComponentComponent } from './home-component/home-component.component';
->>>>>>> 5154ecbe8e9165db606c567b386ec81bf51f314c
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -108,13 +101,7 @@ export function tokenGetter() {
     ABMCarreraComponent,
     ModificarCarreraComponent,
     ModificarAsignaturaComponent,
-<<<<<<< HEAD
     CalificacionesCursoComponent 
-=======
-    HomeLayoutComponent,
-    LoginLayoutComponent,
-    HomeComponentComponent  
->>>>>>> 5154ecbe8e9165db606c567b386ec81bf51f314c
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, GridModule ,FormsModule,
