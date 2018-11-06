@@ -57,10 +57,10 @@ import {
         </kendo-dialog-actions>
     </kendo-dialog>`,
 
-  styleUrls: ['./elegir-carrera.component.css'],
+  styleUrls: ['./abmasignatura.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService]
 })
-export class ElegirCarreraComponent implements OnInit {
+export class abmAsignaturaComponent implements OnInit {
 
   public codigo;
   public nombreCarrera;

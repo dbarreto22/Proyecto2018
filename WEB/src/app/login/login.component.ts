@@ -88,8 +88,8 @@ private correctLogin(){
       rolesArray[rolesArray.length-1].id:rolesArray[rolesArray.length-2].id;
       localStorage.setItem('rolElegido',rol);
       this.storageService.setRolElegido(localStorage.getItem('rolElegido'));
-      this.router.navigate(['/inscCursos',rol]);}
-     // console.log(localStorage.getItem('rolElegido')+' Despues del login');
+      this.router.navigate(['']);}
+      //console.log(localStorage.getItem('rolElegido')+' Despues del login');
     },err => {
       console.log('Error al obtener usuario codigo: '+ err.message);
       if(err.status==403 || err.status==401){

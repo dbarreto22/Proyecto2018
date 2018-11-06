@@ -45,7 +45,7 @@ import { IngrAsignaturaComponent } from './ingr-asignatura/ingr-asignatura.compo
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { EliminarUsuarioComponent } from './eliminar-usuario/eliminar-usuario.component';
-import { ElegirCarreraComponent } from './elegir-carrera/elegir-carrera.component';
+import { abmAsignaturaComponent } from './abmasignatura/abmasignatura.component';
 import { AsignarAsigCarreraComponent } from './asignar-asig-carrera/asignar-asig-carrera.component';
 import { ABMUsuarioComponent } from './abmusuario/abmusuario.component';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
@@ -54,13 +54,9 @@ import { AsociarRolComponent } from './asociar-rol/asociar-rol.component';
 import { ABMCarreraComponent } from './abmcarrera/abmcarrera.component';
 import { ModificarCarreraComponent } from './modificar-carrera/modificar-carrera.component';
 import { ModificarAsignaturaComponent } from './modificar-asignatura/modificar-asignatura.component';
-
-
-
-
-
-
-
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { LoginLayoutComponent } from './login/loginLayout';
+import { HomeComponentComponent } from './home-component/home-component.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -88,14 +84,17 @@ export function tokenGetter() {
     IngrAsignaturaComponent,
     CrearUsuarioComponent,
     EliminarUsuarioComponent,
-    ElegirCarreraComponent,
+    abmAsignaturaComponent,
     AsignarAsigCarreraComponent,
     ABMUsuarioComponent,
     ModificarUsuarioComponent,
     AsociarRolComponent,
     ABMCarreraComponent,
     ModificarCarreraComponent,
-    ModificarAsignaturaComponent 
+    ModificarAsignaturaComponent,
+    HomeLayoutComponent,
+    LoginLayoutComponent,
+    HomeComponentComponent  
   ],
   imports: [
     BrowserModule,FormsModule,
