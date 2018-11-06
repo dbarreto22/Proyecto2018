@@ -1,5 +1,5 @@
     <!-- Static navbar -->
-    <nav class="navbar navbar-inverse" SideClass="navbar navbar-light blue-grey lighten-5" >
+    <nav class="navbar navbar-inverse" SideClass="navbar navbar-light blue-grey lighten-5" *ngIf="rolElegido==2">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -14,6 +14,7 @@
             <ul class="nav navbar-nav">
               <li routerLinkActive="active"><a [routerLink]="['/setingsUsr']"> Configuración de Usuarios</a></li>              
               <li routerLinkActive="active"><a [routerLink]="['/']"> Generar Listados</a></li>
+              <li ><a (click)="logOut()"> logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->

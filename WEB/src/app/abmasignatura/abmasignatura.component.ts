@@ -61,7 +61,7 @@ import { asignatura } from '../modelos/asignatura.model';
   styleUrls: ['./abmasignatura.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService]
 })
-export class ElegirCarreraComponent implements OnInit {
+export class abmAsignaturaComponent implements OnInit {
 
   public codigo;
   public nombreAsignatura;
