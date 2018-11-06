@@ -42,9 +42,25 @@ const routes: Routes = [
   {path: 'asignarRol', component: AsociarRolComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'setingsCarrera', component: ABMUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'modificarCarrera', component: ModificarCarreraComponent, canActivate: [ AuthorizatedGuard ]},
-  { path: '', redirectTo: '/', pathMatch: 'full' },*/
+ // { path: '', redirectTo: '/', pathMatch: 'full' },*/
   { path: '', component: HomeLayoutComponent, canActivate:[AuthorizatedGuard],
-       children:[{path:'',component:HomeComponentComponent}]},
+       children:[
+      {path: 'grid', component:GridComponent},
+      {path: 'tabla', component:TablaComponent},
+      {path: 'inscCarrera', component:InscCarreraComponent},
+      {path: 'inscExamen', component:InscExamenComponent},
+      {path: 'calificaciones', component:CalificacionesComponent},
+      {path: 'ingCarrera', component:IngrCarrerasComponent},
+      {path: 'ingAsignatura', component:IngrAsignaturaComponent},
+      {path: 'crearUsr', component:CrearUsuarioComponent},
+      {path: 'grafo', component: GrafoComponent},
+      {path: 'setingsAsignatura', component: abmAsignaturaComponent},
+      {path: 'setingsUser', component: ABMUsuarioComponent},
+      {path: 'asignarAsigCarrera', component: AsignarAsigCarreraComponent},
+      {path: 'modificarUsr', component: ModificarUsuarioComponent},
+      {path: 'asignarRol', component: AsociarRolComponent},
+      {path: 'setingsCarrera', component: ABMUsuarioComponent},
+      {path: 'modificarCarrera', component: ModificarCarreraComponent}]},
   { path: '', component: LoginLayoutComponent,
        children:[{path:'login',component:LoginComponent}]},
   { path: '**', redirectTo: 'login'}
