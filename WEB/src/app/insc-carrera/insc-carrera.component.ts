@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
     <div class="example-config">
     Inscripción a Carrera
     </div>
+    <div>
     <kendo-grid     
         [kendoGridBinding]="carreras" 
         [pageSize]="10"
@@ -28,6 +29,7 @@ import { Router } from '@angular/router';
         [sortable]="true"
         [filterable]="true"
         [groupable]="true"
+        [resizable]="true"
         [selectable]="selectableSettings" 
         (selectionChange) = "change($event)"
         [height]="500"
@@ -37,7 +39,9 @@ import { Router } from '@angular/router';
     <kendo-grid-column field="nombre" title="Nombre">
         </kendo-grid-column>
     <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-        </kendo-grid>
+</kendo-grid>
+
+</div>
 
 <div class="row">
 <div class="col-sm-12 example-col">
@@ -51,6 +55,14 @@ import { Router } from '@angular/router';
     styleUrls: ['./insc-carrera.component.css'],
     providers: [ApiService,NgbPaginationConfig, StorageService],
     })
+    /* <div class="row">
+<div class="col-sm-12 example-col">
+  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+      <button kendoButton [toggleable]="true"  color ="$accent" (click)="inscCarrerra()">Aceptar</button>
+      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+  </kendo-buttongroup>
+</div>
+</div>*/
     
     @Directive({
         selector: '[carreras]'
@@ -116,9 +128,9 @@ import { Router } from '@angular/router';
             this.cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;
             console.log(JSON.parse(localStorage.getItem('session')).usr.cedula);
             this.apiService.inscripcionCarrera( this.cedula, this.codigo).subscribe(
-                data=>{this.router.navigate(['/inscCarrera']);},err=>{
+                data=>{this.router.navigate(['/']);},err=>{
                 alert(err);
-                this.router.navigate(['/inscCarrera']);
+                this.router.navigate(['/']);
             });
         }
 

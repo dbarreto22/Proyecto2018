@@ -30,7 +30,7 @@ import { StorageService } from '../storage.service';
 Seleccione Rol a Asignar
 </div>
 
-<div class="col-lg-8 col-sm-10 form-group">
+<div class="col-lg-12 col-sm-4 form-group">
     <div class="input-group">
         <kendo-combobox
           [data]="rolMostrar"

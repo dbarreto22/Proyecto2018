@@ -16,7 +16,7 @@ import { carrera } from '../modelos/carrera.model';
 
 <kendo-grid     
     [kendoGridBinding]="carreras" 
-    [pageSize]="5"
+    [pageSize]="10"
     [pageable]="true"
     [sortable]="true"
     [filterable]="true"
@@ -29,6 +29,8 @@ import { carrera } from '../modelos/carrera.model';
     </kendo-grid-column>
 <kendo-grid-column field="nombre" title="Nombre">
     </kendo-grid-column>
+    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
+  </kendo-grid>
 
 <div class="row">
 <div class="col-sm-12 example-col">
@@ -70,6 +72,7 @@ export class ABMCarreraComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.getCarreras();
   }
   public setSelectableSettings(): void {
     this.selectableSettings = {
@@ -127,7 +130,7 @@ public confirmarEliminarCarrera(){
 
   this.apiService.deleteCarrera(this.carrera).subscribe(
     data=>{this.router.navigate(['/setingsCarrera']);},err=>{
-    alert(err);
+    alert("No se pudo eliminar");
     this.router.navigate(['/setingsCarrera']);
 });
 this.dialogOpened = false;

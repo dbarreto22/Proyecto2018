@@ -54,6 +54,15 @@ import { AsociarRolComponent } from './asociar-rol/asociar-rol.component';
 import { ABMCarreraComponent } from './abmcarrera/abmcarrera.component';
 import { ModificarCarreraComponent } from './modificar-carrera/modificar-carrera.component';
 import { ModificarAsignaturaComponent } from './modificar-asignatura/modificar-asignatura.component';
+import { CalificacionesCursoComponent } from './calificaciones-curso/calificaciones-curso.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FlexLayoutModule } from "@angular/flex-layout";
+
+
+
+
+
+
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { LoginLayoutComponent } from './login/loginLayout';
 import { HomeComponentComponent } from './home-component/home-component.component';
@@ -92,12 +101,10 @@ export function tokenGetter() {
     ABMCarreraComponent,
     ModificarCarreraComponent,
     ModificarAsignaturaComponent,
-    HomeLayoutComponent,
-    LoginLayoutComponent,
-    HomeComponentComponent  
+    CalificacionesCursoComponent 
   ],
   imports: [
-    BrowserModule,FormsModule,
+    BrowserModule, BrowserAnimationsModule, GridModule ,FormsModule,
     MatButtonModule, MatCheckboxModule, 
     LayoutModule, MatToolbarModule, 
     MatSidenavModule, MatIconModule, 
@@ -109,8 +116,7 @@ export function tokenGetter() {
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule,NgxPaginationModule,
     RouterModule,NgbModule,StorageServiceModule,
-    RouterModule,NgbModule,InputsModule,
-    BrowserModule, BrowserAnimationsModule,GridModule,
+    RouterModule,NgbModule,InputsModule,FlexLayoutModule,
     JwtModule.forRoot({
       config: { 
         tokenGetter: tokenGetter,
@@ -124,7 +130,7 @@ export function tokenGetter() {
     HttpClientJsonpModule,
     DialogsModule,
     
-    //MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     ApiService,AuthenticationService,

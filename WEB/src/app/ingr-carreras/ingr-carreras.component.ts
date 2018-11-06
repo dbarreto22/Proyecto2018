@@ -92,9 +92,9 @@ export class IngrCarrerasComponent implements  OnInit {
 
       console.log(this.DtCarrera);
       this.apiService.ingresarCarrera(this.DtCarrera).subscribe(
-        data=>{this.router.navigate(['/ingCarrera']);},err=>{
+        data=>{this.router.navigate(['/setingsCarrera']);},err=>{
         alert(err);
-        this.router.navigate(['/ingCarrera']);
+        this.router.navigate(['/setingsCarrera']);
     });
     }
 

@@ -61,7 +61,7 @@ public asignaturas : Array<asignatura>;
 
 
   public  getAsignaturas(){
-    this.apiService.getAsignaturaByCarrera().subscribe((data:  Array<asignatura>) => {
+    this.apiService.getAsignaturaByCarrera(this.codigoCarrera).subscribe((data:  Array<asignatura>) => {
         this.asignaturas  =  data;
     });
    
@@ -81,7 +81,7 @@ public asignaturas : Array<asignatura>;
   asignarACarrera(){
     this.apiService.asignarAsigCarrera( this.codigoAsignatura, this.codigoCarrera).subscribe(
       data=>{this.router.navigate(['/setingsCarrera']);},err=>{
-      alert(err);
+      alert("No se pudo asignar");
       this.router.navigate(['/setingsCarrera']);
     });
   }

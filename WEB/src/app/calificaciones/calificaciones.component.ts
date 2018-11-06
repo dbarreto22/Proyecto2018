@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { carrera } from '../modelos/carrera.model';
+import { calificacion } from '../modelos/calificacion.model';
 import { cursos } from '../modelos/cursos.model';
 import { Curso } from '../cursos/Curso';
 import { SelectableSettings } from '@progress/kendo-angular-grid';
@@ -16,66 +17,44 @@ import {
 } from '@progress/kendo-angular-grid';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../modelos/user.model';
 
 @Component({
   selector: 'app-calificaciones',
   template:` 
   <div class="example-config">
-  Consulta de Calificaciones
+ Consulta Calificaciones
   </div>
-  
-  <div class="col-lg-4 col-sm-10 form-group">
-    <div class="input-group">
-        <kendo-combobox
-          [data]="carreras"
-          [textField]="'nombre'"
-          [(ngModel)]="codigo"
-          
-          [placeholder]="'Seleccione Carrera'">    
-        >
-        </kendo-combobox>
+
+  <div class="container-fluid example-wrapper">
+  <div class="row">
+      <div class="col-xs-12 col-sm-4 example-col">
+          <p>Carrera:</p>
+          <kendo-combobox
+              [data]="carreras"
+              [placeholder]="'Seleccione Carrera...'"
+              [value]="carreraSeleccinada"
+              [textField]="'nombre'"
+              [valueField]="'codigo'"
+              (valueChange)="carreraChange($event)"
+          >
+          </kendo-combobox>
+      </div>
+      <div class="col-xs-12 col-sm-4 example-col">
+          <p>Cursos:</p>
+          <kendo-combobox
+              [disabled]="isDisabledCurso"
+              [placeholder]="'Seleccione Curso...'"
+              [data]="cursosUser"
+              [value]="cursoSeleccionado"
+              [textField]="'nombre'"
+              [valueField]="'codigo'"
+              (valueChange)="cursoChange($event)"
+          >
+          </kendo-combobox>
+      </div>
     </div>
   </div>
-
-
-  <div class="example-config">
-  Seleccione Curso
-  </div>
-
-
-<kendo-grid     
-    [kendoGridBinding]="cursosCarreraSelect" 
-    [pageSize]="5"
-    [pageable]="true"
-    [sortable]="true"
-    [filterable]="true"
-    [groupable]="true"
-    [selectable]="selectableSettings" 
-    (selectionChange) = "changeGrid($event)"
-    [height]="500"
-    >
-    <kendo-grid-column field="codigoAsignatura" title="Codigo" width="80" [filterable]="false">
-    </kendo-grid-column>
-    <kendo-grid-column field="nombreAsignatura" title="Nombre">
-    </kendo-grid-column>
-<kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-</kendo-grid>
-
-
-<kendo-grid     
-    [kendoGridBinding]="calificaciones" 
-    [pageSize]="5"
-    [pageable]="true"
-    [sortable]="true"
-    [filterable]="true"
-    [groupable]="true"
-    [selectable]="selectableSettings" 
-    [height]="500"
-    >
-    <kendo-grid-column field="codigoAsignatura" title="Calificaciones" width="80" [filterable]="false">
-    </kendo-grid-column>
-    
-</kendo-grid>
 
 
 `,
@@ -83,13 +62,23 @@ import { HttpClient } from '@angular/common/http';
   providers: [ApiService,NgbPaginationConfig, StorageService]
 })
 export class CalificacionesComponent implements OnInit {
+
   public codigoCarrera;
   public carrera ;
   public cedula;
   public carreras:  Array<carrera> = [];
-  public carreraSelecionada ;
   public  cursos:  Array<cursos> = [];
+  public  cursosUser:  Array<cursos> = [];
+  public carreraSeleccionada;
+  public cursoSeleccionado;
+  public calificacionCurso;
+  public isDisabledCurso : boolean = true;
+  public isDisabledCalificaciones : boolean = true;
+  
   public  calificaciones:  Array<object> = [];
+  public calificacionesUsr : Array<calificacion>;
+  public calificacion :calificacion;
+
   public idAsigCarrera;
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
@@ -101,9 +90,11 @@ export class CalificacionesComponent implements OnInit {
 
   ngOnInit() {
     this.carreras;
-    this.getCarreras();
-    this.getCursos();
-    this.getCalificaciones();
+    this.getusuarioCarrera();
+    this.getusuarioCursos();
+    this.getAllusuarioCalificaciones()
+   // this.getCursos();
+   // this.getCalificaciones();
   }
   public setSelectableSettings(): void {
     this.selectableSettings = {
@@ -112,13 +103,76 @@ export class CalificacionesComponent implements OnInit {
     };
 }
 
+getusuarioCarrera(){
+  this.apiService.getUsuario(JSON.parse(localStorage.getItem('session')).usr.cedula).subscribe((data :User)=> {
+    this.carreras = data.carrerasUsuario;
+  })
+}
+
+getusuarioCursos(){
+  this.apiService.getUsuario(JSON.parse(localStorage.getItem('session')).usr.cedula).subscribe((data :User)=> {
+    this.cursos = data.cursosUsuario;
+  })
+}
+
+getAllusuarioCalificaciones(){
+  this.apiService.getUsuario(JSON.parse(localStorage.getItem('session')).usr.cedula).subscribe((data :Array<object>)=> {
+    this.calificaciones = data;
+  })
+}
+
+
+
+
+getCursosExamenes(){
+  this.cursos.forEach(element => {
+    if (element.asignatura_Carrera.carrera.codigo == this.carreraSeleccionada){
+      this.cursosUser.push(element);
+    }
+  });
+}
+
+public dataResultCursos: Array<cursos>;
+
+carreraChange(value) {
+
+  this.carreraSeleccionada = value;
+  this.cursoSeleccionado = undefined;
+  this.calificacionCurso = undefined;
+
+  if(value == undefined){
+    this.isDisabledCurso = true;
+    this.dataResultCursos = [];
+  }
+  else{
+    this.isDisabledCurso = false;
+    this.dataResultCursos = this.cursos.filter((c) => c.asignatura_Carrera.carrera.codigo === value.codigo )
+  }
+
+  this.isDisabledCalificaciones= true;
+}
+
+cursoChange(value) {
+  this.cursoSeleccionado = value;
+  this.calificacionCurso = undefined;
+
+  if(value == undefined){
+    this.isDisabledCurso = true;
+    
+  } else {
+    //this.isDisabledcalificaciones = false;
+   // this.calificacionCurso = this.calificaciones.filter((s) => s.. === value.productId )
+  }
+}
+
+/*
 public  getCarreras(){
     this.apiService.getAllCarrera().subscribe((data:  Array<carrera>) => {
         this.carreras  =  data;
         console.log(this.carreras);
     });
-}
-
+}*/
+/*
 public  getCursos(){
   this.apiService.getAllCursos().subscribe((data:  Array<cursos>) => {
       this.cursos  =  data;
@@ -131,7 +185,7 @@ public  getCalificaciones(){
       this.calificaciones  =  data;
       console.log(this.calificaciones);
   });
-}
+}*/
 
 
 /*
@@ -143,14 +197,22 @@ nombreCarrera : Array<String> = [];
       this.nombreCarrera.push(nombre);
     });
     console.log(this.nombreCarrera);
-  }*/
+  }
 
 
   public ChangeCarrera(value:string) {
-    this.carreraSelecionada = value;
+  //  this.carreraSelecionada = value;
     console.log(this.carreraSelecionada);
     localStorage.setItem('carreraSelecionada', this.carreraSelecionada);
+}*/
+
+selecionarCurso(){
+  this.router.navigate(['/calificacionesCurso']);
 }
+
+cancelar(){
+  this.router.navigate(['/']);
+  }
 
 
 /*
@@ -163,40 +225,16 @@ nombreCarrera : Array<String> = [];
 
 }*/
 
-public cursosGrid = new Array<Curso>();
-public getCursosGrid(){
-      var curso= new Curso();
-      console.log(this.cursos);
-      this.cursos.forEach(element => {
-        console.log(JSON.stringify(element.asignatura_Carrera.asignatura.codigo));
-        curso.codigoAsignatura = element.asignatura_Carrera.asignatura.codigo ; 
-        curso.codigoCarrera= element.asignatura_Carrera.carrera.codigo;
-        curso.idCurso= element.id;
-        curso.idAsigCarrera = element.asignatura_Carrera.id;
-        curso.nombreAsignatura= element.asignatura_Carrera.asignatura.nombre;
-        curso.nombreCarrera=element.asignatura_Carrera.carrera.nombre;
-        this.cursosGrid.push(curso);
-      });
 
-      console.log(this.cursosGrid);
- }
 
- public cursosCarreraSelect = new Array<Curso>();
- getCursosCarreraSelect(){
-    this.cursosGrid.forEach(element => {
-      if(element.codigoCarrera == this.carreraSelecionada){
-        this.cursosCarreraSelect.push(element);
-      }
-      
-    });
- }
-
+ 
+/*
  changeGrid(e){
   this.idAsigCarrera  = this.cursosGrid[e.index].idAsigCarrera;
   localStorage.setItem('idAsigCarrera', this.idAsigCarrera)
   console.log(this.idAsigCarrera);
  }
-/*
+
  public  getCalificaciones(){
   this.apiService.getCalificaciones().subscribe((data:  Array<Object>) => {
       this.calificaciones  =  data;

@@ -16,8 +16,7 @@ import { asignatura } from './modelos/asignatura.model';
 import { usuario } from './modelos/usuario.model';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
-   })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json; text/plain' })
 
 };
 const params = new HttpParams()
@@ -63,13 +62,17 @@ getAllCarrera(){
     return  this.httpClient.get(`${this.API_URL}/director/carrera`);
 }
 
+getAllAsignatura(){
+  return  this.httpClient.get(`${this.API_URL}/director/asignatura`);
+}
+
 getAllUser(){
   return  this.httpClient.get(`${this.API_URL}/admin/usuario`);
 }
  
-getAsignaturaByCarrera(){
+getAsignaturaByCarrera(idCarrera){
 
-  let data = {idCarrera: localStorage.getItem('codigoCarreraSelecionada')};
+  let data = {idCarrera: idCarrera};
  
   return  this.httpClient.get(`${this.API_URL}/director/asignatura/carrera`,{params: data});
 }

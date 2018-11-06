@@ -7,6 +7,8 @@ export class User {
     public password: string,
     public calificacionesExamenes: Array<any>,
     public calificacionesCursos: Array<any>,
+    public carrerasUsuario: Array<any>,
+    public cursosUsuario: Array<any>,
     public roles: Array<any>
 ){}
 }

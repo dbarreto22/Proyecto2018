@@ -12,6 +12,7 @@ import {
     PageChangeEvent,
     RowArgs, SelectableSettings, SelectableMode
 } from '@progress/kendo-angular-grid';
+import { asignatura } from '../modelos/asignatura.model';
 
 @Component({
   selector: 'app-elegir-carrera',
@@ -20,8 +21,8 @@ import {
   Selecciones Carrera para Ingresar Asignatura
   </div>
   <kendo-grid     
-  [kendoGridBinding]="carreras" 
-  [pageSize]="5"
+  [kendoGridBinding]="asignaturas" 
+  [pageSize]="10"
   [pageable]="true"
   [sortable]="true"
   [filterable]="true"
@@ -52,7 +53,7 @@ import {
   <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
         <p style="margin: 30px; text-align: center;">Desea eliminar la Carrera seleccionada?</p>
         <kendo-dialog-actions>
-            <button kendoButton (click)="confirmarEliminarCarrera()" primary="true">Confirmar</button>
+            <button kendoButton (click)="confirmarEliminarAsignatura()" primary="true">Confirmar</button>
             <button kendoButton (click)="action()" >No</button>  
         </kendo-dialog-actions>
     </kendo-dialog>`,
@@ -63,10 +64,10 @@ import {
 export class abmAsignaturaComponent implements OnInit {
 
   public codigo;
-  public nombreCarrera;
-  public carrera;
+  public nombreAsignatura;
+  public asignatura :asignatura;
   public cedula;
-  public carreras:  Array<object> = [];
+  public asignaturas:  Array<asignatura>;
   public checked = false;
   public filter: CompositeFilterDescriptor;
   selectedValue: any[];
@@ -79,14 +80,12 @@ export class abmAsignaturaComponent implements OnInit {
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
       private storageService: StorageService, private router: Router) {
           this.setSelectableSettings();
-          this.carreras;
-          this.getCarreras();  
-          
+
       }
      
   ngOnInit() {
-      this.getCarreras(); 
-      this.carreras;
+      this.getAsignaturas(); 
+      this.asignaturas;
         
     } 
   
@@ -103,16 +102,20 @@ export class abmAsignaturaComponent implements OnInit {
   };
     
        
-  public  getCarreras(){
-    this.apiService.getAllCarrera().subscribe((data:  Array<object>) => {
-        this.carreras  =  data;
-        console.log(this.carreras);
+  public  getAsignaturas(){
+    this.apiService.getAllAsignatura().subscribe((data:  Array<asignatura>) => {
+        this.asignaturas  =  data;
+        console.log(this.asignaturas);
     });
     
 }
 
 public action() {
   this.dialogOpened = false;
+}
+
+eliminarAsignatura(){
+  this.dialogOpened = true;
 }
 
 
@@ -128,25 +131,25 @@ this.dialogOpened = true;
 
 
   change(e){
-      this.carrera =   this.carreras[e.index];
-      this.codigo =  this.carrera.codigo;
-      this.nombreCarrera = this.carrera.nombre;
+      this.asignatura =   this.asignaturas[e.index];
+      this.codigo =  this.asignatura.codigo;
+      this.nombreAsignatura = this.asignatura.nombre;
       console.log(this.codigo);
     }
 
-    public modificarCarrera(){
+    public modificarAsignatura(){
       localStorage.setItem('codigoAsignaturaABM', this.codigo);
-      this.router.navigate(['/modificarCarrera']);
+      this.router.navigate(['/modificarAsignatura']);
     }
     
-    public confirmarEliminarCarrera(){
+    public confirmarEliminarAsignatura(){
     
-      this.apiService.deleteCarrera(this.carrera).subscribe(
-        data=>{this.router.navigate(['/setingsCarrera']);
-        alert('Carrera eliminada correctamente.')
+      this.apiService.deleteCarrera(this.asignatura).subscribe(
+        data=>{this.router.navigate(['/setingsAsignatura']);
+        alert('Asignatura eliminada correctamente.')
       },err=>{
         alert(err);
-        this.router.navigate(['/setingsCarrera']);
+        this.router.navigate(['/setingsAsignatura']);
     });
     this.dialogOpened = false;
     }
