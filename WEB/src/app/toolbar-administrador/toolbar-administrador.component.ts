@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-toolbar-administrador',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar-administrador.component.css']
 })
 export class ToolbarAdministradorComponent implements OnInit {
-
-  constructor() { }
+  rolElegido:number;
+  constructor(private authentication:AuthenticationService) { }
 
   ngOnInit() {
+      this.rolElegido=Number(localStorage.getItem('rolElegido'));
+  }
+  
+  logOut(){
+    console.log('click en logout');
+    this.authentication.logout();
+
   }
 
 }

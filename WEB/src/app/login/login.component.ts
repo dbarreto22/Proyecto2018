@@ -86,6 +86,11 @@ private correctLogin(){
       //  console.log('Entro a roles ');
       rol=rolesArray[rolesArray.length-1]!=3?
       rolesArray[rolesArray.length-1].id:rolesArray[rolesArray.length-2].id;
+      if(!rol){
+        alert('Este usuario no puede acceder a la web, consulte con el administrador.');
+        localStorage.removeItem('session');
+        this.router.navigate(['login']);
+      }
       localStorage.setItem('rolElegido',rol);
       this.storageService.setRolElegido(localStorage.getItem('rolElegido'));
       this.router.navigate(['']);}
