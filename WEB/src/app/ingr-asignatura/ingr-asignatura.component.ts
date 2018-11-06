@@ -84,9 +84,9 @@ export class IngrAsignaturaComponent implements OnInit {
       this.DtAsignatura.nombre = this.nombreAsigantura;
 
       this.apiService.ingresarAsignatura(this.DtAsignatura).subscribe(
-        data=>{this.router.navigate(['/ingAsignatura']);},err=>{
+        data=>{this.router.navigate(['/setingsAsignatura']);},err=>{
         alert(err);
-        this.router.navigate(['/ingAsignatura']);
+        this.router.navigate(['/setingsAsignatura']);
     });
     }
 }

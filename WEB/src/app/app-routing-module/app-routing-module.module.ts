@@ -18,6 +18,9 @@ import { ABMUsuarioComponent } from '../abmusuario/abmusuario.component';
 import { ModificarUsuarioComponent } from '../modificar-usuario/modificar-usuario.component';
 import { AsociarRolComponent } from '../asociar-rol/asociar-rol.component';
 import { ModificarCarreraComponent } from '../modificar-carrera/modificar-carrera.component';
+import { ABMCarreraComponent } from '../abmcarrera/abmcarrera.component';
+import { ModificarAsignaturaComponent } from '../modificar-asignatura/modificar-asignatura.component';
+import { CalificacionesCursoComponent } from '../calificaciones-curso/calificaciones-curso.component';
 
 
 const routes: Routes = [
@@ -37,8 +40,10 @@ const routes: Routes = [
   {path: 'asignarAsigCarrera', component: AsignarAsigCarreraComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'modificarUsr', component: ModificarUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'asignarRol', component: AsociarRolComponent, canActivate: [ AuthorizatedGuard ]},
-  {path: 'setingsCarrera', component: ABMUsuarioComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'setingsCarrera', component: ABMCarreraComponent, canActivate: [ AuthorizatedGuard ]},
   {path: 'modificarCarrera', component: ModificarCarreraComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'modificarAsignatura', component: ModificarAsignaturaComponent, canActivate: [ AuthorizatedGuard ]},
+  {path: 'calificacionesCurso', component: CalificacionesCursoComponent, canActivate: [ AuthorizatedGuard ]},
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '**', redirectTo: '/'}
 ];

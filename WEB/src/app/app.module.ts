@@ -45,7 +45,7 @@ import { IngrAsignaturaComponent } from './ingr-asignatura/ingr-asignatura.compo
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { EliminarUsuarioComponent } from './eliminar-usuario/eliminar-usuario.component';
-import { ElegirCarreraComponent } from './elegir-carrera/elegir-carrera.component';
+import { ElegirCarreraComponent } from './abmasignatura/abmasignatura.component';
 import { AsignarAsigCarreraComponent } from './asignar-asig-carrera/asignar-asig-carrera.component';
 import { ABMUsuarioComponent } from './abmusuario/abmusuario.component';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
@@ -54,7 +54,9 @@ import { AsociarRolComponent } from './asociar-rol/asociar-rol.component';
 import { ABMCarreraComponent } from './abmcarrera/abmcarrera.component';
 import { ModificarCarreraComponent } from './modificar-carrera/modificar-carrera.component';
 import { ModificarAsignaturaComponent } from './modificar-asignatura/modificar-asignatura.component';
-
+import { CalificacionesCursoComponent } from './calificaciones-curso/calificaciones-curso.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 
 
@@ -95,10 +97,11 @@ export function tokenGetter() {
     AsociarRolComponent,
     ABMCarreraComponent,
     ModificarCarreraComponent,
-    ModificarAsignaturaComponent 
+    ModificarAsignaturaComponent,
+    CalificacionesCursoComponent 
   ],
   imports: [
-    BrowserModule,FormsModule,
+    BrowserModule, BrowserAnimationsModule, GridModule ,FormsModule,
     MatButtonModule, MatCheckboxModule, 
     LayoutModule, MatToolbarModule, 
     MatSidenavModule, MatIconModule, 
@@ -110,8 +113,7 @@ export function tokenGetter() {
     MatSortModule,AgGridModule.withComponents([]),
     AppRoutingModuleModule,NgxPaginationModule,
     RouterModule,NgbModule,StorageServiceModule,
-    RouterModule,NgbModule,InputsModule,
-    BrowserModule, BrowserAnimationsModule,GridModule,
+    RouterModule,NgbModule,InputsModule,FlexLayoutModule,
     JwtModule.forRoot({
       config: { 
         tokenGetter: tokenGetter,
@@ -125,7 +127,7 @@ export function tokenGetter() {
     HttpClientJsonpModule,
     DialogsModule,
     
-    //MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     ApiService,AuthenticationService,

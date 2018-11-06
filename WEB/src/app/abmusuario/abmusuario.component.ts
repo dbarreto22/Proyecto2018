@@ -18,7 +18,7 @@ import { usuario } from '../modelos/usuario.model';
   
   <kendo-grid     
       [kendoGridBinding]="usuarios" 
-      [pageSize]="5"
+      [pageSize]="10"
       [pageable]="true"
       [sortable]="true"
       [filterable]="true"
