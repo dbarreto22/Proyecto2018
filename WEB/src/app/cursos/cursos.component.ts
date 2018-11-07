@@ -21,11 +21,12 @@ import { Router } from '@angular/router';
 
   <kendo-grid     
   [kendoGridBinding]="cursosGrid" 
-  [pageSize]="5"
+  [pageSize]="10"
   [pageable]="true"
   [sortable]="true"
   [filterable]="true"
   [groupable]="true"
+  [resizable]="true"
   [selectable]="selectableSettings" 
   (selectionChange) = "change($event)"
   [height]="500"
@@ -136,8 +137,11 @@ public getCursosGrid(){
    public inscCursos(){
     this.cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;
      this.apiService.inscripcionCurso(this.cedula, this.idCurso).subscribe(
-      data=>{this.router.navigate(['/inscCursos']);},err=>{
-        alert(err);
+      data=>{this.router.navigate(['/inscCursos']);
+      alert("Inscripción realizada correctamente");
+    },
+      err=>{
+        alert("No se ha podido inscribir");
         this.router.navigate(['/inscCursos']);}
      );
    }

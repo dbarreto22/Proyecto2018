@@ -16,10 +16,10 @@ import { StorageService } from '../storage.service';
 
     
 <div class="example-config">
-    <h4>{{usuario.cedula}}  {{usuario.nombre}}  {{usuario.apellido}}</h4>
+    <h4>Cedula : {{usuario.cedula}}  Nombre: {{usuario.nombre}}  {{usuario.apellido}}</h4>
 </div>
 
-<kendo-grid *ngIf="show" [data]="rolUsuario" [height]="370" style="width: 500px;">
+<kendo-grid *ngIf="show" [data]="rolUsuario" [height]="370" style="width: 500px; ">
             <kendo-grid-column field="id" title="ID" width="40" [locked]="true">
             </kendo-grid-column>
             <kendo-grid-column field="tipo" title="Tipo" width="250" [locked]="true">
@@ -90,6 +90,7 @@ export class AsociarRolComponent implements OnInit {
       this.getUsuario();
       this.usuario;
       this.getAllRolUsuario();
+      this.getRolUsuario();
   }
 
 
@@ -128,6 +129,7 @@ setShow(){
 public ChangeRol(value:string) {
   this.rolSelected = value;
 }
+
 cancelar(){
   this.router.navigate(['/setingsUser']);
   }
@@ -137,10 +139,10 @@ asociarRol(){
   this.apiService.asignarRol(this.cedula,this.rolSelected).subscribe(
     data=>{this.router.navigate(['/setingsUser']);
     alert("Se asigno Correctamente el Rol");
-  },err=>{
-    alert(err);
-    this.router.navigate(['/setingsUser']);
-});
+    },err=>{
+      alert("No se ha podido asignar Rol");
+      this.router.navigate(['/setingsUser']);
+  });
 
 }
 

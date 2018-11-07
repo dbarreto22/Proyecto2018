@@ -23,6 +23,7 @@ import { usuario } from '../modelos/usuario.model';
       [sortable]="true"
       [filterable]="true"
       [groupable]="true"
+      [resizable]="true"
       [selectable]="selectableSettings" 
       (selectionChange) = "change($event)"
       [height]="500"
@@ -124,8 +125,10 @@ public eliminarUsuario(){
 public confirmarEliminarUsr(){
 
   this.apiService.deleteUser(this.usuario).subscribe(
-    data=>{this.router.navigate(['/setingsUser']);},err=>{
-    alert(err);
+    data=>{this.router.navigate(['/setingsUser']);
+    alert("Se Elimino Correctamente")
+},err=>{
+    alert("No se ha podido eliminar");
     this.router.navigate(['/setingsUser']);
 });
 this.dialogOpened = false;
