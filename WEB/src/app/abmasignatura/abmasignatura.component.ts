@@ -148,7 +148,7 @@ this.dialogOpened = true;
         data=>{this.router.navigate(['/setingsAsignatura']);
         alert('Asignatura eliminada correctamente.')
       },err=>{
-        alert(err);
+        alert("No se pudo eliminar " + err.message+ err.status);
         this.router.navigate(['/setingsAsignatura']);
     });
     this.dialogOpened = false;

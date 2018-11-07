@@ -128,7 +128,7 @@ public confirmarEliminarUsr(){
     data=>{this.router.navigate(['/setingsUser']);
     alert("Se Elimino Correctamente")
 },err=>{
-    alert("No se ha podido eliminar");
+    alert("No se pudo eliminar " + err.message+ err.status);
     this.router.navigate(['/setingsUser']);
 });
 this.dialogOpened = false;

@@ -36,7 +36,7 @@ import { Router } from '@angular/router';
   <kendo-grid-column field="codigoAsignatura" title="Codigo Curso" width="130" [filterable]="false"></kendo-grid-column>
   <kendo-grid-column field="nombreAsignatura" title="Curso"></kendo-grid-column>
   <kendo-grid-checkbox-column ></kendo-grid-checkbox-column></kendo-grid>
-
+  </kendo-grid>
 
 <div class="row">
 <div class="col-sm-12 example-col">
@@ -141,7 +141,7 @@ public getCursosGrid(){
       alert("Inscripción realizada correctamente");
     },
       err=>{
-        alert("No se ha podido inscribir");
+        alert("No se pudo inscribir " + err.message+ err.status);
         this.router.navigate(['/inscCursos']);}
      );
    }

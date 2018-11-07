@@ -128,12 +128,12 @@ public carreraAsignatura(){
 }
 
 public confirmarEliminarCarrera(){
-
+  console.log(this.carrera.codigo);
   this.apiService.deleteCarrera(this.carrera.codigo).subscribe(
     data=>{this.router.navigate(['/setingsCarrera']);
     alert("Eliminado Correctamente");
   },err=>{
-    alert("No se pudo eliminar");
+    alert("No se pudo eliminar " + err.message+ err.status);
     this.router.navigate(['/setingsCarrera']);
 });
 this.dialogOpened = false;

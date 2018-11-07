@@ -16,7 +16,7 @@ import { asignatura } from './modelos/asignatura.model';
 import { usuario } from './modelos/usuario.model';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json; text/plain' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 
 };
 const params = new HttpParams()
@@ -103,8 +103,8 @@ getUsuario(cedula){
   return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
 }
 
-getCarrera(){
-  return this.httpClient.get(`${this.API_URL}/director/carrera/`,{params :paramsCarrera})
+getCarrera(codigo){
+  return this.httpClient.get(`${this.API_URL}/director/carrera/`+codigo)
 }
 
 getAsignatura(){
@@ -193,18 +193,18 @@ inscripcionCurso(cedula,idCurso){
   }
 
   deleteUser(usuario :usuario){
-    return  this.httpClient.post(`${this.API_URL}/admim/usuario.delete`,usuario);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario.delete`,usuario);
   }
 
   modificarUser(usuario :usuario){
-    return  this.httpClient.post(`${this.API_URL}/admim/usuario.edit`,usuario);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario.edit`,usuario);
   }
 
   deleteCarrera(codigo){
     var a: any = {};
     a.codigo = codigo;
       let json = JSON.stringify(a);
-
+    console.log(json);
     return  this.httpClient.post(`${this.API_URL}/director/carrera.delete`,json, httpOptions);
   }
 
