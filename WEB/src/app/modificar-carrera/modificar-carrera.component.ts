@@ -57,7 +57,7 @@ export class ModificarCarreraComponent implements OnInit {
 
   getCarrera(){
     console.log(this.codigo);
-    this.apiService.getCarrera().subscribe((data: carrera)=> {
+    this.apiService.getCarrera(this.codigo).subscribe((data: carrera)=> {
       this.carrera  =  data;
       console.log(this.carrera);
   });

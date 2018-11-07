@@ -87,8 +87,10 @@ modificarUsuario(cedula:string, nombre:string , apellido:string, mail:string){
   this.usuario.email= mail;
 
   this.apiService.modificarUser(this.usuario).subscribe(
-    data=>{this.router.navigate(['/setingsUser']);},err=>{
-    alert(err);
+    data=>{this.router.navigate(['/setingsUser']);
+    alert("No se ha modificado correctamente");
+},err=>{
+        alert("No se ha podido realizar la modificar"  + err.message+ err.status);
     this.router.navigate(['/setingsUser']);
 });
 }

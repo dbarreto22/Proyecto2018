@@ -137,7 +137,7 @@ export class InscExamenComponent implements OnInit {
              data=>{this.router.navigate(['/']);
              alert("Inscripción Realizada correctamente");
             },err=>{
-               alert("No se ha podido realizar la Inscripción");
+               alert("No se ha podido realizar la Inscripción"  + err.message+ err.status);
                this.router.navigate(['/']);}
             );
           }

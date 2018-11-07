@@ -128,8 +128,10 @@ import { Router } from '@angular/router';
             this.cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;
             console.log(JSON.parse(localStorage.getItem('session')).usr.cedula);
             this.apiService.inscripcionCarrera( this.cedula, this.codigo).subscribe(
-                data=>{this.router.navigate(['/']);},err=>{
-                alert(err);
+                data=>{this.router.navigate(['/']);
+                alert("Se inscribio correctamente" );
+            },err=>{
+                    alert("No se pudo inscribir " + err.message+ err.status);
                 this.router.navigate(['/']);
             });
         }

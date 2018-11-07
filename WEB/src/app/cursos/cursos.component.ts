@@ -141,7 +141,7 @@ public getCursosGrid(){
       alert("Inscripción realizada correctamente");
     },
       err=>{
-        alert("No se ha podido inscribir");
+        alert("No se pudo inscribir " + err.message+ err.status);
         this.router.navigate(['/inscCursos']);}
      );
    }
