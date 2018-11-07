@@ -68,8 +68,7 @@ const routes: Routes = [
       {path: 'modificarCarrera', component: ModificarCarreraComponent},
       {path: 'modificarAsignatura', component: ModificarAsignaturaComponent},
       {path: 'calificacionesCurso', component: CalificacionesCursoComponent},
-      {path: 'inscCursos', component: CursosComponent},
-      {path: 'inscCursos', component: ABMCarreraComponent},
+      {path: 'inscCursos', component: CursosComponent}
       
     ]},
   { path: '', component: LoginLayoutComponent,
