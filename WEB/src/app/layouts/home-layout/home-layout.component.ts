@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 <div>
     <label>Roles: </label>
     <select (change)="selectRol($event.target.value)">
-        <option value="0">{{rolElegido}}</option>
+        <option value="0">{{rolElegido.tipo}}</option>
         <option *ngFor="let rol of roles" value={{rol.id}}>
         {{rol.tipo}}
         </option>

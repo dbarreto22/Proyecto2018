@@ -69,7 +69,6 @@ const routes: Routes = [
       {path: 'modificarAsignatura', component: ModificarAsignaturaComponent},
       {path: 'calificacionesCurso', component: CalificacionesCursoComponent},
       {path: 'inscCursos', component: CursosComponent}
-      
     ]},
   { path: '', component: LoginLayoutComponent,
        children:[{path:'login',component:LoginComponent}]},
