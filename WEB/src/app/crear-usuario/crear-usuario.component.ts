@@ -92,7 +92,7 @@ export class CrearUsuarioComponent implements OnInit {
     this.router.navigate(['/setingsUser']);
     }
 
-crearUsuario(){
+    crearUsuario(){
 
     console.log(this.apellido);
     this.DtUsuario.cedula = this.cedula;
@@ -101,10 +101,12 @@ crearUsuario(){
     this.DtUsuario.email= this.mail;
     this.DtUsuario.password = this.pass;
     this.apiService.ingresarUsuario(this.DtUsuario).subscribe(
-        data=>{this.router.navigate(['/setingsUser']);},err=>{
-        alert("No se ha podido crear Usuario");
-        this.router.navigate(['/setingsUser']);
-    });
-}
+        data=>{this.router.navigate(['/setingsUser']);
+            alert("Se creo Usuario correctamente");
+        },err=>{
+            alert("No se ha podido crear Usuario");
+            this.router.navigate(['/setingsUser']);
+        });
+    }
 
 }

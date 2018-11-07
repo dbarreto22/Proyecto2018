@@ -80,13 +80,13 @@ getAsignaturaByCarrera(idCarrera){
 */
 
 getAllCursos(){
-  return  this.httpClient.get(`${this.API_URL}/estudiante/curso`,{params});
+  return  this.httpClient.get(`${this.API_URL}/estudiante/curso`,{params : params});
 }
 
 
 
 getAllExamen(){ 
-  return  this.httpClient.get(`${this.API_URL}/estudiante/examen`,{params});
+  return  this.httpClient.get(`${this.API_URL}/estudiante/examen`,{params : params});
 }
  
 getAllCalificaciones(){ 
@@ -200,30 +200,24 @@ inscripcionCurso(cedula,idCurso){
     return  this.httpClient.post(`${this.API_URL}/admim/usuario.edit`,usuario);
   }
 
-  deleteCarrera(carrera :carrera){
-    return  this.httpClient.post(`${this.API_URL}/director/carrera.delete`,carrera);
+  deleteCarrera(codigo){
+    var a: any = {};
+    a.codigo = codigo;
+      let json = JSON.stringify(a);
+
+    return  this.httpClient.post(`${this.API_URL}/director/carrera.delete`,json, httpOptions);
   }
 
   modificarCarrera(carrera :carrera){
     return  this.httpClient.post(`${this.API_URL}/director/carrera.edit`,carrera);
   }
 
-
-  
-
- 
-
   asignarRol(cedula,idRol){
-
     var a: any = {};
-
     a.cedula = cedula;
     a.idRol = idRol;
-    
-      let json = JSON.stringify(a);
-
+    let json = JSON.stringify(a);
     return  this.httpClient.post(`${this.API_URL}/admim/usuario.addRol`, json, httpOptions);
-
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 

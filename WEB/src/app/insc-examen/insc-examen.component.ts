@@ -28,6 +28,7 @@ import { Examen } from '../modelos/examen.model';
   [sortable]="true"
   [filterable]="true"
   [groupable]="true"
+  [resizable]="true"
   [selectable]="selectableSettings" 
   [height]="500"
   >
@@ -70,8 +71,6 @@ export class InscExamenComponent implements OnInit {
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
     private storageService: StorageService, private router: Router) {
         this.setSelectableSettings();
-        this.examenes;
-        this.getExamenes();
      }
 
   ngOnInit() {
@@ -135,9 +134,11 @@ export class InscExamenComponent implements OnInit {
         public inscExamen(){
             this.cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;
             this.apiService.inscripcionCurso(this.cedula, this.idExamen).subscribe(
-             data=>{this.router.navigate(['/inscExamen']);},err=>{
-               alert(err);
-               this.router.navigate(['/inscExamen']);}
+             data=>{this.router.navigate(['/']);
+             alert("Inscripción Realizada correctamente");
+            },err=>{
+               alert("No se ha podido realizar la Inscripción");
+               this.router.navigate(['/']);}
             );
           }
         

@@ -47,7 +47,10 @@
       
             <!-- The following menu items will be hidden on both SM and XS screen sizes -->
       
-            <a [routerLink]="['/inscCarrera']"> Inscripcion Carrera</a>
+            <a [routerLink]="['/inscCarrera']"> 
+              <mat-icon>inscripcionCarrera</mat-icon>
+              Inscripcion Carrera
+            </a>
       
             <a [routerLink]="['/inscCursos']" > Inscripcion a Asignatura</a>
       
@@ -61,9 +64,10 @@
       
           <div fxShow="true" fxHide.gt-sm="true">
       
-            <a href="#" (click)="sidenav.toggle()">Menu</a>
+            <a (click)="sidenav.toggle()">Menu</a>
       
           </div>
+          
           <div class="dropdown">
             <button class="dropbtn">Dropdown
               <i class="fa fa-caret-down"></i>
@@ -74,6 +78,7 @@
               <a href="#">Link 3</a>
             </div>
           </div>
+
         </mat-toolbar>
       
         <mat-sidenav-container fxFlexFill class="example-container">

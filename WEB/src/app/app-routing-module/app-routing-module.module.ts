@@ -64,7 +64,7 @@ const routes: Routes = [
       {path: 'asignarAsigCarrera', component: AsignarAsigCarreraComponent},
       {path: 'modificarUsr', component: ModificarUsuarioComponent},
       {path: 'asignarRol', component: AsociarRolComponent},
-      {path: 'setingsCarrera', component: ABMUsuarioComponent},
+      {path: 'setingsCarrera', component: ABMCarreraComponent},
       {path: 'modificarCarrera', component: ModificarCarreraComponent},
       {path: 'modificarAsignatura', component: ModificarAsignaturaComponent},
       {path: 'calificacionesCurso', component: CalificacionesCursoComponent}

@@ -20,6 +20,7 @@ import { asignatura } from '../modelos/asignatura.model';
   [sortable]="true"
   [filterable]="true"
   [groupable]="true"
+  [resizable]="true"
   [selectable]="selectableSettings" 
   (selectionChange) = "change($event)"
   [height]="500"
@@ -80,7 +81,9 @@ public asignaturas : Array<asignatura>;
 
   asignarACarrera(){
     this.apiService.asignarAsigCarrera( this.codigoAsignatura, this.codigoCarrera).subscribe(
-      data=>{this.router.navigate(['/setingsCarrera']);},err=>{
+      data=>{this.router.navigate(['/setingsCarrera']);
+      alert("Asignado Correctamente");
+    },err=>{
       alert("No se pudo asignar");
       this.router.navigate(['/setingsCarrera']);
     });

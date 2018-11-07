@@ -21,6 +21,7 @@ import { carrera } from '../modelos/carrera.model';
     [sortable]="true"
     [filterable]="true"
     [groupable]="true"
+    [resizable]="true"
     [selectable]="selectableSettings" 
     (selectionChange) = "change($event)"
     [height]="500"
@@ -128,8 +129,10 @@ public carreraAsignatura(){
 
 public confirmarEliminarCarrera(){
 
-  this.apiService.deleteCarrera(this.carrera).subscribe(
-    data=>{this.router.navigate(['/setingsCarrera']);},err=>{
+  this.apiService.deleteCarrera(this.carrera.codigo).subscribe(
+    data=>{this.router.navigate(['/setingsCarrera']);
+    alert("Eliminado Correctamente");
+  },err=>{
     alert("No se pudo eliminar");
     this.router.navigate(['/setingsCarrera']);
 });
