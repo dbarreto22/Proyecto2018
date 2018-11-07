@@ -56,13 +56,14 @@
 
       <a [routerLink]="['grafo']"> Consultar Previas</a>
 
-    </div>
-
     <div fxShow="true" fxHide.gt-sm="true">
 
       <a href="#" (click)="sidenav.toggle()">Menu</a>
 
     </div>
+
+    
+  </div>
 
   </mat-toolbar>
 
@@ -76,7 +77,7 @@
 
         <a [routerLink]="['/inscCarrera']"> Inscripcion Carrera</a>
 
-        <a [routerLink]="['/inscCursos']"> Inscripcion a Asignatura</a>
+        <a [routerLink]="['inscCursos']"> Inscripcion a Asignatura</a>
 
         <a [routerLink]="['/inscExamen']"> Inscripcion Examen</a>
 
@@ -90,4 +91,4 @@
 
   </mat-sidenav-container>
 
-  </div>
+</div>

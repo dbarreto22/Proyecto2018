@@ -60,6 +60,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { LoginLayoutComponent } from './login/loginLayout';
 import { HomeComponentComponent } from './home-component/home-component.component';
+import { ErrorComponent } from './error.component';
+
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -97,7 +99,8 @@ export function tokenGetter() {
     CalificacionesCursoComponent,
     LoginLayoutComponent,
     HomeLayoutComponent,
-    HomeComponentComponent
+    HomeComponentComponent,
+    ErrorComponent
      
   ],
   imports: [

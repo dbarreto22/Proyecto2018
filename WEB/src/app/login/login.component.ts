@@ -84,7 +84,7 @@ private correctLogin(){
       console.log('roles '+JSON.stringify(rolesArray));
       if(rolesArray!=null){
       //  console.log('Entro a roles ');
-      rol=rolesArray[rolesArray.length-1]!=3?
+      rol=rolesArray[rolesArray.length-1].id!='3'?
       rolesArray[rolesArray.length-1].id:rolesArray[rolesArray.length-2].id;
       if(!rol){
         alert('Este usuario no puede acceder a la web, consulte con el administrador.');
