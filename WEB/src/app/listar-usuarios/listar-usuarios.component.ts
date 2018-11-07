@@ -12,7 +12,7 @@ import { State } from '@progress/kendo-data-query';
   selector: 'app-listar-usuarios',
   template: `
   <div class="example-config">
-    Alta Baja y Modificación de Usuarios
+    Listar Usuarios
   </div>
   
   <kendo-grid     
@@ -36,6 +36,19 @@ import { State } from '@progress/kendo-data-query';
   <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
       </kendo-grid>
 
+  <div class="example-wrapper">
+      <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
+              <p style="margin: 30px; text-align: center;">Datos de usuario</p>
+              <p style="margin: 30px; text-align: center;"></p>
+              <p style="margin: 30px; text-align: center;">{{usuario.nombre}}</p>
+              <p style="margin: 30px; text-align: center;">{{usuario.apellido}}</p>
+              <p style="margin: 30px; text-align: center;">{{usuario.email}}</p>
+              <kendo-dialog-actions>
+                  
+                  <button kendoButton (click)="action()" >Aceptar</button>  
+              </kendo-dialog-actions>
+  </kendo-dialog>
+
 
 
 `,
@@ -53,7 +66,7 @@ export class ListarUsuariosComponent implements OnInit {
 constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
   private storageService: StorageService, private router: Router) {
       this.setSelectableSettings();
-
+    
       
   }
 
@@ -86,6 +99,7 @@ change(e){
   this.usuario =   this.usuarios[e.index];
   this.cedulaSelect =  this.usuario.cedula;
   console.log(this.cedulaSelect);
+   this.dialogOpened = true;
 }
 
 
@@ -94,11 +108,8 @@ public MostrarUsuario(){
   this.router.navigate(['/modificarUsr']);
 }
 
-
-
-
-
-
-
+public action() {
+  this.dialogOpened = false;
+}
 
 }
