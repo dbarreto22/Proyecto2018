@@ -34,7 +34,7 @@ export class ForceDirectedGraph {
     link.style("stroke-width",15);
     this.simulation.stop();
     this.links.push(link);
-    this.simulation.alphaTarget(0.3).restart();
+    this.simulation.alphaTarget(0.2).restart();
 
     this.initLinks();
   }
