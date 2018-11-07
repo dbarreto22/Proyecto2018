@@ -57,12 +57,6 @@ import { ModificarAsignaturaComponent } from './modificar-asignatura/modificar-a
 import { CalificacionesCursoComponent } from './calificaciones-curso/calificaciones-curso.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FlexLayoutModule } from "@angular/flex-layout";
-
-
-
-
-
-
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { LoginLayoutComponent } from './login/loginLayout';
 import { HomeComponentComponent } from './home-component/home-component.component';
@@ -101,7 +95,11 @@ export function tokenGetter() {
     ABMCarreraComponent,
     ModificarCarreraComponent,
     ModificarAsignaturaComponent,
-    CalificacionesCursoComponent 
+    CalificacionesCursoComponent,
+    LoginLayoutComponent,
+    HomeLayoutComponent,
+    HomeComponentComponent
+     
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, GridModule ,FormsModule,

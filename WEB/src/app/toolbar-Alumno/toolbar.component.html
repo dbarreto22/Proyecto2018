@@ -35,7 +35,7 @@
       </nav>
        -->
 
-       <div style="height: 100vh;" >
+       <div style="height: 100vh;" *ngIf="rolElegido==4">
 
         <mat-toolbar color="primary">
       
@@ -64,7 +64,16 @@
             <a href="#" (click)="sidenav.toggle()">Menu</a>
       
           </div>
-      
+          <div class="dropdown">
+            <button class="dropbtn">Dropdown
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+            </div>
+          </div>
         </mat-toolbar>
       
         <mat-sidenav-container fxFlexFill class="example-container">
