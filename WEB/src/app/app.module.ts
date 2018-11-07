@@ -60,7 +60,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { LoginLayoutComponent } from './login/loginLayout';
 import { HomeComponentComponent } from './home-component/home-component.component';
-
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
