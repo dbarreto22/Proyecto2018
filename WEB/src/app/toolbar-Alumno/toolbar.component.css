@@ -61,7 +61,7 @@ table {
 
 /* Add a red background color to navbar links on hover */
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
+  background-color: cornflowerblue;
 }
 
 /* Dropdown content (hidden by default) */
@@ -85,11 +85,11 @@ table {
 }
 
 /* Add a grey background color to dropdown links on hover */
-.dropdown-content a:hover {
+.dropdown-content a:ng-mouseenter {
   background-color: #ddd;
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+.dropdown:ng-mouseenter .dropdown-content {
   display: block;
 } 

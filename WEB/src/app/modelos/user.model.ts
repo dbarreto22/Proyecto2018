@@ -1,3 +1,5 @@
+import { Rol }from './rol.model';
+
 export class User {
     constructor(
     public cedula: string,
@@ -9,7 +11,7 @@ export class User {
     public calificacionesCursos: Array<any>,
     public carrerasUsuario: Array<any>,
     public cursosUsuario: Array<any>,
-    public roles: Array<any>
+    public roles: Array<Rol>
 ){}
 }
 
