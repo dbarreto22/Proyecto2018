@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-layout',
   template: `
-  <app-toolbar-administrador >loading...</app-toolbar-administrador>
-  <app-toolbar-director>loading...</app-toolbar-director>
-  <app-toolbar>loading...</app-toolbar>
+  <app-toolbar-administrador rolElegido>loading...</app-toolbar-administrador>
+  <app-toolbar-director rolElegido>loading...</app-toolbar-director>
+  <app-toolbar rolElegido>loading...</app-toolbar>
   
 <div>
     <label>Roles: </label>
     <select (change)="selectRol($event.target.value)">
-        <option value="0">{{rolElegido.tipo}}</option>
+        <option value="0">{{rolElegido}}</option>
         <option *ngFor="let rol of roles" value={{rol.id}}>
         {{rol.tipo}}
         </option>
@@ -28,8 +28,8 @@ import { Router } from '@angular/router';
   styles: []
 })
 export class HomeLayoutComponent implements OnInit {
-  private roles: Array<Rol>;
-  private rolElegido:string;
+  roles: Array<Rol>;
+  rolElegido:string;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -42,6 +42,7 @@ export class HomeLayoutComponent implements OnInit {
       alert('El usuario de bedelias no tiene acceso a la web')
     localStorage.setItem('rolElegido',value);
     this.router.navigate(['']);
+
   }
 
 }

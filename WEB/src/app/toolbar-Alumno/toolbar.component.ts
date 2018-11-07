@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Sesion} from '../modelos/sesion.model';
 import { AuthenticationService } from '../authentication.service';
 
@@ -10,8 +10,9 @@ import { AuthenticationService } from '../authentication.service';
 
 
 export class ToolbarComponent implements OnInit{
-  rolElegido:number;
-  Titulo:string;    
+  @Input() rolElegido:number;
+  @Input() Titulo:string;    
+  
   constructor(private authentication:AuthenticationService) 
   {
     this.Titulo="Seleccionar Curso";
