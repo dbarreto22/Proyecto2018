@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./toolbar-director.component.css']
 })
 export class ToolbarDirectorComponent implements OnInit {
-  rolElegido:number;
+  @Input() rolElegido:number;
   Titulo:string;    
   constructor(private authentication:AuthenticationService) 
   {

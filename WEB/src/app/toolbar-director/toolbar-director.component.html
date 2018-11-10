@@ -24,7 +24,7 @@
       </nav>-->
 
 
-      <div *ngIf="rolElegido==1"                                                                                                                                   >
+      <div *ngIf="rolElegido==3"                                                                                                                                   >
 
         <mat-toolbar color="primary">
       
@@ -43,6 +43,8 @@
             <a [routerLink]="['/asignarAsigCarrera']"> Asignar Asignatura a Carrera</a>
 
             <a [routerLink]="['/']"> Definir Previas </a>
+
+            <a (click)="logOut()"> logout</a>
 
       
           </div>
@@ -68,6 +70,8 @@
             <a [routerLink]="['/asignarAsigCarrera']"> Asignar Asignatura a Carrera</a>
 
             <a [routerLink]="['/']"> Definir Previas </a>
+
+            <a (click)="logOut()"> logout</a>
 
             </div>
       

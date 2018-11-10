@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Rol } from '../../modelos/rol.model'; 
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-layout',
   template: `
-  <app-toolbar-administrador rolElegido>loading...</app-toolbar-administrador>
-  <app-toolbar-director rolElegido>loading...</app-toolbar-director>
-  <app-toolbar rolElegido>loading...</app-toolbar>
+  <app-toolbar-administrador [rolElegido]="rolElegido">loading...</app-toolbar-administrador>
+  <app-toolbar-director [rolElegido]="rolElegido">loading...</app-toolbar-director>
+  <app-toolbar [rolElegido]="rolElegido">loading...</app-toolbar>
   
 <div>
     <label>Roles: </label>
@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
 })
 export class HomeLayoutComponent implements OnInit {
   roles: Array<Rol>;
-  rolElegido:string;
+  @Input() public rolElegido:string;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -38,10 +38,12 @@ export class HomeLayoutComponent implements OnInit {
   }
 
   selectRol(value){
-    if(value=='3')
+    if(value=='2')
       alert('El usuario de bedelias no tiene acceso a la web')
     localStorage.setItem('rolElegido',value);
-    this.router.navigate(['']);
+    //this.router.navigate(['']);
+    this.rolElegido=value;
+
 
   }
 
