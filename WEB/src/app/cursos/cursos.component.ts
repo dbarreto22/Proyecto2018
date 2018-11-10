@@ -35,7 +35,7 @@ import { Router } from '@angular/router';
   <kendo-grid-column field="nombreCarrera" title="Carrera"></kendo-grid-column>
   <kendo-grid-column field="codigoAsignatura" title="Codigo Curso" width="130" [filterable]="false"></kendo-grid-column>
   <kendo-grid-column field="nombreAsignatura" title="Curso"></kendo-grid-column>
-  <kendo-grid-checkbox-column ></kendo-grid-checkbox-column></kendo-grid>
+  <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
   </kendo-grid>
 
 <div class="row">

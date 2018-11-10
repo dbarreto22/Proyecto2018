@@ -17,53 +17,11 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-insc-carrera',
-    template: `
-    <div class="example-config">
-    Inscripción a Carrera
-    </div>
-    <div>
-    <kendo-grid     
-        [kendoGridBinding]="carreras" 
-        [pageSize]="10"
-        [pageable]="true"
-        [sortable]="true"
-        [filterable]="true"
-        [groupable]="true"
-        [resizable]="true"
-        [selectable]="selectableSettings" 
-        (selectionChange) = "change($event)"
-        [height]="500"
-    >
-    <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
-        </kendo-grid-column>
-    <kendo-grid-column field="nombre" title="Nombre">
-        </kendo-grid-column>
-    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-</kendo-grid>
-
-</div>
-
-<div class="row">
-<div class="col-sm-12 example-col">
-  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-      <button kendoButton [toggleable]="true"  (click)="inscCarrerra()">Aceptar</button>
-      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-  </kendo-buttongroup>
-</div>
-</div>
-    `,
+    templateUrl: './insc-carrera.component.html',
     styleUrls: ['./insc-carrera.component.css'],
     providers: [ApiService,NgbPaginationConfig, StorageService],
     })
-    /* <div class="row">
-<div class="col-sm-12 example-col">
-  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-      <button kendoButton [toggleable]="true"  color ="$accent" (click)="inscCarrerra()">Aceptar</button>
-      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-  </kendo-buttongroup>
-</div>
-</div>*/
-    
+
     @Directive({
         selector: '[carreras]'
     })
