@@ -11,7 +11,7 @@ import { AuthenticationService } from '../authentication.service';
 
 export class ToolbarComponent implements OnInit{
   @Input() rolElegido:number;
-  @Input() Titulo:string;    
+  Titulo:string;    
   
   constructor(private authentication:AuthenticationService) 
   {

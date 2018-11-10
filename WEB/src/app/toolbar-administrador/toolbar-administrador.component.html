@@ -36,6 +36,8 @@
             <a [routerLink]="['/setingsUsr']"> Configuración de Usuarios</a>
 
             <a [routerLink]="['/listarUsuarios']"> Generar Listados de Usuarios</a>
+
+            <a (click)="logOut()"> logout</a>
       
           </div>
       
@@ -55,7 +57,7 @@
       
               <a [routerLink]="['/setingsUsr']"> Configuración de Usuarios</a>
               <a [routerLink]="['/listarUsuarios']"> Generar Listado de Usuario</a>
-
+              <a (click)="logOut()"> logout</a>
             </div>
       
           </mat-sidenav>
