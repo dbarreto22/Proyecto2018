@@ -8,35 +8,7 @@ import { carrera } from '../modelos/carrera.model';
 
 @Component({
   selector: 'app-modificar-carrera',
-  template: `
-  
-  <div class="row example-wrapper">
-    <div class="col-xs-40 col-sm-6 offset-sm-3 example-col">
-        <div class="card">
-            <div class="card-block">
-                <form class="k-form">
-                    <fieldset>
-                        <legend>Modificar Carrera</legend>
-                        <label class="k-form-field">
-                            <span>Codigo</span>
-                            <input #codigo   [(ngModel)]="carrera.codigo" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
-                        </label>
-                        <label class="k-form-field">
-                            <span>Nombre</span>
-                            <input  #nombre  [(ngModel)]="carrera.nombre" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
-                        </label>
-                    </fieldset>
-                    <div class="text-right">
-                      <button type="button" class="k-button k-primary" (click)="modificarCarrera(codigo.value, nombre.value)">
-                      Aceptar</button>
-                      <button type="button" class="k-button" (click)="cancelar()">Cancelar</button>
-                      </div>               
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-  `,
+  templateUrl: './modificar-carrera.component.html',
   styleUrls: ['./modificar-carrera.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
@@ -67,13 +39,15 @@ export class ModificarCarreraComponent implements OnInit {
     this.router.navigate(['/setingsCarrera']);
     }
 
-    modificarCarrera(codigo:string, nombre:string){
-      this.carrera.codigo = codigo;
+    modificarCarrera(nombre:string){
+    
       this.carrera.nombre = nombre;
     
       this.apiService.modificarCarrera(this.carrera).subscribe(
-        data=>{this.router.navigate(['/setingsCarrera']);},err=>{
-        alert(err);
+        data=>{this.router.navigate(['/setingsCarrera']);
+        alert("Se ha modificado correctamente");
+    },err=>{
+        alert("No se ha podido modificar " + err.message+ err.status);
         this.router.navigate(['/setingsCarrera']);
     });
     }

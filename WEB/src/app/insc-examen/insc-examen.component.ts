@@ -17,43 +17,7 @@ import { Examen } from '../modelos/examen.model';
 
 @Component({
   selector: 'app-insc-examen',
- template: `
- <div class="example-config">
-    Inscripción a Examenes
-    </div>
-  <kendo-grid     
-  [kendoGridBinding]="examenGrid" 
-  [pageSize]="5"
-  [pageable]="true"
-  [sortable]="true"
-  [filterable]="true"
-  [groupable]="true"
-  [resizable]="true"
-  [selectable]="selectableSettings" 
-  [height]="500"
-  >
-  <kendo-grid-column field="codigoCarrera" title="Codigo Carrera" width="130" [filterable]="false">
-  </kendo-grid-column>
-  <kendo-grid-column field="nombreCarrera" title="Carrera">
-  </kendo-grid-column>
-  <kendo-grid-column field="codigoAsignatura" title="Codigo Examen" width="130" [filterable]="false">
-  </kendo-grid-column>
-  <kendo-grid-column field="nombreAsignatura" title="Examen">
-  </kendo-grid-column>
-   <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-
-</kendo-grid>
-
-<div class="row">
-<div class="col-sm-12 example-col">
-  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-      <button kendoButton [toggleable]="true"  (click)="inscExamen()">Aceptar</button>
-      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-  </kendo-buttongroup>
-</div>
-</div>
-
-  `,
+  templateUrl: './insc-examen.component.html',
   styleUrls: ['./insc-examen.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })

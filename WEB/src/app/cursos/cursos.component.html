@@ -1,38 +1,40 @@
-<div class="container">
-  <div class="text-center">
-    <table id="table1" class="table table-bordered">
-    <!-- Table head -->
-     
-      <thead>
-        <tr> 
-          <th style="text-align: center">SELECCIONAR</th>       
-          <th style="text-align: center">CODIGO</th>
-          <th style="text-align: center">NOMBRE</th>
-        </tr>
-      </thead>
-    <!-- Table head -->
+<div class="jumbotron" style="background: aliceblue">
 
-    <!-- Table body -->
-    
-    <tbody style="align-content: center">
-      <tr *ngFor="let carrera of carreras">
-          <!-- Default unchecked --> 
-          <div class="custom-control custom-checkbox">
-              <input (change)="change($event, carrera.codigo)" type="checkbox" default="true">
-          </div>
-        <td> {{carrera.codigo}} </td>  
-        <td> {{carrera.nombre}} </td>    
-      </tr>
-    </tbody>
-    </table>
-    <ngb-pagination
-    class="d-flex justify-content-center"
-    (pageChange)="setPage(pager.currentPage)"
-    [collectionSize]="pager.totalItem"
-    [(page)]="pager.currentPage"
-    [maxSize]="pager.totalPages"
-    [boundaryLinks]="true">
-  </ngb-pagination>
+  <div class="example-config">
+      <p class="font-weight-normal" style="color: dodgerblue">Cursos</p>
   </div>
-  <button class="d-flex justify-content-center" (click)="inscCarrerra()" mat-flat-button color="primary">Aceptar</button>
+  
+  <kendo-grid     
+    [kendoGridBinding]="cursosGrid" 
+    [pageSize]="10"
+    [pageable]="true"
+    [sortable]="true"
+    [filterable]="true"
+    [groupable]="true"
+    [resizable]="true"
+    [selectable]="selectableSettings" 
+    (selectionChange) = "change($event)"
+    [height]="500"
+    >
+  <kendo-grid-column field="codigoCarrera" title="Codigo Carrera" width="130" [filterable]="false">
+    </kendo-grid-column>
+  <kendo-grid-column field="nombreCarrera" title="Carrera">
+    </kendo-grid-column>
+  <kendo-grid-column field="codigoAsignatura" title="Codigo Curso" width="130" [filterable]="false">
+    </kendo-grid-column>
+  <kendo-grid-column field="nombreAsignatura" title="Curso">
+    </kendo-grid-column>
+  <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
+  </kendo-grid>
+  
+  <div class="row">
+    <div class="col-sm-12 example-col">
+      <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+        <button kendoButton (click)="inscCursos()">Inscripción a curso</button>
+        <button kendoButton (click)="verPrevias()">Ver previas</button>
+        <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+        </kendo-buttongroup>
+    </div>
+  </div>
+
 </div>

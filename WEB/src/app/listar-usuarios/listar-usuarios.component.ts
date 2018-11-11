@@ -10,48 +10,7 @@ import { State } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-listar-usuarios',
-  template: `
-  <div class="example-config">
-    Listar Usuarios
-  </div>
-  
-  <kendo-grid     
-      [kendoGridBinding]="usuarios" 
-      [pageSize]="10"
-      [pageable]="true"
-      [sortable]="true"
-      [filterable]="true"
-      [groupable]="true"
-      [resizable]="true"
-      [selectable]="selectableSettings" 
-      (selectionChange) = "change($event)"
-      [height]="500"
-  >
-  <kendo-grid-column field="cedula" title="Cedula" width="80" >
-      </kendo-grid-column>
-  <kendo-grid-column field="nombre" title="Nombre">
-      </kendo-grid-column>
-  <kendo-grid-column field="apellido" title="Apellido">
-      </kendo-grid-column>
-  <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-      </kendo-grid>
-
-  <div class="example-wrapper">
-      <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
-              <p style="margin: 30px; text-align: center;">Datos de usuario</p>
-              <p style="margin: 30px; text-align: center;"></p>
-              <p style="margin: 30px; text-align: center;">{{usuario.nombre}}</p>
-              <p style="margin: 30px; text-align: center;">{{usuario.apellido}}</p>
-              <p style="margin: 30px; text-align: center;">{{usuario.email}}</p>
-              <kendo-dialog-actions>
-                  
-                  <button kendoButton (click)="action()" >Aceptar</button>  
-              </kendo-dialog-actions>
-  </kendo-dialog>
-
-
-
-`,
+  templateUrl: './listar-usuarios.component.html',
   styleUrls: ['./listar-usuarios.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })

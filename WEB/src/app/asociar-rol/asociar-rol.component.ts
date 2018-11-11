@@ -9,52 +9,7 @@ import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-asociar-rol',
-  template: `
-    <div class="example-config">
-    Inscripción a Carrera
-    </div>
-
-    
-<div class="example-config">
-    <h4>Cedula : {{usuario.cedula}}  Nombre: {{usuario.nombre}}  {{usuario.apellido}}</h4>
-</div>
-
-<kendo-grid *ngIf="show" [data]="rolUsuario" [height]="370" style="width: 500px; ">
-            <kendo-grid-column field="id" title="ID" width="40" [locked]="true">
-            </kendo-grid-column>
-            <kendo-grid-column field="tipo" title="Tipo" width="250" [locked]="true">
-            </kendo-grid-column>
-</kendo-grid>
-
-<div class="example-config">
-Seleccione Rol a Asignar
-</div>
-
-<div class="col-lg-12 col-sm-4 form-group">
-    <div class="input-group">
-        <kendo-combobox
-          [data]="rolMostrar"
-          [textField]="'tipo'"
-          [(ngModel)]="id"
-          (valueChange)="ChangeRol($event)"
-          [placeholder]="'Seleccione Rol'">    
-        >
-        </kendo-combobox>
-    </div>
-  </div>
-
-
-<div class="row">
-<div class="col-sm-12 example-col">
-  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-      <button kendoButton [toggleable]="true"  (click)="asociarRol()">Aceptar</button>
-      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-  </kendo-buttongroup>
-</div>
-</div>
-    
-    
-    `,
+  templateUrl: './asociar-rol.component.html',
   styleUrls: ['./asociar-rol.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
@@ -140,7 +95,7 @@ asociarRol(){
     data=>{this.router.navigate(['/setingsUser']);
     alert("Se asigno Correctamente el Rol");
     },err=>{
-      alert("No se ha podido asignar Rol");
+      alert("No se ha podido asignar Rol" + err.message+ err.status);
       this.router.navigate(['/setingsUser']);
   });
 

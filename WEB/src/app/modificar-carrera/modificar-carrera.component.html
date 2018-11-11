@@ -1,3 +1,30 @@
-<p>
-  modificar-carrera works!
-</p>
+<div class="jumbotron" style="background: aliceblue">  
+ 
+  <div class="row example-wrapper">
+    <div class="col-xs-40 col-sm-10 offset-sm-3 example-col">
+      <div class="card">
+        <div class="card-block">
+          <form class="k-form">
+            <fieldset>
+              <legend>Modificar Carrera</legend>
+                <label class="k-form-fieldcontrol-label" for="readOnlyInput">
+                  <span>Codigo</span>
+                  <input #codigo   value={{carrera.codigo}} class="form-control" id="readOnlyInput" type="text" readonly/>
+                </label>
+                <label class="k-form-field">
+                  <span>Nombre</span>
+                  <input  #nombre  [(ngModel)]="carrera.nombre" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                </label>
+            </fieldset>
+            <div class="text-center">
+              <button type="button" class="btn btn-primary btn-lgy" (click)="modificarCarrera(nombre.value)">
+                Aceptar</button>
+              <button type="button" class="btn btn-secondary disable btn-lg" (click)="cancelar()">Cancelar</button>
+            </div>               
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

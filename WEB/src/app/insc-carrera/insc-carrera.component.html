@@ -1,9 +1,10 @@
+
 <div class="jumbotron" style="background: aliceblue">
 
     <div class="example-config">
-     <p class="font-weight-normal" style="color: dodgerblue">Inscripción a Carrera</p>
+        <p class="font-weight-normal" style="color: dodgerblue">Inscripción a Carrera</p>
     </div>
-    <div>
+ 
     <kendo-grid     
         [kendoGridBinding]="carreras" 
         [pageSize]="10"
@@ -21,23 +22,16 @@
     <kendo-grid-column field="nombre" title="Nombre">
         </kendo-grid-column>
     <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-</kendo-grid>
+    </kendo-grid>
 
-
-</div>
-
-
-
-
-<div class="row">
-<div class="col-sm-12 example-col">
-<kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-    <button kendoButton [toggleable]="true"  (click)="inscCarrerra()">Aceptar</button>
-    <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-    
-</kendo-buttongroup>
-</div>
-</div>
+    <div class="row">
+        <div class="col-sm-12 example-col">
+            <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+                <button kendoButton [toggleable]="true"  (click)="inscCarrerra()">Aceptar</button>
+                <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+            </kendo-buttongroup>
+        </div>
+    </div>
 
 </div>
 

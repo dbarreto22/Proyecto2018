@@ -9,43 +9,7 @@ import { ABMUsuarioComponent } from '../abmusuario/abmusuario.component';
 
 @Component({
   selector: 'app-modificar-usuario',
-  template: `
-  
-  <div class="row example-wrapper">
-    <div class="col-xs-40 col-sm-6 offset-sm-3 example-col">
-        <div class="card">
-            <div class="card-block">
-                <form class="k-form">
-                    <fieldset>
-                        <legend>Modificar Usuario</legend>
-                        <label class="k-form-field">
-                            <span>Cedula</span>
-                            <input #cedula   [(ngModel)]="usuario.cedula" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
-                        </label>
-                        <label class="k-form-field">
-                            <span>Nombre</span>
-                            <input  #nombre  [(ngModel)]="usuario.nombre" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
-                        </label>
-                        <label class="k-form-field">
-                            <span>Apellido</span>
-                            <input #apellido   [(ngModel)]="usuario.apellido" [ngModelOptions]="{standalone: true}" class="k-textbox" />
-                        </label>
-                        <label class="k-form-field">
-                        <span>Email </span>
-                        <input #mail  type="email"  [(ngModel)]="usuario.email" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
-                        </label>
-                    </fieldset>
-                    <div class="text-right">
-                      <button type="button" class="k-button k-primary" (click)="modificarUsuario(cedula.value, nombre.value,apellido.value,mail.value)">
-                      Aceptar</button>
-                      <button type="button" class="k-button" (click)="cancelar()">Cancelar</button>
-                      </div>               
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-  `,
+  templateUrl: './modificar-usuario.component.html',
   styleUrls: ['./modificar-usuario.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
@@ -80,11 +44,12 @@ cancelar(){
   }
 
 
-modificarUsuario(cedula:string, nombre:string , apellido:string, mail:string){
-  this.usuario.cedula = cedula;
+modificarUsuario(nombre:string , apellido:string, mail:string, password :string){
+  
   this.usuario.nombre = nombre;
   this.usuario.apellido =apellido;
   this.usuario.email= mail;
+  this.usuario.password = password;
 
   this.apiService.modificarUser(this.usuario).subscribe(
     data=>{this.router.navigate(['/setingsUser']);

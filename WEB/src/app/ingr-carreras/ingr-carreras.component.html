@@ -1,3 +1,39 @@
-<p>
-  ingr-carreras works!
-</p>
+
+
+<div class="jumbotron" style="background: aliceblue">
+  
+  <div class="example-config">
+      <p class="font-weight-normal" style="color: dodgerblue">Crear Carrera</p>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 example-col">
+    <fieldset disabled="">
+      <label class="control-label" for="disabledInput">Codigo</label>
+      <input class="form-control" type="text" #codigo (keyup)=getCodigoIngresado(codigo.value) kendoTextBox />
+    </fieldset>
+  </div>
+
+  <hr/> 
+  <hr/>
+
+  <div class="col-xs-12 col-md-12 example-col">
+    <fieldset disabled="">
+      <label class="control-label" for="disabledInput">Nombre</label>
+      <input  #nombre (keyup)=getNombreIngresado(nombre.value) kendoTextBox />
+    </fieldset>
+  </div>
+
+  <hr/> 
+  <hr/> 
+
+<div class="row">
+<div class="col-sm-12 example-col">
+  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+      <button kendoButton [toggleable]="true"  (click)="insgCarrerra()">Aceptar</button>
+      <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+  </kendo-buttongroup>
+</div>
+</div>
+
+</div>
+
