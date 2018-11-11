@@ -33,7 +33,7 @@
 <!--     </div>/.container-fluid
       </nav>
        -->
-
+<!--
 <div *ngIf="rolElegido==4">
 
   <mat-toolbar color="primary">
@@ -42,10 +42,10 @@
 
     <span class="example-spacer"></span>
 
-    <div fxShow="true" fxHide.lt-md="true">
+    <div fxShow="true" fxHide.lt-md="true"> -->
 
       <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-
+<!--
       <a [routerLink]="['/inscCarrera']"> Inscripcion Carrera</a>
 
       <a [routerLink]="['/inscCursos']"> Inscripcion a Asignatura</a>
@@ -93,4 +93,75 @@
 
   </mat-sidenav-container>
 
+</div>-->
+<div style="height: 100vh;">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>MiUdelar</span>
+      <span class="example-spacer"></span>
+      <div fxShow="true" fxHide.lt-md="true">
+        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+        <a [routerLink]="['/inscCarrera']" mat-button> 
+          Inscripcion Carrera
+        </a>
+        <a [routerLink]="['/inscCursos']" mat-button>
+          Inscripcion a Asignatura
+        </a>
+        <a [routerLink]="['/inscExamen']" mat-button>
+          Inscripcion Examen
+        </a>
+        <a [routerLink]="['/calificaciones']" mat-button>
+          Consultar Calificacion
+        </a>
+        <a [routerLink]="['/grafo']" mat-button>
+          Consultar Previas
+        </a>
+        <a [routerLink]="['/']" mat-button>
+          <mat-icon>home</mat-icon>
+          HOME
+        </a>
+        <a href="#" mat-button>
+          <mat-icon>account_box</mat-icon>
+         Logout
+        </a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+          <a [routerLink]="['/inscCarrera']" mat-button> 
+            Inscripcion Carrera
+          </a>
+          <a [routerLink]="['/inscCursos']" mat-button>
+            Inscripcion a Asignatura
+          </a>
+          <a [routerLink]="['/inscExamen']" mat-button>
+            Inscripcion Examen
+          </a>
+          <a [routerLink]="['/calificaciones']" mat-button>
+            Consultar Calificacion
+          </a>
+          <a [routerLink]="['/grafo']" mat-button>
+            Consultar Previas
+          </a>
+          <a [routerLink]="['/']" mat-button>
+            <mat-icon>home</mat-icon>
+            HOME
+          </a>
+        <a href="#" mat-list-item>
+          <mat-icon>account_box</mat-icon>
+         Logout
+        </a>
+
+        <a (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>close</mat-icon> Cerrar
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+  </mat-sidenav-container>
 </div>

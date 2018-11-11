@@ -62,6 +62,8 @@ import { LoginLayoutComponent } from './login/loginLayout';
 import { HomeComponentComponent } from './home-component/home-component.component';
 import { ErrorComponent } from './error.component';
 import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.component';
+import { ToolbarHomeComponent } from './toolbar-home/toolbar-home.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -102,7 +104,9 @@ export function tokenGetter() {
     HomeLayoutComponent,
     HomeComponentComponent,
     ErrorComponent,
-    ListarUsuariosComponent
+    ListarUsuariosComponent,
+    ToolbarHomeComponent,
+    
      
   ],
   imports: [
