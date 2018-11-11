@@ -13,40 +13,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
+  templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.css'],
-  template: `
-  <div class="example-config">
-  Cursos
-  </div>
-
-  <kendo-grid     
-  [kendoGridBinding]="cursosGrid" 
-  [pageSize]="10"
-  [pageable]="true"
-  [sortable]="true"
-  [filterable]="true"
-  [groupable]="true"
-  [resizable]="true"
-  [selectable]="selectableSettings" 
-  (selectionChange) = "change($event)"
-  [height]="500"
-  >
-  <kendo-grid-column field="codigoCarrera" title="Codigo Carrera" width="130" [filterable]="false"></kendo-grid-column>
-  <kendo-grid-column field="nombreCarrera" title="Carrera"></kendo-grid-column>
-  <kendo-grid-column field="codigoAsignatura" title="Codigo Curso" width="130" [filterable]="false"></kendo-grid-column>
-  <kendo-grid-column field="nombreAsignatura" title="Curso"></kendo-grid-column>
-  <kendo-grid-checkbox-column ></kendo-grid-checkbox-column></kendo-grid>
-
-<div class="row">
-<div class="col-sm-12 example-col">
-  <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-    <button kendoButton (click)="inscCursos()">Inscripción a curso</button>
-    <button kendoButton (click)="verPrevias()">Ver previas</button>
-    <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-    </kendo-buttongroup>
-  </div>
-  </div>
-  `,
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
 

@@ -8,35 +8,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modificar-asignatura',
-  template: `
-  
-  <div class="row example-wrapper">
-    <div class="col-xs-40 col-sm-6 offset-sm-3 example-col">
-        <div class="card">
-            <div class="card-block">
-                <form class="k-form">
-                    <fieldset>
-                        <legend>Modificar Carrera</legend>
-                        <label class="k-form-field">
-                            <span>Codigo</span>
-                            <input #codigo   [(ngModel)]="carrera.codigo" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
-                        </label>
-                        <label class="k-form-field">
-                            <span>Nombre</span>
-                            <input  #nombre  [(ngModel)]="carrera.nombre" [ngModelOptions]="{standalone: true}" class="k-textbox"  />
-                        </label>
-                    </fieldset>
-                    <div class="text-right">
-                      <button type="button" class="k-button k-primary" (click)="modificarAsignatura(codigo.value, nombre.value)">
-                      Aceptar</button>
-                      <button type="button" class="k-button" (click)="cancelar()">Cancelar</button>
-                      </div>               
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-  `,
+  templateUrl: './modificar-asignatura.component.html',
   styleUrls: ['./modificar-asignatura.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })
@@ -66,16 +38,17 @@ export class ModificarAsignaturaComponent implements OnInit {
     this.router.navigate(['/setingsCarrera']);
     }
 
-    modificarAsignatura(codigo:string, nombre:string){
-      this.asignatura.codigo = codigo;
-      this.asignatura.nombre = nombre;
+  modificarAsignatura(nombre:string){
+    this.asignatura.nombre = nombre;
     
-      this.apiService.modificarCarrera(this.asignatura).subscribe(
-        data=>{this.router.navigate(['/setingsAsignatura']);},err=>{
-        alert(err);
-        this.router.navigate(['/setingsAsignatura']);
+    this.apiService.modificarCarrera(this.asignatura).subscribe(
+      data=>{this.router.navigate(['/setingsAsignatura']);
+      alert("Se ha modificado correctamente");
+    },err=>{
+      alert("No se ha podido modificar" + err.message+ err.status);
+      this.router.navigate(['/setingsAsignatura']);
     });
-    }
+  }
 
 
 }

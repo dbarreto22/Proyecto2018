@@ -1,3 +1,42 @@
-<p>
-  modificar-usuario works!
-</p>
+<div class="jumbotron" style="background: aliceblue">
+
+  <div class="row example-wrapper">
+    <div class="col-xs-40 col-sm-10 offset-sm-3 example-col">
+      <div class="card">
+        <div class="card-block">
+          <form class="k-form">
+            <fieldset>
+              <legend>Modificar Usuario</legend>
+                <label class="k-form-field" for="readOnlyInput">
+                  <span>Cedula</span>
+                  <input #cedula   value= {{usuario.cedula}} class="form-control" id="readOnlyInput" type="text" readonly/>
+                </label>
+                <label class="k-form-field">
+                  <span>Nombre</span>
+                  <input  #nombre  [(ngModel)]="usuario.nombre" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                </label>
+                <label class="k-form-field">
+                  <span>Apellido</span>
+                  <input #apellido   [(ngModel)]="usuario.apellido" [ngModelOptions]="{standalone: true}" class="form-control" />
+                </label>
+                <label class="k-form-field">
+                  <span>Email </span>
+                  <input #mail  type="email"  [(ngModel)]="usuario.email" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                </label>
+                <label class="k-form-field">
+                  <span>Password </span>
+                  <input #password  type="text"  [(ngModel)]="usuario.password" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                </label>
+            </fieldset>
+            <div class="text-center">
+              <button type="button" class="btn btn-primary btn-lg" (click)="modificarUsuario(nombre.value,apellido.value,mail.value, password.value)">
+                  Aceptar</button>
+              <button type="button" class="btn btn-secondary disable btn-lg" (click)="cancelar()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

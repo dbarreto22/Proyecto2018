@@ -11,55 +11,7 @@ import { usuario } from '../modelos/usuario.model';
 
 @Component({
   selector: 'app-abmusuario',
-  template: `
-  <div class="example-config">
-    Alta Baja y Modificación de Usuarios
-  </div>
-  
-  <kendo-grid     
-      [kendoGridBinding]="usuarios" 
-      [pageSize]="10"
-      [pageable]="true"
-      [sortable]="true"
-      [filterable]="true"
-      [groupable]="true"
-      [resizable]="true"
-      [selectable]="selectableSettings" 
-      (selectionChange) = "change($event)"
-      [height]="500"
-  >
-  <kendo-grid-column field="cedula" title="Cedula" width="80" >
-      </kendo-grid-column>
-  <kendo-grid-column field="nombre" title="Nombre">
-      </kendo-grid-column>
-  <kendo-grid-column field="apellido" title="Apellido">
-      </kendo-grid-column>
-  <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-      </kendo-grid>
-
-<div class="row">
-<div class="col-sm-12 example-col">
-<kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-    <button kendoButton [toggleable]="true"  (click)="crearUsuario()">Crear Usuario</button>
-    <button kendoButton [toggleable]="true"  (click)="modificarUsuario()">Modificar Usuario</button>
-    <button kendoButton [toggleable]="true"  (click)="asignarRol()">Asignar Rol a Usuario</button>
-    <button kendoButton [toggleable]="true"  (click)="eliminarUsuario()">Eliminar Usuario</button>
-    
-</kendo-buttongroup>
-</div>
-</div>
-
-<div class="example-wrapper">
-<kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
-        <p style="margin: 30px; text-align: center;">Desea eliminar al Usuario seleccionado?</p>
-        <kendo-dialog-actions>
-            <button kendoButton (click)="confirmarEliminarUsr()" primary="true">Confirmar</button>
-            <button kendoButton (click)="action()" >No</button>  
-        </kendo-dialog-actions>
-    </kendo-dialog>
-
-`,
-
+  templateUrl: './abmusuario.component.html',
   styleUrls: ['./abmusuario.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })

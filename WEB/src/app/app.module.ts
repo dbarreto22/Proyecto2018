@@ -44,7 +44,6 @@ import { LabelModule } from '@progress/kendo-angular-label';
 import { IngrAsignaturaComponent } from './ingr-asignatura/ingr-asignatura.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
-import { EliminarUsuarioComponent } from './eliminar-usuario/eliminar-usuario.component';
 import { abmAsignaturaComponent } from './abmasignatura/abmasignatura.component';
 import { AsignarAsigCarreraComponent } from './asignar-asig-carrera/asignar-asig-carrera.component';
 import { ABMUsuarioComponent } from './abmusuario/abmusuario.component';
@@ -90,11 +89,10 @@ export function tokenGetter() {
     IngrCarrerasComponent,
     IngrAsignaturaComponent,
     CrearUsuarioComponent,
-    EliminarUsuarioComponent,
     abmAsignaturaComponent,
     AsignarAsigCarreraComponent,
     ABMUsuarioComponent,
-    ModificarUsuarioComponent,
+    ModificarUsuarioComponent, 
     AsociarRolComponent,
     ABMCarreraComponent,
     ModificarCarreraComponent,

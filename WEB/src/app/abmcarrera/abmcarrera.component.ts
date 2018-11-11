@@ -9,51 +9,7 @@ import { carrera } from '../modelos/carrera.model';
 
 @Component({
   selector: 'app-abmcarrera',
-  template: `
-  <div class="example-config">
-  Alta Baja y Modificación de Carreras
-</div>
-
-<kendo-grid     
-    [kendoGridBinding]="carreras" 
-    [pageSize]="10"
-    [pageable]="true"
-    [sortable]="true"
-    [filterable]="true"
-    [groupable]="true"
-    [resizable]="true"
-    [selectable]="selectableSettings" 
-    (selectionChange) = "change($event)"
-    [height]="500"
->
-<kendo-grid-column field="codigo" title="Codigo" width="80" >
-    </kendo-grid-column>
-<kendo-grid-column field="nombre" title="Nombre">
-    </kendo-grid-column>
-    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-  </kendo-grid>
-
-<div class="row">
-<div class="col-sm-12 example-col">
-<kendo-buttongroup  [selection]="'single'" [width]="'100%'">
-  <button kendoButton [toggleable]="true"  (click)="crearCarrera()">Crear Carrera</button>
-  <button kendoButton [toggleable]="true"  (click)="modificarCarrera()">Modificar Carrera</button>
-  <button kendoButton [toggleable]="true"  (click)="eliminarCarrera()">Eliminar Carrera</button>
-  <button kendoButton [toggleable]="true"  (click)="carreraAsignatura()">Asignar Asignatura-Carrera</button>
-</kendo-buttongroup>
-</div>
-</div>
-
-<div class="example-wrapper">
-<kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
-      <p style="margin: 30px; text-align: center;">Desea eliminar la Carrera seleccionada?</p>
-      <kendo-dialog-actions>
-          <button kendoButton (click)="confirmarEliminarCarrera()" primary="true">Confirmar</button>
-          <button kendoButton (click)="action()" >No</button>  
-      </kendo-dialog-actions>
-  </kendo-dialog>
-
-`,
+  templateUrl: './abmcarrera.component.html',
   styleUrls: ['./abmcarrera.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService],
 })

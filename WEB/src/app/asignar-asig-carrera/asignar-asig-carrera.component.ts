@@ -8,38 +8,7 @@ import { asignatura } from '../modelos/asignatura.model';
 
 @Component({
   selector: 'app-asignar-asig-carrera',
-  template: `
-  <div class="example-config">
-  Ingresar Asignatura para {{ nombreCarrera }}
-  </div>
-  
-  <kendo-grid     
-  [kendoGridBinding]="asignaturas" 
-  [pageSize]="5"
-  [pageable]="true"
-  [sortable]="true"
-  [filterable]="true"
-  [groupable]="true"
-  [resizable]="true"
-  [selectable]="selectableSettings" 
-  (selectionChange) = "change($event)"
-  [height]="500"
->
-<kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
-  </kendo-grid-column>
-<kendo-grid-column field="nombre" title="Nombre">
-  </kendo-grid-column>
-<kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-  </kendo-grid>
-
-<div class="row">
-<div class="col-sm-12 example-col">
-<kendo-buttongroup  [selection]="'single'" [width]="'70%'">
-  <button kendoButton [toggleable]="true"  (click)="asignarACarrera()">Aceptar</button>
-  <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-</kendo-buttongroup>
-</div>
-</div>`,
+  templateUrl: './asignar-asig-carrera.component.html',
   styleUrls: ['./asignar-asig-carrera.component.css'],
   providers: [ApiService,NgbPaginationConfig, StorageService]
 })
@@ -84,7 +53,7 @@ public asignaturas : Array<asignatura>;
       data=>{this.router.navigate(['/setingsCarrera']);
       alert("Asignado Correctamente");
     },err=>{
-      alert("No se pudo asignar");
+      alert("No se pudo asignar" + err.message+ err.status);
       this.router.navigate(['/setingsCarrera']);
     });
   }
