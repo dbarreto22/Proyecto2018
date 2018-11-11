@@ -94,7 +94,7 @@
   </mat-sidenav-container>
 
 </div>-->
-<div style="height: 100vh;">
+<div *ngIf="rolElegido==4">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
