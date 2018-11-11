@@ -36,10 +36,10 @@ export class GrafoComponent implements OnInit {
       nodo.x=this.x;
       nodo.y=this.y;
       this.nodes.push(nodo);
-      this.y=this.y+60;
+     // this.y=this.y+60;
       datos.previas.forEach(element=>
       {
-        this.x=this.x+60;
+       // this.x=this.x+60;
         this.crearNodos(element,new Link(datos.id,null));
         nodo.linkCount++;
       
