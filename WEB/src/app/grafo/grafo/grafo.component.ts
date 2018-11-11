@@ -14,6 +14,8 @@ export class GrafoComponent implements OnInit {
   links: Link[] = [];
   idCurso;
   cursos:asignaturaCarrera;
+  x:number=50;
+  y:number=50;
 
   constructor(private apiService:ApiService) {
     this.idCurso=localStorage.getItem('idCurso');
@@ -29,11 +31,15 @@ export class GrafoComponent implements OnInit {
     crearNodos(datos:asignaturaCarrera,link:Link){
       link.target=datos.id;
       this.links.push(link);
-      var nodo= new Node(datos.id)
+      var nodo= new Node(datos.id);
       nodo.nombre=datos.carrera.nombre;
+      nodo.x=this.x;
+      nodo.y=this.y;
       this.nodes.push(nodo);
+      this.y=this.y+60;
       datos.previas.forEach(element=>
       {
+        this.x=this.x+60;
         this.crearNodos(element,new Link(datos.id,null));
         nodo.linkCount++;
       
