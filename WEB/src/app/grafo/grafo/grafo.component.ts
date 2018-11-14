@@ -21,7 +21,7 @@ export class GrafoComponent implements OnInit {
     this.idCurso=localStorage.getItem('idCurso');
     this.apiService.getprevias('8').subscribe((datos : asignaturaCarrera)=>
     {
-      var link = new Link(datos.id,null);
+      var link = new Link(datos.asignatura.nombre,null);
       this.crearNodos(datos,link);
     }, error=>console.log(error));
     alert('entro una vez Nodo '+ JSON.stringify(this.nodes));
@@ -29,10 +29,10 @@ export class GrafoComponent implements OnInit {
   ngOnInit(){
   };
     crearNodos(datos:asignaturaCarrera,link:Link){
-      link.target=datos.id;
+      link.target=datos.asignatura.nombre;
       this.links.push(link);
-      var nodo= new Node(datos.id);
-      nodo.nombre=datos.carrera.nombre;
+      var nodo= new Node(datos.asignatura.nombre);
+      //nodo.nombre=datos.asignatura.nombre;
       nodo.x=this.x;
       nodo.y=this.y;
       this.nodes.push(nodo);
@@ -40,7 +40,7 @@ export class GrafoComponent implements OnInit {
       datos.previas.forEach(element=>
       {
        // this.x=this.x+60;
-        this.crearNodos(element,new Link(datos.id,null));
+        this.crearNodos(element,new Link(datos.asignatura.nombre,null));
         nodo.linkCount++;
       
       });

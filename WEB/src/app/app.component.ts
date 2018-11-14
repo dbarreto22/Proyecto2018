@@ -34,4 +34,7 @@ export class AppComponent implements OnInit, OnDestroy{
       console.log('En el getrol '+Number(localStorage.getItem('rolElegido')));
       return this.rolElegido=Number(localStorage.getItem('rolElegido'));
     }
+    login(){
+      return false
+    }
   }
