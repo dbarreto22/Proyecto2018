@@ -30,7 +30,7 @@ export class CursosComponent implements OnInit {
   selectedValue: any[];
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
- 
+  public rolElegido;
  public  cursos:  Array<cursos> = [];
  
  //private  apiService:  ApiService
@@ -43,7 +43,9 @@ export class CursosComponent implements OnInit {
 
  ngOnInit() {
   this.getCursos();
-  this.cursos; 
+  this.cursos;
+  this.rolElegido=localStorage.getItem('rolElegido');
+  alert('El rol elegido es');
  }
 
  public setSelectableSettings(): void {
@@ -62,11 +64,12 @@ public gridData: GridDataResult = process(this.cursos, this.state);
 
 public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
-    this.gridData = process(this.cursosGrid, this.state);
+//    this.gridData = process(this.cursosGrid, this.state);
 }
   
  public  getCursos(){
      this.apiService.getAllCursos().subscribe((data:cursos[]) => {
+       //alert('cosas raras'+JSON.stringify(data[0].asignatura_Carrera.asignatura));
          this.cursos  =  data;
          console.log(data);
          this.getCursosGrid()
@@ -76,20 +79,18 @@ public dataStateChange(state: DataStateChangeEvent): void {
 
 public cursosGrid = new Array<Curso>();
 public getCursosGrid(){
-      var curso= new Curso();
-      console.log(this.cursos);
       this.cursos.forEach(element => {
-        console.log(JSON.stringify(element.asignatura_Carrera.asignatura.codigo));
+        var curso= new Curso;
         curso.codigoAsignatura = element.asignatura_Carrera.asignatura.codigo ; 
         curso.codigoCarrera= element.asignatura_Carrera.carrera.codigo;
         curso.idCurso= element.id;
         curso.idAsigCarrera = element.asignatura_Carrera.id;
         curso.nombreAsignatura= element.asignatura_Carrera.asignatura.nombre;
         curso.nombreCarrera=element.asignatura_Carrera.carrera.nombre;
+        alert('El curso'+JSON.stringify(curso));
         this.cursosGrid.push(curso);
+        alert('la grilla'+JSON.stringify(this.cursosGrid));
       });
-
-      console.log(this.cursosGrid);
  }
 
  cancelar(){

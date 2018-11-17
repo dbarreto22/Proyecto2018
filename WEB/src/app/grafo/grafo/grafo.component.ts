@@ -19,8 +19,10 @@ export class GrafoComponent implements OnInit {
 
   constructor(private apiService:ApiService) {
     this.idCurso=localStorage.getItem('idCurso');
-    this.apiService.getprevias('8').subscribe((datos : asignaturaCarrera)=>
+    alert(this.idCurso);
+    this.apiService.getprevias(this.idCurso).subscribe((datos : asignaturaCarrera)=>
     {
+     // alert(JSON.stringify(datos));
       var link = new Link(datos.asignatura.nombre,null);
       this.crearNodos(datos,link, this.x, this.y);
     }, error=>console.log(error));
@@ -36,7 +38,13 @@ export class GrafoComponent implements OnInit {
       //nodo.nombre=datos.asignatura.nombre;
       nodo.fx=x;
       nodo.fy=y;
-      auxX=datos.previas.length()=1:x?x-(datos.previas.length()*120)
+      if(datos.previas.length>=1)
+      {
+        auxX=x;  
+      }else 
+      {
+        auxX=datos.previas.length*120;
+      }
       this.nodes.push(nodo);
       auxY=y+120;
       datos.previas.forEach(element=>
