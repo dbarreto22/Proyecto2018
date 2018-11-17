@@ -26,6 +26,7 @@ import { HomeComponentComponent } from '../home-component/home-component.compone
 import { HomeLayoutComponent } from '../layouts/home-layout/home-layout.component';
 import { ErrorComponent } from '../error.component';
 import { ListarUsuariosComponent } from '../listar-usuarios/listar-usuarios.component';
+import {cursosResolver} from '../cursos/cursos-resolver.service'; 
 
 const routes: Routes = [
  { path: '', component: HomeLayoutComponent, canActivate:[AuthorizatedGuard],
@@ -48,7 +49,7 @@ const routes: Routes = [
       {path: 'modificarCarrera', component: ModificarCarreraComponent},
       {path: 'modificarAsignatura', component: ModificarAsignaturaComponent},
       {path: 'calificacionesCurso', component: CalificacionesCursoComponent},
-      {path: 'inscCursos', component: CursosComponent},
+      {path: 'inscCursos', component: CursosComponent},//, resolve:{cursosResolver}},
       {path: 'listarUsuarios', component: ListarUsuariosComponent},
       
     ]},

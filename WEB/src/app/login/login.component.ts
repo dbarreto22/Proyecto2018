@@ -18,7 +18,7 @@ import { Observable, Subscription } from 'rxjs';
 })
 
 export class LoginComponent implements OnInit {
-
+  public loading = false;
   public token : string;
   public loginForm: FormGroup;
   public submitted: Boolean = false;
@@ -47,15 +47,18 @@ export class LoginComponent implements OnInit {
   }
  
   public submitLogin(){
+    this.loading = true;
     this.submitted = true;
     this.error = null;
     if(this.loginForm.valid){
       this.authenticationService.login(new LoginObject(this.loginForm.value)).subscribe((
         res: string) =>{
+          this.loading = false;
           localStorage.setItem('session',JSON.stringify(new Sesion(res,null)));
           //this.storageService.setCurrentSession(new Sesion(res,null)); 
           this.correctLogin();
         },err => {
+          this.loading = false; 
           console.log('Error en el login '+err.message);
           if(err.status==403 || err.status==401){
             this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';

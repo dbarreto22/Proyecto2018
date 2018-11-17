@@ -62,7 +62,8 @@ import { HomeComponentComponent } from './home-component/home-component.componen
 import { ErrorComponent } from './error.component';
 import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.component';
 import { ToolbarHomeComponent } from './toolbar-home/toolbar-home.component';
-
+import { NgxLoadingModule } from 'ngx-loading';
+import { cursosResolver } from './cursos/cursos-resolver.service';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -133,12 +134,13 @@ export function tokenGetter() {
     ButtonsModule,
     HttpClientJsonpModule,
     DialogsModule,
-    
+    NgxLoadingModule.forRoot({}),
     MDBBootstrapModule.forRoot()
   ],
   providers: [
     ApiService,AuthenticationService,
     StorageService,AuthorizatedGuard,
+    cursosResolver,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiService,

@@ -51,6 +51,9 @@ public  getusuarios(){
   this.apiService.getAllUser().subscribe((data:  Array<usuario>) => {
       this.usuarios  =  data;
       console.log(this.usuarios);
+  },err=>{
+    alert('Ha sucedido un error al obtener los usuarios, intente de nuevo mas tarde');
+    console.log(err.status+ err.message);
   });
 }
 

@@ -14,6 +14,7 @@ import { Sesion } from './modelos/sesion.model';
 import { carrera } from './modelos/carrera.model';
 import { asignatura } from './modelos/asignatura.model';
 import { usuario } from './modelos/usuario.model';
+import { cursos } from './modelos/cursos.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

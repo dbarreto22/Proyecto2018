@@ -1,4 +1,4 @@
-import { Component, OnInit,ContentChild } from '@angular/core';
+import { Component, OnInit,ContentChild, AfterViewInit, AfterContentInit} from '@angular/core';
 import {EstudianteService} from '../estudiante.service';
 import { ApiService } from  '../api.service';
 import {Curso} from './Curso';
@@ -22,8 +22,9 @@ export class CursosComponent implements OnInit {
 
   @ContentChild(NgbPagination) pagination: NgbPagination;
  
+
   public idCurso;
- 
+  public loading = false;
   public cedula;
   public checked = false;
   public filter: CompositeFilterDescriptor;
@@ -31,22 +32,28 @@ export class CursosComponent implements OnInit {
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
   public rolElegido;
- public  cursos:  Array<cursos> = [];
- 
+  public  cursos:  Array<cursos> = [];
+  public cursosGrid = new Array<Curso>();
+  public state: State = {
+    skip: 0,
+    take: 10,
+  };
+  public gridData: GridDataResult = process(this.cursos, this.state);
+  
  //private  apiService:  ApiService
  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService
             , private storageService : StorageService, private router: Router) {
               this.setSelectableSettings();
-              this.getCursos();
-              this.cursos;
+//              this.getCursos();
  }
+
 
  ngOnInit() {
   this.getCursos();
-  this.cursos;
+  //this.cursos;
   this.rolElegido=localStorage.getItem('rolElegido');
-  alert('El rol elegido es');
- }
+  alert('El rol elegido es '+this.rolElegido);
+}
 
  public setSelectableSettings(): void {
   this.selectableSettings = {
@@ -55,29 +62,29 @@ export class CursosComponent implements OnInit {
   };
 }
 
-public state: State = {
-  skip: 0,
-  take: 5,
-};
-
-public gridData: GridDataResult = process(this.cursos, this.state);
-
 public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
-//    this.gridData = process(this.cursosGrid, this.state);
+    this.gridData = process(this.cursosGrid, this.state);
 }
   
  public  getCursos(){
+  this.loading = true;
      this.apiService.getAllCursos().subscribe((data:cursos[]) => {
+       this.loading=false;
        //alert('cosas raras'+JSON.stringify(data[0].asignatura_Carrera.asignatura));
          this.cursos  =  data;
          console.log(data);
          this.getCursosGrid()
-     });
+     },
+    err=>{
+      this.loading=false;
+      alert('Ha sucedido un error al obtener los cursos, vuelva a intentarlo mas tarde');
+      console.log(err.status+err.message);
+    });
 
  }
 
-public cursosGrid = new Array<Curso>();
+
 public getCursosGrid(){
       this.cursos.forEach(element => {
         var curso= new Curso;
@@ -87,9 +94,7 @@ public getCursosGrid(){
         curso.idAsigCarrera = element.asignatura_Carrera.id;
         curso.nombreAsignatura= element.asignatura_Carrera.asignatura.nombre;
         curso.nombreCarrera=element.asignatura_Carrera.carrera.nombre;
-        alert('El curso'+JSON.stringify(curso));
         this.cursosGrid.push(curso);
-        alert('la grilla'+JSON.stringify(this.cursosGrid));
       });
  }
 

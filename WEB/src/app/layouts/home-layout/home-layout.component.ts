@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   <app-toolbar-director [rolElegido]="rolElegido">loading...</app-toolbar-director>
   <app-toolbar [rolElegido]="rolElegido">loading...</app-toolbar>
   
-<div>
+<div style="text-align:right">
     <label>Roles: </label>
     <select (change)="selectRol($event.target.value)">
         <option value="0">{{rolElegido}}</option>

@@ -65,7 +65,8 @@ export class IngrCarrerasComponent implements  OnInit {
       console.log(this.DtCarrera);
       this.apiService.ingresarCarrera(this.DtCarrera).subscribe(
         data=>{this.router.navigate(['/setingsCarrera']);},err=>{
-        alert(err);
+        alert('Ha Ocurrido un error mientras se procesaba su solicitud, vuelva a intentarlo mas tarde.');
+        console.log(err.status+err.message);
         this.router.navigate(['/setingsCarrera']);
     });
     }
