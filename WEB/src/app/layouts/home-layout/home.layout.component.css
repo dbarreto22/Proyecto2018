@@ -1,0 +1,26 @@
+.selectWrapper {
+    width: 15%;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    background-color: lightgrey ;
+    }
+
+.selectWrapper select {
+         
+        font-size: 14px;
+        line-height: 12px;
+        width: 60%;
+        height: 20%;
+        border: none;
+        box-shadow: lightgray;
+        background: none;
+        background-image: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+        -moz-appearance: none;
+        text-indent: 0.01px;
+        text-overflow: ellipsis;
+    }

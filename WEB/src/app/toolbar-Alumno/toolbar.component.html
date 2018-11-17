@@ -1,3 +1,100 @@
+<!--<div class="container" >-->
+
+<!-- Static navbar -->
+<!--
+    <nav class="navbar navbar-inverse" style="background:skyblue" > -->
+<!-- Static navbar -->
+<!--
+    <nav class="navbar navbar-inverse" style="background:skyblue" *ngIf="rolElegido==4">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+              <span class="sr-only">Menu</span>
+              <span class="icon-bar">Inscripcion Carrera</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['/']">MIUdelar</a>
+          </div>
+          <div  class="navbar-collapse collapse" >
+            <ul class="nav navbar-nav" >
+              <li routerLinkActive="active"><a [routerLink]="['/inscCarrera']"> Inscripcion Carrera</a></li>
+              <li routerLinkActive="active" ><a [routerLink]="['/inscCursos']" > Inscripcion a Asignatura</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/inscExamen']"> Inscripcion Examen</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/calificaciones']"> Consultar Calificacion</a></li>
+              <li routerLinkActive="grafo"><a [routerLink]="['/grafo']"> Consultar Previas</a></li>
+              <li ><a (click)="logOut()"> logout</a></li>
+              <ul class="dropdown-menu">
+                <kendo-dropdownlist [data]="roles">
+                </kendo-dropdownlist>
+              </ul>
+            </ul>-->
+<!--    </div>/.nav-collapse -->
+<!--     </div>/.container-fluid
+      </nav>
+       -->
+<!--
+<div *ngIf="rolElegido==4">
+
+  <mat-toolbar color="primary">
+
+    <span>Mi Udelar</span>
+
+    <span class="example-spacer"></span>
+
+    <div fxShow="true" fxHide.lt-md="true"> -->
+
+      <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+<!--
+      <a [routerLink]="['/inscCarrera']"> Inscripcion Carrera</a>
+
+      <a [routerLink]="['/inscCursos']"> Inscripcion a Asignatura</a>
+
+      <a [routerLink]="['/inscExamen']"> Inscripcion Examen</a>
+
+      <a [routerLink]="['/calificaciones']"> Consultar Calificacion</a>
+
+      <a [routerLink]="['/grafo']"> Consultar Previas</a>
+
+      <a (click)="logOut()"> logout</a>
+
+    <div fxShow="true" fxHide.gt-sm="true">
+
+      <a href="#" (click)="sidenav.toggle()">Menu</a>
+
+    </div>
+
+    
+  </div>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill class="example-container">
+
+    <mat-sidenav #sidenav fxLayout="column">
+
+      <div fxLayout="column">
+
+        <a (click)="sidenav.toggle()" href="#" mat-button>Cerrar</a>
+
+        <a [routerLink]="['/inscCarrera']"> Inscripcion Carrera</a>
+
+        <a [routerLink]="['/inscCursos']"> Inscripcion a Asignatura</a>
+
+        <a [routerLink]="['/inscExamen']"> Inscripcion Examen</a>
+
+        <a [routerLink]="['/calificaciones']"> Consultar Calificacion</a>
+
+        <a [routerLink]="['/grafo']"> Consultar Previas</a>
+
+      </div>
+
+    </mat-sidenav>
+
+  </mat-sidenav-container>
+
+</div>-->
+
 <div *ngIf="rolElegido==4">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
@@ -17,17 +114,14 @@
         <a [routerLink]="['/inscExamen']" mat-button>
           Inscripcion Examen
         </a>
-        <a [routerLink]="['/calificaciones']" mat-button>
+        <a [routerLink]="['/listarCarreras']" mat-button>
           Consultar Calificacion
-        </a>
-        <a [routerLink]="['/grafo']" mat-button>
-          Consultar Previas
         </a>
         <a [routerLink]="['/']" mat-button>
           <mat-icon>home</mat-icon>
           HOME
         </a>
-        <a href="#" mat-button>
+        <a (click)="logOut()" mat-button>
           <mat-icon>account_box</mat-icon>
          Logout
         </a>
@@ -47,11 +141,8 @@
           <a [routerLink]="['/inscExamen']" mat-button>
             Inscripcion Examen
           </a>
-          <a [routerLink]="['/calificaciones']" mat-button>
+          <a [routerLink]="['/listarCarreras']" mat-button>
             Consultar Calificacion
-          </a>
-          <a [routerLink]="['/grafo']" mat-button>
-            Consultar Previas
           </a>
           <a [routerLink]="['/']" mat-button>
             <mat-icon>home</mat-icon>

@@ -46,6 +46,7 @@ export class AsociarRolComponent implements OnInit {
       this.usuario;
       this.getAllRolUsuario();
       this.getRolUsuario();
+      this.setShow();
   }
 
 

@@ -9,27 +9,27 @@
                         <legend>Ingresar Usuario</legend>
                         <label class="k-form-field">
                             <span>Cedula<span class="k-required">*</span></span>
-                            <input #cedula (keyup)=getCedulaIngresado(cedula.value) class="k-textbox" placeholder="Cedula" />
+                            <input #cedula  class="k-textbox" placeholder="Cedula" />
                         </label>
                         <label class="k-form-field">
                             <span>Nombre<span class="k-required">*</span></span>
-                            <input  #nombre (keyup)=getNombreIngresado(nombre.value) class="k-textbox" placeholder="Nombre" />
+                            <input  #nombre  class="k-textbox" placeholder="Nombre" />
                         </label>
                         <label class="k-form-field">
                             <span>Apellido<span class="k-required">*</span></span>
-                            <input #apellido (keyup)=getApellidoIngresado(apellido.value) class="k-textbox" placeholder="Apellido" />
+                            <input #apellido class="k-textbox" placeholder="Apellido" />
                         </label>
                         <label class="k-form-field">
                         <span>Email <span class="k-required">*</span></span>
-                        <input #mail (keyup)=getMailIngresado(mail.value) type="email" class="k-textbox"  placeholder="Mail" />
+                        <input #mail  type="email" class="k-textbox"  placeholder="Mail" />
                         </label>
                         <label class="k-form-field">
                             <span>Password</span>
-                            <input #password (keyup)=getPasswordIngresado(password.value) type="password" class="k-textbox"  placeholder="password"/>
+                            <input #password  type="password" class="k-textbox"  placeholder="password"/>
                         </label>
                     </fieldset>
                     <div class="text-right">
-                      <button type="button" class="k-button k-primary" (click)="crearUsuario()">Aceptar</button>
+                      <button type="button" class="k-button k-primary" (click)="crearUsuario(cedula.value,nombre.value,apellido.value,mail.value,password.value)">Aceptar</button>
                       <button type="button" class="k-button" (click)="cancelar()">Cancelar</button>
                       </div>               
                 </form>

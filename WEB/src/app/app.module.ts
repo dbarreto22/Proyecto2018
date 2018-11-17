@@ -64,6 +64,9 @@ import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.compo
 import { ToolbarHomeComponent } from './toolbar-home/toolbar-home.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { cursosResolver } from './cursos/cursos-resolver.service';
+import { ListarCarrerasComponent } from './listar-carreras/listar-carreras.component';
+import { ListarCursosCarrerasComponent } from './listar-cursos-carreras/listar-cursos-carreras.component';
+import {MatSelectModule} from '@angular/material/select';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -105,6 +108,8 @@ export function tokenGetter() {
     ErrorComponent,
     ListarUsuariosComponent,
     ToolbarHomeComponent,
+    ListarCarrerasComponent,
+    ListarCursosCarrerasComponent,
     
      
   ],
@@ -135,6 +140,8 @@ export function tokenGetter() {
     HttpClientJsonpModule,
     DialogsModule,
     NgxLoadingModule.forRoot({}),
+    MatSelectModule,
+    
     MDBBootstrapModule.forRoot()
   ],
   providers: [

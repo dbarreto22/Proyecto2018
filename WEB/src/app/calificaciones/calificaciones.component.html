@@ -1,3 +1,59 @@
-<p>
-  calificaciones works!
-</p>
+<div class="jumbotron" style="background: aliceblue">
+  
+    <div class="example-config">
+      <p class="font-weight-normal" style="color: dodgerblue">Lista de Calificaciones</p>
+    </div>
+
+    <div class="example-config">
+        <p class="font-weight-normal" style="color: black">Notas de Cursos</p>
+      </div>
+    
+    <kendo-grid     
+        [kendoGridBinding]="calificacionesCursos" 
+        [pageSize]="10"
+        [pageable]="true"
+        [sortable]="true"
+        [filterable]="true"
+        [resizable]="true"
+        [selectable]="selectableSettings" 
+        (selectionChange) = "change($event)"
+        [height]="500"
+    >
+      <kendo-grid-column field="nombreCurso" title="Curso" width="80" >
+        </kendo-grid-column>
+      <kendo-grid-column field="notaCurso" title="Notas">
+        </kendo-grid-column>
+    </kendo-grid>
+
+    <div class="example-config">
+        <p class="font-weight-normal" style="color: black">Notas de Examenes</p>
+      </div>
+    
+    <kendo-grid     
+        [kendoGridBinding]="calificacionesExamenes" 
+        [pageSize]="10"
+        [pageable]="true"
+        [sortable]="true"
+        [filterable]="true"
+        [groupable]="true"
+        [resizable]="true"
+        [selectable]="selectableSettings" 
+        (selectionChange) = "change($event)"
+        [height]="500"
+    >
+      <kendo-grid-column field="nombreExamen" title="Examen" width="80" >
+        </kendo-grid-column>
+      <kendo-grid-column field="notaExamen" title="Notas">
+        </kendo-grid-column>
+    </kendo-grid>
+  
+    <div class="row">
+        <div class="col-sm-12 example-col">
+          <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+            <button kendoButton [toggleable]="true"  (click)="salir()">Salir</button>
+          </kendo-buttongroup>
+        </div>
+      </div>
+
+</div>
+  

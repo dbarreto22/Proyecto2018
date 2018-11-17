@@ -40,21 +40,15 @@ export class ApiService {
   API_URL  = 'http://localhost:8080/miudelar-server';   
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
-
-  
-
 constructor(private  httpClient:  HttpClient,private router: Router,
              private storage:StorageService) {
               let paramsA: URLSearchParams = new URLSearchParams();
               paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
-              
+             }         
 
 //public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;; 
            
-              paramsCalificaciones = paramsCalificaciones.append('cedula', this.cedula);
-              paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
-              params.set('cedula', this.cedula);
-            }
+           
 
 public cedula = '1111111'// JSON.parse(localStorage.getItem('session')).usr.cedula; 
 public codigo = localStorage.getItem('codigoABM');
@@ -74,11 +68,16 @@ getAllUser(){
 getAsignaturaByCarrera(idCarrera){
 
   let data = {idCarrera: idCarrera};
+  console.log(data);
  
-  return  this.httpClient.get(`${this.API_URL}/director/asignatura/carrera`,{params: data});
+  return  this.httpClient.get(`${this.API_URL}/director/asignatura/carrera/`+idCarrera);
 }
 /*public getToken(){***********Se cambia por local storage
 */
+
+getAsignaturaCarreraByCarrera(idCarrera){
+  return  this.httpClient.get(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
+}
 
 getAllCursos(){
   return  this.httpClient.get(`${this.API_URL}/estudiante/curso`,{params : params});
@@ -90,9 +89,8 @@ getAllExamen(){
   return  this.httpClient.get(`${this.API_URL}/estudiante/examen`,{params : params});
 }
  
-getAllCalificaciones(){ 
-  return  this.httpClient.get(`${this.API_URL}/estudiante/consultarCalificaciones`
-  ,{params});
+getCalificacionesEstudiante(idAsigCarrera){ 
+  return  this.httpClient.get(`${this.API_URL}/estudiante/consultarCalificaciones/`+this.cedula+idAsigCarrera);
 }
 
 public getToken(){
@@ -108,9 +106,14 @@ getCarrera(codigo){
   return this.httpClient.get(`${this.API_URL}/director/carrera/`+codigo)
 }
 
-getAsignatura(){
-  return this.httpClient.get(`${this.API_URL}/director/asignatura/`,{params :paramsAsignatura})
+getAsignatura(codigo){
+
+  let data = {codigo: codigo};
+  console.log(data);
+  return this.httpClient.get(`${this.API_URL}/director/asignatura/`,{params :data})
 }
+
+
 
 
 getprevias(idCurso){
@@ -218,7 +221,7 @@ inscripcionCurso(cedula,idCurso){
     a.cedula = cedula;
     a.idRol = idRol;
     let json = JSON.stringify(a);
-    return  this.httpClient.post(`${this.API_URL}/admim/usuario.addRol`, json, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/admim/usuario/addRol`, json, httpOptions);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 

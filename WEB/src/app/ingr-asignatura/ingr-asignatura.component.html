@@ -7,8 +7,8 @@
   
   <div class="col-xs-12 col-sm-12 example-col">
     <fieldset disabled="">
-          <label class="control-label" for="disabledInput">Codigo</label>
-      <input  class="form-control" type="text" #codigo (keyup)=getCodigoIngresado(codigo.value) kendoTextBox />
+        <label class="control-label" for="disabledInput">Codigo</label>
+        <input  #codigo (keyup)=getCodigoIngresado(codigo.value) kendoTextBox />
     </fieldset>
   </div>
 
@@ -28,7 +28,7 @@
   <div class="row">
   <div class="col-sm-12 example-col">
   <kendo-buttongroup  [selection]="'single'"  [width]="'100%'">
-      <button kendoButton [toggleable]="true"  (click)="insgCarrerra()">Aceptar</button>
+      <button kendoButton [toggleable]="true"  (click)="insgAsignatura()">Aceptar</button>
       <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
   </kendo-buttongroup>
   </div>

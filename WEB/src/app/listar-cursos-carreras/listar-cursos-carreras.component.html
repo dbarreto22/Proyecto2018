@@ -1,34 +1,33 @@
 <div class="jumbotron" style="background: aliceblue">
 
   <div class="example-config">
-      <p class="font-weight-normal" style="color: dodgerblue">Ingresar Asignatura para {{ nombreCarrera }}</p>
+      <p class="font-weight-normal" style="color: dodgerblue">Calificaciones</p>
   </div>
-    
+  
   <kendo-grid     
-    [kendoGridBinding]="asignaturas" 
+    [kendoGridBinding]="listAsignaturas" 
     [pageSize]="10"
     [pageable]="true"
     [sortable]="true"
     [filterable]="true"
-    [groupable]="true"
     [resizable]="true"
     [selectable]="selectableSettings" 
     (selectionChange) = "change($event)"
     [height]="500"
-  >
-  <kendo-grid-column field="codigo" title="Codigo" width="80" [filterable]="false">
+    >
+  <kendo-grid-column field="codigo" title="Codigo Asignatura" width="130" [filterable]="false">
     </kendo-grid-column>
-  <kendo-grid-column field="nombre" title="Nombre">
+  <kendo-grid-column field="nombre" title="Nombre Asignatura">
     </kendo-grid-column>
   <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
-    </kendo-grid>
+  </kendo-grid>
   
   <div class="row">
     <div class="col-sm-12 example-col">
-      <kendo-buttongroup  [selection]="'single'" [width]="'70%'">
-        <button kendoButton [toggleable]="true"  (click)="asignarACarrera()">Aceptar</button>
+      <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+        <button kendoButton (click)="consultar()">Consultar</button>
         <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
-      </kendo-buttongroup>
+        </kendo-buttongroup>
     </div>
   </div>
 

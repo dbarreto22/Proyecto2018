@@ -1,5 +1,7 @@
+<div class="jumbotron" style="background: aliceblue">
+  
   <div class="example-config">
-    Listar Usuarios
+    <p class="font-weight-normal" style="color: dodgerblue">Listar Usuarios</p>
   </div>
   
   <kendo-grid     
@@ -8,7 +10,6 @@
       [pageable]="true"
       [sortable]="true"
       [filterable]="true"
-      [groupable]="true"
       [resizable]="true"
       [selectable]="selectableSettings" 
       (selectionChange) = "change($event)"
@@ -23,6 +24,8 @@
     <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
   </kendo-grid>
 
+
+</div>
   <div class="example-wrapper">
     <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
       <p style="margin: 30px; text-align: center; color: dodgerblue;" class="font-weight-normal">Datos de usuario</p>

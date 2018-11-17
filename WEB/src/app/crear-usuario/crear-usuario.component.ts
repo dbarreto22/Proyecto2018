@@ -16,11 +16,6 @@ import { Router } from '@angular/router';
 })
 export class CrearUsuarioComponent implements OnInit {
 
-   public cedula;
-   public nombre;
-   public apellido;
-   public mail;
-   public pass; 
    public DtUsuario  = new usuario();
 
 
@@ -30,38 +25,19 @@ export class CrearUsuarioComponent implements OnInit {
   ngOnInit() {
   }
 
-  getCedulaIngresado(value:string){
-    this.cedula = value;
-  }
-
-  getNombreIngresado(value:string){
-    this.nombre = value;
-  }
-
-  getApellidoIngresado(value:string){
-    this.apellido = value;
-  }
-
-  getMailIngresado(value:string){
-    this.mail = value;
-  }
-
-  getPasswordIngresado(value:string){
-    this.pass = value;
-  }
 
   cancelar(){
     this.router.navigate(['/setingsUser']);
     }
 
-    crearUsuario(){
+    crearUsuario(cedula, nombre, apellido, mail, password){
 
-    console.log(this.apellido);
-    this.DtUsuario.cedula = this.cedula;
-    this.DtUsuario.nombre = this.nombre;
-    this.DtUsuario.apellido =this.apellido;
-    this.DtUsuario.email= this.mail;
-    this.DtUsuario.password = this.pass;
+    console.log(apellido);
+    this.DtUsuario.cedula = cedula;
+    this.DtUsuario.nombre = nombre;
+    this.DtUsuario.apellido =apellido;
+    this.DtUsuario.email= mail;
+    this.DtUsuario.password = password;
     this.apiService.ingresarUsuario(this.DtUsuario).subscribe(
         data=>{this.router.navigate(['/setingsUser']);
             alert("Se creo Usuario correctamente");
