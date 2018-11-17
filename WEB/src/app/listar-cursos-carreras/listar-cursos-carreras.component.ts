@@ -19,20 +19,22 @@ export class ListarCursosCarrerasComponent implements OnInit {
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
   public codCarrera;
-  public listAsignaturaCarrera : asignaturaCarrera[];
-  public listAsignaturas : asignatura[];
+  public listAsignaturaCarrera = new Array<asignaturaCarrera>();
+  public listAsignaturas = new Array<asignatura>();
   public asignatura : asignatura;
   public codigo;
   
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
     private storageService: StorageService, private router: Router) {
       this.setSelectableSettings();
-      this.getAsignaturas();
+      
     }
 
   ngOnInit() {
-    this.codCarrera = localStorage.getItem('carreraSeleccionada');
+    this.codCarrera = localStorage.getItem('carreraSeleccionada'); 
     this.getAsignaturaCarrerabyCarrera();
+    this.getAsignaturas();
+
   }
 
 
@@ -47,6 +49,7 @@ getAsignaturaCarrerabyCarrera(){
   this.apiService.getAsignaturaCarreraByCarrera(this.codCarrera).subscribe((data:  asignaturaCarrera[]) => {
     this.listAsignaturaCarrera  =  data;
 });
+console.log(this.listAsignaturaCarrera);
 }
 
 getAsignaturas(){
@@ -55,6 +58,7 @@ getAsignaturas(){
     this.asignatura.nombre = element.asignatura.nombre;
     this.listAsignaturas.push(this.asignatura);
   });
+  console.log(this.listAsignaturas);
 }
 
 consultar(){

@@ -3,24 +3,25 @@
   <app-toolbar [rolElegido]="rolElegido">loading...</app-toolbar>
   
  
- <!--   
-<div class="example-wrapper" style="float: right">
-  <label class="font-weight-normal" style="color: white" >Roles: </label>
-    <select class="custom-select" (change)="selectRol($event.target.value)">
+   
+<div class="selectWrapper" style="float: right">
+  <label class="font-weight-normal" style="color: black " >Roles: </label>
+    <select (change)="selectRol($event.target.value)">
         <option value="0">{{rolElegido}}</option>
         <option *ngFor="let rol of roles" value={{rol.id}}>
         {{rol.tipo}}
         </option>
     </select>
-</div>-->
+</div>
 
-<mat-form-field style="float: right">
-  <mat-select (change)="selectRol($event.target.value)">
-    <mat-option>None</mat-option>
+<!-- 
+<mat-form-field style="float: right; font-weight: bold ">
+  <label class="font-weight-normal" style="color: white; font-size: 16px" >Roles: </label> 
+  <mat-select class="custom-select" (change)="selectRol($event.target.value)">
     <mat-option value="0">{{rolElegido}}</mat-option>
     <mat-option *ngFor="let rol of roles" value={{rol.id}}>{{rol.tipo}}</mat-option>
   </mat-select>
-</mat-form-field>
+</mat-form-field>-->
 
 
   <div class="mat-sidenav-container" style="text-align:center">

@@ -1,8 +1,9 @@
 .back{
     background-image: url('../assets/background.jpg');
-    background-position: center center;
-    background-repeat: space;
-    background-attachment: fixed;
-    background-size: cover;
-    background-color: lightseagreen;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: auto;
+    background-color: white;
+
 }

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-layout',
   templateUrl: './home-layout.component.html',
-  styles: []
+  styleUrls: ['./home.layout.component.css']
 })
 export class HomeLayoutComponent implements OnInit {
   roles: Array<Rol>;

@@ -75,7 +75,7 @@ getAsignaturaByCarrera(idCarrera){
 */
 
 getAsignaturaCarreraByCarrera(idCarrera){
-  return  this.httpClient.get(`${this.API_URL}/bedelia/asignatura/`+idCarrera);
+  return  this.httpClient.get(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
 }
 
 getAllCursos(){
