@@ -94,6 +94,7 @@
   </mat-sidenav-container>
 
 </div>-->
+
 <div *ngIf="rolElegido==4">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
@@ -113,17 +114,14 @@
         <a [routerLink]="['/inscExamen']" mat-button>
           Inscripcion Examen
         </a>
-        <a [routerLink]="['/calificaciones']" mat-button>
+        <a [routerLink]="['/listarCarreras']" mat-button>
           Consultar Calificacion
-        </a>
-        <a [routerLink]="['/grafo']" mat-button>
-          Consultar Previas
         </a>
         <a [routerLink]="['/']" mat-button>
           <mat-icon>home</mat-icon>
           HOME
         </a>
-        <a href="#" mat-button>
+        <a (click)="logOut()" mat-button>
           <mat-icon>account_box</mat-icon>
          Logout
         </a>
@@ -143,11 +141,8 @@
           <a [routerLink]="['/inscExamen']" mat-button>
             Inscripcion Examen
           </a>
-          <a [routerLink]="['/calificaciones']" mat-button>
+          <a [routerLink]="['/listarCarreras']" mat-button>
             Consultar Calificacion
-          </a>
-          <a [routerLink]="['/grafo']" mat-button>
-            Consultar Previas
           </a>
           <a [routerLink]="['/']" mat-button>
             <mat-icon>home</mat-icon>

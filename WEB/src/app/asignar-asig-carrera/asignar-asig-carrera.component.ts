@@ -20,20 +20,27 @@ public asignatura = new asignatura();
 public asignaturas : Array<asignatura>;
 
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-    private storageService: StorageService, private router: Router) { }
+    private storageService: StorageService, private router: Router) { 
+      this.getAsignaturas();
+      this.asignaturas;
+    }
 
   ngOnInit() {
     
-    this.nombreCarrera= localStorage.getItem('nombreABM');
-    this.codigoCarrera= localStorage.getItem('codigoABM');
+    this.nombreCarrera= localStorage.getItem('nombreCarreraAsignaturaABM');
+    this.codigoCarrera= localStorage.getItem('codigoCarreraAsignaturaABM');
     this.getAsignaturas();
+    this.asignaturas;
   }
 
 
   public  getAsignaturas(){
-    this.apiService.getAsignaturaByCarrera(this.codigoCarrera).subscribe((data:  Array<asignatura>) => {
+    this.apiService.getAllAsignatura().subscribe((data:  Array<asignatura>) => {
         this.asignaturas  =  data;
+        console.log(this.asignaturas);
     });
+
+    console.log(this.asignaturas);
    
   }
 

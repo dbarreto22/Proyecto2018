@@ -1,0 +1,31 @@
+<app-toolbar-administrador [rolElegido]="rolElegido">loading...</app-toolbar-administrador>
+  <app-toolbar-director [rolElegido]="rolElegido">loading...</app-toolbar-director>
+  <app-toolbar [rolElegido]="rolElegido">loading...</app-toolbar>
+  
+ 
+ <!--   
+<div class="example-wrapper" style="float: right">
+  <label class="font-weight-normal" style="color: white" >Roles: </label>
+    <select class="custom-select" (change)="selectRol($event.target.value)">
+        <option value="0">{{rolElegido}}</option>
+        <option *ngFor="let rol of roles" value={{rol.id}}>
+        {{rol.tipo}}
+        </option>
+    </select>
+</div>-->
+
+<mat-form-field style="float: right">
+  <mat-select (change)="selectRol($event.target.value)">
+    <mat-option>None</mat-option>
+    <mat-option value="0">{{rolElegido}}</mat-option>
+    <mat-option *ngFor="let rol of roles" value={{rol.id}}>{{rol.tipo}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+  <div class="mat-sidenav-container" style="text-align:center">
+    <p class="font-weight-normal" style="color: white; font-size: 26px">Bienvenido a MiUdelar</p>
+    <router-outlet></router-outlet>
+  </div>
+
+ 

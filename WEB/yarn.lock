@@ -172,10 +172,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/flex-layout@^7.0.0-beta.19":
-  version "7.0.0-beta.19"
-  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-7.0.0-beta.19.tgz#f8aa46dd1290adba512a15e762938d6a1d71bcd5"
-  integrity sha512-MXq+zZ6/s5/+GsL9fZ42mKL0LjZ/+L0sVU5FaQuSAJ57soLl5QAGWvdxVmROtqcHd3Htp35R49nKSZBJ0nfAjg==
+"@angular/flex-layout@^6.0.0-beta.18":
+  version "6.0.0-beta.18"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-6.0.0-beta.18.tgz#fdf9d17a45989d0bf0dd1ad466eea503da618276"
+  integrity sha512-1Alv3YSIZYp0CTUIESIaSQLoSVyLzuNKPa5bGM/RzOmeSrndm5plVgI9wopGfJUDiwM18R97rq/4XjDvNT/+ig==
   dependencies:
     tslib "^1.7.1"
 
@@ -6935,7 +6935,7 @@ puppeteer@1.7.0:
     rimraf "^2.6.1"
     ws "^5.1.1"
 
-puppeteer@^1.7.0:
+puppeteer@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-1.10.0.tgz#e3005f1251c2feae0e10c0f7a35afbcd56589ceb"
   integrity sha512-3i28X/ucX8t3eL4TZA60FLMOQNKqudFSOGDHr0cT7T4dE027CrcS885aAqjdxNybhMPliM5yImNsKJ6SQrPzhw==

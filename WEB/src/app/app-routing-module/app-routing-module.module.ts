@@ -26,6 +26,9 @@ import { HomeComponentComponent } from '../home-component/home-component.compone
 import { HomeLayoutComponent } from '../layouts/home-layout/home-layout.component';
 import { ErrorComponent } from '../error.component';
 import { ListarUsuariosComponent } from '../listar-usuarios/listar-usuarios.component';
+import { ListarCursosCarrerasComponent } from '../listar-cursos-carreras/listar-cursos-carreras.component';
+import { ListarCarrerasComponent } from '../listar-carreras/listar-carreras.component';
+
 
 const routes: Routes = [
  { path: '', component: HomeLayoutComponent, canActivate:[AuthorizatedGuard],
@@ -34,7 +37,7 @@ const routes: Routes = [
       {path: 'tabla', component:TablaComponent},
       {path: 'inscCarrera', component:InscCarreraComponent},
       {path: 'inscExamen', component:InscExamenComponent},
-      {path: 'calificaciones', component:CalificacionesComponent},
+      {path: 'listarCarreras', component:ListarCarrerasComponent},
       {path: 'ingCarrera', component:IngrCarrerasComponent},
       {path: 'ingAsignatura', component:IngrAsignaturaComponent},
       {path: 'crearUsr', component:CrearUsuarioComponent},
@@ -50,6 +53,9 @@ const routes: Routes = [
       {path: 'calificacionesCurso', component: CalificacionesCursoComponent},
       {path: 'inscCursos', component: CursosComponent},
       {path: 'listarUsuarios', component: ListarUsuariosComponent},
+      {path: 'listarCursos', component: ListarCursosCarrerasComponent},
+      {path: 'calificaciones', component: CalificacionesComponent},
+     // {path: '', component: CalificacionesCursoComponent},
       
     ]},
   { path: '', component: LoginLayoutComponent,

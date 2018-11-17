@@ -42,8 +42,9 @@ export class CursosComponent implements OnInit {
  }
 
  ngOnInit() {
-  this.getCursos();
+  //this.getCursos();
   this.cursos; 
+  this.getCursosGrid();
  }
 
  public setSelectableSettings(): void {
@@ -76,6 +77,8 @@ public dataStateChange(state: DataStateChangeEvent): void {
 
 public cursosGrid = new Array<Curso>();
 public getCursosGrid(){
+  this.apiService.getAllCursos().subscribe((data:cursos[]) => {
+    this.cursos  =  data; });
       var curso= new Curso();
       console.log(this.cursos);
       this.cursos.forEach(element => {

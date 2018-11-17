@@ -28,14 +28,14 @@ export class ModificarAsignaturaComponent implements OnInit {
 
   getAsignatura(){
     console.log(this.codigo);
-    this.apiService.getAsignatura().subscribe((data: asignatura)=> {
+    this.apiService.getAsignatura(this.codigo).subscribe((data: asignatura)=> {
       this.asignatura  =  data;
       console.log(this.asignatura);
   });
   }
 
   cancelar(){
-    this.router.navigate(['/setingsCarrera']);
+    this.router.navigate(['/setingsAsignatura']);
     }
 
   modificarAsignatura(nombre:string){

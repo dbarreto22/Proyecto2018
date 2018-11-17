@@ -78,8 +78,8 @@ public modificarCarrera(){
 }
 
 public carreraAsignatura(){
-  localStorage.setItem('codigoABM', this.codigo);
-  localStorage.setItem('nombreABM', this.nombreCarrera);
+  localStorage.setItem('codigoCarreraAsignaturaABM', this.codigo);
+  localStorage.setItem('nombreCarreraAsignaturaABM', this.nombreCarrera);
   this.router.navigate(['/asignarAsigCarrera']);
 }
 
