@@ -4,14 +4,8 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { process, State,filterBy, FilterDescriptor, CompositeFilterDescriptor} from '@progress/kendo-data-query';
-import {
-    GridComponent,
-    GridDataResult,
-    DataStateChangeEvent,
-    PageChangeEvent,
-    RowArgs, SelectableSettings, SelectableMode
-} from '@progress/kendo-angular-grid';
+import { State, CompositeFilterDescriptor} from '@progress/kendo-data-query';
+import { SelectableSettings} from '@progress/kendo-angular-grid';
 import { asignatura } from '../modelos/asignatura.model';
 
 @Component({
@@ -106,10 +100,19 @@ this.dialogOpened = true;
       this.apiService.deleteCarrera(this.asignatura).subscribe(
         data=>{this.router.navigate(['/setingsAsignatura']);
         alert('Asignatura eliminada correctamente.')
-      },err=>{
-        alert("No se pudo eliminar " + err.message+ err.status);
-        this.router.navigate(['/setingsAsignatura']);
-    });
+      },
+      err=>{
+        //this.loading=false;
+        console.log(err.status+err.message);
+        if(err.status==403)
+        {
+          alert('Su sesión ha expirado.');
+          this.router.navigate(['/login']);
+        }
+        else
+          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+          this.router.navigate(['/setingsAsignatura']);
+      });
     this.dialogOpened = false;
     }
     
