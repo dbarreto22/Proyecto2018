@@ -41,9 +41,18 @@ export class CrearUsuarioComponent implements OnInit {
     this.apiService.ingresarUsuario(this.DtUsuario).subscribe(
         data=>{this.router.navigate(['/setingsUser']);
             alert("Se creo Usuario correctamente");
-        },err=>{
-            alert("No se ha podido crear Usuario");
-            this.router.navigate(['/setingsUser']);
+        },
+        err=>{
+          //this.loading=false;
+          console.log(err.status+err.message);
+          if(err.status==403)
+          {
+            alert('Su sesión ha expirado.');
+            this.router.navigate(['/login']);
+          }
+          else
+            alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+            this.router.navigate(['/setingsAsignatura']);
         });
     }
 

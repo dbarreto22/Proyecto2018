@@ -20,8 +20,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 
 };
-const params = new HttpParams()
-  .set('cedula', '1111111');
+var params = new HttpParams();
 
 const paramsCarrera = new HttpParams()
   .set('codigo', localStorage.getItem('codigoABM'));
@@ -45,13 +44,14 @@ constructor(private  httpClient:  HttpClient,private router: Router,
              private storage:StorageService) {
               let paramsA: URLSearchParams = new URLSearchParams();
               paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+              params.set('cedula',JSON.parse(localStorage.getItem('session')).usr.cedula);
              }         
 
 //public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;; 
            
            
 
-public cedula = '1111111'// JSON.parse(localStorage.getItem('session')).usr.cedula; 
+public cedula = JSON.parse(localStorage.getItem('session')).usr.cedula; 
 public codigo = localStorage.getItem('codigoABM');
 
 getAllCarrera(): Observable<object[]>{
@@ -67,14 +67,11 @@ getAllUser(){
 }
  
 getAsignaturaByCarrera(idCarrera){
-
   let data = {idCarrera: idCarrera};
   console.log(data);
- 
   return  this.httpClient.get(`${this.API_URL}/director/asignatura/carrera/`+idCarrera);
 }
-/*public getToken(){***********Se cambia por local storage
-*/
+
 
 getAsignaturaCarreraByCarrera(idCarrera){
   return  this.httpClient.get(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
@@ -83,8 +80,6 @@ getAsignaturaCarreraByCarrera(idCarrera){
 getAllCursos() : Observable<cursos[]>{
   return  this.httpClient.get<cursos[]>(this.url + this.cedula);
 }
-
-
 
 getAllExamen(){ 
   return  this.httpClient.get(`${this.API_URL}/estudiante/examen`+this.cedula);
@@ -108,14 +103,10 @@ getCarrera(codigo){
 }
 
 getAsignatura(codigo){
-
   let data = {codigo: codigo};
   console.log(data);
   return this.httpClient.get(`${this.API_URL}/director/asignatura/`+codigo)
 }
-
-
-
 
 getprevias(idCurso){
   return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
@@ -125,16 +116,12 @@ getUserRol(){
   return this.httpClient.get(`${this.API_URL}/admin/rol`);
 }
 
-
-
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
   request = request.clone({
     setHeaders: {
       Authorization: `Bearer ${this.getToken()}`
     }
   });
-
   return next.handle(request);
 }
 
@@ -142,41 +129,34 @@ inscripcionCarrera(cedula,codigo){
 var a: any = {};
 a.cedula = cedula;
 a.codigo = codigo;
-
   let json = JSON.stringify(a);
   console.log(json);
   return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCarrera`,json, httpOptions);
 }
 
-
 inscripcionCurso(cedula,idCurso){
   var a: any = {};
-
   a.cedula = cedula;
   a.idCurso = idCurso;
-  
     let json = JSON.stringify(a);
     console.log(json);
     return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json,httpOptions);
   }
+
   inscripcionExamen(cedula,idCurso){
     var a: any = {};
-
     a.cedula = cedula;
     a.idCurso = idCurso;
-    
       let json = JSON.stringify(a);
       console.log(json);
       return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionExamen`,json, httpOptions);
   }
 
-  
   ingresarCarrera(DtCarrera :carrera){
     console.log(DtCarrera);
     return  this.httpClient.post(`${this.API_URL}/director/carrera`,DtCarrera);
   }
 
- 
   ingresarAsignatura(DtAsignatura : asignatura){
     return  this.httpClient.post(`${this.API_URL}/director/asignatura`,DtAsignatura);
   }
@@ -188,12 +168,9 @@ inscripcionCurso(cedula,idCurso){
 
   asignarAsigCarrera(codAsig, codCarrera){
     var a: any = {};
-
     a.codigoAsignatura = codAsig;
     a.codigoCarrera = codCarrera;
-    
       let json = JSON.stringify(a);
-
     return  this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`,json, httpOptions);
   }
 
@@ -237,7 +214,5 @@ inscripcionCurso(cedula,idCurso){
     return  this.httpClient.post(`${this.API_URL}/admim/usuario/addRol`, json, httpOptions);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
-
-
 }
 
