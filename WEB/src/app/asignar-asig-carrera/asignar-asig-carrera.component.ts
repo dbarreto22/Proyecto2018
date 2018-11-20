@@ -26,7 +26,12 @@ public asignaturas : Array<asignatura>;
     }
 
   ngOnInit() {
-    
+    let rolElegido=localStorage.getItem('rolElegido');
+    if( rolElegido!='3')
+    {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
     this.nombreCarrera= localStorage.getItem('nombreCarreraAsignaturaABM');
     this.codigoCarrera= localStorage.getItem('codigoCarreraAsignaturaABM');
     this.getAsignaturas();

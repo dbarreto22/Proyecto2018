@@ -15,9 +15,10 @@ import { carrera } from './modelos/carrera.model';
 import { asignatura } from './modelos/asignatura.model';
 import { usuario } from './modelos/usuario.model';
 import { cursos } from './modelos/cursos.model';
+import { map } from 'rxjs/operators';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 
 };
 var params = new HttpParams();
@@ -30,7 +31,6 @@ const paramsAsignatura = new HttpParams()
 
 
 let paramsCalificaciones = new HttpParams();
-paramsCalificaciones = paramsCalificaciones.append('cedula', '1111111');
 paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
 
 
@@ -40,18 +40,15 @@ export class ApiService {
   url = 'http://localhost:8080/miudelar-server/director/carrera/';  
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
+    public cedula;
 constructor(private  httpClient:  HttpClient,private router: Router,
              private storage:StorageService) {
               let paramsA: URLSearchParams = new URLSearchParams();
               paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
-              params.set('cedula',JSON.parse(localStorage.getItem('session')).usr.cedula);
-             }         
+            }         
 
 //public cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;; 
            
-           
-
-public cedula = JSON.parse(localStorage.getItem('session')).usr.cedula; 
 public codigo = localStorage.getItem('codigoABM');
 
 getAllCarrera(): Observable<object[]>{
@@ -154,16 +151,15 @@ inscripcionCurso(cedula,idCurso){
 
   ingresarCarrera(DtCarrera :carrera){
     console.log(DtCarrera);
-    return  this.httpClient.post(`${this.API_URL}/director/carrera`,DtCarrera);
+    return  this.httpClient.post(`${this.API_URL}/director/carrera`,DtCarrera, httpOptions);
   }
 
   ingresarAsignatura(DtAsignatura : asignatura){
-    return  this.httpClient.post(`${this.API_URL}/director/asignatura`,DtAsignatura);
+    return  this.httpClient.post(`${this.API_URL}/director/asignatura`,DtAsignatura, httpOptions);
   }
 
   ingresarUsuario(DtUsuario : usuario){
-    console.log(DtUsuario);
-    return  this.httpClient.post(`${this.API_URL}/admin/usuario`,DtUsuario);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario`,DtUsuario,{'responseType': 'text'} );
   }
 
   asignarAsigCarrera(codAsig, codCarrera){
@@ -214,5 +210,10 @@ inscripcionCurso(cedula,idCurso){
     return  this.httpClient.post(`${this.API_URL}/admim/usuario/addRol`, json, httpOptions);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
+cargarParametros(){
+  params.set('cedula',JSON.parse(localStorage.getItem('session')).usr.cedula);
+  this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula; 
+
+}
 }
 

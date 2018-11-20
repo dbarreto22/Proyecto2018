@@ -3,6 +3,7 @@ import APP_CONFIG from '../../app.config';
 import { Node, Link } from '../../d3';
 import { ApiService } from '../../api.service';
 import { asignaturaCarrera } from '../../modelos/asignaturaCarrera.model';
+import { RouterOutlet, Router } from '@angular/router';
 
 @Component({
   selector: 'app-grafo',
@@ -17,7 +18,7 @@ export class GrafoComponent implements OnInit {
   x:number=300;
   y:number=50;
 
-  constructor(private apiService:ApiService) {
+  constructor(private apiService:ApiService,private router:Router) {
     this.idCurso=localStorage.getItem('idCurso');
     alert(this.idCurso);
     this.apiService.getprevias(this.idCurso).subscribe((datos : asignaturaCarrera)=>
@@ -29,6 +30,12 @@ export class GrafoComponent implements OnInit {
     alert('entro una vez Nodo '+ JSON.stringify(this.nodes));
   }
   ngOnInit(){
+    let rolElegido=localStorage.getItem('rolElegido');
+    if( rolElegido!='3')
+    {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
   };
     crearNodos(datos:asignaturaCarrera,link:Link, x:number, y:number){
       let auxX, auxY;

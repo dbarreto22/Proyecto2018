@@ -21,7 +21,7 @@ export class cursosResolver implements Resolve<object[]> {
       if (data) {
         return data;
       } else {
-        this.router.navigate(['/country/countryList']);
+        this.router.navigate(['/']);
         return null;
       }
     }));

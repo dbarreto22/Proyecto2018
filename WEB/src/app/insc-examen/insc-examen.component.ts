@@ -38,6 +38,12 @@ export class InscExamenComponent implements OnInit {
      }
 
   ngOnInit() {
+    let rolElegido=localStorage.getItem('rolElegido');
+    if( rolElegido!='1')
+    {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
         this.examenes;
         this.getExamenes(); 
         this.getExamenGrid();     
