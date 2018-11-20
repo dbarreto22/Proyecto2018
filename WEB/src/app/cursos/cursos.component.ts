@@ -9,7 +9,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CompositeFilterDescriptor, State, process } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent, SelectableSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { cursos} from '../modelos/cursos.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
@@ -42,7 +42,7 @@ export class CursosComponent implements OnInit {
   
  //private  apiService:  ApiService
  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService
-            , private storageService : StorageService, private router: Router) {
+            , private storageService : StorageService, private router: Router,private route: ActivatedRoute) {
               this.setSelectableSettings();
 //              this.getCursos();
  }
@@ -50,6 +50,10 @@ export class CursosComponent implements OnInit {
 
  ngOnInit() {
   this.getCursos();
+  this.getCursosGrid();
+
+  //this.cursosGrid = this.route.snapshot.data.cursos;
+  
   //this.cursos;
   this.rolElegido=localStorage.getItem('rolElegido');
  // alert('El rol elegido es '+this.rolElegido);
@@ -103,6 +107,7 @@ public getCursosGrid(){
         curso.nombreCarrera=element.asignatura_Carrera.carrera.nombre;
         this.cursosGrid.push(curso);
       });
+      console.log(this.cursosGrid);
  }
 
  cancelar(){

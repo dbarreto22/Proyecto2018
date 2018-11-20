@@ -41,7 +41,7 @@ export class ModificarAsignaturaComponent implements OnInit {
   modificarAsignatura(nombre:string){
     this.asignatura.nombre = nombre;
     
-    this.apiService.modificarCarrera(this.asignatura).subscribe(
+    this.apiService.modificarAsignatura(this.asignatura).subscribe(
       data=>{this.router.navigate(['/setingsAsignatura']);
       alert("Se ha modificado correctamente");
     },err=>{

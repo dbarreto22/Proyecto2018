@@ -103,7 +103,7 @@ this.dialogOpened = true;
     
     public confirmarEliminarAsignatura(){
     
-      this.apiService.deleteCarrera(this.asignatura).subscribe(
+      this.apiService.deleteAsignatura(this.asignatura.codigo).subscribe(
         data=>{this.router.navigate(['/setingsAsignatura']);
         alert('Asignatura eliminada correctamente.')
       },

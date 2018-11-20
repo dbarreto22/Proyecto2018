@@ -5,6 +5,8 @@ import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { usuario } from '../modelos/usuario.model';
 import { StorageService } from '../storage.service';
+import { Rol } from '../modelos/rol.model';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -52,7 +54,7 @@ export class AsociarRolComponent implements OnInit {
       this.usuario;
       this.getAllRolUsuario();
       this.getRolUsuario();
-      this.setShow();
+     
   }
 
 
@@ -67,11 +69,12 @@ export class AsociarRolComponent implements OnInit {
 getAllRolUsuario(){
   this.apiService.getUserRol().subscribe((data: Array<usuario>)=> {
     this.usuariosConRol  =  data;
-    console.log(this.usuario);
+    console.log(this.usuariosConRol);
    });
 }
 
-public rolUsuario : Array<string>;
+public rolUsuario : Array<Rol>;
+
 getRolUsuario(){
 
   this.usuariosConRol.forEach(element => {
@@ -83,17 +86,26 @@ getRolUsuario(){
   });
 }
 
+public cantidad : number;
+
+
 setShow(){
-  if(this.rolUsuario.length > 0){
+ 
+  this.cantidad = 0;
+  console.log(this.rolUsuario);
+
+  if(this.rolUsuario.length = 0){
     this.show = true;
   }
+
 }
+
 public ChangeRol(value:string) {
   this.rolSelected = value;
 }
 
 cancelar(){
-  this.router.navigate(['/setingsUser']);
+  this.router.navigate(['/setingsUser']); 
   }
 
 asociarRol(){

@@ -1,3 +1,4 @@
+import { Rol } from "./rol.model";
 
 export class usuario {
     constructor(
@@ -8,5 +9,5 @@ export class usuario {
     public apellido;
     public email;
     public password;
-    public roles: Array<any>;
+    public roles: Array<Rol>;
 }

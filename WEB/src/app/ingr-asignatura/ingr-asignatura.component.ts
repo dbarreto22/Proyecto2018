@@ -24,7 +24,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class IngrAsignaturaComponent implements OnInit {
 
-  public nombreAsigantura;
+  public nombreAsignatura;
   public codigoAsignatura;
 
   public DtAsignatura = new asignatura();
@@ -50,7 +50,7 @@ export class IngrAsignaturaComponent implements OnInit {
   
   getNombreIngresado(value:String){
     
-    this.nombreAsigantura = value;
+    this.nombreAsignatura = value;
     }
   
   cancelar(){
@@ -59,7 +59,7 @@ export class IngrAsignaturaComponent implements OnInit {
 
     insgAsignatura(){
       this.DtAsignatura.codigo = this.codigoAsignatura;
-      this.DtAsignatura.nombre = this.nombreAsigantura;
+      this.DtAsignatura.nombre = this.nombreAsignatura;
 
       this.apiService.ingresarAsignatura(this.DtAsignatura).subscribe(
         data=>{this.router.navigate(['/setingsAsignatura'])

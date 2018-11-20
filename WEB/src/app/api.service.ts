@@ -36,7 +36,8 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 
 @Injectable()
 export class ApiService {
-  API_URL  = 'http://localhost:8080/miudelar-server';   
+  API_URL  = 'http://localhost:8080/miudelar-server'; 
+  url = 'http://localhost:8080/miudelar-server/director/carrera/';  
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
     public cedula;
@@ -50,8 +51,8 @@ constructor(private  httpClient:  HttpClient,private router: Router,
            
 public codigo = localStorage.getItem('codigoABM');
 
-getAllCarrera(){
-    return  this.httpClient.get(`${this.API_URL}/director/carrera`);
+getAllCarrera(): Observable<object[]>{
+    return  this.httpClient.get<object[]>(this.url);
 }
 
 getAllAsignatura(){
@@ -73,12 +74,12 @@ getAsignaturaCarreraByCarrera(idCarrera){
   return  this.httpClient.get(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
 }
 
-getAllCursos(){
-  return  this.httpClient.get(`${this.API_URL}/estudiante/curso`,{params : params});
+getAllCursos() : Observable<cursos[]>{
+  return  this.httpClient.get<cursos[]>(this.url + this.cedula);
 }
 
 getAllExamen(){ 
-  return  this.httpClient.get(`${this.API_URL}/estudiante/examen`,{params : params});
+  return  this.httpClient.get(`${this.API_URL}/estudiante/examen`+this.cedula);
 }
  
 getCalificacionesEstudiante(idAsigCarrera){ 
@@ -101,7 +102,7 @@ getCarrera(codigo){
 getAsignatura(codigo){
   let data = {codigo: codigo};
   console.log(data);
-  return this.httpClient.get(`${this.API_URL}/director/asignatura/`,{params :data})
+  return this.httpClient.get(`${this.API_URL}/director/asignatura/`+codigo)
 }
 
 getprevias(idCurso){
@@ -109,7 +110,7 @@ getprevias(idCurso){
 }
 
 getUserRol(){
-  return this.httpClient.get(`${this.API_URL}/admin/rol/`);
+  return this.httpClient.get(`${this.API_URL}/admin/rol`);
 }
 
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -185,8 +186,20 @@ inscripcionCurso(cedula,idCurso){
     return  this.httpClient.post(`${this.API_URL}/director/carrera.delete`,json, httpOptions);
   }
 
+  deleteAsignatura(codigo){
+    var a: any = {};
+    a.codigo = codigo;
+      let json = JSON.stringify(a);
+    console.log(json);
+    return  this.httpClient.post(`${this.API_URL}/director/asignatura.delete`,json, httpOptions);
+  }
+
   modificarCarrera(carrera :carrera){
     return  this.httpClient.post(`${this.API_URL}/director/carrera.edit`,carrera);
+  }
+
+  modificarAsignatura(dtAsignatura :asignatura){
+    return  this.httpClient.post(`${this.API_URL}/director/asignatura.edit`,dtAsignatura);
   }
 
   asignarRol(cedula,idRol){
