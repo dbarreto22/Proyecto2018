@@ -52,7 +52,7 @@ const routes: Routes = [
       {path: 'modificarCarrera', component: ModificarCarreraComponent},
       {path: 'modificarAsignatura', component: ModificarAsignaturaComponent},
       {path: 'calificacionesCurso', component: CalificacionesCursoComponent},
-      {path: 'inscCursos', component: CursosComponent},//, resolve:{cursosResolver}},
+      {path: 'inscCursos', component: CursosComponent, resolve:{cursosResolver}},
       {path: 'listarUsuarios', component: ListarUsuariosComponent},
       {path: 'listarCursos', component: ListarCursosCarrerasComponent},
       {path: 'calificaciones', component: CalificacionesComponent},

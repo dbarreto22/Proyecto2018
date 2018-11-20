@@ -37,4 +37,8 @@ export class AppComponent implements OnInit, OnDestroy{
     login(){
       return false
     }
+    getUrl()
+    {
+      return "url('../assets/background.jpg')";
+    }
   }

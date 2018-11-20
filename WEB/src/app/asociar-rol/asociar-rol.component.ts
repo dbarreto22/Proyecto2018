@@ -40,6 +40,12 @@ export class AsociarRolComponent implements OnInit {
     private storageService: StorageService, private router: Router) { }
 
   ngOnInit() {
+    let rolElegido=localStorage.getItem('rolElegido');
+    if( rolElegido!='1')
+    {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
       this.cedula = localStorage.getItem('cedulaABM');
       console.log(this.cedula);
       this.getUsuario();

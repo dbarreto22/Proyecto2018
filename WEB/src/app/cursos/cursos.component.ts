@@ -113,7 +113,6 @@ public getCursosGrid(){
   this.idCurso  = this.cursosGrid[e.index].idCurso;
   console.log(this.idCurso);
  }
-
    public inscCursos(){
     this.cedula =  JSON.parse(localStorage.getItem('session')).usr.cedula;
      this.apiService.inscripcionCurso(this.cedula, this.idCurso).subscribe(

@@ -82,9 +82,10 @@ private correctLogin(){
       //console.log('El usuario tiene '+usuario.nombre);
       let sesion:Sesion=JSON.parse(localStorage.getItem('session'));
       localStorage.setItem('session',JSON.stringify(new Sesion(sesion.token,res)));
+      this.apiService.cargarParametros();
       console.log(localStorage.getItem('session')+'--- sesion de login');
       let rolesArray=usuario!=null? usuario.roles:null;
-      console.log('roles '+JSON.stringify(rolesArray));
+//      console.log('roles '+JSON.stringify(rolesArray));
       if(rolesArray!=null){
       //  console.log('Entro a roles ');
       rol=rolesArray[rolesArray.length-1].id!='2'?
@@ -92,7 +93,7 @@ private correctLogin(){
       if(!rol){
         alert('Este usuario no puede acceder a la web, consulte con el administrador.');
         localStorage.removeItem('session');
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       }
       localStorage.setItem('rolElegido',rol);
       this.storageService.setRolElegido(localStorage.getItem('rolElegido'));

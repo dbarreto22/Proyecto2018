@@ -46,7 +46,12 @@ import { Router } from '@angular/router';
         }
        
     ngOnInit() {
-        
+        let rolElegido=localStorage.getItem('rolElegido');
+    if( rolElegido!='4')
+    {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
         this.getCarreras(); 
         this.carreras;
        

@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SelectableSettings } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
-import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
 import { usuario } from '../modelos/usuario.model';
 
 @Component({
@@ -25,13 +24,19 @@ export class ABMUsuarioComponent implements OnInit {
     public usuario = new usuario();
     public dialogOpened = false;
   constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-    private storageService: StorageService, private router: Router) {
+     private router: Router) {
         this.setSelectableSettings();
  
         
     }
 
   ngOnInit() {
+    let rolElegido=localStorage.getItem('rolElegido');
+    if( rolElegido!='1')
+    {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
     this.getusuarios();
     this.usuarios;
   }
@@ -53,7 +58,14 @@ public  getusuarios(){
   this.apiService.getAllUser().subscribe((data:  Array<usuario>) => {
       this.usuarios  =  data;
       console.log(this.usuarios);
-  });
+  },err=>{
+    if (err.status == 403) {
+    alert('Su sesión ha expirado.');
+    this.router.navigate(['/login']);
+  }
+  else {
+    alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
+  }});
 }
 
 change(e){
