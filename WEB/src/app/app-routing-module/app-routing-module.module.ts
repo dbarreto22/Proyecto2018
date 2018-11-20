@@ -29,11 +29,14 @@ import { ListarUsuariosComponent } from '../listar-usuarios/listar-usuarios.comp
 import {cursosResolver} from '../cursos/cursos-resolver.service'; 
 import { ListarCursosCarrerasComponent } from '../listar-cursos-carreras/listar-cursos-carreras.component';
 import { ListarCarrerasComponent } from '../listar-carreras/listar-carreras.component';
+import { ApiService } from '../api.service';
 
 
 const routes: Routes = [
  { path: '', component: HomeLayoutComponent, canActivate:[AuthorizatedGuard],
-       children:[
+    resolve: {
+      cursoCarga: cursosResolver},
+      children:[
       {path: 'grid', component:GridComponent},
       {path: 'tabla', component:TablaComponent},
       {path: 'inscCarrera', component:InscCarreraComponent},
@@ -56,9 +59,10 @@ const routes: Routes = [
       {path: 'listarUsuarios', component: ListarUsuariosComponent},
       {path: 'listarCursos', component: ListarCursosCarrerasComponent},
       {path: 'calificaciones', component: CalificacionesComponent},
-     // {path: '', component: CalificacionesCursoComponent},
       
-    ]},
+    ],
+    
+  },
   { path: '', component: LoginLayoutComponent,
        children:[{path:'login',component:LoginComponent}]},
   { path: '**', redirectTo: 'login' }

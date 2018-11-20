@@ -6,20 +6,20 @@
   </div>
   
   <div class="col-xs-12 col-sm-12 example-col">
-    <fieldset disabled="">
-        <label class="control-label" for="disabledInput">Codigo</label>
-        <input  #codigo (keyup)=getCodigoIngresado(codigo.value) kendoTextBox />
-    </fieldset>
+        <label class="k-form-fieldcontrol-label" style="text-align: left">
+            <span>Codigo</span>
+            <input  #codigo (keyup)=getCodigoIngresado(codigo.value) class="form-control" />
+        </label>
   </div>
 
   <hr/> 
   <hr/>
   
   <div class="col-xs-12 col-md-12 example-col">
-      <fieldset disabled="">
-          <label class="control-label" for="disabledInput">Nombre</label>
-          <input  #nombre (keyup)=getNombreIngresado(nombre.value) kendoTextBox />
-      </fieldset>
+          <label class="k-form-fieldcontrol-label" style="text-align: left">Nombre
+            <span>Nombre</span>
+            <input  #nombre (keyup)=getNombreIngresado(nombre.value) class="form-control" />
+        </label>
   </div>
 
   <hr/> 

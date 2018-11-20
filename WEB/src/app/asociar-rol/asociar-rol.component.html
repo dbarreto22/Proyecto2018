@@ -1,7 +1,7 @@
 <div class="jumbotron" style="background: aliceblue">
 
   <div class="example-config">
-      <p class="font-weight-normal" style="color: dodgerblue">Inscripción a Carrera</p>
+      <p class="font-weight-normal" style="color: dodgerblue">Asociar Rol</p>
   </div>
 
     
@@ -9,21 +9,26 @@
     <h4 class="font-weight-normal">Cedula : {{usuario.cedula}}  Nombre: {{usuario.nombre}}  {{usuario.apellido}}</h4>
   </div>
 
-  <kendo-grid *ngIf="show" [kendoGridBinding]="rolUsuario" [resizable]="true" [height]="370" style="width: 500px; ">
+  <kendo-grid *ngIf="(rolUsuario)?.length > 0; else notShow" [data]="rolUsuario" [resizable]="true" [height]="370" style="width: 500px; ">
             <kendo-grid-column field="id" title="ID" width="40" [locked]="true">
             </kendo-grid-column>
             <kendo-grid-column field="tipo" title="Tipo" width="250" [locked]="true">
             </kendo-grid-column>
   </kendo-grid>
+  <ng-template #notShow>
+  <div  class="example-config">
+    <p class="font-weight-normal" style="color: black ">El Usuario no tiene Roles asignados.</p>
+  </div>
+</ng-template>
 
   <div class="example-config">
-      <p class="font-weight-normal" style="color: dodgerblue">Seleccione Rol a Asignar
+      <p class="font-weight-normal" style="color: dodgerblue">Seleccione Rol a Asignar</p>
   </div>
 
-  <div class="col-lg-12 col-sm-4 form-group" style="align-content: center">
-    <div class="input-group">
+  <div  style="float: center">
+    <div class="input-group"  style="float: center">
         <kendo-combobox
-          [kendoGridBinding]="rolMostrar"
+          [data]="rolMostrar"
           [textField]="'tipo'"
           [(ngModel)]="id"
           (valueChange)="ChangeRol($event)"

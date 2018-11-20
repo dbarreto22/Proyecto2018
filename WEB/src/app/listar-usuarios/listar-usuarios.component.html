@@ -30,9 +30,9 @@
     <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
       <p style="margin: 30px; text-align: center; color: dodgerblue;" class="font-weight-normal">Datos de usuario</p>
       <p style="margin: 30px; text-align: center;"></p>
-      <p style="margin: 30px; text-align: center;">{{usuario.nombre}}</p>
-      <p style="margin: 30px; text-align: center;">{{usuario.apellido}}</p>
-      <p style="margin: 30px; text-align: center;">{{usuario.email}}</p>
+      <p style="margin: 30px; text-align: center;">Nombre: {{usuario.nombre}}</p>
+      <p style="margin: 30px; text-align: center;">Apellido: {{usuario.apellido}}</p>
+      <p style="margin: 30px; text-align: center;">Email: {{usuario.email}}</p>
       <kendo-dialog-actions>
         <button kendoButton (click)="action()" >Aceptar</button>  
       </kendo-dialog-actions>

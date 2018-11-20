@@ -11,7 +11,7 @@ import {
     RowArgs, SelectableSettings, SelectableMode
 } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -40,15 +40,15 @@ import { Router } from '@angular/router';
 
 
     constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-        private storageService: StorageService, private router: Router) {
+        private storageService: StorageService, private router: Router, private route: ActivatedRoute) {
             this.setSelectableSettings();    
             
         }
        
     ngOnInit() {
         
-        this.getCarreras(); 
-        this.carreras;
+        //this.getCarreras(); 
+        this.carreras= this.route.snapshot.data.cursos;
        
       } 
     

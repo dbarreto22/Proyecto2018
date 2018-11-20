@@ -7,10 +7,13 @@ import { map } from 'rxjs/operators';
 
 
 @Injectable()
-export class cursosResolver implements Resolve<cursos[]> {
+export class cursosResolver implements Resolve<object[]> {
   constructor(private apiService: ApiService, private router: Router) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<cursos[]> {
+  public resolve = (router: ActivatedRouteSnapshot, state: RouterStateSnapshot): 
+                    Observable<object[]> => this.apiService.getAllCarrera();
+
+ /* resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<cursos[]> {
 //    let id = route.paramMap.get('country-id');
 //    console.log('Resolving for country id:' + id);
     
@@ -22,5 +25,5 @@ export class cursosResolver implements Resolve<cursos[]> {
         return null;
       }
     }));
-  }
-} 
+  }*/
+}
