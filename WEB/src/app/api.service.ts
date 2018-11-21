@@ -17,8 +17,20 @@ import { usuario } from './modelos/usuario.model';
 import { cursos } from './modelos/cursos.model';
 import { map } from 'rxjs/operators';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+const httpOptions : {
+  headers?: HttpHeaders,
+            observe?: 'body',
+            params?: HttpParams,
+            reportProgress?: boolean,
+            responseType: 'text',
+            withCredentials?: boolean
+
+}={headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
+responseType: 'text'};
+
+const httpOptions2 = {
+  headers: new HttpHeaders({ 'Content-Type': 'text/html'}),
+  responseType:'text'
 
 };
 var params = new HttpParams();
@@ -146,16 +158,16 @@ inscripcionCurso(cedula,idCurso){
     a.idCurso = idCurso;
       let json = JSON.stringify(a);
       console.log(json);
-      return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionExamen`,json, httpOptions);
+      return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionExamen`,json, {'responseType': 'text'});
   }
 
   ingresarCarrera(DtCarrera :carrera){
     console.log(DtCarrera);
-    return  this.httpClient.post(`${this.API_URL}/director/carrera`,DtCarrera, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/director/carrera`,DtCarrera, {'responseType': 'text'});
   }
 
   ingresarAsignatura(DtAsignatura : asignatura){
-    return  this.httpClient.post(`${this.API_URL}/director/asignatura`,DtAsignatura, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/director/asignatura`,DtAsignatura, {'responseType': 'text'});
   }
 
   ingresarUsuario(DtUsuario : usuario){
@@ -167,15 +179,15 @@ inscripcionCurso(cedula,idCurso){
     a.codigoAsignatura = codAsig;
     a.codigoCarrera = codCarrera;
       let json = JSON.stringify(a);
-    return  this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`,json, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`,json,httpOptions);
   }
 
   deleteUser(usuario :usuario){
-    return  this.httpClient.post(`${this.API_URL}/admin/usuario.delete`,usuario);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario.delete`,usuario,{'responseType': 'text'});
   }
 
   modificarUser(usuario :usuario){
-    return  this.httpClient.post(`${this.API_URL}/admin/usuario.edit`,usuario);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario.edit`,usuario,{'responseType': 'text'});
   }
 
   deleteCarrera(codigo){
@@ -183,7 +195,7 @@ inscripcionCurso(cedula,idCurso){
     a.codigo = codigo;
       let json = JSON.stringify(a);
     console.log(json);
-    return  this.httpClient.post(`${this.API_URL}/director/carrera.delete`,json, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/director/carrera.delete`,json, {'responseType': 'text'});
   }
 
   deleteAsignatura(codigo){
@@ -191,15 +203,15 @@ inscripcionCurso(cedula,idCurso){
     a.codigo = codigo;
       let json = JSON.stringify(a);
     console.log(json);
-    return  this.httpClient.post(`${this.API_URL}/director/asignatura.delete`,json, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/director/asignatura.delete`,json, {'responseType': 'text'});
   }
 
   modificarCarrera(carrera :carrera){
-    return  this.httpClient.post(`${this.API_URL}/director/carrera.edit`,carrera);
+    return  this.httpClient.post(`${this.API_URL}/director/carrera.edit`,carrera,{'responseType': 'text'});
   }
 
   modificarAsignatura(dtAsignatura :asignatura){
-    return  this.httpClient.post(`${this.API_URL}/director/asignatura.edit`,dtAsignatura);
+    return  this.httpClient.post(`${this.API_URL}/director/asignatura.edit`,dtAsignatura,{'responseType': 'text'});
   }
 
   asignarRol(cedula,idRol){

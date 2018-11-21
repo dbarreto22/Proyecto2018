@@ -31,6 +31,17 @@ export class ModificarAsignaturaComponent implements OnInit {
     this.apiService.getAsignatura(this.codigo).subscribe((data: asignatura)=> {
       this.asignatura  =  data;
       console.log(this.asignatura);
+  },err=>{
+    //this.loading=false;
+    console.log(err.status+err.message);
+    if(err.status==403)
+    {
+      alert('Su sesión ha expirado.');
+      this.router.navigate(['/login']);
+    }
+    else
+      alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+      this.router.navigate(['/setingsAsignatura']);
   });
   }
 

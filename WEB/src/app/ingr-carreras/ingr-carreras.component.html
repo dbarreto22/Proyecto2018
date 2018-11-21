@@ -1,13 +1,9 @@
-
-
 <div class="jumbotron" style="background: aliceblue; margin-top: 0%">
-  
   <div class="example-config">
       <p class="font-weight-normal" style="color: dodgerblue">Crear Carrera</p>
   </div>
-
   <div class="col-xs-12 col-sm-12 example-col">
-    <fieldset disabled="">
+    <fieldset>
       <label class="control-label" for="disabledInput">Codigo</label>
       <input   #codigo (keyup)=getCodigoIngresado(codigo.value) kendoTextBox />
     </fieldset>
@@ -17,7 +13,7 @@
   <hr/>
 
   <div class="col-xs-12 col-md-12 example-col">
-    <fieldset disabled="">
+    <fieldset>
       <label class="control-label" for="disabledInput">Nombre</label>
       <input  #nombre (keyup)=getNombreIngresado(nombre.value) kendoTextBox />
     </fieldset>

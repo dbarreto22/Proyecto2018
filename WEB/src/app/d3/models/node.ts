@@ -23,11 +23,11 @@ export class Node implements d3.SimulationNodeDatum {
   }
 
   get r() {
-    return 45 ;
+    return 60 ;
   }
 
   get fontSize() {
-    return 15;
+    return 13;
   }
 
   get color() {
