@@ -52,6 +52,10 @@ import { Router, ActivatedRoute } from '@angular/router';
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
+        this.getCarreras(); 
+        this.carreras;
+        
+        //this.getCarreras(); 
         this.carreras= this.route.snapshot.data.cursos;
        
       } 
