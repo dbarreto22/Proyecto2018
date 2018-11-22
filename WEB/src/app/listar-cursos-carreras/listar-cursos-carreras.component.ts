@@ -12,7 +12,7 @@ import { asignatura } from '../modelos/asignatura.model';
   selector: 'app-listar-cursos-carreras',
   templateUrl: './listar-cursos-carreras.component.html',
   styleUrls: ['./listar-cursos-carreras.component.css'],
-  providers: [ApiService,NgbPaginationConfig, StorageService]
+  providers: [ApiService, NgbPaginationConfig, StorageService]
 })
 export class ListarCursosCarrerasComponent implements OnInit {
 
@@ -21,23 +21,22 @@ export class ListarCursosCarrerasComponent implements OnInit {
   public codCarrera;
   public listAsignaturaCarrera = new Array<asignaturaCarrera>();
   public listAsignaturas = new Array<asignatura>();
-  public asignatura : asignatura;
+  public asignatura: asignatura;
   public codigo;
-  
-  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
+
+  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
     private storageService: StorageService, private router: Router) {
-      this.setSelectableSettings();
-      
-    }
+    this.setSelectableSettings();
+
+  }
 
   ngOnInit() {
-    let rolElegido=localStorage.getItem('rolElegido');
-    if( rolElegido!='3')
-    {
+    let rolElegido = localStorage.getItem('rolElegido');
+    if (rolElegido != '3') {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    this.codCarrera = localStorage.getItem('carreraSeleccionada'); 
+    this.codCarrera = localStorage.getItem('carreraSeleccionada');
     this.getAsignaturaCarrerabyCarrera();
     this.getAsignaturas();
 
@@ -46,37 +45,61 @@ export class ListarCursosCarrerasComponent implements OnInit {
 
   public setSelectableSettings(): void {
     this.selectableSettings = {
-        checkboxOnly: this.checkboxOnly,
-        mode: "single",
+      checkboxOnly: this.checkboxOnly,
+      mode: "single",
     };
-}
-
-getAsignaturaCarrerabyCarrera(){
-  this.apiService.getAsignaturaCarreraByCarrera(this.codCarrera).subscribe((data:  asignaturaCarrera[]) => {
-    this.listAsignaturaCarrera  =  data;
-});
-console.log(this.listAsignaturaCarrera);
-}
-
-getAsignaturas(){
-  this.listAsignaturaCarrera.forEach(element => {
-    this.asignatura.codigo = element.asignatura.codigo;
-    this.asignatura.nombre = element.asignatura.nombre;
-    this.listAsignaturas.push(this.asignatura);
-  });
-  console.log(this.listAsignaturas);
-}
-
-consultar(){
-  localStorage.setItem('AsigSeleccionadaCalif', this.codigo);
-  this.router.navigate(['/calificaciones']);
-}
-
-cancelar(){
-  this.router.navigate(['/calificaciones']);
   }
 
+  getAsignaturaCarrerabyCarrera() {
+    this.apiService.getAsignaturaCarreraByCarrera(this.codCarrera).subscribe((data: asignaturaCarrera[]) => {
+      this.listAsignaturaCarrera = data;
+    },
+      err => {
+        //this.loading=false;
+        console.log(err.status + err.message);
+        if (err.status == 403) {
+          alert('Su sesión ha expirado.');
+          this.router.navigate(['/login']);
+        }
+        else
+          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+        this.router.navigate(['/listarCursos']);
+      });
+    console.log(this.listAsignaturaCarrera);
+  }
 
+  getAsignaturas() {
+    this.listAsignaturaCarrera.forEach(element => {
+      this.asignatura.codigo = element.asignatura.codigo;
+      this.asignatura.nombre = element.asignatura.nombre;
+      this.listAsignaturas.push(this.asignatura);
+    });
+    console.log(this.listAsignaturas);
+  }
+
+  consultar() {
+    if (this.codigo != undefined) {
+      localStorage.setItem('AsigSeleccionadaCalif', this.codigo);
+      this.router.navigate(['/calificaciones']);
+    }
+    else
+      alert('Debe seleccionar un examen para continuar.');
+  }
+
+  cancelar() {
+    this.router.navigate(['/calificaciones']);
+  }
+
+  change(e) {
+    if (e.selected != false) {
+      this.asignatura = this.listAsignaturas[e.index];
+      this.codigo = this.asignatura.codigo;
+      console.log(this.codigo);
+    }
+    else {
+      this.codigo = undefined;
+    }
+  }
 
 
 

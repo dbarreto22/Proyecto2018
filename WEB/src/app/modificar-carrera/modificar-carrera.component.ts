@@ -16,8 +16,14 @@ export class ModificarCarreraComponent implements OnInit {
 
   public codigo;
   public carrera  = new carrera();
-  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-    private storageService: StorageService, private router: Router) {}
+  constructor(public http: HttpClient , private  apiService:  ApiService, private router: Router) {
+    let rolElegido = localStorage.getItem('rolElegido');
+    if (rolElegido != '3') {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
+
+  }
 
   ngOnInit() {
     this.codigo = localStorage.getItem('codigoABM');
@@ -32,6 +38,16 @@ export class ModificarCarreraComponent implements OnInit {
     this.apiService.getCarrera(this.codigo).subscribe((data: carrera)=> {
       this.carrera  =  data;
       console.log(this.carrera);
+  }, err => {
+    //this.loading=false;
+    console.log(err.status + err.message);
+    if (err.status == 403) {
+      alert('Su sesión ha expirado.');
+      this.router.navigate(['/login']);
+    }
+    else
+      alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+    this.router.navigate(['/setingsCarrera']);
   });
   }
 
@@ -40,16 +56,25 @@ export class ModificarCarreraComponent implements OnInit {
     }
 
     modificarCarrera(nombre:string){
-    
+      if (this.carrera != undefined) {
       this.carrera.nombre = nombre;
-    
       this.apiService.modificarCarrera(this.carrera).subscribe(
         data=>{this.router.navigate(['/setingsCarrera']);
         alert("Se ha modificado correctamente");
-    },err=>{
-        alert("No se ha podido modificar " + err.message+ err.status);
-        this.router.navigate(['/setingsCarrera']);
+    }, err => {
+      //this.loading=false;
+      console.log(err.status + err.message);
+      if (err.status == 403) {
+        alert('Su sesión ha expirado.');
+        this.router.navigate(['/login']);
+      }
+      else
+        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+      this.router.navigate(['/setingsCarrera']);
     });
-    }
-
+}
+else
+  alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+this.router.navigate(['/setingsCarrera']);
+}
 }

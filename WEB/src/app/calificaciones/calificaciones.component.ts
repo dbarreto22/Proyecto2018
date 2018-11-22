@@ -61,6 +61,14 @@ getCalificaciones(){
   this.apiService.getCalificacionesEstudiante(this.idAsignaturaCarrera).subscribe((data:  Array<DtCalificacion>) => {
     this.calificaciones  =  data;
     
+}, err => {
+  if (err.status == 403) {
+    alert('Su sesión ha expirado.');
+    this.router.navigate(['/login']);
+  }
+  else {
+    alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
+  }
 });
 }
 

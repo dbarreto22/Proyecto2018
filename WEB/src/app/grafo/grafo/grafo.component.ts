@@ -27,7 +27,18 @@ export class GrafoComponent implements OnInit {
      // alert(JSON.stringify(datos));
       var link = new Link(datos.asignatura.nombre,null);
       this.crearNodos(datos,link, this.x, this.y);
-    }, error=>console.log(error));
+    },
+    err => {
+      //this.loading=false;
+      console.log(err.status + err.message);
+      if (err.status == 403) {
+        alert('Su sesión ha expirado.');
+        this.router.navigate(['/login']);
+      }
+      else
+        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+      this.router.navigate(['/inscCursos']);
+    });
     alert('entro una vez Nodo '+ JSON.stringify(this.nodes));
   }
   ngOnInit(){

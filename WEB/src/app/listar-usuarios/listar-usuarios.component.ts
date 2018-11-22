@@ -57,23 +57,40 @@ public  getusuarios(){
   this.apiService.getAllUser().subscribe((data:  Array<usuario>) => {
       this.usuarios  =  data;
       console.log(this.usuarios);
-  },err=>{
-    alert('Ha sucedido un error al obtener los usuarios, intente de nuevo mas tarde');
-    console.log(err.status+ err.message);
+  },
+  err => {
+    //this.loading=false;
+    console.log(err.status + err.message);
+    if (err.status == 403) {
+      alert('Su sesión ha expirado.');
+      this.router.navigate(['/login']);
+    }
+    else
+      alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+    this.router.navigate(['/listarUsuarios']);
   });
 }
 
 change(e){
-  this.usuario =   this.usuarios[e.index];
+  if (e.selected != false) {
+    this.usuario =   this.usuarios[e.index];
   this.cedulaSelect =  this.usuario.cedula;
   console.log(this.cedulaSelect);
    this.dialogOpened = true;
+  }
+  else {
+    this.cedulaSelect = undefined;
+  }
 }
 
 
 public MostrarUsuario(){
-  localStorage.setItem('cedulaABM', this.cedulaSelect);
+  if (this.cedulaSelect != undefined) {
+    localStorage.setItem('cedulaABM', this.cedulaSelect);
   this.router.navigate(['/modificarUsr']);
+}
+else
+  alert('Debe seleccionar un usuario para continuar.');
 }
 
 public action() {

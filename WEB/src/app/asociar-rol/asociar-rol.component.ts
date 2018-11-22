@@ -13,7 +13,7 @@ import { forEach } from '@angular/router/src/utils/collection';
   selector: 'app-asociar-rol',
   templateUrl: './asociar-rol.component.html',
   styleUrls: ['./asociar-rol.component.css'],
-  providers: [ApiService,NgbPaginationConfig, StorageService],
+  providers: [ApiService, NgbPaginationConfig, StorageService],
 })
 export class AsociarRolComponent implements OnInit {
   public cedula;
@@ -21,104 +21,124 @@ export class AsociarRolComponent implements OnInit {
   public usuariosConRol = new Array<usuario>();
   public rolSelected;
   public rolMostrar = [{
-    "id" : 1, 
-    "tipo":"Administrador"
-},
-{ 
-  "id" : 2, 
-    "tipo":"Bedelia"
-},
-{
-  "id" : 3, 
-    "tipo":"Director"
-},
-{
-  "id" : 4, 
-"tipo":"Estudiante"}];
+    "id": 1,
+    "tipo": "Administrador"
+  },
+  {
+    "id": 2,
+    "tipo": "Bedelia"
+  },
+  {
+    "id": 3,
+    "tipo": "Director"
+  },
+  {
+    "id": 4,
+    "tipo": "Estudiante"
+  }];
 
   public show = false;
 
-  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
+  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
     private storageService: StorageService, private router: Router) { }
 
   ngOnInit() {
-    let rolElegido=localStorage.getItem('rolElegido');
-    if( rolElegido!='1')
-    {
+    let rolElegido = localStorage.getItem('rolElegido');
+    if (rolElegido != '1') {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-      this.cedula = localStorage.getItem('cedulaABM');
-      console.log(this.cedula);
-      this.getUsuario();
-      this.usuario;
-      this.getAllRolUsuario();
-      this.getRolUsuario();
-     
-  }
-
-
-  getUsuario(){
+    this.cedula = localStorage.getItem('cedulaABM');
     console.log(this.cedula);
-    this.apiService.getUsuario(this.cedula).subscribe((data: usuario)=> {
-      this.usuario  =  data;
-      console.log(this.usuario);
-     });
+    this.getUsuario();
+    this.usuario;
+    this.getAllRolUsuario();
+    this.getRolUsuario();
+
   }
 
-getAllRolUsuario(){
-  this.apiService.getUserRol().subscribe((data: Array<usuario>)=> {
-    this.usuariosConRol  =  data;
-    console.log(this.usuariosConRol);
-   });
-}
 
-public rolUsuario : Array<Rol>;
+  getUsuario() {
+    console.log(this.cedula);
+    this.apiService.getUsuario(this.cedula).subscribe((data: usuario) => {
+      this.usuario = data;
+      console.log(this.usuario);
+    }, err => {
+      if (err.status == 403) {
+        alert('Su sesión ha expirado.');
+        this.router.navigate(['/login']);
+      }
+      else {
+        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
+      }
+    });
+  }
 
-getRolUsuario(){
+  getAllRolUsuario() {
+    this.apiService.getUserRol().subscribe((data: Array<usuario>) => {
+      this.usuariosConRol = data;
+      console.log(this.usuariosConRol);
+    }, err => {
+      if (err.status == 403) {
+        alert('Su sesión ha expirado.');
+        this.router.navigate(['/login']);
+      }
+      else {
+        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
+      }
+    });
+  }
 
-  this.usuariosConRol.forEach(element => {
-      if(element.cedula == this.usuario.cedula){
+  public rolUsuario: Array<Rol>;
+
+  getRolUsuario() {
+
+    this.usuariosConRol.forEach(element => {
+      if (element.cedula == this.usuario.cedula) {
         this.usuario.roles = element.roles;
       }
-      this.rolUsuario =  this.usuario.roles;
+      this.rolUsuario = this.usuario.roles;
       console.log(this.rolUsuario);
-  });
-}
-
-public cantidad : number;
-
-
-setShow(){
- 
-  this.cantidad = 0;
-  console.log(this.rolUsuario);
-
-  if(this.rolUsuario.length = 0){
-    this.show = true;
+    });
   }
 
-}
+  public cantidad: number;
 
-public ChangeRol(value:string) {
-  this.rolSelected = value;
-}
 
-cancelar(){
-  this.router.navigate(['/setingsUser']); 
+  setShow() {
+
+    this.cantidad = 0;
+    console.log(this.rolUsuario);
+
+    if (this.rolUsuario.length = 0) {
+      this.show = true;
+    }
+
   }
 
-asociarRol(){
+  public ChangeRol(value: string) {
+    this.rolSelected = value;
+  }
 
-  this.apiService.asignarRol(this.cedula,this.rolSelected).subscribe(
-    data=>{this.router.navigate(['/setingsUser']);
-    alert("Se asigno Correctamente el Rol");
-    },err=>{
-      alert("No se ha podido asignar Rol" + err.message+ err.status);
-      this.router.navigate(['/setingsUser']);
-  });
+  cancelar() {
+    this.router.navigate(['/setingsUser']);
+  }
 
-}
+  asociarRol() {
 
+    this.apiService.asignarRol(this.cedula, this.rolSelected).subscribe(
+      data => {
+        this.router.navigate(['/setingsUser']);
+        alert("Se asigno Correctamente el Rol");
+      }, err => {
+        if (err.status == 403) {
+          alert('Su sesión ha expirado.');
+          this.router.navigate(['/login']);
+        }
+        else {
+          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
+        }
+      });
 
+  }
 }

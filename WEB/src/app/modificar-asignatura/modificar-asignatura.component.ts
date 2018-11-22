@@ -10,14 +10,19 @@ import { Router } from '@angular/router';
   selector: 'app-modificar-asignatura',
   templateUrl: './modificar-asignatura.component.html',
   styleUrls: ['./modificar-asignatura.component.css'],
-  providers: [ApiService,NgbPaginationConfig, StorageService],
+  providers: [ApiService, NgbPaginationConfig, StorageService],
 })
 export class ModificarAsignaturaComponent implements OnInit {
 
   public codigo;
-  public asignatura  = new asignatura();
-  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-    private storageService: StorageService, private router: Router) {}
+  public asignatura = new asignatura();
+  constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
+    let rolElegido = localStorage.getItem('rolElegido');
+    if (rolElegido != '3') {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
+  }
 
   ngOnInit() {
     this.codigo = localStorage.getItem('codigoAsignaturaABM');
@@ -26,40 +31,50 @@ export class ModificarAsignaturaComponent implements OnInit {
     this.asignatura;
   }
 
-  getAsignatura(){
+  getAsignatura() {
     console.log(this.codigo);
-    this.apiService.getAsignatura(this.codigo).subscribe((data: asignatura)=> {
-      this.asignatura  =  data;
+    this.apiService.getAsignatura(this.codigo).subscribe((data: asignatura) => {
+      this.asignatura = data;
       console.log(this.asignatura);
-  },err=>{
-    //this.loading=false;
-    console.log(err.status+err.message);
-    if(err.status==403)
-    {
-      alert('Su sesión ha expirado.');
-      this.router.navigate(['/login']);
-    }
-    else
-      alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
-      this.router.navigate(['/setingsAsignatura']);
-  });
-  }
-
-  cancelar(){
-    this.router.navigate(['/setingsAsignatura']);
-    }
-
-  modificarAsignatura(nombre:string){
-    this.asignatura.nombre = nombre;
-    
-    this.apiService.modificarAsignatura(this.asignatura).subscribe(
-      data=>{this.router.navigate(['/setingsAsignatura']);
-      alert("Se ha modificado correctamente");
-    },err=>{
-      alert("No se ha podido modificar" + err.message+ err.status);
+    }, err => {
+      //this.loading=false;
+      console.log(err.status + err.message);
+      if (err.status == 403) {
+        alert('Su sesión ha expirado.');
+        this.router.navigate(['/login']);
+      }
+      else
+        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
       this.router.navigate(['/setingsAsignatura']);
     });
   }
 
+  cancelar() {
+    this.router.navigate(['/setingsAsignatura']);
+  }
 
+  modificarAsignatura(nombre: string) {
+    if (this.codigo != undefined) {
+      this.asignatura.nombre = nombre;
+
+      this.apiService.modificarAsignatura(this.asignatura).subscribe(
+        data => {
+          this.router.navigate(['/setingsAsignatura']);
+          alert("Se ha modificado correctamente");
+        }, err => {
+          //this.loading=false;
+          console.log(err.status + err.message);
+          if (err.status == 403) {
+            alert('Su sesión ha expirado.');
+            this.router.navigate(['/login']);
+          }
+          else
+            alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+          this.router.navigate(['/setingsAsignatura']);
+        });
+    }
+    else
+      alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+    this.router.navigate(['/setingsAsignatura']);
+  }
 }

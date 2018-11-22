@@ -82,10 +82,15 @@ export class ABMCarreraComponent implements OnInit {
   }
 
   change(e) {
-    this.carrera = this.carreras[e.index];
-    this.codigo = this.carrera.codigo;
-    this.nombreCarrera = this.carrera.nombre;
-    console.log(this.codigo);
+    if (e.selected != false) {
+      this.carrera = this.carreras[e.index];
+      this.codigo = this.carrera.codigo;
+      this.nombreCarrera = this.carrera.nombre;
+      console.log(this.codigo);
+    }
+    else {
+      this.codigo = undefined;
+    }
   }
 
   public modificarCarrera() {
@@ -115,9 +120,17 @@ export class ABMCarreraComponent implements OnInit {
         data => {
           this.router.navigate(['/setingsCarrera']);
           alert("Eliminado Correctamente");
-        }, err => {
-          alert("No se pudo eliminar " + err.message + err.status);
-          this.router.navigate(['/setingsCarrera']);
+        },
+        err => {
+          //this.loading=false;
+          console.log(err.status + err.message);
+          if (err.status == 403) {
+            alert('Su sesión ha expirado.');
+            this.router.navigate(['/login']);
+          }
+          else
+            alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+          this.router.navigate(['/setingsAsignatura']);
         });
       this.dialogOpened = false;
     }
