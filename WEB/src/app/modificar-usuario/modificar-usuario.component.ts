@@ -59,29 +59,28 @@ export class ModificarUsuarioComponent implements OnInit {
 
   modificarUsuario(nombre: string, apellido: string, mail: string, password: string) {
     if (this.usuario != undefined) {
-    this.usuario.nombre = nombre;
-    this.usuario.apellido = apellido;
-    this.usuario.email = mail;
-    this.usuario.password = password;
-
-    this.apiService.modificarUser(this.usuario).subscribe(
-      data => {
-        this.router.navigate(['/setingsUser']);
-        alert("No se ha modificado correctamente");
-      }, err => {
-        //this.loading=false;
-        console.log(err.status + err.message);
-        if (err.status == 403) {
-          alert('Su sesión ha expirado.');
-          this.router.navigate(['/login']);
-        }
-        else
-          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
-        this.router.navigate(['/setingsCarrera']);
-      });
-  }
-  else
-    alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
-  this.router.navigate(['/setingsCarrera']);
+      this.usuario.nombre = nombre;
+      this.usuario.apellido = apellido;
+      this.usuario.email = mail;
+      this.usuario.password = password;
+      this.apiService.modificarUser(this.usuario).subscribe(
+        data => {
+          this.router.navigate(['/setingsUser']);
+          alert("No se ha modificado correctamente");
+        }, err => {
+          //this.loading=false;
+          console.log(err.status + err.message);
+          if (err.status == 403) {
+            alert('Su sesión ha expirado.');
+            this.router.navigate(['/login']);
+          }
+          else
+            alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+          this.router.navigate(['/setingsCarrera']);
+        });
+    }
+    else
+      alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+    this.router.navigate(['/setingsCarrera']);
   }
 }
