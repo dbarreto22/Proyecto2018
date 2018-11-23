@@ -70,7 +70,6 @@ public getCursosGrid(){
 
   public cursosCarreraSelect = new Array<Curso>();
  getCursosCarreraSelect(){
-
     this.cursosGrid.forEach(element => {
       if(element.codigoCarrera == this.carreraSeleccionada){
         this.cursosCarreraSelect.push(element);

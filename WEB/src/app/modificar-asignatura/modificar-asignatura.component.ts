@@ -37,14 +37,7 @@ export class ModificarAsignaturaComponent implements OnInit {
       this.asignatura = data;
       console.log(this.asignatura);
     }, err => {
-      //this.loading=false;
-      console.log(err.status + err.message);
-      if (err.status == 403) {
-        alert('Su sesión ha expirado.');
-        this.router.navigate(['/login']);
-      }
-      else
-        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+      this.apiService.mensajeConError(err);
       this.router.navigate(['/setingsAsignatura']);
     });
   }
@@ -59,22 +52,14 @@ export class ModificarAsignaturaComponent implements OnInit {
 
       this.apiService.modificarAsignatura(this.asignatura).subscribe(
         data => {
-          this.router.navigate(['/setingsAsignatura']);
-          alert("Se ha modificado correctamente");
+          this.apiService.mensajeSinError(data,5);
         }, err => {
-          //this.loading=false;
-          console.log(err.status + err.message);
-          if (err.status == 403) {
-            alert('Su sesión ha expirado.');
-            this.router.navigate(['/login']);
-          }
-          else
-            alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
-          this.router.navigate(['/setingsAsignatura']);
+          this.apiService.mensajeConError(err);
         });
-    }
+        this.router.navigate(['/setingsAsignatura']);
+      }
     else
-      alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+      alert('Debe seleccionar una asignatura para continuar');
     this.router.navigate(['/setingsAsignatura']);
   }
 }

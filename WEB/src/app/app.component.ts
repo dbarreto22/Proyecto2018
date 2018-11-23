@@ -1,9 +1,8 @@
 import { Component, OnInit,ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
-import { HttpClientModule } from '@angular/common/http'; 
-import {StorageService} from './storage.service';
-import {User} from './modelos/user.model';
-import { Subscription, Observable, Subscriber } from 'rxjs';
+import { StorageService } from './storage.service';
+import { User } from './modelos/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',

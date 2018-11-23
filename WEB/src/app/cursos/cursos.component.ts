@@ -1,15 +1,14 @@
-import { Component, OnInit, ContentChild, AfterViewInit, AfterContentInit } from '@angular/core';
-import { EstudianteService } from '../estudiante.service';
+import { Component, OnInit, ContentChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Curso } from './Curso';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CompositeFilterDescriptor, State, process } from '@progress/kendo-data-query';
-import { GridDataResult, DataStateChangeEvent, SelectableSettings, PageChangeEvent } from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent, SelectableSettings } from '@progress/kendo-angular-grid';
 import { cursos } from '../modelos/cursos.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
@@ -21,8 +20,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class CursosComponent implements OnInit {
 
   @ContentChild(NgbPagination) pagination: NgbPagination;
-
-
   public idCurso;
   public loading = false;
   public cedula;
@@ -55,12 +52,7 @@ export class CursosComponent implements OnInit {
   ngOnInit() {
     this.getCursos();
     this.getCursosGrid();
-
-    //this.cursosGrid = this.route.snapshot.data.cursos;
-
-    //this.cursos;
     this.rolElegido = localStorage.getItem('rolElegido');
-    // alert('El rol elegido es '+this.rolElegido);
     document.getSelection();
   }
 
@@ -80,20 +72,12 @@ export class CursosComponent implements OnInit {
     this.loading = true;
     this.apiService.getAllCursos().subscribe((data: cursos[]) => {
       this.loading = false;
-      //alert('cosas raras'+JSON.stringify(data[0].asignatura_Carrera.asignatura));
       this.cursos = data;
       console.log(data);
       this.getCursosGrid()
     },
       err => {
-        this.loading = false;
-        console.log(err.status + err.message);
-        if (err.status == 403) {
-          alert('Su sesión ha expirado.');
-          this.router.navigate(['/login']);
-        }
-        else
-          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+        this.apiService.mensajeConError(err);
       });
 
   }
@@ -119,35 +103,28 @@ export class CursosComponent implements OnInit {
 
   change(e) {
     if (e.selected != false) {
-    this.idCurso = this.cursosGrid[e.index].idCurso;
-    console.log(this.idCurso);
+      this.idCurso = this.cursosGrid[e.index].idCurso;
+      console.log(this.idCurso);
+    }
+    else {
+      this.idCurso = undefined;
+    }
   }
-  else {
-    this.idCurso = undefined;
-  }
-}
   public inscCursos() {
     if (this.idCurso != undefined) {
       this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
-    this.apiService.inscripcionCurso(this.cedula, this.idCurso).subscribe(
-      data => {
-        this.router.navigate(['/inscCursos']);
-        alert("Inscripción realizada correctamente");
-      },
-      err => {
-        //this.loading=false;
-        console.log(err.status + err.message);
-        if (err.status == 403) {
-          alert('Su sesión ha expirado.');
-          this.router.navigate(['/login']);
-        }
-        else
-          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
-        this.router.navigate(['/inscCursos']);
-      });
-  }
-  else
-    alert('Debe seleccionar una carrera para continuar.');
+      this.apiService.inscripcionCurso(this.cedula, this.idCurso).subscribe(
+        data => {
+          this.apiService.mensajeSinError(data,3);
+          this.router.navigate(['/inscCursos']);
+        },
+        err => {
+          this.apiService.mensajeConError(err);
+          this.router.navigate(['/inscCursos']);
+        });
+    }
+    else
+      alert('Debe seleccionar una carrera para continuar.');
 
   }
 

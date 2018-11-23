@@ -24,10 +24,8 @@ export class ListarCursosCarrerasComponent implements OnInit {
   public asignatura: asignatura;
   public codigo;
 
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
-    private storageService: StorageService, private router: Router) {
+  constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     this.setSelectableSettings();
-
   }
 
   ngOnInit() {
@@ -39,7 +37,6 @@ export class ListarCursosCarrerasComponent implements OnInit {
     this.codCarrera = localStorage.getItem('carreraSeleccionada');
     this.getAsignaturaCarrerabyCarrera();
     this.getAsignaturas();
-
   }
 
 
@@ -55,14 +52,7 @@ export class ListarCursosCarrerasComponent implements OnInit {
       this.listAsignaturaCarrera = data;
     },
       err => {
-        //this.loading=false;
-        console.log(err.status + err.message);
-        if (err.status == 403) {
-          alert('Su sesión ha expirado.');
-          this.router.navigate(['/login']);
-        }
-        else
-          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+        this.apiService.mensajeConError(err);
         this.router.navigate(['/listarCursos']);
       });
     console.log(this.listAsignaturaCarrera);

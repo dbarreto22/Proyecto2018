@@ -53,14 +53,7 @@ export class AsignarAsigCarreraComponent implements OnInit {
       this.asignaturas = data;
       console.log(this.asignaturas);
     }, err => {
-      //this.loading=false;
-      console.log(err.status + err.message);
-      if (err.status == 403) {
-        alert('Su sesión ha expirado.');
-        this.router.navigate(['/login']);
-      }
-      else
-        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+      this.apiService.mensajeConError(err);
       this.router.navigate(['/']);
     });
 
@@ -88,17 +81,10 @@ export class AsignarAsigCarreraComponent implements OnInit {
     if (this.codigoAsignatura != undefined) {
       this.apiService.asignarAsigCarrera(this.codigoAsignatura, this.codigoCarrera).subscribe(
         data => {
+          this.apiService.mensajeSinError(data,2);
           this.router.navigate(['/setingsCarrera']);
-          alert("Asignado Correctamente");
         }, err => {
-          //this.loading=false;
-          console.log(err.status + err.message);
-          if (err.status == 403) {
-            alert('Su sesión ha expirado.');
-            this.router.navigate(['/login']);
-          }
-          else
-            alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde');
+          this.apiService.mensajeConError(err);
           this.router.navigate(['/asignarAsigCarrera']);
         });
     }

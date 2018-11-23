@@ -58,13 +58,7 @@ export class ABMUsuarioComponent implements OnInit {
       this.usuarios = data;
       console.log(this.usuarios);
     }, err => {
-      if (err.status == 403) {
-        alert('Su sesión ha expirado.');
-        this.router.navigate(['/login']);
-      }
-      else {
-        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
-      }
+      this.apiService.mensajeConError(err);
     });
   }
 
@@ -95,18 +89,11 @@ export class ABMUsuarioComponent implements OnInit {
     if (this.cedulaSelect != undefined) {
       this.apiService.deleteUser(this.usuario).subscribe(
         data => {
+          this.apiService.mensajeSinError(data,4);
           this.router.navigate(['/setingsUser']);
-          alert("Se Elimino Correctamente")
         },
         err => {
-          //this.loading=false;
-          console.log(err.status + err.message);
-          if (err.status == 403) {
-            alert('Su sesión ha expirado.');
-            this.router.navigate(['/login']);
-          }
-          else
-            alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+          this.apiService.mensajeConError(err);
           this.router.navigate(['/setingsUsers']);
         });
       this.dialogOpened = false;

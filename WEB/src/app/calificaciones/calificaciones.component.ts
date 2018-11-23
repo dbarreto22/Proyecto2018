@@ -2,13 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
-import { carrera } from '../modelos/carrera.model';
 import { calificacionC } from '../modelos/calificacionC.model';
 import {calificacionE} from '../modelos/calificacionE.model';
-import { cursos } from '../modelos/cursos.model';
-import { Curso } from '../cursos/Curso';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
-import { process, State,filterBy, FilterDescriptor, CompositeFilterDescriptor} from '@progress/kendo-data-query';
 import {
     GridComponent,
     GridDataResult,
@@ -18,7 +13,6 @@ import {
 } from '@progress/kendo-angular-grid';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../modelos/user.model';
 import {DtCalificacion} from '../modelos/DtCalificacion.model'
 
 @Component({
@@ -37,8 +31,7 @@ export class CalificacionesComponent implements OnInit {
   public calificacionE :calificacionE;
   public calificacionC : calificacionC;
 
-  constructor(public http: HttpClient ,config: NgbPaginationConfig, private  apiService:  ApiService,
-    private storageService: StorageService, private router: Router) {
+  constructor(public http: HttpClient , private  apiService:  ApiService, private router: Router) {
 
      }
 
@@ -57,18 +50,10 @@ export class CalificacionesComponent implements OnInit {
  
  
 getCalificaciones(){
-
   this.apiService.getCalificacionesEstudiante(this.idAsignaturaCarrera).subscribe((data:  Array<DtCalificacion>) => {
     this.calificaciones  =  data;
-    
 }, err => {
-  if (err.status == 403) {
-    alert('Su sesión ha expirado.');
-    this.router.navigate(['/login']);
-  }
-  else {
-    alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
-  }
+  this.apiService.mensajeConError(err);
 });
 }
 

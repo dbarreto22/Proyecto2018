@@ -1,15 +1,9 @@
-import { Component, OnInit, ContentChild, Type } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
-import { process, State, filterBy, FilterDescriptor, CompositeFilterDescriptor } from '@progress/kendo-data-query';
-import {
-  GridComponent,
-  GridDataResult,
-  DataStateChangeEvent,
-  PageChangeEvent,
-  RowArgs, SelectableSettings, SelectableMode
-} from '@progress/kendo-angular-grid';
+import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { GridDataResult, DataStateChangeEvent, SelectableSettings } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { examenes } from '../modelos/examenes.model';
@@ -71,14 +65,7 @@ export class InscExamenComponent implements OnInit {
       this.examenes = data;
     },
       err => {
-        //this.loading=false;
-        console.log(err.status + err.message);
-        if (err.status == 403) {
-          alert('Su sesión ha expirado.');
-          this.router.navigate(['/login']);
-        }
-        else
-          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
+        this.apiService.mensajeConError(err);
         this.router.navigate(['/inscExamen']);
       });
   }
@@ -119,19 +106,12 @@ export class InscExamenComponent implements OnInit {
       this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
       this.apiService.inscripcionCurso(this.cedula, this.idExamen).subscribe(
         data => {
+          this.apiService.mensajeSinError(data,3);
           this.router.navigate(['/']);
-          alert("Inscripción Realizada correctamente");
         },
         err => {
-          //this.loading=false;
-          console.log(err.status + err.message);
-          if (err.status == 403) {
-            alert('Su sesión ha expirado.');
-            this.router.navigate(['/login']);
-          }
-          else
-            alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde');
-          this.router.navigate(['/inscCarrera']);
+          this.apiService.mensajeConError(err);
+          this.router.navigate(['/inscExamen']);
         });
     }
     else

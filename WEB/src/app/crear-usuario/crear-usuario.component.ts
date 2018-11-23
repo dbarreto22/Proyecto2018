@@ -19,7 +19,7 @@ export class CrearUsuarioComponent implements OnInit {
 
 
 
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
+  constructor(public http: HttpClient, private apiService: ApiService,
     private router: Router) { }
 
   ngOnInit() {
@@ -44,26 +44,13 @@ export class CrearUsuarioComponent implements OnInit {
     this.DtUsuario.password = password;
     this.apiService.ingresarUsuario(this.DtUsuario).subscribe(
       data => {
-        console.log(data);
-        if (data == 'OK')
-            alert("Se creo Usuario correctamente ");
-        else
-          alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde.');
-        this.router.navigate(['/setingsUser']);
-
+        this.apiService.mensajeSinError(data, 1);
       },
       err => {
-          console.log(err.status + ' ' + err.message);
-          if (err.status == 403) {
-            alert('Su sesión ha expirado.');
-            this.router.navigate(['login']);
-          }
-          else {
-            alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde ' + err);
-          }
-          this.router.navigate(['/setingsUser']);
-        }
-      );
+        this.apiService.mensajeConError(err);
+      }
+    );
+    this.router.navigate(['/setingsUser']);
   }
 
 }

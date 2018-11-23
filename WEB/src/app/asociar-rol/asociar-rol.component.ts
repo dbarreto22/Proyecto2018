@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { usuario } from '../modelos/usuario.model';
 import { StorageService } from '../storage.service';
 import { Rol } from '../modelos/rol.model';
-import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -20,27 +19,9 @@ export class AsociarRolComponent implements OnInit {
   public usuario = new usuario();
   public usuariosConRol = new Array<usuario>();
   public rolSelected;
-  public rolMostrar = [{
-    "id": 1,
-    "tipo": "Administrador"
-  },
-  {
-    "id": 2,
-    "tipo": "Bedelia"
-  },
-  {
-    "id": 3,
-    "tipo": "Director"
-  },
-  {
-    "id": 4,
-    "tipo": "Estudiante"
-  }];
-
   public show = false;
 
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
-    private storageService: StorageService, private router: Router) { }
+  constructor(public http: HttpClient, private apiService: ApiService, private router: Router) { }
 
   ngOnInit() {
     let rolElegido = localStorage.getItem('rolElegido');
@@ -64,13 +45,7 @@ export class AsociarRolComponent implements OnInit {
       this.usuario = data;
       console.log(this.usuario);
     }, err => {
-      if (err.status == 403) {
-        alert('Su sesión ha expirado.');
-        this.router.navigate(['/login']);
-      }
-      else {
-        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
-      }
+      this.apiService.mensajeConError(err);
     });
   }
 
@@ -79,13 +54,7 @@ export class AsociarRolComponent implements OnInit {
       this.usuariosConRol = data;
       console.log(this.usuariosConRol);
     }, err => {
-      if (err.status == 403) {
-        alert('Su sesión ha expirado.');
-        this.router.navigate(['/login']);
-      }
-      else {
-        alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
-      }
+      this.apiService.mensajeConError(err);
     });
   }
 
@@ -128,17 +97,11 @@ export class AsociarRolComponent implements OnInit {
 
     this.apiService.asignarRol(this.cedula, this.rolSelected).subscribe(
       data => {
-        this.router.navigate(['/setingsUser']);
-        alert("Se asigno Correctamente el Rol");
+        this.apiService.mensajeSinError(data,2);
       }, err => {
-        if (err.status == 403) {
-          alert('Su sesión ha expirado.');
-          this.router.navigate(['/login']);
-        }
-        else {
-          alert('Ha sucedido un error al procesar s solicitud, vuelva a intentarlo mas tarde' + err);
-        }
+        this.apiService.mensajeConError(err);
       });
+      this.router.navigate(['/setingsUser']);
 
   }
 }
