@@ -6,6 +6,9 @@ import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { SelectableSettings, GridDataResult } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { zoom } from 'd3';
+import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-insc-carrera',
@@ -19,7 +22,7 @@ export class InscCarreraComponent implements OnInit {
     public carrera;
     public cedula;
     public loading;
-    public carreras: Promise<Array<Object>>;
+    public carreras: Observable<Array<Object>>;
     public checked = false;
     public filter: CompositeFilterDescriptor;
     selectedValue: any[];
@@ -34,12 +37,13 @@ export class InscCarreraComponent implements OnInit {
         this.loading = true;
         this.carreras = this.apiService.getAllCarrera();
         
-        this.carreras.then( () => {
-            this.loading = false;
-        }).catch( err => {
-            apiService.mensajeConError(err);
-            this.loading = false;
-        })
+        this.carreras.subscribe(
+            () => this.loading = false,
+            ee => {
+                apiService.mensajeConError(ee);
+                this.loading = false
+            }
+        )
     }
 
     ngOnInit() {
