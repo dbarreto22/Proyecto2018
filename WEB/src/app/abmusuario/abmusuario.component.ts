@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { SelectableSettings } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import { usuario } from '../modelos/usuario.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-abmusuario',
@@ -19,13 +20,22 @@ export class ABMUsuarioComponent implements OnInit {
   @Output() public cedula = new EventEmitter<string>();
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
-  public usuarios: Array<usuario> = [];
+  public usuarios: Observable<Array<Object>>;
   public cedulaSelect: string;
   public usuario = new usuario();
   public dialogOpened = false;
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
+  public loading;
+
+  constructor(public http: HttpClient, private apiService: ApiService,
     private router: Router) {
+      this.loading=true;
     this.setSelectableSettings();
+    this.usuarios=this.apiService.getAllUser();
+    this.usuarios.subscribe(
+      ()=> this.loading=false,
+      err=>{this.loading=false;
+          this.apiService.mensajeConError(err)}
+    )
 
 
   }
@@ -36,8 +46,6 @@ export class ABMUsuarioComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    this.getusuarios();
-    this.usuarios;
   }
 
   public setSelectableSettings(): void {
@@ -47,34 +55,24 @@ export class ABMUsuarioComponent implements OnInit {
     };
   }
 
-  public state: State = {
-    skip: 0,
-    take: 5,
-  };
 
-
-  public getusuarios() {
-    this.apiService.getAllUser().subscribe((data: Array<usuario>) => {
-      this.usuarios = data;
-      console.log(this.usuarios);
-    }, err => {
-      this.apiService.mensajeConError(err);
-    });
-  }
-
-  change(e) {
-    if (e.selected != false) {
-      this.usuario = this.usuarios[e.index];
-      this.cedulaSelect = this.usuario.cedula;
+  change({index}) {
+    if (!!index || index == 0) {
+      this.usuarios.subscribe(
+        (data: Array<usuario>)=> {
+          this.usuario = data[index];
+          this.cedulaSelect = this.usuario.cedula;
+        },
+        err=>{
+          this.apiService.mensajeConError(err);
+        }
+      )
+      
     }
     else {
       this.cedulaSelect = undefined;
     }
-    console.log(this.cedulaSelect);
   }
-
-
-
 
   public crearUsuario() {
     this.router.navigate(['/crearUsr']);

@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { asignatura } from '../modelos/asignatura.model';
 import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-asignar-asig-carrera',
@@ -18,15 +19,23 @@ export class AsignarAsigCarreraComponent implements OnInit {
   public codigoCarrera;
   public codigoAsignatura;
   public asignatura = new asignatura();
-  public asignaturas: Array<asignatura>;
+  public asignaturas: Observable<Array<Object>>;
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
+  public loading;
 
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
-    private storageService: StorageService, private router: Router) {
+  constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     this.setSelectableSettings();
-    this.getAsignaturas();
-    this.asignaturas;
+    this.loading = true;
+    this.asignaturas = this.apiService.getAllAsignatura();
+    
+    this.asignaturas.subscribe(
+        () => this.loading = false,
+        ee => {
+            apiService.mensajeConError(ee);
+            this.loading = false
+        }
+    )
   }
 
   ngOnInit() {
@@ -37,8 +46,7 @@ export class AsignarAsigCarreraComponent implements OnInit {
     }
     this.nombreCarrera = localStorage.getItem('nombreCarreraAsignaturaABM');
     this.codigoCarrera = localStorage.getItem('codigoCarreraAsignaturaABM');
-    this.getAsignaturas();
-    this.asignaturas;
+  
   }
 
   public setSelectableSettings(): void {
@@ -48,24 +56,19 @@ export class AsignarAsigCarreraComponent implements OnInit {
     };
   }
 
-  public getAsignaturas() {
-    this.apiService.getAllAsignatura().subscribe((data: Array<asignatura>) => {
-      this.asignaturas = data;
-      console.log(this.asignaturas);
-    }, err => {
-      this.apiService.mensajeConError(err);
-      this.router.navigate(['/']);
-    });
 
-    console.log(this.asignaturas);
-
-  }
-
-  change(e) {
-    if (e.selected != false) {
-      this.asignatura = this.asignaturas[e.index];
-      this.codigoAsignatura = this.asignatura.codigo;
-      console.log(this.codigoAsignatura);
+  change({index}) {
+   
+    if (!!index || index == 0) {
+      this.asignaturas.subscribe(
+        (data: Array<asignatura>)=> {
+          this.asignatura = data[index];
+          this.codigoAsignatura = this.asignatura.codigo;
+        },
+        err=>{
+          this.apiService.mensajeConError(err);
+        }
+      )
     }
     else {
       this.codigoAsignatura = undefined;

@@ -7,8 +7,8 @@ import { SelectableSettings, GridDataResult } from '@progress/kendo-angular-grid
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { zoom } from 'd3';
-import { tap } from 'rxjs/operators';
+import { carrera } from '../modelos/carrera.model';
+
 
 @Component({
     selector: 'app-insc-carrera',
@@ -65,16 +65,24 @@ export class InscCarreraComponent implements OnInit {
         this.router.navigate(['/']);
     }
 
-    change(e) {
-        if (e.selected != false) {
-            this.carrera = this.carreras[e.index];
-            this.codigo = this.carrera.codigo;
-            console.log(this.codigo);
+    change({index}) {
+        if (!!index || index == 0) {
+            this.carreras.subscribe(
+                (data: Array<carrera>)=> {
+                  this.carrera = data[index];
+                  this.codigo = this.carrera.codigo;
+                  console.log(this.codigo);
+                },
+                err=>{
+                  this.apiService.mensajeConError(err);
+                }
+              )
         }
         else {
             this.codigo = undefined;
         }
     }
+    
 
     public inscCarrerra() {
         if (this.codigo != undefined) {

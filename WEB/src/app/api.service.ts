@@ -45,15 +45,15 @@ constructor(private  httpClient:  HttpClient,private router: Router) {
 public codigo = localStorage.getItem('codigoABM');
 
 getAllCarrera(): Observable<Array<Object>>{
-    return  this.httpClient.get<Array<Object>>(this.url);
+    return  this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera`);
 }
 
-getAllAsignatura(){
-  return  this.httpClient.get(`${this.API_URL}/director/asignatura`);
+getAllAsignatura(): Observable<Array<Object>>{
+  return  this.httpClient.get<Array<Object>>(`${this.API_URL}/director/asignatura`);
 }
 
-getAllUser(){
-  return  this.httpClient.get(`${this.API_URL}/admin/usuario`);
+getAllUser(): Observable<Array<Object>>{
+  return  this.httpClient.get<Array<Object>>(`${this.API_URL}/admin/usuario`);
 }
  
 getAsignaturaByCarrera(idCarrera){

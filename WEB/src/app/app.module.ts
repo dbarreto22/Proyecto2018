@@ -17,7 +17,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ToolbarAdministradorComponent } from './toolbar-administrador/toolbar-administrador.component';
 import { ToolbarDirectorComponent } from './toolbar-director/toolbar-director.component';
 import { InscCarreraComponent } from './insc-carrera/insc-carrera.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http'; 
 import {ApiService} from '../app/api.service';
 import { LoginComponent } from './login/login.component';
@@ -63,7 +62,6 @@ import { ErrorComponent } from './error.component';
 import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.component';
 import { ToolbarHomeComponent } from './toolbar-home/toolbar-home.component';
 import { NgxLoadingModule } from 'ngx-loading';
-import { cursosResolver } from './cursos/cursos-resolver.service';
 import { ListarCarrerasComponent } from './listar-carreras/listar-carreras.component';
 import { ListarCursosCarrerasComponent } from './listar-cursos-carreras/listar-cursos-carreras.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -149,7 +147,6 @@ export function tokenGetter() {
     ApiService,AuthenticationService,
     StorageService,AuthorizatedGuard,
     CarrerasService,
-    cursosResolver,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiService,

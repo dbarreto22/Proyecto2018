@@ -3,18 +3,16 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { SelectableSettings, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { SelectableSettings } from '@progress/kendo-angular-grid';
 import { carrera } from '../modelos/carrera.model';
 import { Observable } from 'rxjs';
-import { State } from '@progress/kendo-data-query';
-
-import { CarrerasService } from '../northwind.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-abmcarrera',
   templateUrl: './abmcarrera.component.html',
   styleUrls: ['./abmcarrera.component.css'],
-  providers: [NgbPaginationConfig, StorageService, CarrerasService],
+  providers: [NgbPaginationConfig, StorageService, ApiService],
 })
 export class ABMCarreraComponent implements OnInit {
 
@@ -22,27 +20,24 @@ export class ABMCarreraComponent implements OnInit {
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
   public carrera: carrera;
-  public carreras: Array<carrera>;
+  public carreras: Observable<Array<Object>>;
   public codigo;
   public nombreCarrera;
+  public loading;
 
-  public view: Observable<GridDataResult>;
-    public state: State = {
-        skip: 0,
-        take: 5
-    };
 
-    public dataStateChange(state: DataStateChangeEvent): void {
-        this.state = state;
-        this.service.query();
-    }
-
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private service: CarrerasService,
-    private storageService: StorageService, private router: Router) {
+  constructor(public http: HttpClient, private router: Router, private apiService:ApiService) {
     this.setSelectableSettings();
-
-    this.view = service;
-    this.service.query();
+    this.carreras=this.apiService.getAllCarrera()
+    this.carreras.subscribe(
+      ()=> {
+        this.loading=false
+      },
+      err=>{
+        this.loading=false;
+        this.apiService.mensajeConError(err);
+      }
+    )
   }
 
   ngOnInit() {
@@ -51,7 +46,6 @@ export class ABMCarreraComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    // this.getCarreras();
   }
   public setSelectableSettings(): void {
     this.selectableSettings = {
@@ -59,19 +53,6 @@ export class ABMCarreraComponent implements OnInit {
       mode: "single",
     };
   }
-
-  // public getCarreras() {
-  //   this.apiService.getAllCarrera().subscribe((data: Array<carrera>) => {
-  //     this.carreras = data;
-  //     this.loading = false;
-  //     console.log(this.carreras);
-  //   },
-  //     err => {
-  //       this.apiService.mensajeConError(err);
-  //       this.router.navigate(['/setingsCarrera']);
-  //     });
-
-  // }
 
 
   public action() {
@@ -92,12 +73,20 @@ export class ABMCarreraComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  change(e) {
-    if (e.selected != false) {
-      this.carrera = this.carreras[e.index];
-      this.codigo = this.carrera.codigo;
-      this.nombreCarrera = this.carrera.nombre;
-      console.log(this.codigo);
+  change ({index}){
+    if (!!index || index == 0) {
+      this.carreras.subscribe(
+        (data: Array<carrera>)=> {
+          this.carrera = data[index];
+          this.codigo = this.carrera.codigo;
+          this.nombreCarrera = this.carrera.nombre;
+          console.log(this.codigo);
+        },
+        err=>{
+          this.apiService.mensajeConError(err);
+        }
+      )
+      
     }
     else {
       this.codigo = undefined;
@@ -124,20 +113,20 @@ export class ABMCarreraComponent implements OnInit {
   }
 
   public confirmarEliminarCarrera() {
-    // if (this.codigo != undefined) {
-    //   console.log(this.carrera.codigo);
-    //   this.apiService.deleteCarrera(this.carrera.codigo).subscribe(
-    //     data => {
-    //       this.apiService.mensajeSinError(data,4);
-    //     },
-    //     err => {
-    //       this.apiService.mensajeConError(err);
-    //     });
-    //     this.router.navigate(['/']);
-    //     this.dialogOpened = false;
-    // }
-    // else
-    //   alert('Debe seleccionar una carrera para continuar.');
+     if (this.codigo != undefined) {
+       console.log(this.carrera.codigo);
+       this.apiService.deleteCarrera(this.carrera.codigo).subscribe(
+         data => {
+           this.apiService.mensajeSinError(data,4);
+         },
+         err => {
+           this.apiService.mensajeConError(err);
+         });
+         this.router.navigate(['/']);
+         this.dialogOpened = false;
+     }
+     else
+       alert('Debe seleccionar una carrera para continuar.');
   }
 
 

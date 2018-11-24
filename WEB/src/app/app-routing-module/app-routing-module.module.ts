@@ -22,21 +22,16 @@ import { ABMCarreraComponent } from '../abmcarrera/abmcarrera.component';
 import { ModificarAsignaturaComponent } from '../modificar-asignatura/modificar-asignatura.component';
 import { CalificacionesCursoComponent } from '../calificaciones-curso/calificaciones-curso.component';
 import { LoginLayoutComponent } from '../login/loginLayout';
-import { HomeComponentComponent } from '../home-component/home-component.component';
 import { HomeLayoutComponent } from '../layouts/home-layout/home-layout.component';
-import { ErrorComponent } from '../error.component';
 import { ListarUsuariosComponent } from '../listar-usuarios/listar-usuarios.component';
-import {cursosResolver} from '../cursos/cursos-resolver.service'; 
 import { ListarCursosCarrerasComponent } from '../listar-cursos-carreras/listar-cursos-carreras.component';
 import { ListarCarrerasComponent } from '../listar-carreras/listar-carreras.component';
-import { ApiService } from '../api.service';
+
 
 
 const routes: Routes = [
  { path: '', component: HomeLayoutComponent, canActivate:[AuthorizatedGuard],
-    resolve: {
-      cursoCarga: cursosResolver},
-      children:[
+       children:[
       {path: 'grid', component:GridComponent},
       {path: 'tabla', component:TablaComponent},
       {path: 'inscCarrera', component:InscCarreraComponent},
@@ -55,7 +50,7 @@ const routes: Routes = [
       {path: 'modificarCarrera', component: ModificarCarreraComponent},
       {path: 'modificarAsignatura', component: ModificarAsignaturaComponent},
       {path: 'calificacionesCurso', component: CalificacionesCursoComponent},
-      {path: 'inscCursos', component: CursosComponent, resolve:{cursosResolver}},
+      {path: 'inscCursos', component: CursosComponent},
       {path: 'listarUsuarios', component: ListarUsuariosComponent},
       {path: 'listarCursos', component: ListarCursosCarrerasComponent},
       {path: 'calificaciones', component: CalificacionesComponent},

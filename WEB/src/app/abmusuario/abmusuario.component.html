@@ -5,7 +5,7 @@
   </div>
   
   <kendo-grid     
-      [kendoGridBinding]="usuarios" 
+      [kendoGridBinding]="usuarios | async" 
       [pageSize]="10"
       [pageable]="true"
       [sortable]="true"
@@ -13,6 +13,7 @@
       [resizable]="true"
       [selectable]="selectableSettings" 
       (selectionChange) = "change($event)"
+      [loading]="loading"
       [height]="500"
   >
   <kendo-grid-column field="cedula" title="Cedula" width="80" >
