@@ -19,7 +19,7 @@ export class InscCarreraComponent implements OnInit {
     public carrera;
     public cedula;
     public loading;
-    public carreras: Promise<Array<Object>> = Promise.resolve([]);
+    public carreras: Promise<Array<Object>>;
     public checked = false;
     public filter: CompositeFilterDescriptor;
     selectedValue: any[];
@@ -32,7 +32,7 @@ export class InscCarreraComponent implements OnInit {
          private router: Router, private route: ActivatedRoute) {
         this.setSelectableSettings();
         this.loading = true;
-        this.carreras = this.apiService.getAllCarrera().toPromise();
+        this.carreras = this.apiService.getAllCarrera();
         
         this.carreras.then( () => {
             this.loading = false;

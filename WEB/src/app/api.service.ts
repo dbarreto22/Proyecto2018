@@ -44,8 +44,8 @@ constructor(private  httpClient:  HttpClient,private router: Router) {
 
 public codigo = localStorage.getItem('codigoABM');
 
-getAllCarrera(): Observable<object[]>{
-    return  this.httpClient.get<object[]>(this.url);
+getAllCarrera(): Promise<Array<Object>>{
+    return  this.httpClient.get<Array<Object>>(this.url).toPromise();
 }
 
 getAllAsignatura(){
