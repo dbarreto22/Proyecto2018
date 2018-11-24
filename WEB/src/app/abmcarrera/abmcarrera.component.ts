@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { carrera } from '../modelos/carrera.model';
+import { Observable } from 'rxjs';
+import { State } from '@progress/kendo-data-query';
+
+import { CarrerasService } from '../northwind.service';
 
 @Component({
   selector: 'app-abmcarrera',
   templateUrl: './abmcarrera.component.html',
   styleUrls: ['./abmcarrera.component.css'],
-  providers: [ApiService, NgbPaginationConfig, StorageService],
+  providers: [NgbPaginationConfig, StorageService, CarrerasService],
 })
 export class ABMCarreraComponent implements OnInit {
 
@@ -23,9 +26,23 @@ export class ABMCarreraComponent implements OnInit {
   public codigo;
   public nombreCarrera;
 
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
+  public view: Observable<GridDataResult>;
+    public state: State = {
+        skip: 0,
+        take: 5
+    };
+
+    public dataStateChange(state: DataStateChangeEvent): void {
+        this.state = state;
+        this.service.query();
+    }
+
+  constructor(public http: HttpClient, config: NgbPaginationConfig, private service: CarrerasService,
     private storageService: StorageService, private router: Router) {
     this.setSelectableSettings();
+
+    this.view = service;
+    this.service.query();
   }
 
   ngOnInit() {
@@ -34,7 +51,7 @@ export class ABMCarreraComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    this.getCarreras();
+    // this.getCarreras();
   }
   public setSelectableSettings(): void {
     this.selectableSettings = {
@@ -43,17 +60,18 @@ export class ABMCarreraComponent implements OnInit {
     };
   }
 
-  public getCarreras() {
-    this.apiService.getAllCarrera().subscribe((data: Array<carrera>) => {
-      this.carreras = data;
-      console.log(this.carreras);
-    },
-      err => {
-        this.apiService.mensajeConError(err);
-        this.router.navigate(['/setingsCarrera']);
-      });
+  // public getCarreras() {
+  //   this.apiService.getAllCarrera().subscribe((data: Array<carrera>) => {
+  //     this.carreras = data;
+  //     this.loading = false;
+  //     console.log(this.carreras);
+  //   },
+  //     err => {
+  //       this.apiService.mensajeConError(err);
+  //       this.router.navigate(['/setingsCarrera']);
+  //     });
 
-  }
+  // }
 
 
   public action() {
@@ -106,20 +124,20 @@ export class ABMCarreraComponent implements OnInit {
   }
 
   public confirmarEliminarCarrera() {
-    if (this.codigo != undefined) {
-      console.log(this.carrera.codigo);
-      this.apiService.deleteCarrera(this.carrera.codigo).subscribe(
-        data => {
-          this.apiService.mensajeSinError(data,4);
-        },
-        err => {
-          this.apiService.mensajeConError(err);
-        });
-        this.router.navigate(['/']);
-        this.dialogOpened = false;
-    }
-    else
-      alert('Debe seleccionar una carrera para continuar.');
+    // if (this.codigo != undefined) {
+    //   console.log(this.carrera.codigo);
+    //   this.apiService.deleteCarrera(this.carrera.codigo).subscribe(
+    //     data => {
+    //       this.apiService.mensajeSinError(data,4);
+    //     },
+    //     err => {
+    //       this.apiService.mensajeConError(err);
+    //     });
+    //     this.router.navigate(['/']);
+    //     this.dialogOpened = false;
+    // }
+    // else
+    //   alert('Debe seleccionar una carrera para continuar.');
   }
 
 

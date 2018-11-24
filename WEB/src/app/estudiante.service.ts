@@ -7,7 +7,7 @@ import {Curso} from './cursos/Curso';
 export class EstudianteService {
   public url : string;
   constructor(private  httpClient:  HttpClient) {
-    this.url='http://localhost:8080/miudelar-server/admin/';
+    this.url='http://b0b9853a.ngrok.io/miudelar-server/admin/';
    }
    getAllCursos(){
      //admin/usuario

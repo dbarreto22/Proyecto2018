@@ -67,7 +67,7 @@ import { cursosResolver } from './cursos/cursos-resolver.service';
 import { ListarCarrerasComponent } from './listar-carreras/listar-carreras.component';
 import { ListarCursosCarrerasComponent } from './listar-cursos-carreras/listar-cursos-carreras.component';
 import {MatSelectModule} from '@angular/material/select';
-import {gridCursosService} from './northwind.service';
+import { CarrerasService } from './northwind.service';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -148,7 +148,7 @@ export function tokenGetter() {
   providers: [
     ApiService,AuthenticationService,
     StorageService,AuthorizatedGuard,
-    gridCursosService,
+    CarrerasService,
     cursosResolver,
     {
       provide: HTTP_INTERCEPTORS,

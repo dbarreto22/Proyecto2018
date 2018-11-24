@@ -28,11 +28,12 @@ var params = new HttpParams();
 let paramsCalificaciones = new HttpParams();
 paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
 
-
 @Injectable()
 export class ApiService {
-  API_URL  = 'http://localhost:8080/miudelar-server'; 
-  url = 'http://localhost:8080/miudelar-server/director/carrera/';  
+  // API_URL  = 'http://localhost:8080/miudelar-server'; 
+  // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
+  API_URL = 'http://b0b9853a.ngrok.io/miudelar-server'; 
+  url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
     public cedula;

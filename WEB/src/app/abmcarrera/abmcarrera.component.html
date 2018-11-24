@@ -3,18 +3,18 @@
   <div class="example-config">
       <p class="font-weight-normal" style="color: dodgerblue">Alta Baja y Modificación de Carreras</p>
   </div>
-  
-  <kendo-grid     
-      [kendoGridBinding]="carreras" 
-      [pageSize]="10"
-      [pageable]="true"
-      [sortable]="true"
-      [filterable]="true"
-      [resizable]="true"
-      [selectable]="selectableSettings" 
-      (selectionChange) = "change($event)"
-      [height]="500"
-  >
+
+  <kendo-grid
+          [data]="view | async"
+          [loading]="view.loading"
+          [pageSize]="state.take"
+          [skip]="state.skip"
+          [sort]="state.sort"
+          [sortable]="true"
+          [pageable]="true"
+          [scrollable]="'none'"
+          (dataStateChange)="dataStateChange($event)"
+        >
   <kendo-grid-column field="codigo" title="Codigo" width="80" >
       </kendo-grid-column>
   <kendo-grid-column field="nombre" title="Nombre">
