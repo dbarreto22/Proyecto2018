@@ -6,10 +6,11 @@
     </div>
  
     <kendo-grid     
-        [kendoGridBinding]="carreras" 
+        [kendoGridBinding]="carreras | async" 
         [pageSize]="10"
         [pageable]="true"
         [sortable]="true"
+        [loading]="loading"
         [filterable]="true"
         [resizable]="true"
         [selectable]="selectableSettings" 

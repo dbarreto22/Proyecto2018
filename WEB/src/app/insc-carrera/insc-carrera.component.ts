@@ -2,8 +2,8 @@ import { Component, OnInit, Directive } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
-import { State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
+import { SelectableSettings, GridDataResult } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -13,16 +13,13 @@ import { Router, ActivatedRoute } from '@angular/router';
     styleUrls: ['./insc-carrera.component.css'],
     providers: [ApiService, NgbPaginationConfig, StorageService],
 })
-
-@Directive({
-    selector: '[carreras]'
-})
 export class InscCarreraComponent implements OnInit {
 
     public codigo;
     public carrera;
     public cedula;
-    public carreras: Array<object> = [];
+    public loading;
+    public carreras: Promise<Array<Object>> = Promise.resolve([]);
     public checked = false;
     public filter: CompositeFilterDescriptor;
     selectedValue: any[];
@@ -34,6 +31,15 @@ export class InscCarreraComponent implements OnInit {
     constructor(public http: HttpClient, private apiService: ApiService,
          private router: Router, private route: ActivatedRoute) {
         this.setSelectableSettings();
+        this.loading = true;
+        this.carreras = this.apiService.getAllCarrera().toPromise();
+        
+        this.carreras.then( () => {
+            this.loading = false;
+        }).catch( err => {
+            apiService.mensajeConError(err);
+            this.loading = false;
+        })
     }
 
     ngOnInit() {
@@ -42,12 +48,6 @@ export class InscCarreraComponent implements OnInit {
             alert('El rol actual no puede acceder a esta función.');
             this.router.navigate(['/'])
         }
-        this.getCarreras();
-        this.carreras;
-
-        //this.getCarreras(); 
-        this.carreras = this.route.snapshot.data.cursos;
-
     }
 
     public setSelectableSettings(): void {
@@ -55,23 +55,6 @@ export class InscCarreraComponent implements OnInit {
             checkboxOnly: this.checkboxOnly,
             mode: "single",
         };
-    }
-
-    public state: State = {
-        skip: 0,
-        take: 5,
-    };
-
-    public getCarreras() {
-        this.apiService.getAllCarrera().subscribe((data: Array<object>) => {
-            this.carreras = data;
-            console.log(this.carreras);
-        },
-        err => {
-            this.apiService.mensajeConError(err);
-            this.router.navigate(['/inscCarrera']);
-        });
-
     }
 
     cancelar() {

@@ -29,9 +29,9 @@ export abstract class NorthwindService extends BehaviorSubject<GridDataResult> {
         return this.http
             .get(`${this.BASE_URL}${tableName}`)
             .pipe(
-                map(response => (<GridDataResult>{
-                    data: response,
-                    total: 1
+                map((carrera, index )=> (<GridDataResult>{
+                    data: carrera,
+                    total: index
                 })),
                 tap(() => this.loading = false)
             );
