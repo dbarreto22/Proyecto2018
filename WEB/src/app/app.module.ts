@@ -65,7 +65,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { ListarCarrerasComponent } from './listar-carreras/listar-carreras.component';
 import { ListarCursosCarrerasComponent } from './listar-cursos-carreras/listar-cursos-carreras.component';
 import {MatSelectModule} from '@angular/material/select';
-import { CarrerasService } from './northwind.service';
+import {CrearPreviasComponent} from './crearPrevias/crearPrevias.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -109,7 +109,7 @@ export function tokenGetter() {
     ToolbarHomeComponent,
     ListarCarrerasComponent,
     ListarCursosCarrerasComponent,
-    
+    CrearPreviasComponent
      
   ],
   imports: [
@@ -146,7 +146,6 @@ export function tokenGetter() {
   providers: [
     ApiService,AuthenticationService,
     StorageService,AuthorizatedGuard,
-    CarrerasService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiService,

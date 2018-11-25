@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import { HttpClient} from  '@angular/common/http';
 import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
-import { local } from "d3";
 import { Router } from "@angular/router";
 import { ApiService } from "./api.service";
 
@@ -11,7 +10,7 @@ export class AuthenticationService {
 
   constructor(private http:  HttpClient,private router: Router, private apiService: ApiService) {}
 
-  private basePath = 'http://b0b9853a.ngrok.io/miudelar-server/admin/';
+  private basePath = 'http://localhost:8080/miudelar-server/admin/';
 
   login(loginObj){
     console.log(JSON.stringify(loginObj))

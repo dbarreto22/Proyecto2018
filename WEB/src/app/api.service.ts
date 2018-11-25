@@ -24,22 +24,21 @@ const httpOptions : {
 responseType: 'text'};
 
 var params = new HttpParams();
+var paramsA: URLSearchParams = new URLSearchParams();
 
 let paramsCalificaciones = new HttpParams();
 paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
 
 @Injectable()
 export class ApiService {
-  // API_URL  = 'http://localhost:8080/miudelar-server'; 
-  // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://b0b9853a.ngrok.io/miudelar-server'; 
-  url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
-    //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
+   API_URL  = 'http://localhost:8080/miudelar-server'; 
+   url = 'http://localhost:8080/miudelar-server/director/carrera/';  
+//  API_URL = 'http://b0b9853a.ngrok.io/miudelar-server'; 
+  //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
 
     public cedula;
 constructor(private  httpClient:  HttpClient,private router: Router) {
-              let paramsA: URLSearchParams = new URLSearchParams();
-              paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+              this.cargarParametros();
             }         
 
 public codigo = localStorage.getItem('codigoABM');
@@ -63,8 +62,8 @@ getAsignaturaByCarrera(idCarrera){
 }
 
 
-getAsignaturaCarreraByCarrera(idCarrera){
-  return  this.httpClient.get(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
+getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>>{
+  return  this.httpClient.get<Array<Object>>(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
 }
 
 getAllCursos() : Observable<cursos[]>{
@@ -203,9 +202,20 @@ inscripcionCurso(cedula,idCurso){
     return  this.httpClient.post(`${this.API_URL}/admim/usuario/addRol`, json, httpOptions);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
-cargarParametros(){
-  params.set('cedula',JSON.parse(localStorage.getItem('session')).usr.cedula);
-  this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula; 
+cargarParametros() {
+  if (localStorage.getItem('session').length != 0) {
+    params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
+    this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
+  }
+  paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+}
+
+agregarPrevia(idMadre,idPrevia){
+  var a: any = {};
+  a.idMadre = idMadre;
+  a.idPrevia = idPrevia;
+  let json = JSON.stringify(a);
+  return this.httpClient.post(`${this.API_URL}/director/previas.addPrevia`, json, httpOptions);
 
 }
 
