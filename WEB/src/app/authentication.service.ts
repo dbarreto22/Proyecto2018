@@ -11,7 +11,7 @@ export class AuthenticationService {
 
   constructor(private http:  HttpClient,private router: Router, private apiService: ApiService) {}
 
-  private basePath = 'http://b0b9853a.ngrok.io/miudelar-server/admin/';
+  private basePath = 'http://localhost:8080/miudelar-server/admin/';
 
   login(loginObj){
     console.log(JSON.stringify(loginObj))

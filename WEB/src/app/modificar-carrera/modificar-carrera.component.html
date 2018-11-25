@@ -9,11 +9,11 @@
               <legend>Modificar Carrera</legend>
                 <label class="k-form-fieldcontrol-label" for="readOnlyInput">
                   <span>Codigo</span>
-                  <input #codigo   value={{carrera.codigo}} class="form-control" id="readOnlyInput" type="text" readonly/>
+                  <input #codigo   value={{carreramodificada.codigo}} class="form-control" id="readOnlyInput" type="text" readonly/>
                 </label>
                 <label class="k-form-field">
                   <span>Nombre</span>
-                  <input  #nombre  [(ngModel)]="carrera.nombre" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                  <input  #nombre  [(ngModel)]="carreramodificada.nombre" [ngModelOptions]="{standalone: true}" class="form-control"  />
                 </label>
             </fieldset>
             <div class="text-center">

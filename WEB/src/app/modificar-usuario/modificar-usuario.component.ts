@@ -5,6 +5,7 @@ import { StorageService } from '../storage.service';
 import { usuario } from '../modelos/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-modificar-usuario',
@@ -13,24 +14,41 @@ import { Router } from '@angular/router';
   providers: [ApiService, NgbPaginationConfig, StorageService],
 })
 export class ModificarUsuarioComponent implements OnInit {
+
   public cedula;
-  public usuario = new usuario();
+  public usuario : Observable<usuario>;
+  public usuarioModificado : usuario;
+
+
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     let rolElegido = localStorage.getItem('rolElegido');
     if (rolElegido != '1') {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
+    this.cedula = localStorage.getItem('cedulaABM');
+    console.log(this.cedula);
+    this.usuario = this.apiService.getUsuario(this.cedula);
+
+    this.usuario.subscribe(
+      (data : usuario)=> {
+        this.usuarioModificado = data
+        console.log(this.usuarioModificado);
+      },
+      err=>{
+          this.apiService.mensajeConError(err)}
+    )
+
+
+
   }
 
   ngOnInit() {
-    this.cedula = localStorage.getItem('cedulaABM');
-    console.log(this.cedula);
-    this.getUsuario();
-    this.usuario;
+    
+    
   }
 
-  getUsuario() {
+  /*getUsuario() {
     console.log(this.cedula);
     this.apiService.getUsuario(this.cedula).subscribe((data: usuario) => {
       this.usuario = data;
@@ -39,19 +57,19 @@ export class ModificarUsuarioComponent implements OnInit {
       this.apiService.mensajeConError(err);
       this.router.navigate(['/setingsUser']);
     });
-  }
+  }*/
 
   cancelar() {
     this.router.navigate(['/setingsUser']);
   }
 
   modificarUsuario(nombre: string, apellido: string, mail: string, password: string) {
-    if (this.usuario != undefined) {
-      this.usuario.nombre = nombre;
-      this.usuario.apellido = apellido;
-      this.usuario.email = mail;
-      this.usuario.password = password;
-      this.apiService.modificarUser(this.usuario).subscribe(
+    if (this.usuarioModificado != undefined) {
+      this.usuarioModificado.nombre = nombre;
+      this.usuarioModificado.apellido = apellido;
+      this.usuarioModificado.email = mail;
+      this.usuarioModificado.password = password;
+      this.apiService.modificarUser(this.usuarioModificado).subscribe(
         data => {
           this.apiService.mensajeSinError(data,5);
         }, err => {

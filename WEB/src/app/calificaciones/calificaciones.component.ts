@@ -14,6 +14,7 @@ import {
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
 import {DtCalificacion} from '../modelos/DtCalificacion.model'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-calificaciones',
@@ -25,7 +26,8 @@ export class CalificacionesComponent implements OnInit {
 
 
   public idAsignaturaCarrera;
-  public calificaciones = new Array <DtCalificacion>();
+  public calificaciones : Observable<Array <DtCalificacion>>;
+  public Listcalificacion : Array <DtCalificacion>;
   public calificacionesCursos = new Array <calificacionC>();
   public calificacionesExamenes = new Array <calificacionE>();
   public calificacionE :calificacionE;
@@ -43,23 +45,31 @@ export class CalificacionesComponent implements OnInit {
       this.router.navigate(['/'])
     }
     this.idAsignaturaCarrera = localStorage.getItem("AsigSeleccionadaCalif");
-    this.getCalificaciones();
+    this.calificaciones = this.apiService.getCalificacionesEstudiante(this.idAsignaturaCarrera);
+    this.calificaciones.subscribe(
+      (data : Array<DtCalificacion>)=> {
+        this.Listcalificacion = data
+        console.log(this.Listcalificacion);
+      },
+      err=>{
+          this.apiService.mensajeConError(err)}
+    )
     this.getGridMostrar();
 
   }
  
- 
+ /*
 getCalificaciones(){
   this.apiService.getCalificacionesEstudiante(this.idAsignaturaCarrera).subscribe((data:  Array<DtCalificacion>) => {
     this.calificaciones  =  data;
 }, err => {
   this.apiService.mensajeConError(err);
 });
-}
+}*/
 
 getGridMostrar(){
 
-this.calificaciones.forEach(element => {
+this.Listcalificacion.forEach(element => {
     element.dtEstCurso.forEach(element => {
       this.calificacionC.nombreCurso = element.dtcurso.nombreAsignatura;
       this.calificacionC.notaCurso = element.calificacion;

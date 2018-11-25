@@ -5,11 +5,12 @@
     <p class="font-weight-normal" style="color: dodgerblue">Inscripción a Examenes</p>
   </div>
   <kendo-grid     
-  [kendoGridBinding]="examenGrid" 
+  [kendoGridBinding]="examenGrid | async" 
   [pageSize]="10"
   [pageable]="true"
   [sortable]="true"
   [filterable]="true"
+  [loading]="loading"
   [resizable]="true"
   [selectable]="selectableSettings" 
   [height]="500"

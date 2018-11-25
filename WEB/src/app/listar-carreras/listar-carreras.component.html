@@ -6,11 +6,12 @@
   </div>
   
   <kendo-grid     
-  [kendoGridBinding]="carreras" 
+  [kendoGridBinding]="carreras | async" 
   [pageSize]="10"
   [pageable]="true"
   [sortable]="true"
   [filterable]="true"
+  [loading]="loading"
   [resizable]="true"
   [selectable]="selectableSettings" 
   (selectionChange) = "change($event)"

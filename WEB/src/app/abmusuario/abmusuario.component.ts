@@ -62,6 +62,7 @@ export class ABMUsuarioComponent implements OnInit {
         (data: Array<usuario>)=> {
           this.usuario = data[index];
           this.cedulaSelect = this.usuario.cedula;
+          console.log(this.cedulaSelect);
         },
         err=>{
           this.apiService.mensajeConError(err);

@@ -5,6 +5,8 @@ import { StorageService } from '../storage.service';
 import { SelectableSettings } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { carrera } from '../modelos/carrera.model';
 
 @Component({
   selector: 'app-listar-carreras',
@@ -16,11 +18,25 @@ export class ListarCarrerasComponent implements OnInit {
 
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
-  public carreras: Array<object> = [];
+  public carreras: Observable<Array<Object>>;
   public carrera;
   public codigo;
+  public loading;
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     this.setSelectableSettings();
+
+    this.carreras=this.apiService.getAllCarrera()
+
+    this.carreras.subscribe(
+      ()=> {
+        this.loading=false
+      },
+      err=>{
+        this.loading=false;
+        this.apiService.mensajeConError(err);
+        this.router.navigate(['/listarCarreras']);
+      }
+    )
   }
 
   ngOnInit() {
@@ -29,8 +45,7 @@ export class ListarCarrerasComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    this.getCarreras();
-    this.carreras;
+   
   }
 
   public setSelectableSettings(): void {
@@ -41,7 +56,7 @@ export class ListarCarrerasComponent implements OnInit {
   }
 
 
-  getCarreras() {
+/*  getCarreras() {
     this.apiService.getAllCarrera().subscribe((data: Array<object>) => {
       this.carreras = data;
       console.log(this.carreras);
@@ -50,20 +65,28 @@ export class ListarCarrerasComponent implements OnInit {
         this.apiService.mensajeConError(err);
         this.router.navigate(['/listarCarreras']);
       });
-  }
+  }*/
 
   cancelar() {
     this.router.navigate(['/']);
   }
 
-  change(e) {
-    if (e.selected != false) {
-      this.carrera = this.carreras[e.index];
-      this.codigo = this.carrera.codigo;
-      console.log(this.codigo);
+  change({index}){
+    if (!!index || index == 0) {
+      this.carreras.subscribe(
+        (data: Array<carrera>)=> {
+          this.carrera = data[index];
+          this.codigo = this.carrera.codigo;
+          console.log(this.codigo);
+        },
+        err=>{
+          this.apiService.mensajeConError(err);
+        }
+      )
+      
     }
     else {
-      this.carrera = undefined;
+      this.codigo = undefined;
     }
   }
 

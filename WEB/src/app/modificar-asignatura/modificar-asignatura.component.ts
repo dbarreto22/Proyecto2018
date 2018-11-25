@@ -5,6 +5,7 @@ import { StorageService } from '../storage.service';
 import { asignatura } from '../modelos/asignatura.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-modificar-asignatura',
@@ -15,32 +16,45 @@ import { Router } from '@angular/router';
 export class ModificarAsignaturaComponent implements OnInit {
 
   public codigo;
-  public asignatura = new asignatura();
+  public asignatura : Observable<asignatura>;
+  public asignaturamodificada : asignatura;
+
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     let rolElegido = localStorage.getItem('rolElegido');
     if (rolElegido != '3') {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
+    this.codigo = localStorage.getItem('codigoAsignaturaABM');
+    console.log(this.codigo);
+
+    this.asignatura = this.apiService.getAsignatura(this.codigo);
+    this.asignatura.subscribe(
+      (data : asignatura)=> {
+        this.asignaturamodificada = data
+        console.log(this.asignaturamodificada);
+      },
+      err=>{
+          this.apiService.mensajeConError(err)}
+    )
+
+
   }
 
   ngOnInit() {
-    this.codigo = localStorage.getItem('codigoAsignaturaABM');
-    console.log(this.codigo);
-    this.getAsignatura();
-    this.asignatura;
+  
   }
 
-  getAsignatura() {
+ /* getAsignatura() {
     console.log(this.codigo);
     this.apiService.getAsignatura(this.codigo).subscribe((data: asignatura) => {
-      this.asignatura = data;
+      this.asignaturamodificada = data;
       console.log(this.asignatura);
     }, err => {
       this.apiService.mensajeConError(err);
       this.router.navigate(['/setingsAsignatura']);
     });
-  }
+  }*/
 
   cancelar() {
     this.router.navigate(['/setingsAsignatura']);
@@ -48,9 +62,9 @@ export class ModificarAsignaturaComponent implements OnInit {
 
   modificarAsignatura(nombre: string) {
     if (this.codigo != undefined) {
-      this.asignatura.nombre = nombre;
+      this.asignaturamodificada.nombre = nombre;
 
-      this.apiService.modificarAsignatura(this.asignatura).subscribe(
+      this.apiService.modificarAsignatura(this.asignaturamodificada).subscribe(
         data => {
           this.apiService.mensajeSinError(data,5);
         }, err => {
