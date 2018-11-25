@@ -39,7 +39,7 @@ export class ApiService {
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
-    public cedula = 1111111;
+    public cedula;
 constructor(private  httpClient:  HttpClient,private router: Router) {
               this.cargarParametros();
             }         
@@ -206,7 +206,8 @@ inscripcionCurso(cedula,idCurso){
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
-  if (localStorage.getItem('session').length != 0) {
+  
+  if (JSON.parse(localStorage.getItem('session')).usr != null) {
     params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
   }

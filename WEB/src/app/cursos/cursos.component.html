@@ -10,19 +10,19 @@
     [pageable]="true"
     [sortable]="true"
     [filterable]="true"
-   
+    [loading]="loading"
     [resizable]="true"
     [selectable]="selectableSettings" 
     (selectionChange) = "change($event)"
     [height]="500"
     >
-  <kendo-grid-column field="cursosGrid.asignatura_Carrera.carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">
+  <kendo-grid-column field="asignatura_Carrera.carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">
     </kendo-grid-column>
-  <kendo-grid-column field="cursosGrid.asignatura_Carrera.carrera.nombre" title="Carrera">
+  <kendo-grid-column field="asignatura_Carrera.carrera.nombre" title="Carrera">
     </kendo-grid-column>
-  <kendo-grid-column field="cursosGrid.asignatura_Carrera.asignatura.codigo" title="Codigo Curso" width="130" [filterable]="false">
+  <kendo-grid-column field="asignatura_Carrera.asignatura.codigo" title="Codigo Curso" width="130" [filterable]="false">
     </kendo-grid-column>
-  <kendo-grid-column field="cursosGrid.asignatura_Carrera.asignatura.nombre" title="Curso">
+  <kendo-grid-column field="asignatura_Carrera.asignatura.nombre" title="Curso">
     </kendo-grid-column>
   <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
   </kendo-grid>

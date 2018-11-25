@@ -42,7 +42,7 @@ export class CursosComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-   // this.loading = true;
+    this.loading = true;
     this.setSelectableSettings();
 
     this.cursos = this.apiService.getAllCursos();
@@ -50,12 +50,12 @@ export class CursosComponent implements OnInit {
     this.cursos.subscribe(
       (data: Array<cursos>) => {
         this.cursosGrid = data
-      //  this.loading = false,
+       this.loading = false,
           console.log(this.cursosGrid)
       },
       err => {
         this.apiService.mensajeConError(err)
-     //     this.loading = false;
+        this.loading = false;
       }
     )
 
