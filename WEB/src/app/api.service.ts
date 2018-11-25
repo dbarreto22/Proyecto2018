@@ -31,8 +31,8 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 
 @Injectable()
 export class ApiService {
-   API_URL  = 'http://localhost:8080/miudelar-server'; 
-   url = 'http://localhost:8080/miudelar-server/director/carrera/';  
+   API_URL  = 'https://d2662161.ngrok.io/miudelar-server'; 
+   url = 'https://d2662161.ngrok.io/miudelar-server/director/carrera/';  
 //  API_URL = 'http://b0b9853a.ngrok.io/miudelar-server'; 
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
 
@@ -67,7 +67,7 @@ getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>>{
 }
 
 getAllCursos() : Observable<cursos[]>{
-  return  this.httpClient.get<cursos[]>(this.url + this.cedula);
+  return  this.httpClient.get<cursos[]>(`${this.API_URL}/estudiante/curso/` + this.cedula);
 }
 
 getAllExamen(){ 
