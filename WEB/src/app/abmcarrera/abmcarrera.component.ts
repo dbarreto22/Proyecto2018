@@ -16,6 +16,7 @@ import { ApiService } from '../api.service';
 })
 export class ABMCarreraComponent implements OnInit {
 
+  public selector;
   public dialogOpened = false;
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
@@ -102,11 +103,25 @@ export class ABMCarreraComponent implements OnInit {
       alert('Debe seleccionar una carrera para continuar.');
   }
 
+  public asignarCarreraAsignatura(){
+    this.selector=1;
+    this.carreraAsignatura();
+  }
+
+  public asignarPrevias(){
+    this.selector=2;
+    localStorage.setItem('variable1','1');
+    this.carreraAsignatura()
+  }
+
   public carreraAsignatura() {
     if (this.codigo != undefined) {
       localStorage.setItem('codigoCarreraAsignaturaABM', this.codigo);
       localStorage.setItem('nombreCarreraAsignaturaABM', this.nombreCarrera);
-      this.router.navigate(['/asignarAsigCarrera']);
+      if(this.selector==1)
+        this.router.navigate(['/asignarAsigCarrera']);
+      if(this.selector==2)
+        this.router.navigate(['/crearPrevias']);  
     }
     else
       alert('Debe seleccionar una carrera para continuar.');

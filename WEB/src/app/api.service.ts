@@ -26,6 +26,7 @@ const httpOptions : {
 responseType: 'text'};
 
 var params = new HttpParams();
+var paramsA: URLSearchParams = new URLSearchParams();
 
 let paramsCalificaciones = new HttpParams();
 paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorage.getItem('idAsigCarrera'));
@@ -40,8 +41,7 @@ export class ApiService {
 
     public cedula = 1111111;
 constructor(private  httpClient:  HttpClient,private router: Router) {
-              let paramsA: URLSearchParams = new URLSearchParams();
-              paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+              this.cargarParametros();
             }         
 
 public codigo = localStorage.getItem('codigoABM');
@@ -65,8 +65,8 @@ getAsignaturaByCarrera(idCarrera){
 }
 
 
-getAsignaturaCarreraByCarrera(idCarrera){
-  return  this.httpClient.get(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
+getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>>{
+  return  this.httpClient.get<Array<Object>>(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
 }
 
 getAllCursos() : Observable<Array<cursos>>{
@@ -203,9 +203,20 @@ inscripcionCurso(cedula,idCurso){
     return  this.httpClient.post(`${this.API_URL}/admim/usuario/addRol`, json, httpOptions);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
-cargarParametros(){
-  params.set('cedula',JSON.parse(localStorage.getItem('session')).usr.cedula);
-  this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula; 
+cargarParametros() {
+  if (localStorage.getItem('session').length != 0) {
+    params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
+    this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
+  }
+  paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+}
+
+agregarPrevia(idMadre,idPrevia){
+  var a: any = {};
+  a.idMadre = idMadre;
+  a.idPrevia = idPrevia;
+  let json = JSON.stringify(a);
+  return this.httpClient.post(`${this.API_URL}/director/previas.addPrevia`, json, httpOptions);
 
 }
 

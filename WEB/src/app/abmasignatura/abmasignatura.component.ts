@@ -92,6 +92,14 @@ export class abmAsignaturaComponent implements OnInit {
       }
     )}}
 
+public mostrarPrevias(){
+  if (this.codigo != undefined) {
+    localStorage.setItem('idCurso', this.codigo);
+    this.router.navigate(['/grafo']);
+  }
+  else alert('Debe seleccionar un curso');
+}
+
   public modificarAsignatura() {
     if (this.codigo != undefined) {
       localStorage.setItem("codigoAsignaturaABM", this.codigo);

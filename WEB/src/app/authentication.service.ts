@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import { HttpClient} from  '@angular/common/http';
 import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
-import { local } from "d3";
 import { Router } from "@angular/router";
 import { ApiService } from "./api.service";
 

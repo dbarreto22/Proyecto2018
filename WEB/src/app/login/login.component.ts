@@ -58,12 +58,10 @@ export class LoginComponent implements OnInit {
           //this.storageService.setCurrentSession(new Sesion(res,null)); 
           this.correctLogin();
         },err => {
-          this.loading = false; 
-          console.log('Error en el login '+err.message);
-          if(err.status==403 || err.status==401){
+            this.apiService.mensajeConError(err);
             this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
-          //  this.router.navigate(['/login']);
-          }
+            this.router.navigate(['/login']);
+          
         });
       
     }

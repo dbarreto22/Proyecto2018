@@ -7,20 +7,21 @@ import { Router } from '@angular/router';
 import { asignatura } from '../modelos/asignatura.model';
 import { SelectableSettings } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
+import { asignaturaCarrera } from '../modelos/asignaturaCarrera.model';
 
 @Component({
-  selector: 'app-asignar-asig-carrera',
-  templateUrl: './asignar-asig-carrera.component.html',
-  styleUrls: ['./asignar-asig-carrera.component.css'],
+  selector: 'app-crearPrevias',
+  templateUrl: './crearPrevias.component.html',
+  styleUrls: ['./crearPrevias.component.css'],
   providers: [ApiService, NgbPaginationConfig, StorageService]
 })
-export class AsignarAsigCarreraComponent implements OnInit {
+export class CrearPreviasComponent implements OnInit {
   public contexto;
   public titulo;
   public nombreCarrera;
   public codigoCarrera;
   public codigoAsignatura;
-  public asignatura = new asignatura();
+  public asignatura : asignaturaCarrera;
   public asignaturas: Observable<Array<Object>>;
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
@@ -28,11 +29,13 @@ export class AsignarAsigCarreraComponent implements OnInit {
 
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     this.setSelectableSettings();
+    this.nombreCarrera = localStorage.getItem('nombreCarreraAsignaturaABM');
+    this.codigoCarrera = localStorage.getItem('codigoCarreraAsignaturaABM');
     this.loading = true;
-    this.asignaturas = this.apiService.getAllAsignatura();
+    this.asignaturas = this.apiService.getAsignaturaCarreraByCarrera(this.codigoCarrera);
     
     this.asignaturas.subscribe(
-        () => this.loading = false,
+        () =>this.loading = false,
         ee => {
             apiService.mensajeConError(ee);
             this.loading = false
@@ -45,21 +48,17 @@ export class AsignarAsigCarreraComponent implements OnInit {
   ngOnInit() {
     let rolElegido = localStorage.getItem('rolElegido');
     if (rolElegido != '3') {
-      alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
-    }
-    this.nombreCarrera = localStorage.getItem('nombreCarreraAsignaturaABM');
-    this.codigoCarrera = localStorage.getItem('codigoCarreraAsignaturaABM');
-  
+    }  
   }
 
   public definirContexto(){
     if(this.contexto=='1')
     {
-      this.titulo='Ingresar Asignatura para ';
+      this.titulo='Seleccionar curso madre para ';
     }
     else
-      this.titulo='Seleccionar curso madre para ';
+      this.titulo='Seleccionar previa ';      
   }
   public setSelectableSettings(): void {
     this.selectableSettings = {
@@ -73,9 +72,9 @@ export class AsignarAsigCarreraComponent implements OnInit {
    
     if (!!index || index == 0) {
       this.asignaturas.subscribe(
-        (data: Array<asignatura>)=> {
+        (data: Array<asignaturaCarrera>)=> {
           this.asignatura = data[index];
-          this.codigoAsignatura = this.asignatura.codigo;
+          this.codigoAsignatura = this.asignatura.id;
         },
         err=>{
           this.apiService.mensajeConError(err);
@@ -92,17 +91,31 @@ export class AsignarAsigCarreraComponent implements OnInit {
     this.router.navigate(['/setingsCarrera']);
   }
 
-
   asignarACarrera() {
     if (this.codigoAsignatura != undefined) {
-      this.apiService.asignarAsigCarrera(this.codigoAsignatura, this.codigoCarrera).subscribe(
+      if(this.contexto=='1'){
+        localStorage.setItem('idMadre',this.codigoAsignatura);
+        localStorage.setItem('variable1','2');
+        this.router.navigate(['/crearPrevias']);
+      }
+      else
+      {
+        let idMadre=localStorage.getItem('idMadre');
+        let idPrevia=this.codigoAsignatura;
+        if(idMadre==undefined || idPrevia==undefined)
+        {
+          alert('Algo salio mal, debe comenzar de nuevo');
+          this.router.navigate(['/setingsCarrera']);
+        }
+        this.apiService.agregarPrevia(idMadre, idPrevia).subscribe(
         data => {
           this.apiService.mensajeSinError(data,2);
           this.router.navigate(['/setingsCarrera']);
         }, err => {
           this.apiService.mensajeConError(err);
-          this.router.navigate(['/asignarAsigCarrera']);
+          this.router.navigate(['/setingsCarrera']);
         });
+      }
     }
     else
       alert('Debe seleccionar una asignatura para continuar.');
