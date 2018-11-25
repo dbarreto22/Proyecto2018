@@ -9,23 +9,23 @@
               <legend>Modificar Usuario</legend>
                 <label class="k-form-field" for="readOnlyInput">
                   <span>Cedula</span>
-                  <input #cedula   value= {{usuario.cedula}} class="form-control" id="readOnlyInput" type="text" readonly/>
+                  <input #cedula   value= {{usuarioModificado.cedula}} class="form-control" id="readOnlyInput" type="text" readonly/>
                 </label>
                 <label class="k-form-field">
                   <span>Nombre</span>
-                  <input  #nombre  [(ngModel)]="usuario.nombre" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                  <input  #nombre  [(ngModel)]="usuarioModificado.nombre" [ngModelOptions]="{standalone: true}" class="form-control"  />
                 </label>
                 <label class="k-form-field">
                   <span>Apellido</span>
-                  <input #apellido   [(ngModel)]="usuario.apellido" [ngModelOptions]="{standalone: true}" class="form-control" />
+                  <input #apellido   [(ngModel)]="usuarioModificado.apellido" [ngModelOptions]="{standalone: true}" class="form-control" />
                 </label>
                 <label class="k-form-field">
                   <span>Email </span>
-                  <input #mail  type="email"  [(ngModel)]="usuario.email" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                  <input #mail  type="email"  [(ngModel)]="usuarioModificado.email" [ngModelOptions]="{standalone: true}" class="form-control"  />
                 </label>
                 <label class="k-form-field">
                   <span>Password </span>
-                  <input #password  type="text"  [(ngModel)]="usuario.password" [ngModelOptions]="{standalone: true}" class="form-control"  />
+                  <input #password  type="text"  [(ngModel)]="usuarioModificado.password" [ngModelOptions]="{standalone: true}" class="form-control"  />
                 </label>
             </fieldset>
             <div class="text-center">

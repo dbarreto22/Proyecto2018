@@ -5,6 +5,7 @@ import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { carrera } from '../modelos/carrera.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-modificar-carrera',
@@ -15,7 +16,10 @@ import { carrera } from '../modelos/carrera.model';
 export class ModificarCarreraComponent implements OnInit {
 
   public codigo;
-  public carrera = new carrera();
+  public carrera : Observable<carrera>;
+  public carreramodificada : carrera;
+
+
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     let rolElegido = localStorage.getItem('rolElegido');
     if (rolElegido != '3') {
@@ -23,16 +27,28 @@ export class ModificarCarreraComponent implements OnInit {
       this.router.navigate(['/'])
     }
 
+    this.codigo = localStorage.getItem('codigoABM');
+    console.log(this.codigo);
+
+    this.carrera = this.apiService.getCarrera(this.codigo);
+
+    this.carrera.subscribe(
+      (data : carrera)=> {
+        this.carreramodificada = data
+        console.log(this.carreramodificada);
+      },
+      err=>{
+          this.apiService.mensajeConError(err)}
+    )
+
+
   }
 
   ngOnInit() {
-    this.codigo = localStorage.getItem('codigoABM');
-    console.log(this.codigo);
-    this.getCarrera();
-    this.carrera;
+   
   }
 
-
+/*
   getCarrera() {
     console.log(this.codigo);
     this.apiService.getCarrera(this.codigo).subscribe((data: carrera) => {
@@ -44,15 +60,15 @@ export class ModificarCarreraComponent implements OnInit {
       this.router.navigate(['/setingsCarrera']);
     });
   }
-
+*/
   cancelar() {
     this.router.navigate(['/setingsCarrera']);
   }
 
   modificarCarrera(nombre: string) {
-    if (this.carrera != undefined) {
-      this.carrera.nombre = nombre;
-      this.apiService.modificarCarrera(this.carrera).subscribe(
+    if (this.carreramodificada != undefined) {
+      this.carreramodificada.nombre = nombre;
+      this.apiService.modificarCarrera(this.carreramodificada).subscribe(
         data => {
           this.apiService.mensajeSinError(data, 5);
         },

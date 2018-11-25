@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { examenes } from '../modelos/examenes.model';
 import { Examen } from '../modelos/examen.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-insc-examen',
@@ -15,9 +16,12 @@ import { Examen } from '../modelos/examen.model';
   styleUrls: ['./insc-examen.component.css'],
   providers: [ApiService, NgbPaginationConfig, StorageService],
 })
+
+
 export class InscExamenComponent implements OnInit {
   public codigo;
-  public examenes: Array<examenes> = [];
+  public examenes:  Observable<Array<examenes>>;
+  public examenGrid : Array<examenes>;
   public checked = false;
   public filter: CompositeFilterDescriptor;
   selectedValue: any[];
@@ -25,10 +29,22 @@ export class InscExamenComponent implements OnInit {
   public selectableSettings: SelectableSettings;
   public idExamen;
   public cedula;
+  public loading;
 
   constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
     private storageService: StorageService, private router: Router) {
     this.setSelectableSettings();
+    this.examenes = this.apiService.getAllExamen();
+
+    this.examenes.subscribe(
+      (data : Array<examenes>) => {
+      this.examenGrid = data,
+      this.loading = false;},
+      ee => {
+          apiService.mensajeConError(ee);
+          this.loading = false
+      }
+  )
   }
 
   ngOnInit() {
@@ -37,9 +53,9 @@ export class InscExamenComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    this.examenes;
-    this.getExamenes();
-    this.getExamenGrid();
+    this.loading = true;
+    
+
   }
 
   public setSelectableSettings(): void {
@@ -48,18 +64,8 @@ export class InscExamenComponent implements OnInit {
       mode: "single",
     };
   }
-  public state: State = {
-    skip: 0,
-    take: 5,
-  };
 
-  public gridData: GridDataResult = process(this.examenes, this.state);
-
-  public dataStateChange(state: DataStateChangeEvent): void {
-    this.state = state;
-    this.gridData = process(this.examenGrid, this.state);
-  }
-
+/*
   public getExamenes() {
     this.apiService.getAllExamen().subscribe((data: examenes[]) => {
       this.examenes = data;
@@ -85,15 +91,15 @@ export class InscExamenComponent implements OnInit {
 
     console.log(this.examenGrid);
   }
-
+*/
 
   cancelar() {
     this.router.navigate(['/']);
   }
 
-  change(e) {
-    if (e.selected != false) {
-      this.idExamen = this.examenGrid[e.index].idCurso;
+  change({index}) {
+    if (!!index || index == 0) {
+      this.idExamen = this.examenGrid[index];
       console.log(this.idExamen);
     }
     else {

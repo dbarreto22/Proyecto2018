@@ -9,12 +9,13 @@
       </div>
     
     <kendo-grid     
-        [kendoGridBinding]="calificacionesCursos" 
+        [kendoGridBinding]="calificacionesCursos | async" 
         [pageSize]="10"
         [pageable]="true"
         [sortable]="true"
         [filterable]="true"
         [resizable]="true"
+        [loading] = "loading"
         [selectable]="selectableSettings" 
         (selectionChange) = "change($event)"
         [height]="500"

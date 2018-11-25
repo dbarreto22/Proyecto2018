@@ -7,6 +7,7 @@ import { usuario } from '../modelos/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { State } from '@progress/kendo-data-query';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listar-usuarios',
@@ -18,12 +19,25 @@ export class ListarUsuariosComponent implements OnInit {
 
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
-  public usuarios:  Array<usuario> = [];
+  public usuarios:   Observable<Array<Object>>;
   public cedulaSelect :string;
   public usuario = new usuario();
   public dialogOpened = false;
+  public loading;
+  
 constructor(public http: HttpClient, private  apiService:  ApiService, private router: Router) {
       this.setSelectableSettings();
+      this.usuarios = this.apiService.getAllUser();
+
+      this.usuarios.subscribe(
+        ()=> {
+          this.loading=false
+        },
+        err=>{
+          this.loading=false;
+          this.apiService.mensajeConError(err);
+        }
+      )
   }
 
   ngOnInit() {
@@ -33,8 +47,8 @@ constructor(public http: HttpClient, private  apiService:  ApiService, private r
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    this.getusuarios();
-    this.usuarios;
+    
+    
   }
 
   public setSelectableSettings(): void {
@@ -44,12 +58,9 @@ constructor(public http: HttpClient, private  apiService:  ApiService, private r
     };
 }
 
-  public state: State = {
-    skip: 0,
-    take: 5,
-};
 
 
+/*
 public  getusuarios(){
   this.apiService.getAllUser().subscribe((data:  Array<usuario>) => {
       this.usuarios  =  data;
@@ -59,14 +70,22 @@ public  getusuarios(){
     this.apiService.mensajeConError(err);
     this.router.navigate(['/listarUsuarios']);
   });
-}
+}*/
 
-change(e){
-  if (e.selected != false) {
-    this.usuario =   this.usuarios[e.index];
-  this.cedulaSelect =  this.usuario.cedula;
-  console.log(this.cedulaSelect);
-   this.dialogOpened = true;
+change({index}){
+  if (!!index || index == 0) {
+    this.usuarios.subscribe(
+      (data: Array<usuario>)=> {
+        this.usuario = data[index];
+        this.cedulaSelect = this.usuario.cedula;
+       
+        console.log(this.cedulaSelect);
+      },
+      err=>{
+        this.apiService.mensajeConError(err);
+      }
+    )
+    
   }
   else {
     this.cedulaSelect = undefined;
@@ -77,7 +96,7 @@ change(e){
 public MostrarUsuario(){
   if (this.cedulaSelect != undefined) {
     localStorage.setItem('cedulaABM', this.cedulaSelect);
-  this.router.navigate(['/modificarUsr']);
+  this.router.navigate(['/setingsUsr']);
 }
 else
   alert('Debe seleccionar un usuario para continuar.');

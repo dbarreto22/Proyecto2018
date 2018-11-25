@@ -11,6 +11,8 @@ import { carrera } from './modelos/carrera.model';
 import { asignatura } from './modelos/asignatura.model';
 import { usuario } from './modelos/usuario.model';
 import { cursos } from './modelos/cursos.model';
+import { examenes } from './modelos/examenes.model';
+import { DtCalificacion } from './modelos/DtCalificacion.model';
 
 const httpOptions : {
   headers?: HttpHeaders,
@@ -31,12 +33,13 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 
 @Injectable()
 export class ApiService {
-   API_URL  = 'https://d2662161.ngrok.io/miudelar-server'; 
-   url = 'https://d2662161.ngrok.io/miudelar-server/director/carrera/';  
-//  API_URL = 'http://b0b9853a.ngrok.io/miudelar-server'; 
+   API_URL  = 'http://localhost:8080/miudelar-server'; 
+  // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
+  //API_URL = 'http://b0b9853a.ngrok.io/miudelar-server'; 
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
+    //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
-    public cedula;
+    public cedula = 1111111;
 constructor(private  httpClient:  HttpClient,private router: Router) {
               this.cargarParametros();
             }         
@@ -66,16 +69,18 @@ getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>>{
   return  this.httpClient.get<Array<Object>>(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
 }
 
-getAllCursos() : Observable<cursos[]>{
-  return  this.httpClient.get<cursos[]>(`${this.API_URL}/estudiante/curso/` + this.cedula);
+//getAllCursos() : Observable<cursos[]>{
+//  return  this.httpClient.get<cursos[]>(`${this.API_URL}/estudiante/curso/` + this.cedula);
+getAllCursos() : Observable<Array<cursos>>{
+  return  this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso`);
 }
 
-getAllExamen(){ 
-  return  this.httpClient.get(`${this.API_URL}/estudiante/examen`+this.cedula);
+getAllExamen(): Observable<Array<examenes>>{ 
+  return  this.httpClient.get<Array<examenes>>(`${this.API_URL}/estudiante/examen`);
 }
  
-getCalificacionesEstudiante(idAsigCarrera){ 
-  return  this.httpClient.get(`${this.API_URL}/estudiante/consultarCalificaciones/`+this.cedula+idAsigCarrera);
+getCalificacionesEstudiante(idAsigCarrera): Observable<Array<DtCalificacion>>{ 
+  return  this.httpClient.get<Array<DtCalificacion>>(`${this.API_URL}/estudiante/consultarCalificaciones/`+this.cedula+idAsigCarrera);
 }
 
 public getToken(){
@@ -83,18 +88,16 @@ public getToken(){
   return sesion!=null?sesion.token:null; 
 }
 
-getUsuario(cedula){
-  return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
+getUsuario(cedula): Observable<usuario>{
+  return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/`+cedula)
 }
 
-getCarrera(codigo){
-  return this.httpClient.get(`${this.API_URL}/director/carrera/`+codigo)
+getCarrera(codigo): Observable<carrera>{
+  return this.httpClient.get<carrera>(`${this.API_URL}/director/carrera/`+codigo)
 }
 
-getAsignatura(codigo){
-  let data = {codigo: codigo};
-  console.log(data);
-  return this.httpClient.get(`${this.API_URL}/director/asignatura/`+codigo)
+getAsignatura(codigo): Observable<asignatura>{
+  return this.httpClient.get<asignatura>(`${this.API_URL}/director/asignatura/`+codigo)
 }
 
 getprevias(idCurso){
