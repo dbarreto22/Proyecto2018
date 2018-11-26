@@ -34,12 +34,15 @@ export class InscExamenComponent implements OnInit {
   constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService,
     private storageService: StorageService, private router: Router) {
     this.setSelectableSettings();
-    this.examenes = this.apiService.getAllExamen();
+    this.examenes = this.apiService.getExamenByCedula();
 
     this.examenes.subscribe(
       (data : Array<examenes>) => {
       this.examenGrid = data,
-      this.loading = false;},
+      this.loading = false;
+      console.log(this.examenGrid[0].id)
+
+    },
       ee => {
           apiService.mensajeConError(ee);
           this.loading = false
@@ -99,7 +102,7 @@ export class InscExamenComponent implements OnInit {
 
   change({index}) {
     if (!!index || index == 0) {
-      this.idExamen = this.examenGrid[index];
+      this.idExamen = this.examenGrid[index].id;
       console.log(this.idExamen);
     }
     else {

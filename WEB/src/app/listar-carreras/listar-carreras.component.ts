@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { carrera } from '../modelos/carrera.model';
+import { usuario } from '../modelos/usuario.model';
 
 @Component({
   selector: 'app-listar-carreras',
@@ -19,10 +20,12 @@ export class ListarCarrerasComponent implements OnInit {
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
   public carreras: Observable<Array<Object>>;
+  public usuarios: Observable<Array<usuario>>
   public carrera;
   public codigo;
   public loading;
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
+   this.loading= true;
     this.setSelectableSettings();
 
     this.carreras=this.apiService.getAllCarrera()
@@ -41,7 +44,7 @@ export class ListarCarrerasComponent implements OnInit {
 
   ngOnInit() {
     let rolElegido = localStorage.getItem('rolElegido');
-    if (rolElegido != '3') {
+    if (rolElegido == '3' || rolElegido == '1' || rolElegido == '2') {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
@@ -93,7 +96,7 @@ export class ListarCarrerasComponent implements OnInit {
   irACurso() {
     if (this.codigo != undefined) {
       localStorage.setItem('carreraSeleccionada', this.codigo);
-      this.router.navigate(['/listarCarreras']);
+      this.router.navigate(['/calificacionesCurso']);
     }
     else
       alert('Debe seleccionar una carrera para continuar.');

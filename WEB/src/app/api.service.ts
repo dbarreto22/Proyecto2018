@@ -75,8 +75,16 @@ getAllCursos() : Observable<Array<cursos>>{
   return  this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso`);
 }
 
+getCursosByCedula() : Observable<Array<cursos>>{
+  return  this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso/`+this.cedula);
+}
+
 getAllExamen(): Observable<Array<examenes>>{ 
   return  this.httpClient.get<Array<examenes>>(`${this.API_URL}/estudiante/examen`);
+}
+
+getExamenByCedula(): Observable<Array<examenes>>{ 
+  return  this.httpClient.get<Array<examenes>>(`${this.API_URL}/estudiante/examen/`+this.cedula);
 }
  
 getCalificacionesEstudiante(idAsigCarrera): Observable<Array<DtCalificacion>>{ 
@@ -88,8 +96,8 @@ public getToken(){
   return sesion!=null?sesion.token:null; 
 }
 
-getUsuario(cedula): Observable<usuario>{
-  return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/`+cedula)
+getUsuario(): Observable<usuario>{
+  return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/`+this.cedula)
 }
 
 getCarrera(codigo): Observable<carrera>{

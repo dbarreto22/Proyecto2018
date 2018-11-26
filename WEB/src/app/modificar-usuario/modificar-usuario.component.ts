@@ -26,9 +26,9 @@ export class ModificarUsuarioComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    this.cedula = localStorage.getItem('cedulaABM');
-    console.log(this.cedula);
-    this.usuario = this.apiService.getUsuario(this.cedula);
+  //  this.cedula = localStorage.getItem('cedulaABM');
+  //  console.log(this.cedula);
+    this.usuario = this.apiService.getUsuario();
 
     this.usuario.subscribe(
       (data : usuario)=> {

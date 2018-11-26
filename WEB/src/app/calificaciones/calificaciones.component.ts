@@ -32,9 +32,10 @@ export class CalificacionesComponent implements OnInit {
   public calificacionesExamenes = new Array <calificacionE>();
   public calificacionE :calificacionE;
   public calificacionC : calificacionC;
+  public loading;
 
   constructor(public http: HttpClient , private  apiService:  ApiService, private router: Router) {
-
+        this.loading = true;
      }
 
   ngOnInit() {
@@ -48,14 +49,17 @@ export class CalificacionesComponent implements OnInit {
     this.calificaciones = this.apiService.getCalificacionesEstudiante(this.idAsignaturaCarrera);
     this.calificaciones.subscribe(
       (data : Array<DtCalificacion>)=> {
-        this.Listcalificacion = data
-        console.log(this.Listcalificacion);
+        this.Listcalificacion = data,
+        this.loading = false;
+        console.log(this.Listcalificacion[0].dtEstCurso[0].calificacion);
+        
       },
       err=>{
-          this.apiService.mensajeConError(err)}
+          this.apiService.mensajeConError(err)
+          this.loading = false;
+        }
     )
-    this.getGridMostrar();
-
+    
   }
  
  /*

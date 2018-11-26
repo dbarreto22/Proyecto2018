@@ -74,7 +74,7 @@ private correctLogin(){
   var usuario:User;
   let rol
   //this.storageService.setCurrentSession(new Sesion(data,null));
-  this.apiService.getUsuario(cedula).subscribe((
+  this.apiService.getUsuario().subscribe((
     res:User) =>{ 
       //this.storageService.setUsuario(res);
       usuario=res;

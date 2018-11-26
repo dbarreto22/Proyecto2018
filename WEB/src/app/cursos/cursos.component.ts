@@ -37,6 +37,7 @@ export class CursosComponent implements OnInit {
 
   //private  apiService:  ApiService
   constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService, private router: Router) {
+    let cedula = localStorage.getItem('');
     let rolElegido = localStorage.getItem('rolElegido');
     if (rolElegido != '4') {
       alert('El rol actual no puede acceder a esta función.');
@@ -45,12 +46,12 @@ export class CursosComponent implements OnInit {
     this.loading = true;
     this.setSelectableSettings();
 
-    this.cursos = this.apiService.getAllCursos();
+    this.cursos = this.apiService.getCursosByCedula();
 
     this.cursos.subscribe(
       (data: Array<cursos>) => {
         this.cursosGrid = data
-       this.loading = false,
+        this.loading = false,
           console.log(this.cursosGrid)
       },
       err => {
@@ -73,46 +74,14 @@ export class CursosComponent implements OnInit {
       mode: "single",
     };
   }
-
-  /*
-    public getCursos() {
-      this.loading = true;
-      this.apiService.getAllCursos().subscribe((data: cursos[]) => {
-        this.loading = false;
-        this.cursos = data;
-        console.log(data);
-        this.getCursosGrid()
-      },
-        err => {
-          this.apiService.mensajeConError(err);
-        });
   
-    }*/
-
-
-  public getCursosGrid() {
-    for (let data of this.cursosGrid) {
-
-      var curso = new Curso;
-      curso.codigoAsignatura = data.asignatura_Carrera.asignatura.codigo;
-      curso.codigoCarrera = data.asignatura_Carrera.carrera.codigo;
-      curso.idCurso = data.id;
-      curso.idAsigCarrera = data.asignatura_Carrera.id;
-      curso.nombreAsignatura = data.asignatura_Carrera.asignatura.nombre;
-      curso.nombreCarrera = data.asignatura_Carrera.carrera.nombre;
-      this.cursosMostrar.push(curso);
-    }
-
-    console.log(this.cursosMostrar);
-  }
-
   cancelar() {
     this.router.navigate(['/']);
   }
 
   change({ index }) {
     if (!!index || index == 0) {
-      this.idCurso = this.cursosMostrar[index];
+      this.idCurso = this.cursosGrid[index].id;
       console.log(this.idCurso);
     }
     else {
@@ -140,11 +109,4 @@ export class CursosComponent implements OnInit {
 
   }
 
-  public verPrevias() {
-    if (this.idCurso != undefined) {
-      localStorage.setItem('idCurso', this.idCurso);
-      this.router.navigate(['/grafo']);
-    }
-    else alert('Debe seleccionar un curso');
-  }
 }
