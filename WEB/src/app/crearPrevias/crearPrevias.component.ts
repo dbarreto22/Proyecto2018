@@ -4,8 +4,7 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { asignatura } from '../modelos/asignatura.model';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings, SelectAllCheckboxState } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
 import { asignaturaCarrera } from '../modelos/asignaturaCarrera.model';
 
@@ -23,22 +22,22 @@ export class CrearPreviasComponent implements OnInit {
   public codigoAsignatura;
   public asignatura : asignaturaCarrera;
   public asignaturas: Observable<Array<Object>>;
+  public selectAllState: SelectAllCheckboxState = 'unchecked';
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
-  public loading;
+  public loading=true;
 
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     this.setSelectableSettings();
     this.nombreCarrera = localStorage.getItem('nombreCarreraAsignaturaABM');
     this.codigoCarrera = localStorage.getItem('codigoCarreraAsignaturaABM');
-    this.loading = true;
     this.asignaturas = this.apiService.getAsignaturaCarreraByCarrera(this.codigoCarrera);
     
     this.asignaturas.subscribe(
         () =>this.loading = false,
         ee => {
-            apiService.mensajeConError(ee);
-            this.loading = false
+          this.loading = false
+          apiService.mensajeConError(ee);
         }
     )
     this.contexto=localStorage.getItem('variable1');
@@ -95,11 +94,15 @@ export class CrearPreviasComponent implements OnInit {
     if (this.codigoAsignatura != undefined) {
       if(this.contexto=='1'){
         localStorage.setItem('idMadre',this.codigoAsignatura);
+        this.selectAllState = 'unchecked';
+        this.codigoAsignatura = undefined
         localStorage.setItem('variable1','2');
-        this.router.navigate(['/crearPrevias']);
+        this.contexto=2;
+        alert('Seleccioné un primer elemento');
       }
       else
       {
+        alert('En la seleccion del segundo');
         let idMadre=localStorage.getItem('idMadre');
         let idPrevia=this.codigoAsignatura;
         if(idMadre==undefined || idPrevia==undefined)

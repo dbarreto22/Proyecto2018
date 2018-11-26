@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
             this.apiService.mensajeConError(err);
             this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
             this.router.navigate(['/login']);
-          
         });
       
     }

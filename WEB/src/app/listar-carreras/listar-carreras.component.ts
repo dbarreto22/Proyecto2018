@@ -41,7 +41,7 @@ export class ListarCarrerasComponent implements OnInit {
 
   ngOnInit() {
     let rolElegido = localStorage.getItem('rolElegido');
-    if (rolElegido != '3') {
+    if (rolElegido != '4') {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }

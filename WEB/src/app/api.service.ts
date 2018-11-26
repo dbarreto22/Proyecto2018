@@ -72,7 +72,7 @@ getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>>{
 //getAllCursos() : Observable<cursos[]>{
 //  return  this.httpClient.get<cursos[]>(`${this.API_URL}/estudiante/curso/` + this.cedula);
 getAllCursos() : Observable<Array<cursos>>{
-  return  this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso`);
+  return  this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso`+ this.cedula);
 }
 
 getAllExamen(): Observable<Array<examenes>>{ 

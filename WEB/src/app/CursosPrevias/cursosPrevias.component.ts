@@ -1,25 +1,22 @@
-import { Component, OnInit, ContentChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
-import { CompositeFilterDescriptor, State, process } from '@progress/kendo-data-query';
-import { GridDataResult, DataStateChangeEvent, SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings } from '@progress/kendo-angular-grid';
 import { cursos } from '../modelos/cursos.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Curso } from './Curso';
+import { Curso } from '../cursos/Curso';
 
 @Component({
-  selector: 'app-cursos',
-  templateUrl: './cursos.component.html',
-  styleUrls: ['./cursos.component.css'],
+  selector: 'app-cursosPrevias',
+  templateUrl: './cursosPrevias.component.html',
+  //styleUrls: ['./cursos.component.css'],
   providers: [ApiService, NgbPaginationConfig, StorageService],
 })
 
-export class CursosComponent implements OnInit {
+export class CursosPreviasComponent implements OnInit {
 
   public idCurso;
   public loading;
@@ -36,16 +33,15 @@ export class CursosComponent implements OnInit {
 
 
   //private  apiService:  ApiService
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService, private router: Router) {
+  constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     let rolElegido = localStorage.getItem('rolElegido');
-    if (rolElegido != '4') {
+    if (rolElegido != '3') {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
     this.loading = true;
     this.setSelectableSettings();
     this.cursosGrid = this.apiService.getAllCursos();
-
     this.cursosGrid.subscribe(
       () =>
        this.loading = false,
@@ -54,11 +50,11 @@ export class CursosComponent implements OnInit {
         this.loading = false;
       }
     )
+
   }
 
   ngOnInit() {
-    this.rolElegido = localStorage.getItem('rolElegido');
-    alert('Que putada');
+    console.log('Putos1');
   }
 
   public setSelectableSettings(): void {
@@ -67,22 +63,6 @@ export class CursosComponent implements OnInit {
       mode: "single",
     };
   }
-
-  /*
-    public getCursos() {
-      this.loading = true;
-      this.apiService.getAllCursos().subscribe((data: cursos[]) => {
-        this.loading = false;
-        this.cursos = data;
-        console.log(data);
-        this.getCursosGrid()
-      },
-        err => {
-          this.apiService.mensajeConError(err);
-        });
-  
-    }*/
-
 
   cancelar() {
     this.router.navigate(['/']);
@@ -98,25 +78,6 @@ export class CursosComponent implements OnInit {
     }
   }
 
-
-
-  public inscCursos() {
-    if (this.idCurso != undefined) {
-      this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
-      this.apiService.inscripcionCurso(this.cedula, this.idCurso).subscribe(
-        data => {
-          this.apiService.mensajeSinError(data, 3);
-          this.router.navigate(['/inscCursos']);
-        },
-        err => {
-          this.apiService.mensajeConError(err);
-          this.router.navigate(['/inscCursos']);
-        });
-    }
-    else
-      alert('Debe seleccionar una carrera para continuar.');
-
-  }
 
   public verPrevias() {
     if (this.idCurso != undefined) {

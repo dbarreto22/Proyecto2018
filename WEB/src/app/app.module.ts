@@ -27,7 +27,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import * as d3 from './d3';
 import { D3Service, D3_DIRECTIVES } from './d3';
 import { GraphComponent } from './visuals/graph/graph.component';
 import { SHARED_VISUALS } from './visuals/shared';
@@ -66,6 +65,7 @@ import { ListarCarrerasComponent } from './listar-carreras/listar-carreras.compo
 import { ListarCursosCarrerasComponent } from './listar-cursos-carreras/listar-cursos-carreras.component';
 import {MatSelectModule} from '@angular/material/select';
 import {CrearPreviasComponent} from './crearPrevias/crearPrevias.component';
+import { CursosPreviasComponent } from './CursosPrevias/cursosPrevias.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -109,8 +109,8 @@ export function tokenGetter() {
     ToolbarHomeComponent,
     ListarCarrerasComponent,
     ListarCursosCarrerasComponent,
-    CrearPreviasComponent
-     
+    CrearPreviasComponent,
+    CursosPreviasComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, GridModule ,FormsModule,

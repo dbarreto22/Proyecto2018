@@ -27,6 +27,7 @@ import { ListarUsuariosComponent } from '../listar-usuarios/listar-usuarios.comp
 import { ListarCursosCarrerasComponent } from '../listar-cursos-carreras/listar-cursos-carreras.component';
 import { ListarCarrerasComponent } from '../listar-carreras/listar-carreras.component';
 import { CrearPreviasComponent } from '../crearPrevias/crearPrevias.component';
+import { CursosPreviasComponent } from '../CursosPrevias/cursosPrevias.component';
 
 
 
@@ -57,6 +58,7 @@ const routes: Routes = [
       {path: 'listarCursos', component: ListarCursosCarrerasComponent},
       {path: 'calificaciones', component: CalificacionesComponent},
       {path: 'crearPrevias', component: CrearPreviasComponent},
+      {path: 'cursosPrevias', component: CursosPreviasComponent}      
     ],
     
   },

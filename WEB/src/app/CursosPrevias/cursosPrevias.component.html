@@ -1,0 +1,39 @@
+<div class="jumbotron" style="background: aliceblue">
+
+    <div class="example-config">
+        <p class="font-weight-normal" style="color: dodgerblue">Cursos</p>
+    </div>
+    
+    <kendo-grid     
+      [kendoGridBinding]="cursosGrid"
+      [pageSize]="10"
+      [pageable]="true"
+      [sortable]="true"
+      [filterable]="true"
+      [loading]="loading"
+      [resizable]="true"
+      [selectable]="selectableSettings" 
+      (selectionChange) = "change($event)"
+      [height]="500"
+      >
+    <kendo-grid-column field="asignatura_Carrera.carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">
+      </kendo-grid-column>
+    <kendo-grid-column field="asignatura_Carrera.carrera.nombre" title="Carrera">
+      </kendo-grid-column>
+    <kendo-grid-column field="asignatura_Carrera.asignatura.codigo" title="Codigo Curso" width="130" [filterable]="false">
+      </kendo-grid-column>
+    <kendo-grid-column field="asignatura_Carrera.asignatura.nombre" title="Curso">
+      </kendo-grid-column>
+    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
+    </kendo-grid>
+    
+    <div class="row">
+      <div class="col-sm-12 example-col">
+        <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+          <button kendoButton (click)="verPrevias()">Ver previas</button>
+          <button kendoButton [toggleable]="true"  (click)="cancelar()">Cancelar</button>
+          </kendo-buttongroup>
+      </div>
+    </div>
+    
+  </div>
