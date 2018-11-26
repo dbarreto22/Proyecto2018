@@ -5,7 +5,7 @@
     <p class="font-weight-normal" style="color: dodgerblue">Inscripción a Examenes</p>
   </div>
   <kendo-grid     
-  [kendoGridBinding]="examenGrid | async" 
+  [kendoGridBinding]="examenGrid" 
   [pageSize]="10"
   [pageable]="true"
   [sortable]="true"
@@ -15,13 +15,13 @@
   [selectable]="selectableSettings" 
   [height]="500"
   >
-  <kendo-grid-column field="codigoCarrera" title="Codigo Carrera" width="130" [filterable]="false">
+  <kendo-grid-column field="asignatura_Carrera.carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">
   </kendo-grid-column>
-  <kendo-grid-column field="nombreCarrera" title="Carrera">
+  <kendo-grid-column field="asignatura_Carrera.carrera.nombre" title="Carrera">
   </kendo-grid-column>
-  <kendo-grid-column field="codigoAsignatura" title="Codigo Examen" width="130" [filterable]="false">
+  <kendo-grid-column field="asignatura_Carrera.asignatura.codigo" title="Codigo Examen" width="130" [filterable]="false">
   </kendo-grid-column>
-  <kendo-grid-column field="nombreAsignatura" title="Examen">
+  <kendo-grid-column field="asignatura_Carrera.asignatura.nombre" title="Examen">
   </kendo-grid-column>
    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
 

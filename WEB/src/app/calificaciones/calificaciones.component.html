@@ -9,7 +9,7 @@
       </div>
     
     <kendo-grid     
-        [kendoGridBinding]="calificacionesCursos | async" 
+        [kendoGridBinding]="calificacionesCursos" 
         [pageSize]="10"
         [pageable]="true"
         [sortable]="true"
@@ -20,9 +20,9 @@
         (selectionChange) = "change($event)"
         [height]="500"
     >
-      <kendo-grid-column field="nombreCurso" title="Curso" width="80" >
+      <kendo-grid-column field="dtEstCurso.dtcurso.nombreAsignatura" title="Curso" width="80" >
         </kendo-grid-column>
-      <kendo-grid-column field="notaCurso" title="Notas">
+      <kendo-grid-column field="dtEstCurso.calificacion" title="Notas">
         </kendo-grid-column>
     </kendo-grid>
 
@@ -31,20 +31,20 @@
       </div>
     
     <kendo-grid     
-        [kendoGridBinding]="calificacionesExamenes" 
+        [kendoGridBinding]="calificacionesCursos" 
         [pageSize]="10"
         [pageable]="true"
         [sortable]="true"
         [filterable]="true"
-        [groupable]="true"
         [resizable]="true"
+        [loading] = "loading"
         [selectable]="selectableSettings" 
         (selectionChange) = "change($event)"
         [height]="500"
     >
-      <kendo-grid-column field="nombreExamen" title="Examen" width="80" >
+      <kendo-grid-column field="dtEstCurso.dtExamen.nombreAsignatura" title="Examen" width="80" >
         </kendo-grid-column>
-      <kendo-grid-column field="notaExamen" title="Notas">
+      <kendo-grid-column field="dtEstCurso.calificacion" title="Notas">
         </kendo-grid-column>
     </kendo-grid>
   

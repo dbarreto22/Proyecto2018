@@ -37,6 +37,7 @@ export class CursosComponent implements OnInit {
 
   //private  apiService:  ApiService
   constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService, private router: Router) {
+    let cedula = localStorage.getItem('');
     let rolElegido = localStorage.getItem('rolElegido');
     if (rolElegido != '4') {
       alert('El rol actual no puede acceder a esta función.');
@@ -44,11 +45,19 @@ export class CursosComponent implements OnInit {
     }
     this.loading = true;
     this.setSelectableSettings();
-    this.cursosGrid = this.apiService.getAllCursos();
+    this.cursosGrid = this.apiService.getCursosByCedula();
 
     this.cursosGrid.subscribe(
       () =>
        this.loading = false,
+ /*   this.cursos = this.apiService.getCursosByCedula();
+
+    this.cursos.subscribe(
+      (data: Array<cursos>) => {
+        this.cursosGrid = data
+        this.loading = false,
+          console.log(this.cursosGrid)
+      },*/
       err => {
         this.apiService.mensajeConError(err)
         this.loading = false;
@@ -67,23 +76,7 @@ export class CursosComponent implements OnInit {
       mode: "single",
     };
   }
-
-  /*
-    public getCursos() {
-      this.loading = true;
-      this.apiService.getAllCursos().subscribe((data: cursos[]) => {
-        this.loading = false;
-        this.cursos = data;
-        console.log(data);
-        this.getCursosGrid()
-      },
-        err => {
-          this.apiService.mensajeConError(err);
-        });
   
-    }*/
-
-
   cancelar() {
     this.router.navigate(['/']);
   }
@@ -118,11 +111,4 @@ export class CursosComponent implements OnInit {
 
   }
 
-  public verPrevias() {
-    if (this.idCurso != undefined) {
-      localStorage.setItem('idCurso', this.idCurso);
-      this.router.navigate(['/grafo']);
-    }
-    else alert('Debe seleccionar un curso');
-  }
 }

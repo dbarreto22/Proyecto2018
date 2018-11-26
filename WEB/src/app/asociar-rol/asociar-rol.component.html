@@ -6,10 +6,10 @@
 
     
   <div class="example-config">
-    <h4 class="font-weight-normal">Cedula : {{usuario.cedula}}  Nombre: {{usuario.nombre}}  {{usuario.apellido}}</h4>
+    <h4 class="font-weight-normal">Usuario: {{usuario.nombre}}  {{usuario.apellido}} Cedula : {{usuario.cedula}}  </h4>
   </div>
 
-  <kendo-grid *ngIf="(rolUsuario)?.length > 0; else notShow" [data]="rolUsuario" [resizable]="true" [height]="370" style="width: 500px; ">
+  <kendo-grid *ngIf="(roles)?.length > 0; else notShow" [data]="roles" [resizable]="true" [height]="370" style="width: 500px; ">
             <kendo-grid-column field="id" title="ID" width="40" [locked]="true">
             </kendo-grid-column>
             <kendo-grid-column field="tipo" title="Tipo" width="250" [locked]="true">
