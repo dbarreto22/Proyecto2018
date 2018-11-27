@@ -77,11 +77,12 @@ export class LoginComponent implements OnInit {
 private correctLogin(){
   var cedula=this.loginForm.get('username').value;
   var usuario:User;
-  let rol
+  let rol;
   this.apiService.cargarParametros();
   //this.storageService.setCurrentSession(new Sesion(data,null));
   this.apiService.setearSesion(cedula).subscribe((
     res:User) =>{ 
+      alert('setear Sesion');
       //this.storageService.setUsuario(res);
       usuario=res;
       console.log('El usuario tiene ',usuario);

@@ -33,7 +33,7 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 
 @Injectable()
 export class ApiService {
-   API_URL  = 'http://3f5c1846.ngrok.io/miudelar-server'; 
+   API_URL  = 'http://41a9ae28.ngrok.io/miudelar-server'; 
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
   //API_URL = 'http://b0b9853a.ngrok.io/miudelar-server'; 
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
@@ -218,8 +218,8 @@ inscripcionCurso(cedula,idCurso){
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
-  
-  if (JSON.parse(localStorage.getItem('session')).usr != null) {
+  alert('En servicio ' +localStorage.getItem('session'));
+  if (JSON.parse(localStorage.getItem('session')) != null) {
     params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
   }
