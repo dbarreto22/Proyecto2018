@@ -33,13 +33,9 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 
 @Injectable()
 export class ApiService {
-<<<<<<< HEAD
   // API_URL  = 'http://localhost:8080/miudelar-server'; 
-=======
-   API_URL  = 'http://3f5c1846.ngrok.io/miudelar-server'; 
->>>>>>> 3fcec287b3e0dec7353ab50f7f068295d00f7d9f
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://3f5c1846.ngrok.io/miudelar-server'; 
+  API_URL = 'http://41a9ae28.ngrok.io/miudelar-server'; 
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
@@ -225,7 +221,7 @@ cargarParametros() {
   
   if (JSON.parse(localStorage.getItem('session')).usr != null) {
     params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
-    this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
+    this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
   }
   paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
 }

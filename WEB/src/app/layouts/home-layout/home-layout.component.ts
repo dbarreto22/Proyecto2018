@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Rol } from '../../modelos/rol.model';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/api.service';
 
 
 @Component({
@@ -9,9 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.layout.component.css']
 })
 export class HomeLayoutComponent implements OnInit {
+  
   roles: Array<Rol>;
   @Input() public rolElegido: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router , private apiservice: ApiService) { 
+      //this.apiservice.cargarParametros();
+  }
 
   ngOnInit() {
     this.roles = JSON.parse(localStorage.getItem('session')).usr.roles;
