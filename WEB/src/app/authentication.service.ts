@@ -24,10 +24,5 @@ export class AuthenticationService {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
-
-  private extractData(res) {
-    let body = res.json();
-    return body;
-  }
 }
   

@@ -42,8 +42,9 @@ export class abmAsignaturaComponent implements OnInit {
     this.asignaturas.subscribe(
       () => this.loading = false,
       ee => {
-          apiService.mensajeConError(ee);
-          this.loading = false
+        this.loading = false
+        apiService.mensajeConError(ee);
+
       }
   )
 }

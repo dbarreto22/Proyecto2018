@@ -33,11 +33,11 @@ export class CursosComponent implements OnInit {
   public cursos: Observable<Array<cursos>>;
   public cursosGrid: Observable<Array<cursos>>;
   public cursosMostrar: Array<Curso>;
+  public curso: cursos;
 
 
   //private  apiService:  ApiService
-  constructor(public http: HttpClient, config: NgbPaginationConfig, private apiService: ApiService, private router: Router) {
-    let cedula = localStorage.getItem('');
+  constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     let rolElegido = localStorage.getItem('rolElegido');
     if (rolElegido != '4') {
       alert('El rol actual no puede acceder a esta función.');
@@ -67,7 +67,6 @@ export class CursosComponent implements OnInit {
 
   ngOnInit() {
     this.rolElegido = localStorage.getItem('rolElegido');
-    alert('Que putada');
   }
 
   public setSelectableSettings(): void {
@@ -83,15 +82,17 @@ export class CursosComponent implements OnInit {
 
   change({ index }) {
     if (!!index || index == 0) {
-      this.idCurso = this.cursosGrid[index].id;
-      console.log(this.idCurso);
-    }
-    else {
-      this.idCurso = undefined;
-    }
-  }
 
-
+      this.cursosGrid.subscribe(
+        (data: Array<cursos>)=> {
+          this.curso = data[index];
+          this.idCurso = this.curso.id;
+          console.log(this.idCurso);
+        },
+        err=>{
+          this.apiService.mensajeConError(err);
+        }
+      )}}
 
   public inscCursos() {
     if (this.idCurso != undefined) {

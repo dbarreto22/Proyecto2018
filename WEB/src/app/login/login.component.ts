@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   rolElegido:number;
   rolObserver:Subscription;
   @Input() public errorMsg:string;
+  
   //private roles:Array<any>=[{'id':'1','nombre':'Director'},{'id':'2','nombre':'Administrador'},{'id':'4','nombre':'Alumno'}];
 
   constructor(private formBuilder: FormBuilder,
@@ -53,17 +54,22 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid){
       this.authenticationService.login(new LoginObject(this.loginForm.value)).subscribe((
         res: string) =>{
+          if (res != 'Error: Usuario o contraseña incorrecta'){
+            localStorage.setItem('session',JSON.stringify(new Sesion(res,null)));
+            this.correctLogin();
+          }
+          else {
+          this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
+
+          }
           this.loading = false;
-          localStorage.setItem('session',JSON.stringify(new Sesion(res,null)));
           //this.storageService.setCurrentSession(new Sesion(res,null)); 
-          this.correctLogin();
         },err => {
-            this.loading = false;
             this.apiService.mensajeConError(err);
+            this.loading = false;
             this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
             this.router.navigate(['/login']);
-        });
-      
+        }); 
     }
    // this.storageService.sendMessage('la que te pario putitoooo');
   }                                                                       
@@ -72,20 +78,21 @@ private correctLogin(){
   var cedula=this.loginForm.get('username').value;
   var usuario:User;
   let rol
+  this.apiService.cargarParametros();
   //this.storageService.setCurrentSession(new Sesion(data,null));
-  this.apiService.getUsuario().subscribe((
+  this.apiService.setearSesion(cedula).subscribe((
     res:User) =>{ 
       //this.storageService.setUsuario(res);
       usuario=res;
-      //console.log('El usuario tiene '+usuario.nombre);
+      console.log('El usuario tiene ',usuario);
       let sesion:Sesion=JSON.parse(localStorage.getItem('session'));
       localStorage.setItem('session',JSON.stringify(new Sesion(sesion.token,res)));
       this.apiService.cargarParametros();
       console.log(localStorage.getItem('session')+'--- sesion de login');
       let rolesArray=usuario!=null? usuario.roles:null;
-//      console.log('roles '+JSON.stringify(rolesArray));
+      console.log('roles '+JSON.stringify(rolesArray));
       if(rolesArray!=null){
-      //  console.log('Entro a roles ');
+        console.log('Entro a roles ');
       rol=rolesArray[rolesArray.length-1].id!='2'?
       rolesArray[rolesArray.length-1].id:rolesArray[rolesArray.length-2].id;
       if(!rol){
@@ -95,9 +102,13 @@ private correctLogin(){
       }
       localStorage.setItem('rolElegido',rol);
       this.storageService.setRolElegido(localStorage.getItem('rolElegido'));
-      this.router.navigate(['']);}
-      //console.log(localStorage.getItem('rolElegido')+' Despues del login');
+      console.log(localStorage.getItem('rolElegido')+' Despues del login');
+      this.router.navigate(['/']);}
+      else  
+        this.errorMsg="Hubo un error con el inisio de sesion, vuelva a intentarlo";
+
     },err => {
+      this.loading=false;
       console.log('Error al obtener usuario codigo: '+ err.message);
       if(err.status==403 || err.status==401){
         this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';

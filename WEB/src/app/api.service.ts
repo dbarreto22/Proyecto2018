@@ -33,7 +33,11 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 
 @Injectable()
 export class ApiService {
+<<<<<<< HEAD
   // API_URL  = 'http://localhost:8080/miudelar-server'; 
+=======
+   API_URL  = 'http://3f5c1846.ngrok.io/miudelar-server'; 
+>>>>>>> 3fcec287b3e0dec7353ab50f7f068295d00f7d9f
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
   API_URL = 'http://3f5c1846.ngrok.io/miudelar-server'; 
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
@@ -94,6 +98,10 @@ getCalificacionesEstudiante(idAsigCarrera): Observable<Array<DtCalificacion>>{
 public getToken(){
   var sesion:Sesion = JSON.parse(localStorage.getItem('session'));
   return sesion!=null?sesion.token:null; 
+}
+
+setearSesion(cedula){
+  return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
 }
 
 getUsuario(): Observable<usuario>{
