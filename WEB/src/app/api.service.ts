@@ -220,7 +220,7 @@ inscripcionCurso(cedula,idCurso){
 cargarParametros() {
   alert('En servicio ' +localStorage.getItem('session'));
   if (JSON.parse(localStorage.getItem('session')) != null) {
-    params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
+    params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
   }
   paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
