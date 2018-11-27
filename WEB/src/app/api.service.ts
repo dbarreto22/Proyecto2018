@@ -226,12 +226,7 @@ inscripcionCurso(cedula,idCurso){
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
-<<<<<<< HEAD
   if (JSON.parse(localStorage.getItem('session')) != null) {
-=======
-  
-  if (JSON.parse(localStorage.getItem('session')).usr != null) {
->>>>>>> a0c5020826760b2cafca9111dbb5ec9c0ef8dc23
     params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
   }
