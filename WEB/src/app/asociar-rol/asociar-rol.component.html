@@ -6,15 +6,15 @@
 
     
   <div class="example-config">
-    <h4 class="font-weight-normal">Usuario: {{usuario.nombre}}  {{usuario.apellido}} Cedula : {{usuario.cedula}}  </h4>
+    <h4 class="font-weight-normal">Usuario: {{usuarioM.nombre}}  {{usuarioM.apellido}} Cedula : {{usuarioM.cedula}}  </h4>
   </div>
+  <div class="example-config" *ngIf="(roles)?.length > 0; else notShow" >
+  <p style="margin: 30px; text-align: center;">Roles ya asignados</p>
+      <li *ngFor="let rol of roles">
+        {{rol.id}} - {{rol.tipo}}
+     </li>
+    </div>
 
-  <kendo-grid *ngIf="(roles)?.length > 0; else notShow" [data]="roles" [resizable]="true" [height]="370" style="width: 500px; ">
-            <kendo-grid-column field="id" title="ID" width="40" [locked]="true">
-            </kendo-grid-column>
-            <kendo-grid-column field="tipo" title="Tipo" width="250" [locked]="true">
-            </kendo-grid-column>
-  </kendo-grid>
   <ng-template #notShow>
   <div  class="example-config">
     <p class="font-weight-normal" style="color: black ">El Usuario no tiene Roles asignados.</p>
@@ -24,10 +24,10 @@
   <div class="example-config">
       <p class="font-weight-normal" style="color: dodgerblue">Seleccione Rol a Asignar</p>
   </div>
-
-  <div  style="float: center">
-    <div class="input-group"  style="float: center">
-        <kendo-combobox
+<hr/>
+<hr/> 
+  
+        <kendo-combobox style="float: center"
           [data]="rolMostrar"
           [textField]="'tipo'"
           [(ngModel)]="id"
@@ -35,8 +35,8 @@
           [placeholder]="'Seleccione Rol'">    
         >
         </kendo-combobox>
-    </div>
-  </div>
+   
+
 
 
   <div class="row">

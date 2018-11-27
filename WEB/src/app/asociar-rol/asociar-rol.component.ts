@@ -18,16 +18,34 @@ import { Observable } from 'rxjs';
 export class AsociarRolComponent implements OnInit {
   public cedula;
   public usuario: Observable<usuario>;
-  public Allusers: Observable<Array<Object>>;
+  public usuarioM: usuario;
+  public Allusers: Observable<Array<usuario>>;
   public usuariosConRol = new Array<usuario>();
   public usuarioRol: usuario;
   public roles = new Array<Rol>();
   public rolSelected;
   public show = false;
   public loading;
+  public cantidad: number;
+  public rolMostrar = [{
+    "id": "1",
+    "tipo": "Administrador"
+  },
+  {
+    "id": "2",
+    "tipo": "Bedelia"
+  },
+  {
+    "id": "3",
+    "tipo": "Director"
+  },
+  {
+    "id": "4",
+    "tipo": "Estudiante"
+  }];
 
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
-    this.loading = true
+
   }
 
   ngOnInit() {
@@ -36,80 +54,23 @@ export class AsociarRolComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-    //this.cedula = localStorage.getItem('cedulaABM');
+    this.cedula = localStorage.getItem('cedulaABM');
     ////this.getUsuario();
-    this.usuario = this.apiService.getUsuario();
+    this.usuario = this.apiService.getUsuarioRol(this.cedula);
 
     this.usuario.subscribe(
       (data: usuario) => {
-        this.usuarioRol = data
-        this.loading = false
-        console.log(this.usuarioRol);
+        this.usuarioM = data;
+        this.roles = this.usuarioM.roles;
+        console.log(this.usuarioM);
+
       },
       err => {
         this.apiService.mensajeConError(err)
-        this.loading = false
-      }
-    )
 
-    this.Allusers = this.apiService.getAllUser();
-    this.Allusers.subscribe(
-      (data: Array<usuario>) => {
-        this.usuariosConRol = data;
-        this.loading = false
-        this.usuariosConRol.forEach(element => {
-          if (element.cedula = this.usuarioRol.cedula) {
-                this.roles = this.usuarioRol.roles;
-          }
-        });
-      },
-      err => {
-        this.loading = false;
-        this.apiService.mensajeConError(err);
       }
     )
   }
-
-
-
-
-
-
-  /*
-    getUsuario() {
-      console.log(this.cedula);
-      this.apiService.getUsuario().subscribe((data: usuario) => {
-        this.usuario = data;
-        console.log(this.usuario);
-      }, err => {
-        this.apiService.mensajeConError(err);
-      });
-    }
-  
-    getAllRolUsuario() {
-      this.apiService.getUserRol().subscribe((data: Array<usuario>) => {
-        this.usuariosConRol = data;
-        console.log(this.usuariosConRol);
-      }, err => {
-        this.apiService.mensajeConError(err);
-      });
-    }
-
-  public rolUsuario: Array<Rol>;
-
-  getRolUsuario() {
-
-    this.usuariosConRol.forEach(element => {
-      if (element.cedula == this.usuarioRol.cedula) {
-        this.usuarioRol.roles = this.usuarioRol.roles;
-      }
-      this.rolUsuario = this.usuario.roles;
-      console.log(this.rolUsuario);
-    });
-  }*/
-
-  public cantidad: number;
-
 
   setShow() {
 

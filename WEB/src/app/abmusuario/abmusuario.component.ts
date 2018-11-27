@@ -8,6 +8,7 @@ import { SelectableSettings } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import { usuario } from '../modelos/usuario.model';
 import { Observable } from 'rxjs';
+import { Rol } from '../modelos/rol.model';
 
 @Component({
   selector: 'app-abmusuario',
@@ -25,7 +26,7 @@ export class ABMUsuarioComponent implements OnInit {
   public usuario = new usuario();
   public dialogOpened = false;
   public loading;
-
+  
   constructor(public http: HttpClient, private apiService: ApiService,
     private router: Router) {
       this.loading=true;
@@ -60,8 +61,7 @@ export class ABMUsuarioComponent implements OnInit {
     if (!!index || index == 0) {
       this.usuarios.subscribe(
         (data: Array<usuario>)=> {
-          this.usuario = data[index];
-          this.cedulaSelect = this.usuario.cedula;
+          this.cedulaSelect = data[index].cedula;
           console.log(this.cedulaSelect);
         },
         err=>{

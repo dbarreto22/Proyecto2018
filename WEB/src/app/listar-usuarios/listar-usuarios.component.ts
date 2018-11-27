@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { State } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
+import { Rol } from '../modelos/rol.model';
 
 @Component({
   selector: 'app-listar-usuarios',
@@ -23,7 +24,12 @@ export class ListarUsuariosComponent implements OnInit {
   public cedulaSelect: string;
   public usuario = new usuario();
   public dialogOpened = false;
+  public nombre;
+  public apellido;
+  public mail;
   public loading;
+  public roles : Array<Rol>;
+
 
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     this.loading = true;
@@ -73,13 +79,17 @@ export class ListarUsuariosComponent implements OnInit {
   }*/
 
   change({ index }) {
+    this.dialogOpened = true;
     if (!!index || index == 0) {
       this.usuarios.subscribe(
         (data: Array<usuario>) => {
-          this.usuario = data[index];
-          this.cedulaSelect = this.usuario.cedula;
-
-          console.log(this.cedulaSelect);
+          this.cedulaSelect = data[index].cedula;
+          this.nombre = data[index].nombre;
+          this.apellido = data[index].apellido;
+          this.mail =  data[index].email;
+          this.roles = data[index].roles;
+          this.usuario =data[index];
+          return this.usuario;
         },
         err => {
           this.apiService.mensajeConError(err);
@@ -90,13 +100,16 @@ export class ListarUsuariosComponent implements OnInit {
     else {
       this.cedulaSelect = undefined;
     }
+
+    
   }
 
 
   public MostrarUsuario() {
     if (this.cedulaSelect != undefined) {
-      localStorage.setItem('cedulaABM', this.cedulaSelect);
-      this.router.navigate(['/setingsUsr']);
+      this.dialogOpened = true;
+      //localStorage.setItem('cedulaABM', this.cedulaSelect);
+     // this.router.navigate(['/setingsUsr']);
     }
     else
       alert('Debe seleccionar un usuario para continuar.');

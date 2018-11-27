@@ -33,9 +33,9 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 
 @Injectable()
 export class ApiService {
-  // API_URL  = 'http://localhost:8080/miudelar-server'; 
+   API_URL  = 'http://localhost:8080/miudelar-server'; 
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://41a9ae28.ngrok.io/miudelar-server'; 
+  //API_URL = 'http://41a9ae28.ngrok.io/miudelar-server'; 
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
@@ -104,6 +104,10 @@ getUsuario(): Observable<usuario>{
   return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/`+this.cedula)
 }
 
+getUsuarioRol(cedula): Observable<usuario>{
+  return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/`+cedula)
+}
+
 getCarrera(codigo): Observable<carrera>{
   return this.httpClient.get<carrera>(`${this.API_URL}/director/carrera/`+codigo)
 }
@@ -116,10 +120,10 @@ getprevias(idCurso){
   return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
 }
 
-getUserRol(){
-  return this.httpClient.get(`${this.API_URL}/admin/rol`);
+getUserRol(): Observable<Array<usuario>>{
+  return this.httpClient.get<Array<usuario>>(`${this.API_URL}/admin/rol`);
 }
-
+ 
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
   request = request.clone({
     setHeaders: {
@@ -214,13 +218,13 @@ inscripcionCurso(cedula,idCurso){
     a.cedula = cedula;
     a.idRol = idRol;
     let json = JSON.stringify(a);
-    return  this.httpClient.post(`${this.API_URL}/admim/usuario/addRol`, json, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/admim/usuario.addRol`, json, httpOptions);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
   
   if (JSON.parse(localStorage.getItem('session')).usr != null) {
-    params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
+    params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
   }
   paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
