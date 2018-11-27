@@ -30,6 +30,7 @@ export class CursosPreviasComponent implements OnInit {
   public cursos: Observable<Array<cursos>>;
   public cursosGrid: Observable<Array<cursos>>;
   public cursosMostrar: Array<Curso>;
+  public curso:cursos;
 
 
   //private  apiService:  ApiService
@@ -41,7 +42,7 @@ export class CursosPreviasComponent implements OnInit {
     }
     this.loading = true;
     this.setSelectableSettings();
-    this.cursosGrid = this.apiService.getAllCursos();
+    this.cursosGrid = this.apiService.getCursosByCedula();
     this.cursosGrid.subscribe(
       () =>
        this.loading = false,
@@ -52,9 +53,7 @@ export class CursosPreviasComponent implements OnInit {
     )
 
   }
-
   ngOnInit() {
-    console.log('Putos1');
   }
 
   public setSelectableSettings(): void {
@@ -70,13 +69,17 @@ export class CursosPreviasComponent implements OnInit {
 
   change({ index }) {
     if (!!index || index == 0) {
-      this.idCurso = this.cursosGrid[index].id;
-      console.log(this.idCurso);
-    }
-    else {
-      this.idCurso = undefined;
-    }
-  }
+
+      this.cursosGrid.subscribe(
+        (data: Array<cursos>)=> {
+          this.curso = data[index];
+          this.idCurso = this.curso.id;
+          console.log(this.idCurso);
+        },
+        err=>{
+          this.apiService.mensajeConError(err);
+        }
+      )}}
 
 
   public verPrevias() {

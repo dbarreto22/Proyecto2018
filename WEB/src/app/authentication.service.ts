@@ -10,7 +10,7 @@ export class AuthenticationService {
 
   constructor(private http:  HttpClient,private router: Router, private apiService: ApiService) {}
 
-  private basePath = 'http://localhost:8080/miudelar-server/admin/';
+  private basePath = 'http://3f5c1846.ngrok.io/miudelar-server/admin/';
 
   login(loginObj){
     console.log(JSON.stringify(loginObj))
@@ -23,11 +23,6 @@ export class AuthenticationService {
   logout(){
     localStorage.clear();
     this.router.navigate(['/login']);
-  }
-
-  private extractData(res) {
-    let body = res.json();
-    return body;
   }
 }
   

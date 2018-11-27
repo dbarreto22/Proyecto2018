@@ -5,7 +5,7 @@
   </div>
   
   <kendo-grid     
-    [kendoGridBinding]="cursosGrid"
+    [kendoGridBinding]="cursosGrid | async"
     [pageSize]="10"
     [pageable]="true"
     [sortable]="true"

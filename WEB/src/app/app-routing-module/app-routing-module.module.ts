@@ -20,7 +20,6 @@ import { AsociarRolComponent } from '../asociar-rol/asociar-rol.component';
 import { ModificarCarreraComponent } from '../modificar-carrera/modificar-carrera.component';
 import { ABMCarreraComponent } from '../abmcarrera/abmcarrera.component';
 import { ModificarAsignaturaComponent } from '../modificar-asignatura/modificar-asignatura.component';
-import { CalificacionesCursoComponent } from '../calificaciones-curso/calificaciones-curso.component';
 import { LoginLayoutComponent } from '../login/loginLayout';
 import { HomeLayoutComponent } from '../layouts/home-layout/home-layout.component';
 import { ListarUsuariosComponent } from '../listar-usuarios/listar-usuarios.component';
