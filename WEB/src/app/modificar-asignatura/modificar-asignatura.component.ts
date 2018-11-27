@@ -44,18 +44,6 @@ export class ModificarAsignaturaComponent implements OnInit {
   ngOnInit() {
   
   }
-
- /* getAsignatura() {
-    console.log(this.codigo);
-    this.apiService.getAsignatura(this.codigo).subscribe((data: asignatura) => {
-      this.asignaturamodificada = data;
-      console.log(this.asignatura);
-    }, err => {
-      this.apiService.mensajeConError(err);
-      this.router.navigate(['/setingsAsignatura']);
-    });
-  }*/
-
   cancelar() {
     this.router.navigate(['/setingsAsignatura']);
   }

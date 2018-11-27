@@ -47,20 +47,6 @@ export class ModificarCarreraComponent implements OnInit {
   ngOnInit() {
    
   }
-
-/*
-  getCarrera() {
-    console.log(this.codigo);
-    this.apiService.getCarrera(this.codigo).subscribe((data: carrera) => {
-      this.carrera = data;
-      console.log(this.carrera);
-    },
-    err => {
-      this.apiService.mensajeConError(err);
-      this.router.navigate(['/setingsCarrera']);
-    });
-  }
-*/
   cancelar() {
     this.router.navigate(['/setingsCarrera']);
   }
