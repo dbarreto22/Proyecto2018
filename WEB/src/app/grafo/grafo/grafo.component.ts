@@ -14,12 +14,12 @@ export class GrafoComponent implements OnInit {
   links: Link[] = [];
   idCurso;
   cursos:asignaturaCarrera;
-  x:number=300;
+  x:number=500;
   y:number=50;
 
   constructor(private apiService:ApiService,private router:Router) {
     this.idCurso=localStorage.getItem('idCurso');
-    //alert(this.idCurso);
+    alert(this.idCurso);
     this.apiService.getprevias(this.idCurso).subscribe((datos : asignaturaCarrera)=>
     //this.idCurso
     {
@@ -31,8 +31,8 @@ export class GrafoComponent implements OnInit {
       this.apiService.mensajeConError(err);
       this.router.navigate(['/inscCursos']);
     });
+    alert('entro una vez Nodo '+ JSON.stringify(this.nodes));
   }
-
   ngOnInit(){
     let rolElegido=localStorage.getItem('rolElegido');
     if( rolElegido!='3')
@@ -67,8 +67,5 @@ export class GrafoComponent implements OnInit {
       
       });
       
-    }
-    options(e){
-      console.log(e);
     }
 }
