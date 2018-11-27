@@ -13,6 +13,7 @@ import { usuario } from './modelos/usuario.model';
 import { cursos } from './modelos/cursos.model';
 import { examenes } from './modelos/examenes.model';
 import { DtCalificacion } from './modelos/DtCalificacion.model';
+import { asignaturaCarrera } from './modelos/asignaturaCarrera.model';
 
 const httpOptions : {
   headers?: HttpHeaders,
@@ -35,7 +36,7 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 export class ApiService {
   // API_URL  = 'http://localhost:8080/miudelar-server'; 
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://41a9ae28.ngrok.io/miudelar-server'; 
+  API_URL = 'http://localhost:8080/miudelar-server'; 
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
@@ -64,6 +65,9 @@ getAsignaturaByCarrera(idCarrera){
   return  this.httpClient.get(`${this.API_URL}/director/asignatura/carrera/`+idCarrera);
 }
 
+getAllAsignaturaCarrera(): Observable<Array<asignaturaCarrera>>{
+  return  this.httpClient.get<Array<asignaturaCarrera>>(`${this.API_URL}/director/asignaturacarrera`);
+}
 
 getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>>{
   return  this.httpClient.get<Array<Object>>(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
@@ -218,7 +222,6 @@ inscripcionCurso(cedula,idCurso){
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
-  alert('En servicio ' +localStorage.getItem('session'));
   if (JSON.parse(localStorage.getItem('session')) != null) {
     params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
