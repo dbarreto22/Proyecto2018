@@ -13,6 +13,7 @@ import { usuario } from './modelos/usuario.model';
 import { cursos } from './modelos/cursos.model';
 import { examenes } from './modelos/examenes.model';
 import { DtCalificacion } from './modelos/DtCalificacion.model';
+import { asignaturaCarrera } from './modelos/asignaturaCarrera.model';
 
 const httpOptions : {
   headers?: HttpHeaders,
@@ -64,6 +65,9 @@ getAsignaturaByCarrera(idCarrera){
   return  this.httpClient.get(`${this.API_URL}/director/asignatura/carrera/`+idCarrera);
 }
 
+getAllAsignaturaCarrera(): Observable<Array<asignaturaCarrera>>{
+  return  this.httpClient.get<Array<asignaturaCarrera>>(`${this.API_URL}/director/asignaturacarrera`);
+}
 
 getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>>{
   return  this.httpClient.get<Array<Object>>(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
@@ -222,8 +226,7 @@ inscripcionCurso(cedula,idCurso){
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
-  
-  if (JSON.parse(localStorage.getItem('session')).usr != null) {
+  if (JSON.parse(localStorage.getItem('session')) != null) {
     params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
   }

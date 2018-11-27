@@ -82,7 +82,7 @@ private correctLogin(){
   //this.storageService.setCurrentSession(new Sesion(data,null));
   this.apiService.setearSesion(cedula).subscribe((
     res:User) =>{ 
-      alert('setear Sesion');
+      //alert('setear Sesion');
       //this.storageService.setUsuario(res);
       usuario=res;
       console.log('El usuario tiene ',usuario);
@@ -93,7 +93,7 @@ private correctLogin(){
       let rolesArray=usuario!=null? usuario.roles:null;
       console.log('roles '+JSON.stringify(rolesArray));
       if(rolesArray!=null){
-        console.log('Entro a roles ');
+      //  console.log('Entro a roles ');
       rol=rolesArray[rolesArray.length-1].id!='2'?
       rolesArray[rolesArray.length-1].id:rolesArray[rolesArray.length-2].id;
       if(!rol){

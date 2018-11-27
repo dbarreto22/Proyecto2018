@@ -16,13 +16,13 @@
       (selectionChange) = "change($event)"
       [height]="500"
       >
-    <kendo-grid-column field="asignatura_Carrera.carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">
+    <kendo-grid-column field="carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">
       </kendo-grid-column>
-    <kendo-grid-column field="asignatura_Carrera.carrera.nombre" title="Carrera">
+    <kendo-grid-column field="carrera.nombre" title="Carrera">
       </kendo-grid-column>
-    <kendo-grid-column field="asignatura_Carrera.asignatura.codigo" title="Codigo Curso" width="130" [filterable]="false">
+    <kendo-grid-column field="asignatura.codigo" title="Codigo Asignatura" width="130" [filterable]="false">
       </kendo-grid-column>
-    <kendo-grid-column field="asignatura_Carrera.asignatura.nombre" title="Curso">
+    <kendo-grid-column field="asignatura.nombre" title="Asignatura">
       </kendo-grid-column>
     <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
     </kendo-grid>

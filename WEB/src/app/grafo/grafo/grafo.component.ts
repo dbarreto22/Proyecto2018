@@ -14,7 +14,7 @@ export class GrafoComponent implements OnInit {
   links: Link[] = [];
   idCurso;
   cursos:asignaturaCarrera;
-  x:number=300;
+  x:number=500;
   y:number=50;
 
   constructor(private apiService:ApiService,private router:Router) {

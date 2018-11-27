@@ -8,6 +8,7 @@ import { cursos } from '../modelos/cursos.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Curso } from '../cursos/Curso';
+import { asignaturaCarrera } from '../modelos/asignaturaCarrera.model';
 
 @Component({
   selector: 'app-cursosPrevias',
@@ -28,9 +29,9 @@ export class CursosPreviasComponent implements OnInit {
   public selectableSettings: SelectableSettings;
   public rolElegido;
   public cursos: Observable<Array<cursos>>;
-  public cursosGrid: Observable<Array<cursos>>;
+  public cursosGrid: Observable<Array<asignaturaCarrera>>;
   public cursosMostrar: Array<Curso>;
-  public curso:cursos;
+  public curso:asignaturaCarrera;
 
 
   //private  apiService:  ApiService
@@ -42,7 +43,7 @@ export class CursosPreviasComponent implements OnInit {
     }
     this.loading = true;
     this.setSelectableSettings();
-    this.cursosGrid = this.apiService.getCursosByCedula();
+    this.cursosGrid = this.apiService.getAllAsignaturaCarrera();
     this.cursosGrid.subscribe(
       () =>
        this.loading = false,
@@ -71,7 +72,7 @@ export class CursosPreviasComponent implements OnInit {
     if (!!index || index == 0) {
 
       this.cursosGrid.subscribe(
-        (data: Array<cursos>)=> {
+        (data: Array<asignaturaCarrera>)=> {
           this.curso = data[index];
           this.idCurso = this.curso.id;
           console.log(this.idCurso);
@@ -87,6 +88,6 @@ export class CursosPreviasComponent implements OnInit {
       localStorage.setItem('idCurso', this.idCurso);
       this.router.navigate(['/grafo']);
     }
-    else alert('Debe seleccionar un curso');
+    else alert('Debe seleccionar una Asignatura');
   }
 }
