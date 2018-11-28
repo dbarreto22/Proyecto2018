@@ -100,15 +100,17 @@ export class ListarUsuariosComponent implements OnInit {
         this.apiService.mensajeConError(err);
       }
     )
-    this.dialogOpened = true;
 
   }
 
-
+ aceptar(){
+  this.dialogOpened = true;
+ }
+ 
   public MostrarUsuario() {
     console.log(this.mySelection);
     if (this.mySelection.length > 0) {
-      this.dialogOpened = true;
+      
     }
     else
       alert('Debe seleccionar un usuario para continuar.');

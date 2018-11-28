@@ -1,9 +1,8 @@
-<div class="jumbotron" style="background: aliceblue">
-  <div class="example-config">
-    <p class="font-weight-normal" style="color: dodgerblue">
-      Alta Baja y Modificación de Carreras
-    </p>
-  </div>
+<div class="jumbotron" style="background: aliceblue">  
+
+<div class="example-config">
+  <p class="font-weight-normal" style="color: dodgerblue">Configuración de Carreras</p>
+</div>
 
   <kendo-grid
     [data]="carreras | async"
@@ -13,7 +12,7 @@
     [loading]="loading"
     [filterable]="true"
     [resizable]="true"
-    [selectable]="selectableSettings"
+    [selectable]="selectableSettings" 
     (selectionChange) = "change()"
     [kendoGridSelectBy]="mySelectionKey"
     [selectedKeys]="mySelection"
@@ -21,50 +20,36 @@
     (pageChange)="pageChange($event)"
     [height]="500"
   >
-    <kendo-grid-column field="codigo" title="Codigo" width="80">
-    </kendo-grid-column>
-    <kendo-grid-column field="nombre" title="Nombre"> </kendo-grid-column>
-    <kendo-grid-checkbox-column></kendo-grid-checkbox-column>
+  <kendo-grid-column field="codigo" title="Codigo" width="100" [filterable]="false">
+  </kendo-grid-column>
+<kendo-grid-column field="nombre" title="Nombre">
+  </kendo-grid-column>
+<kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
+
   </kendo-grid>
+
 
   <div class="row">
     <div class="col-sm-12 example-col">
       <kendo-buttongroup [selection]="'single'" [width]="'100%'">
-        <button kendoButton [toggleable]="true" (click)="crearCarrera()">
-          Crear Carrera
-        </button>
-        <button kendoButton [toggleable]="true" (click)="modificarCarrera()">
-          Modificar Carrera
-        </button>
-        <button kendoButton [toggleable]="true" (click)="eliminarCarrera()">
-          Eliminar Carrera
-        </button>
-        <button kendoButton [toggleable]="true" (click)="asignarCarreraAsignatura()">
-          Asignar Asignatura-Carrera
-        </button>
-        <button kendoButton [toggleable]="true" (click)="asignarPrevias()">
-          Definir Previas
-        </button>
+        <button kendoButton [toggleable]="true" (click)="crearCarrera()">Crear Carrera</button>
+        <button kendoButton [toggleable]="true" (click)="modificarCarrera()">Modificar Carrera</button>
+        <button kendoButton [toggleable]="true" (click)="eliminarCarrera()">Eliminar Carrera</button>
+        <button kendoButton [toggleable]="true" (click)="asignarCarreraAsignatura()">Asignar Asignatura-Carrera</button>
+        <button kendoButton [toggleable]="true" (click)="asignarPrevias()">Definir Previas</button>
       </kendo-buttongroup>
     </div>
   </div>
+
+
 </div>
 
+
 <div class="example-wrapper">
-  <kendo-dialog
-    title="Confirmar"
-    *ngIf="dialogOpened"
-    (close)="close('dialog')"
-    [minWidth]="200"
-    [width]="350"
-  >
-    <p style="margin: 30px; text-align: center;">
-      Desea eliminar la Carrera seleccionada?
-    </p>
+  <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
+    <p style="margin: 30px; text-align: center;">Desea eliminar la Carrera seleccionada?</p>
     <kendo-dialog-actions>
-      <button kendoButton (click)="confirmarEliminarCarrera()" primary="true">
-        Confirmar
-      </button>
+      <button kendoButton (click)="confirmarEliminarCarrera()" primary="true">Confirmar</button>
       <button kendoButton (click)="action()">No</button>
     </kendo-dialog-actions>
   </kendo-dialog>
