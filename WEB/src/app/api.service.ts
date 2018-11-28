@@ -98,8 +98,8 @@ export class ApiService {
     return this.httpClient.get<Array<examenes>>(`${this.API_URL}/estudiante/examen/` + this.cedula);
   }
 
-  getCalificacionesEstudiante(idAsigCarrera): Observable<Array<DtCalificacion>> {
-    return this.httpClient.get<Array<DtCalificacion>>(`${this.API_URL}/estudiante/consultarCalificaciones/` + this.cedula + idAsigCarrera);
+  getCalificacionesEstudiante(): Observable<any> {
+    return this.httpClient.get<any>(`${this.API_URL}/estudiante/consultarCalificaciones/` + this.cedula);
   }
 
   public getToken() {

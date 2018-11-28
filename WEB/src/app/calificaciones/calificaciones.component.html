@@ -1,4 +1,4 @@
-<div class="jumbotron" style="background: aliceblue">
+<!--<div class="jumbotron" style="background: aliceblue">
   
     <div class="example-config">
       <p class="font-weight-normal" style="color: dodgerblue">Lista de Calificaciones</p>
@@ -9,7 +9,7 @@
       </div>
     
     <kendo-grid     
-        [kendoGridBinding]="calificacionesCursos" 
+        [kendoGridBinding]="calificaciones.estudiante_curso | async" 
         [pageSize]="10"
         [pageable]="true"
         [sortable]="true"
@@ -20,9 +20,9 @@
         (selectionChange) = "change($event)"
         [height]="500"
     >
-      <kendo-grid-column field="dtEstCurso.dtcurso.nombreAsignatura" title="Curso" width="80" >
+      <kendo-grid-column field="curso.asignatura_carrera.asignatura.nombre" title="Curso" width="80" >
         </kendo-grid-column>
-      <kendo-grid-column field="dtEstCurso.calificacion" title="Notas">
+      <kendo-grid-column field="calificacion" title="Notas">
         </kendo-grid-column>
     </kendo-grid>
 
@@ -31,7 +31,7 @@
       </div>
     
     <kendo-grid     
-        [kendoGridBinding]="calificacionesCursos" 
+        [kendoGridBinding]="estudiante_examen | async" 
         [pageSize]="10"
         [pageable]="true"
         [sortable]="true"
@@ -42,9 +42,9 @@
         (selectionChange) = "change($event)"
         [height]="500"
     >
-      <kendo-grid-column field="dtEstCurso.dtExamen.nombreAsignatura" title="Examen" width="80" >
+      <kendo-grid-column field="examen.asignatura_carrera.asignatura.nombre" title="Examen" width="80" >
         </kendo-grid-column>
-      <kendo-grid-column field="dtEstCurso.calificacion" title="Notas">
+      <kendo-grid-column field="calificacion" title="Notas">
         </kendo-grid-column>
     </kendo-grid>
   
@@ -57,4 +57,30 @@
       </div>
 
 </div>
-  
+-->
+<div class="jumbotron" style="background: aliceblue">  
+ 
+  <div class="row example-wrapper">
+    <div class="col-xs-40 col-sm-10 offset-sm-3 example-col">
+      <div class="card">
+        <div class="card-block">
+          <form class="k-form">
+              <legend>Consultar Calificación</legend>
+              <legend>Cursos</legend>
+                <li *ngFor="let ecurso of calificacion.estudiante_curso">
+                    {{ecurso.curso.asignatura_Carrera.asignatura.nombre}} - {{ecurso.calificacion}}
+                 </li>
+                 <legend>Examenes</legend>
+                 <li *ngFor="let eexamen of calificacion.estudiante_examen">
+                    {{eexamen.examen.asignatura_Carrera.asignatura.nombre}} - {{eexamen.calificacion}}
+                 </li>
+            <div class="text-center">
+              <button type="button" class="btn btn-secondary disable btn-lg" (click)="salir()">Salir</button>
+            </div>               
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
