@@ -100,13 +100,13 @@ export class ListarUsuariosComponent implements OnInit {
         this.apiService.mensajeConError(err);
       }
     )
-    this.dialogOpened = true;
 
   }
 
  aceptar(){
   this.dialogOpened = true;
  }
+ 
   public MostrarUsuario() {
     console.log(this.mySelection);
     if (this.mySelection.length > 0) {
