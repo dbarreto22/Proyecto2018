@@ -40,7 +40,7 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 export class ApiService {
   // API_URL  = 'http://localhost:8080/miudelar-server'; 
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://localhost:8080/miudelar-server';
+  API_URL = 'http://5a35eb6b.ngrok.io/miudelar-server';
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
   //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
@@ -55,7 +55,7 @@ export class ApiService {
     return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera`);
   }
   getCarreraByCedula(): Observable<Array<Object>> {
-    return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera/`+this.cedula);
+    return this.httpClient.get<Array<Object>>(`${this.API_URL}/estudiante/carrera/`+this.cedula);
   }
 
   getAllAsignatura(): Observable<Array<Object>> {
