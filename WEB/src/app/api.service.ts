@@ -40,7 +40,7 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 export class ApiService {
   // API_URL  = 'http://localhost:8080/miudelar-server'; 
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://5a35eb6b.ngrok.io/miudelar-server';
+  API_URL = 'http://localhost:8080/miudelar-server';
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
   //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
@@ -111,8 +111,8 @@ export class ApiService {
     return this.httpClient.get(`${this.API_URL}/admin/usuario/` + cedula)
   }
 
-  getUsuario(): Observable<usuario> {
-    return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/` + this.cedula)
+  getUsuario(cedula): Observable<usuario> {
+    return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/` + cedula)
   }
 
   getUsuarioRol(cedula): Observable<usuario> {
@@ -246,8 +246,7 @@ export class ApiService {
   }/*
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
-  if (JSON.parse(localStorage.getItem('session')) != null) {
-    
+  if (JSON.parse(localStorage.getItem('session')) != null && JSON.parse(localStorage.getItem('session')).usr != null ) {
     params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
   }*/
@@ -262,10 +261,9 @@ cargarParametros() {
   }
 
 mensajeSinError(mensaje:any,aux:number){
-  alert(mensaje);
   if (mensaje == 'OK'){
     if(aux==1)  
-      alert("Objeto creado correctamente ");
+      alert("Objeto creado correctamente");
     if(aux==2)
       alert("Objeto asignado correctamente");
     if(aux==3)
@@ -276,7 +274,7 @@ mensajeSinError(mensaje:any,aux:number){
       alert("Objeto modificado correctamente ");
     }
     else
-      alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde. ');
+      alert(mensaje);
   }
 
   mensajeConError(mensaje: any) {
