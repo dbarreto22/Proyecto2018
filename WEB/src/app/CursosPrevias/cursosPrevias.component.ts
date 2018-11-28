@@ -3,12 +3,13 @@ import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { cursos } from '../modelos/cursos.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Curso } from '../cursos/Curso';
 import { asignaturaCarrera } from '../modelos/asignaturaCarrera.model';
+import { State } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-cursosPrevias',
@@ -63,25 +64,47 @@ export class CursosPreviasComponent implements OnInit {
       mode: "single",
     };
   }
+  public skip = 0;
+  public state: State = {
+    skip: 0,
+    take: 5
+  }
+
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.codigo;
+  }
+
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
+
+  change() {
+
+    this.cursosGrid.subscribe(
+      (data: Array<asignaturaCarrera>) => {
+        data.forEach(asig => {
+          if (asig.id = this.mySelection[0]) {
+            this.curso = asig;
+            this.idCurso = this.curso.id;
+            console.log(this.idCurso);
+          }
+        })
+
+      },
+      err => {
+        this.apiService.mensajeConError(err);
+      }
+    )
+  }
 
   cancelar() {
     this.router.navigate(['/']);
   }
 
-  change({ index }) {
-    if (!!index || index == 0) {
-
-      this.cursosGrid.subscribe(
-        (data: Array<asignaturaCarrera>)=> {
-          this.curso = data[index];
-          this.idCurso = this.curso.id;
-          console.log(this.idCurso);
-        },
-        err=>{
-          this.apiService.mensajeConError(err);
-        }
-      )}}
-
+  
 
   public verPrevias() {
     if (this.idCurso != undefined) {

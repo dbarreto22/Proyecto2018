@@ -55,7 +55,7 @@ export class ApiService {
     return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera`);
   }
   getCarreraByCedula(): Observable<Array<Object>> {
-    return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera/`+this.cedula);
+    return this.httpClient.get<Array<Object>>(`${this.API_URL}/estudiante/carrera/`+this.cedula);
   }
 
   getAllAsignatura(): Observable<Array<Object>> {
