@@ -237,9 +237,9 @@ export class ApiService {
   }
   //Obtengo los roles y demas datos del usuario que se logueó
   cargarParametros() {
-    if (JSON.parse(localStorage.getItem('session')) != null) {
-      params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
-      this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
+    if (JSON.parse(localStorage.getItem('session')) != null && JSON.parse(localStorage.getItem('session')).usr != null) {
+      params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
+      this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
     }
 //    paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
 //    return  this.httpClient.post(`${this.API_URL}/admin/usuario.addRol`, json, httpOptions);

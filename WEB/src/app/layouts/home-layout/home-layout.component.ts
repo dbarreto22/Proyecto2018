@@ -23,13 +23,13 @@ export class HomeLayoutComponent implements OnInit {
   }
 
   selectRol(value) {
+    alert(JSON.stringify(value));
     if (value == '2')
       alert('El usuario de bedelias no tiene acceso a la web');
     localStorage.setItem('rolElegido', value);
     //this.router.navigate(['']);
     //this.roles.findIndex(value);
-    this.rolElegido = this.roles[this.roles.findIndex(value)].tipo;
-    console.log(this.rolElegido);
+    this.rolElegido = value;
 
 
   }
