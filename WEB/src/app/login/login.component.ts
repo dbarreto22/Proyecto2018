@@ -54,13 +54,15 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid){
       this.authenticationService.login(new LoginObject(this.loginForm.value)).subscribe((
         res: string) =>{
+          this.loading = false;
           if (res != 'Error: Usuario o contraseña incorrecta'){
             localStorage.setItem('session',JSON.stringify(new Sesion(res,null)));
             this.correctLogin();
           }
           else {
+          this.loading = false;
+          alert(res);
           this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
-
           }
           this.loading = false;
           //this.storageService.setCurrentSession(new Sesion(res,null)); 

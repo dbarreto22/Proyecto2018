@@ -36,7 +36,7 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 export class ApiService {
   // API_URL  = 'http://localhost:8080/miudelar-server'; 
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://221a965c.ngrok.io/miudelar-server'; 
+  API_URL = 'http://5a35eb6b.ngrok.io/miudelar-server'; 
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
     //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
@@ -222,7 +222,7 @@ inscripcionCurso(cedula,idCurso){
     a.cedula = cedula;
     a.idRol = idRol;
     let json = JSON.stringify(a);
-    return  this.httpClient.post(`${this.API_URL}/admim/usuario.addRol`, json, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario.addRol`, json, httpOptions);
   }
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
