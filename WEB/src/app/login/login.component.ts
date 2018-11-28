@@ -90,6 +90,7 @@ private correctLogin(){
       console.log('El usuario tiene ',usuario);
       let sesion:Sesion=JSON.parse(localStorage.getItem('session'));
       localStorage.setItem('session',JSON.stringify(new Sesion(sesion.token,res)));
+      console.log(localStorage.getItem('session')+res.cedula);
       this.apiService.cargarParametros();
       console.log(localStorage.getItem('session')+'--- sesion de login');
       let rolesArray=usuario!=null? usuario.roles:null;

@@ -5,7 +5,7 @@ import { StorageService } from "../storage.service";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { State, CompositeFilterDescriptor } from "@progress/kendo-data-query";
-import { SelectableSettings } from "@progress/kendo-angular-grid";
+import { SelectableSettings, RowArgs, PageChangeEvent } from "@progress/kendo-angular-grid";
 import { asignatura } from "../modelos/asignatura.model";
 import { Observable } from "rxjs";
 
@@ -26,9 +26,9 @@ export class abmAsignaturaComponent implements OnInit {
   selectedValue: any[];
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
-  public mySelection: any[];
   public dialogOpened = false;
   public loading;
+  
 
   constructor(
     public http: HttpClient,
@@ -46,8 +46,8 @@ export class abmAsignaturaComponent implements OnInit {
         apiService.mensajeConError(ee);
 
       }
-  )
-}
+    )
+  }
 
   ngOnInit() {
     let rolElegido = localStorage.getItem("rolElegido");
@@ -62,6 +62,43 @@ export class abmAsignaturaComponent implements OnInit {
       checkboxOnly: this.checkboxOnly,
       mode: "single"
     };
+  }
+
+  public skip = 0;
+  public state: State = {
+    skip: 0,
+    take: 5
+  }
+
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.codigo;
+  }
+
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
+
+  change() {
+
+    this.asignaturas.subscribe(
+      (data: Array<asignatura>) => {
+        data.forEach(asig => {
+          if (asig.codigo = this.mySelection[0]) {
+            this.codigo = asig.codigo;
+            this.nombreAsignatura = asig.nombre;
+            console.log(this.codigo);
+
+          }
+        })
+
+      },
+      err => {
+        this.apiService.mensajeConError(err);
+      }
+    )
   }
 
   public action() {
@@ -79,27 +116,15 @@ export class abmAsignaturaComponent implements OnInit {
     this.router.navigate(["/ingAsignatura"]);
   }
 
-  change({index}) {
-    if (!!index || index == 0) {
-      this.asignaturas.subscribe(
-      (data: Array<asignatura>)=> {
-        this.asignatura = data[index];
-        this.codigo = this.asignatura.codigo;
-        this.nombreAsignatura = this.asignatura.nombre;
-        console.log(this.codigo);
-      },
-      err=>{
-        this.apiService.mensajeConError(err);
-      }
-    )}}
 
-public mostrarPrevias(){
-  if (this.codigo != undefined) {
-    localStorage.setItem('idCurso', this.codigo);
-    this.router.navigate(['/grafo']);
+
+  public mostrarPrevias() {
+    if (this.codigo != undefined) {
+      localStorage.setItem('idCurso', this.codigo);
+      this.router.navigate(['/grafo']);
+    }
+    else alert('Debe seleccionar un curso');
   }
-  else alert('Debe seleccionar un curso');
-}
 
   public modificarAsignatura() {
     if (this.codigo != undefined) {
@@ -109,7 +134,7 @@ public mostrarPrevias(){
   }
 
   public confirmarEliminarAsignatura() {
-    this.apiService.deleteAsignatura(this.asignatura.codigo).subscribe(
+    this.apiService.deleteAsignatura(this.codigo).subscribe(
       data => {
         this.apiService.mensajeSinError(data, 4);
       },

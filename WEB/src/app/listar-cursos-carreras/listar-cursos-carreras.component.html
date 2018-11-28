@@ -12,7 +12,11 @@
     [filterable]="true"
     [resizable]="true"
     [selectable]="selectableSettings" 
-    (selectionChange) = "change($event)"
+    (selectionChange) = "change()"
+    [kendoGridSelectBy]="mySelectionKey"
+    [selectedKeys]="mySelection"
+    [skip]="skip"
+    (pageChange)="pageChange($event)"
     [height]="500"
     >
   <kendo-grid-column field="codigo" title="Codigo Asignatura" width="130" [filterable]="false">

@@ -25,7 +25,7 @@ export class HomeLayoutComponent implements OnInit {
   selectRol(value) {
     alert(JSON.stringify(value));
     if (value == '2')
-      alert('El usuario de bedelias no tiene acceso a la web')
+      alert('El usuario de bedelias no tiene acceso a la web');
     localStorage.setItem('rolElegido', value);
     //this.router.navigate(['']);
     //this.roles.findIndex(value);

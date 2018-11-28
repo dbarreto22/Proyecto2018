@@ -2,8 +2,8 @@ import { Component, OnInit, Directive } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
-import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
-import { SelectableSettings, GridDataResult } from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor, State } from '@progress/kendo-data-query';
+import { SelectableSettings, GridDataResult, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -28,7 +28,7 @@ export class InscCarreraComponent implements OnInit {
     selectedValue: any[];
     public checkboxOnly = true;
     public selectableSettings: SelectableSettings;
-    public mySelection: any[];
+    public skip = 0;
 
 
     constructor(public http: HttpClient, private apiService: ApiService,
@@ -61,26 +61,44 @@ export class InscCarreraComponent implements OnInit {
         };
     }
 
+    public state: State = {
+        skip: 0,
+        take: 5
+      }
+    
+      public mySelection: string[] = [];
+      public mySelectionKey(context: RowArgs): string {
+        return context.dataItem.codigo;
+      }
+    
+      public pageChange(event: PageChangeEvent): void {
+        console.log(this.mySelection[0]);
+        this.skip = event.skip;
+    
+      }
+    
+      change() {
+    
+        this.carreras.subscribe(
+          (data: Array<carrera>) => {
+            data.forEach(asig => {
+              if (asig.codigo = this.mySelection[0]) {
+                this.carrera = asig;
+                this.codigo = this.carrera.codigo;
+                console.log(this.codigo);
+    
+              }
+            })
+    
+          },
+          err => {
+            this.apiService.mensajeConError(err);
+          }
+        )
+      }
+
     cancelar() {
         this.router.navigate(['/']);
-    }
-
-    change({index}) {
-        if (!!index || index == 0) {
-            this.carreras.subscribe(
-                (data: Array<carrera>)=> {
-                  this.carrera = data[index];
-                  this.codigo = this.carrera.codigo;
-                  console.log(this.codigo);
-                },
-                err=>{
-                  this.apiService.mensajeConError(err);
-                }
-              )
-        }
-        else {
-            this.codigo = undefined;
-        }
     }
     
 

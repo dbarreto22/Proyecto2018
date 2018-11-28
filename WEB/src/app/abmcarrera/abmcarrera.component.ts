@@ -3,10 +3,11 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { carrera } from '../modelos/carrera.model';
 import { Observable } from 'rxjs';
 import { ApiService } from '../api.service';
+import { State } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-abmcarrera',
@@ -25,6 +26,9 @@ export class ABMCarreraComponent implements OnInit {
   public codigo;
   public nombreCarrera;
   public loading;
+  public skip = 0;
+ 
+ 
 
 
   constructor(public http: HttpClient, private router: Router, private apiService:ApiService) {
@@ -55,6 +59,41 @@ export class ABMCarreraComponent implements OnInit {
     };
   }
 
+  public state: State = {
+    skip: 0,
+    take: 5
+  }
+
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.codigo;
+  }
+
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
+
+  change() {
+   
+    this.carreras.subscribe(
+    (data: Array<carrera>)=> {
+      data.forEach(asig=>{
+        if(asig.codigo = this.mySelection[0]){
+          this.codigo = asig.codigo;
+          this.nombreCarrera = asig.nombre;
+          console.log(this.codigo);
+          
+        }
+      })
+      
+    },
+    err=>{
+      this.apiService.mensajeConError(err);
+    }
+  )}
+
 
   public action() {
     this.dialogOpened = false;
@@ -72,26 +111,6 @@ export class ABMCarreraComponent implements OnInit {
 
   cancelar() {
     this.router.navigate(['/']);
-  }
-
-  change ({index}){
-    if (!!index || index == 0) {
-      this.carreras.subscribe(
-        (data: Array<carrera>)=> {
-          this.carrera = data[index];
-          this.codigo = this.carrera.codigo;
-          this.nombreCarrera = this.carrera.nombre;
-          console.log(this.codigo);
-        },
-        err=>{
-          this.apiService.mensajeConError(err);
-        }
-      )
-      
-    }
-    else {
-      this.codigo = undefined;
-    }
   }
 
   public modificarCarrera() {
@@ -129,8 +148,8 @@ export class ABMCarreraComponent implements OnInit {
 
   public confirmarEliminarCarrera() {
      if (this.codigo != undefined) {
-       console.log(this.carrera.codigo);
-       this.apiService.deleteCarrera(this.carrera.codigo).subscribe(
+       console.log(this.codigo);
+       this.apiService.deleteCarrera(this.codigo).subscribe(
          data => {
            this.apiService.mensajeSinError(data,4);
          },

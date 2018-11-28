@@ -46,6 +46,7 @@ export class CalificacionesComponent implements OnInit {
       this.router.navigate(['/'])
     }
     this.idAsignaturaCarrera = localStorage.getItem("AsigSeleccionadaCalif");
+    console.log(this.idAsignaturaCarrera);
     this.calificaciones = this.apiService.getCalificacionesEstudiante(this.idAsignaturaCarrera);
     this.calificaciones.subscribe(
       (data : Array<DtCalificacion>)=> {

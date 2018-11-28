@@ -5,7 +5,7 @@
     <p class="font-weight-normal" style="color: dodgerblue">Inscripción a Examenes</p>
   </div>
   <kendo-grid     
-  [kendoGridBinding]="examenGrid" 
+  [kendoGridBinding]="examenenes | async" 
   [pageSize]="10"
   [pageable]="true"
   [sortable]="true"
@@ -13,6 +13,11 @@
   [loading]="loading"
   [resizable]="true"
   [selectable]="selectableSettings" 
+  (selectionChange) = "change()"
+  [kendoGridSelectBy]="mySelectionKey"
+  [selectedKeys]="mySelection"
+  [skip]="skip"
+  (pageChange)="pageChange($event)"
   [height]="500"
   >
   <kendo-grid-column field="asignatura_Carrera.carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">

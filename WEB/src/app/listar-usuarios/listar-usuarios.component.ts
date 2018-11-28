@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { usuario } from '../modelos/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { State } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { Rol } from '../modelos/rol.model';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 @Component({
   selector: 'app-listar-usuarios',
@@ -28,12 +29,17 @@ export class ListarUsuariosComponent implements OnInit {
   public apellido;
   public mail;
   public loading;
-  public roles : Array<Rol>;
+  public roles: Array<Rol>;
+  public skip = 0;
+
+
 
 
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     this.loading = true;
+
     this.setSelectableSettings();
+
     this.usuarios = this.apiService.getAllUser();
 
     this.usuarios.subscribe(
@@ -53,49 +59,56 @@ export class ListarUsuariosComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
+  }
 
+  public state: State = {
+    skip: 0,
+    take: 5
+  };
 
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.cedula;
   }
 
   public setSelectableSettings(): void {
+
     this.selectableSettings = {
       checkboxOnly: this.checkboxOnly,
       mode: "single",
     };
   }
 
-  change({ index }) {
-    this.dialogOpened = true;
-    if (!!index || index == 0) {
-      this.usuarios.subscribe(
-        (data: Array<usuario>) => {
-          this.cedulaSelect = data[index].cedula;
-          this.nombre = data[index].nombre;
-          this.apellido = data[index].apellido;
-          this.mail =  data[index].email;
-          this.roles = data[index].roles;
-          this.usuario =data[index];
-          return this.usuario;
-        },
-        err => {
-          this.apiService.mensajeConError(err);
-        }
-      )
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
 
-    }
-    else {
-      this.cedulaSelect = undefined;
-    }
+  }
 
+  change() {
     
+    this.usuarios.subscribe((data: Array<usuario>) => {
+      data.forEach(usr => {
+        if (usr.cedula == this.mySelection[0]) {
+          this.usuario = usr;
+          console.log(this.usuario);
+        }
+      })
+
+    },
+      err => {
+        this.apiService.mensajeConError(err);
+      }
+    )
+    this.dialogOpened = true;
+
   }
 
 
   public MostrarUsuario() {
-    if (this.cedulaSelect != undefined) {
+    console.log(this.mySelection);
+    if (this.mySelection.length > 0) {
       this.dialogOpened = true;
-      //localStorage.setItem('cedulaABM', this.cedulaSelect);
-     // this.router.navigate(['/setingsUsr']);
     }
     else
       alert('Debe seleccionar un usuario para continuar.');

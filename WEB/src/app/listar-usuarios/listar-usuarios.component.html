@@ -11,9 +11,14 @@
       [sortable]="true"
       [filterable]="true"
       [resizable]="true"
+      [skip]="skip"
+      (pageChange)="pageChange($event)"
       [loading]="loading"
       [selectable]="selectableSettings" 
-      (selectionChange) = "change($event)"
+      [kendoGridSelectBy]="mySelectionKey"
+      [selectedKeys]="mySelection"
+      (selectionChange) = "change()"
+
       [height]="500"
   >
     <kendo-grid-column field="cedula" title="Cedula" width="120" >
@@ -33,10 +38,10 @@
       <p style="margin: 30px; text-align: center;"></p>
       <p style="margin: 30px; text-align: center;">Nombre: {{usuario.nombre}}</p>
       <p style="margin: 30px; text-align: center;">Apellido: {{usuario.apellido}}</p>
-      <p style="margin: 30px; text-align: center;">Email: {{usuario.mail}}</p>
+      <p style="margin: 30px; text-align: center;">Email: {{usuario.email}}</p>
       <p style="margin: 30px; text-align: center;">Roles</p>
       <li *ngFor="let rol of roles">
-        {{rol.id}} - {{rol.tipo}}
+        {{usuario.roles.id}} - {{usuario.roles.tipo}}
      </li>
       <kendo-dialog-actions>
         <button kendoButton (click)="action()" >Aceptar</button>  

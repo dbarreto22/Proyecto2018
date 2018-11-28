@@ -27,7 +27,9 @@ export class ModificarUsuarioComponent implements OnInit {
       this.router.navigate(['/'])
     }
 
-    this.usuario = this.apiService.getUsuario();
+    this.cedula = localStorage.getItem('cedulaABM');
+    console.log(this.cedula);
+    this.usuario = this.apiService.getUsuario(this.cedula);
 
     this.usuario.subscribe(
       (data : usuario)=> {

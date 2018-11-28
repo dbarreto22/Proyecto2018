@@ -3,7 +3,7 @@ import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { process, State, CompositeFilterDescriptor } from '@progress/kendo-data-query';
-import { GridDataResult, DataStateChangeEvent, SelectableSettings } from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent, SelectableSettings, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { examenes } from '../modelos/examenes.model';
@@ -37,12 +37,9 @@ export class InscExamenComponent implements OnInit {
     this.examenes = this.apiService.getExamenByCedula();
 
     this.examenes.subscribe(
-      (data : Array<examenes>) => {
-      this.examenGrid = data,
-      this.loading = false;
-      console.log(this.examenGrid[0].id)
-
-    },
+   ()=> 
+    this.loading = false,
+    
       ee => {
           apiService.mensajeConError(ee);
           this.loading = false
@@ -68,52 +65,41 @@ export class InscExamenComponent implements OnInit {
     };
   }
 
-/*
-  public getExamenes() {
-    this.apiService.getAllExamen().subscribe((data: examenes[]) => {
-      this.examenes = data;
-    },
-      err => {
-        this.apiService.mensajeConError(err);
-        this.router.navigate(['/inscExamen']);
-      });
+  public skip = 0;
+  public state: State = {
+    skip: 0,
+    take: 5
   }
 
-  public examenGrid = new Array<Examen>();
-  public getExamenGrid() {
-    var examen = new Examen();
-    console.log(this.examenes);
-    this.examenes.forEach(element => {
-      examen.codigoAsignatura = element.asignatura_Carrera.asignatura.codigo;
-      examen.codigoCarrera = element.asignatura_Carrera.carrera.codigo;
-      examen.idCurso = element.id;
-      examen.nombreAsignatura = element.asignatura_Carrera.asignatura.nombre;
-      examen.nombreCarrera = element.asignatura_Carrera.carrera.nombre;
-      this.examenGrid.push(examen);
-    });
-
-    console.log(this.examenGrid);
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.id;
   }
-*/
+
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
+
+  change() {
+
+    this.idExamen = this.mySelection[0];
+    console.log(this.idExamen);
+      
+    
+  }
 
   cancelar() {
     this.router.navigate(['/']);
   }
 
-  change({index}) {
-    if (!!index || index == 0) {
-      this.idExamen = this.examenGrid[index].id;
-      console.log(this.idExamen);
-    }
-    else {
-      this.idExamen = undefined;
-    }
-  }
+  
 
   public inscExamen() {
     if (this.idExamen != undefined) {
       this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
-      this.apiService.inscripcionCurso(this.cedula, this.idExamen).subscribe(
+      this.apiService.inscripcionExamen(this.idExamen).subscribe(
         data => {
           this.apiService.mensajeSinError(data,3);
           this.router.navigate(['/']);
