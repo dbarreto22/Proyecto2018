@@ -37,12 +37,9 @@ export class InscExamenComponent implements OnInit {
     this.examenes = this.apiService.getExamenByCedula();
 
     this.examenes.subscribe(
-      (data : Array<examenes>) => {
-      this.examenGrid = data,
-      this.loading = false;
-      console.log(this.examenGrid[0].id)
-
-    },
+   ()=> 
+    this.loading = false,
+    
       ee => {
           apiService.mensajeConError(ee);
           this.loading = false
@@ -102,7 +99,7 @@ export class InscExamenComponent implements OnInit {
   public inscExamen() {
     if (this.idExamen != undefined) {
       this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
-      this.apiService.inscripcionCurso(this.cedula, this.idExamen).subscribe(
+      this.apiService.inscripcionExamen(this.idExamen).subscribe(
         data => {
           this.apiService.mensajeSinError(data,3);
           this.router.navigate(['/']);

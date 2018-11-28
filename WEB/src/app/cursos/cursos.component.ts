@@ -11,7 +11,8 @@ import { cursos } from '../modelos/cursos.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Curso } from './Curso';
-
+import { anyChanged } from '@progress/kendo-angular-grid/dist/es2015/utils';
+const dateFormat = /^\d{2}-\d{2}-\d{4}Z$/;
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
@@ -62,6 +63,23 @@ export class CursosComponent implements OnInit {
     this.rolElegido = localStorage.getItem('rolElegido');
   }
 
+
+
+ reviver( value) {
+  if (typeof value === "string" && dateFormat.test(value)) {
+    return new Date(value);
+    
+  }
+
+  return value;
+}
+
+public text = '{ "date": "2016-04-26Z" }';
+public obj = JSON.parse(this.text, this.reviver);
+
+
+// "object"
+
   public setSelectableSettings(): void {
     this.selectableSettings = {
       checkboxOnly: this.checkboxOnly,
@@ -90,11 +108,12 @@ export class CursosComponent implements OnInit {
   }
 
   change() {
-
+  
     this.cursosGrid.subscribe(
       (data: Array<cursos>) => {
         data.forEach(asig => {
           if (asig.id = this.mySelection[0]) {
+            this.reviver(this.curso.date)
             this.curso = asig;
             this.idCurso = this.curso.id;
             console.log(this.idCurso);
@@ -113,7 +132,7 @@ export class CursosComponent implements OnInit {
   public inscCursos() {
     if (this.idCurso != undefined) {
       this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
-      this.apiService.inscripcionCurso(this.cedula, this.idCurso).subscribe(
+      this.apiService.inscripcionCurso(this.idCurso).subscribe(
         data => {
           this.apiService.mensajeSinError(data, 3);
           this.router.navigate(['/inscCursos']);

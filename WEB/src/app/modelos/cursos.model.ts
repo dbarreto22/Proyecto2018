@@ -7,6 +7,7 @@ export class cursos {
     public id: string,
     public fecha: string,
     public asignatura_Carrera: asignaturaCarrera,
+    public date : Date,
 
     
 ){}

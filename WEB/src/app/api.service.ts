@@ -54,6 +54,9 @@ export class ApiService {
   getAllCarrera(): Observable<Array<Object>> {
     return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera`);
   }
+  getCarreraByCedula(): Observable<Array<Object>> {
+    return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera/`+this.cedula);
+  }
 
   getAllAsignatura(): Observable<Array<Object>> {
     return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/asignatura`);
@@ -150,18 +153,18 @@ export class ApiService {
     return this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCarrera`, json, httpOptions);
   }
 
-  inscripcionCurso(cedula, idCurso) {
+  inscripcionCurso(idCurso) {
     var a: any = {};
-    a.cedula = cedula;
+    a.cedula = this.cedula; 
     a.idCurso = idCurso;
     let json = JSON.stringify(a);
     console.log(json);
     return this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`, json, httpOptions);
   }
 
-  inscripcionExamen(cedula, idCurso) {
+  inscripcionExamen(idCurso) {
     var a: any = {};
-    a.cedula = cedula;
+    a.cedula = this.cedula;
     a.idCurso = idCurso;
     let json = JSON.stringify(a);
     console.log(json);
@@ -229,16 +232,25 @@ export class ApiService {
     a.cedula = cedula;
     a.idRol = idRol;
     let json = JSON.stringify(a);
-    return  this.httpClient.post(`${this.API_URL}/admin/usuario.addRol`, json, httpOptions);
+    console.log(json);
+    return this.httpClient.post(`${this.API_URL}/admin/usuario.addRol`, json, httpOptions);
   }
+  //Obtengo los roles y demas datos del usuario que se logueó
+  cargarParametros() {
+    if (JSON.parse(localStorage.getItem('session')) != null) {
+      params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
+      this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
+    }
+//    paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+//    return  this.httpClient.post(`${this.API_URL}/admin/usuario.addRol`, json, httpOptions);
+  }/*
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
   if (JSON.parse(localStorage.getItem('session')) != null) {
     
     params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
     this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
-  }
-}
+  }*/
 
   agregarPrevia(idMadre, idPrevia) {
     var a: any = {};
