@@ -104,11 +104,13 @@ export class ListarUsuariosComponent implements OnInit {
 
   }
 
-
+ aceptar(){
+  this.dialogOpened = true;
+ }
   public MostrarUsuario() {
     console.log(this.mySelection);
     if (this.mySelection.length > 0) {
-      this.dialogOpened = true;
+      
     }
     else
       alert('Debe seleccionar un usuario para continuar.');

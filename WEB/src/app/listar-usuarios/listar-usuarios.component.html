@@ -31,6 +31,15 @@
   </kendo-grid>
 
 
+  <div class="row">
+    <div class="col-sm-12 example-col">
+      <kendo-buttongroup  [selection]="'single'" [width]="'100%'">
+        <button kendoButton [toggleable]="true"  (click)="aceptar()">Aceptar</button>
+      </kendo-buttongroup>
+    </div>
+  </div>
+
+
 </div>
   <div class="example-wrapper">
     <kendo-dialog title="Confirmar" *ngIf="dialogOpened" (close)="close('dialog')" [minWidth]="200" [width]="350">
