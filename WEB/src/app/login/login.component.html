@@ -8,7 +8,6 @@
         </div>
     <mat-card-title>
       Bienvenido...
-      <p style="color:red">{{errorMsg}}</p>
     </mat-card-title>
     <mat-card-content>
       <form id="login-form" #lForm="ngForm" [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>

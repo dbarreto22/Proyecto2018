@@ -40,7 +40,7 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 export class ApiService {
   // API_URL  = 'http://localhost:8080/miudelar-server'; 
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://5a35eb6b.ngrok.io/miudelar-server';
+  API_URL = 'http://f4b051cb.ngrok.io/miudelar-server';
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
   //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
@@ -263,15 +263,15 @@ cargarParametros() {
 mensajeSinError(mensaje:any,aux:number){
   if (mensaje == 'OK'){
     if(aux==1)  
-      alert("Objeto creado correctamente");
+      alert("Creado correctamente");
     if(aux==2)
-      alert("Objeto asignado correctamente");
+      alert("Asignado correctamente");
     if(aux==3)
       alert("Inscripción correcta");
     if(aux==4)  
-      alert("Objeto eliminado correctamente ");
+      alert("Eliminado correctamente ");
     if(aux==5)  
-      alert("Objeto modificado correctamente ");
+      alert("Modificado correctamente ");
     }
     else
       alert(mensaje);

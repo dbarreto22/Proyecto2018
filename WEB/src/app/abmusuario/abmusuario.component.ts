@@ -108,11 +108,11 @@ export class ABMUsuarioComponent implements OnInit {
       this.apiService.deleteUser(this.cedulaSelect).subscribe(
         data => {
           this.apiService.mensajeSinError(data, 4);
-          this.router.navigate(['/setingsUser']);
+          this.router.navigate(['/']);
         },
         err => {
           this.apiService.mensajeConError(err);
-          this.router.navigate(['/setingsUsers']);
+          this.router.navigate(['/']);
         });
       this.dialogOpened = false;
     }

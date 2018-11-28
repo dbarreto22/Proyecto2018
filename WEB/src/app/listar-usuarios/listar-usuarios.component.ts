@@ -43,7 +43,8 @@ export class ListarUsuariosComponent implements OnInit {
     this.usuarios = this.apiService.getAllUser();
 
     this.usuarios.subscribe(
-      () => {
+      () =>{ 
+        
         this.loading = false
       },
       err => {
@@ -90,7 +91,7 @@ export class ListarUsuariosComponent implements OnInit {
     this.usuarios.subscribe((data: Array<usuario>) => {
       data.forEach(usr => {
         if (usr.cedula == this.mySelection[0]) {
-          this.usuario = usr;
+          this.usuario = usr;          
           console.log(this.usuario);
         }
       })

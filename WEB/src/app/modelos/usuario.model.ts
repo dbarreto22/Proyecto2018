@@ -10,4 +10,5 @@ export class usuario {
     public email;
     public password;
     public roles: Array<Rol>;
+    public estado: string;
 }

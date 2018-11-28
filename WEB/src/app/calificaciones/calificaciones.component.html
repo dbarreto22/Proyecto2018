@@ -68,11 +68,11 @@
               <legend>Consultar Calificación</legend>
               <legend>Cursos</legend>
                 <li *ngFor="let ecurso of calificacion.estudiante_curso">
-                    {{ecurso.curso.asignatura_Carrera.asignatura.nombre}} - {{ecurso.calificacion}}
+                    {{ecurso.curso.asignatura_Carrera.asignatura.nombre}}/{{ecurso.curso.asignatura_Carrera.carrera.nombre}} - Calificacion: {{ecurso.calificacion}}
                  </li>
                  <legend>Examenes</legend>
                  <li *ngFor="let eexamen of calificacion.estudiante_examen">
-                    {{eexamen.examen.asignatura_Carrera.asignatura.nombre}} - {{eexamen.calificacion}}
+                    {{eexamen.examen.asignatura_Carrera.asignatura.nombre}}/{{eexamen.examen.asignatura_Carrera.carrera.nombre}} - Calificacion: {{eexamen.calificacion}}
                  </li>
             <div class="text-center">
               <button type="button" class="btn btn-secondary disable btn-lg" (click)="salir()">Salir</button>

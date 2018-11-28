@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
   public error: {code: number, message: string} = null;
   rolElegido:number;
   rolObserver:Subscription;
-  @Input() public errorMsg:string;
   
   //private roles:Array<any>=[{'id':'1','nombre':'Director'},{'id':'2','nombre':'Administrador'},{'id':'4','nombre':'Alumno'}];
 
@@ -41,14 +40,13 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
      })
-     console.log(this.errorMsg+ ' error');
 //     this.rolElegido$=this.storageService.getRolElegido();
     // this.rolSubscription=this.rolElegido$.subscribe(rol=>this.rolElegido=rol);
 //    this.storageService.sendMessage('putitoooo');
   }
  
   public submitLogin(){
-    this.loading = true;
+    this.loading = false;
     this.submitted = true;
     this.error = null;
     if(this.loginForm.valid){
@@ -62,14 +60,13 @@ export class LoginComponent implements OnInit {
           else {
           this.loading = false;
           alert(res);
-          this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
+         // this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
           }
           this.loading = false;
           //this.storageService.setCurrentSession(new Sesion(res,null)); 
         },err => {
             this.apiService.mensajeConError(err);
             this.loading = false;
-            this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
             this.router.navigate(['/login']);
         }); 
     }
@@ -108,15 +105,11 @@ private correctLogin(){
       this.storageService.setRolElegido(localStorage.getItem('rolElegido'));
       console.log(localStorage.getItem('rolElegido')+' Despues del login');
       this.router.navigate(['/']);}
-      else  
-        this.errorMsg="Hubo un error con el inisio de sesion, vuelva a intentarlo";
 
     },err => {
       this.loading=false;
       console.log('Error al obtener usuario codigo: '+ err.message);
       if(err.status==403 || err.status==401){
-        this.errorMsg='Credenciales incorrectas, vuelva a intentarlo';
-     //   this.router.navigate(['/login']);
       }
     });
    // 
