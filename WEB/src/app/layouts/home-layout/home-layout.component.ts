@@ -27,7 +27,8 @@ export class HomeLayoutComponent implements OnInit {
       alert('El usuario de bedelias no tiene acceso a la web')
     localStorage.setItem('rolElegido', value);
     //this.router.navigate(['']);
-    this.rolElegido = value;
+    //this.roles.findIndex(value);
+    this.rolElegido = this.roles[this.roles.findIndex(value)].tipo;
 
 
   }

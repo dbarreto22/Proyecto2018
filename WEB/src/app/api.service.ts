@@ -189,8 +189,11 @@ export class ApiService {
     return this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`, json, httpOptions);
   }
 
-  deleteUser(usuario: usuario) {
-    return this.httpClient.post(`${this.API_URL}/admin/usuario.delete`, usuario, httpOptions);
+  deleteUser(usuario :string){
+    var a: any = {}
+    a.cedula=usuario;
+    let json=JSON.stringify(a);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario.delete`,json,httpOptions);
   }
 
   modificarUser(usuario: usuario) {
@@ -226,17 +229,16 @@ export class ApiService {
     a.cedula = cedula;
     a.idRol = idRol;
     let json = JSON.stringify(a);
-    console.log(json);
-    return this.httpClient.post(`${this.API_URL}/admin/usuario.addRol`, json, httpOptions);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario.addRol`, json, httpOptions);
   }
-  //Obtengo los roles y demas datos del usuario que se logueó
-  cargarParametros() {
-    if (JSON.parse(localStorage.getItem('session')) != null) {
-      params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
-      this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
-    }
-    paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+//Obtengo los roles y demas datos del usuario que se logueó
+cargarParametros() {
+  if (JSON.parse(localStorage.getItem('session')) != null) {
+    
+    params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
+    this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
   }
+}
 
   agregarPrevia(idMadre, idPrevia) {
     var a: any = {};
@@ -247,19 +249,19 @@ export class ApiService {
 
   }
 
-  mensajeSinError(mensaje: any, aux: number) {
-    console.log(mensaje);
-    if (mensaje == 'OK') {
-      if (aux == 1)
-        alert("Objeto creado correctamente ");
-      if (aux == 2)
-        alert("Objeto asignado correctamente");
-      if (aux == 3)
-        alert("Inscripción correcta");
-      if (aux == 4)
-        alert("Objeto eliminado correctamente ");
-      if (aux == 5)
-        alert("Objeto modificado correctamente ");
+mensajeSinError(mensaje:any,aux:number){
+  alert(mensaje);
+  if (mensaje == 'OK'){
+    if(aux==1)  
+      alert("Objeto creado correctamente ");
+    if(aux==2)
+      alert("Objeto asignado correctamente");
+    if(aux==3)
+      alert("Inscripción correcta");
+    if(aux==4)  
+      alert("Objeto eliminado correctamente ");
+    if(aux==5)  
+      alert("Objeto modificado correctamente ");
     }
     else
       alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde. ');

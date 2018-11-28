@@ -105,7 +105,7 @@ export class ABMUsuarioComponent implements OnInit {
 
   public confirmarEliminarUsr() {
     if (this.cedulaSelect != undefined) {
-      this.apiService.deleteUser(this.usuario).subscribe(
+      this.apiService.deleteUser(this.cedulaSelect).subscribe(
         data => {
           this.apiService.mensajeSinError(data, 4);
           this.router.navigate(['/setingsUser']);
@@ -117,7 +117,7 @@ export class ABMUsuarioComponent implements OnInit {
       this.dialogOpened = false;
     }
     else
-      alert('Debe seleccionar una carrera para continuar.');
+      alert('Debe seleccionar un usuario para continuar.');
   }
 
 
@@ -131,7 +131,7 @@ export class ABMUsuarioComponent implements OnInit {
       this.router.navigate(['/modificarUsr']);
     }
     else
-      alert('Debe seleccionar una carrera para continuar.');
+      alert('Debe seleccionar un usuario para continuar.');
   }
 
   public asignarRol() {
@@ -140,7 +140,7 @@ export class ABMUsuarioComponent implements OnInit {
       this.router.navigate(['/asignarRol']);
     }
     else
-      alert('Debe seleccionar una carrera para continuar.');
+      alert('Debe seleccionar un usuario para continuar.');
   }
 
 

@@ -74,6 +74,7 @@ export class CrearPreviasComponent implements OnInit {
         (data: Array<asignaturaCarrera>)=> {
           this.asignatura = data[index];
           this.codigoAsignatura = this.asignatura.id;
+      //    alert('putoooos'+JSON.stringify(this.codigoAsignatura));
         },
         err=>{
           this.apiService.mensajeConError(err);

@@ -1,7 +1,7 @@
 <div class="jumbotron" style="background: aliceblue">
 
     <div class="example-config">
-        <p class="font-weight-normal" style="color: dodgerblue">Cursos</p>
+        <p class="font-weight-normal" style="color: dodgerblue">Ver previas</p>
     </div>
     
     <kendo-grid     
@@ -16,6 +16,8 @@
       (selectionChange) = "change($event)"
       [height]="500"
       >
+    <kendo-grid-column field="id" title="Codigo" width="130" [filterable]="false">
+      </kendo-grid-column>
     <kendo-grid-column field="carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">
       </kendo-grid-column>
     <kendo-grid-column field="carrera.nombre" title="Carrera">
