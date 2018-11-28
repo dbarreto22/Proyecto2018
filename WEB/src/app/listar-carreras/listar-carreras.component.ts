@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { carrera } from '../modelos/carrera.model';
 import { usuario } from '../modelos/usuario.model';
+import { State } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-listar-carreras',
@@ -25,17 +26,17 @@ export class ListarCarrerasComponent implements OnInit {
   public codigo;
   public loading;
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
-   this.loading= true;
+    this.loading = true;
     this.setSelectableSettings();
 
-    this.carreras=this.apiService.getAllCarrera()
+    this.carreras = this.apiService.getAllCarrera()
 
     this.carreras.subscribe(
-      ()=> {
-        this.loading=false
+      () => {
+        this.loading = false
       },
-      err=>{
-        this.loading=false;
+      err => {
+        this.loading = false;
         this.apiService.mensajeConError(err);
         this.router.navigate(['/listarCarreras']);
       }
@@ -48,7 +49,7 @@ export class ListarCarrerasComponent implements OnInit {
       alert('El rol actual no puede acceder a esta función.');
       this.router.navigate(['/'])
     }
-   
+
   }
 
   public setSelectableSettings(): void {
@@ -58,40 +59,48 @@ export class ListarCarrerasComponent implements OnInit {
     };
   }
 
+  public skip = 0;
+  public state: State = {
+    skip: 0,
+    take: 5
+  }
 
-/*  getCarreras() {
-    this.apiService.getAllCarrera().subscribe((data: Array<object>) => {
-      this.carreras = data;
-      console.log(this.carreras);
-    },
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.codigo;
+  }
+
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
+
+  change() {
+
+    this.carreras.subscribe(
+      (data: Array<carrera>) => {
+        data.forEach(asig => {
+          if (asig.codigo = this.mySelection[0]) {
+            this.carrera = asig;
+            this.codigo = this.carrera.codigo;
+            console.log(this.codigo);
+
+          }
+        })
+
+      },
       err => {
         this.apiService.mensajeConError(err);
-        this.router.navigate(['/listarCarreras']);
-      });
-  }*/
+      }
+    )
+  }
 
   cancelar() {
     this.router.navigate(['/']);
   }
 
-  change({index}){
-    if (!!index || index == 0) {
-      this.carreras.subscribe(
-        (data: Array<carrera>)=> {
-          this.carrera = data[index];
-          this.codigo = this.carrera.codigo;
-          console.log(this.codigo);
-        },
-        err=>{
-          this.apiService.mensajeConError(err);
-        }
-      )
-      
-    }
-    else {
-      this.codigo = undefined;
-    }
-  }
+  
 
   irACurso() {
     if (this.codigo != undefined) {

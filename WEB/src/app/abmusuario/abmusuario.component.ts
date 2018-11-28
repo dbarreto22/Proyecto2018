@@ -4,7 +4,7 @@ import { ApiService } from '../api.service';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings, PageChangeEvent, RowArgs } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import { usuario } from '../modelos/usuario.model';
 import { Observable } from 'rxjs';
@@ -26,16 +26,19 @@ export class ABMUsuarioComponent implements OnInit {
   public usuario = new usuario();
   public dialogOpened = false;
   public loading;
-  
+  public skip = 0;
+
   constructor(public http: HttpClient, private apiService: ApiService,
     private router: Router) {
-      this.loading=true;
+    this.loading = true;
     this.setSelectableSettings();
-    this.usuarios=this.apiService.getAllUser();
+    this.usuarios = this.apiService.getAllUser();
     this.usuarios.subscribe(
-      ()=> this.loading=false,
-      err=>{this.loading=false;
-          this.apiService.mensajeConError(err)}
+      () => this.loading = false,
+      err => {
+      this.loading = false;
+        this.apiService.mensajeConError(err)
+      }
     )
 
 
@@ -55,24 +58,40 @@ export class ABMUsuarioComponent implements OnInit {
       mode: "single",
     };
   }
+  public state: State = {
+    skip: 0,
+    take: 5
+  }
 
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.cedula;
+  }
 
-  change({index}) {
-    if (!!index || index == 0) {
-      this.usuarios.subscribe(
-        (data: Array<usuario>)=> {
-          this.cedulaSelect = data[index].cedula;
-          console.log(this.cedulaSelect);
-        },
-        err=>{
-          this.apiService.mensajeConError(err);
-        }
-      )
-      
-    }
-    else {
-      this.cedulaSelect = undefined;
-    }
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
+
+  change() {
+
+    this.usuarios.subscribe(
+      (data: Array<usuario>) => {
+        data.forEach(asig => {
+          if (asig.cedula = this.mySelection[0]) {
+            this.usuario = asig;
+            this.cedulaSelect = asig.cedula;
+            console.log(this.cedulaSelect);
+
+          }
+        })
+
+      },
+      err => {
+        this.apiService.mensajeConError(err);
+      }
+    )
   }
 
   public crearUsuario() {
@@ -88,7 +107,7 @@ export class ABMUsuarioComponent implements OnInit {
     if (this.cedulaSelect != undefined) {
       this.apiService.deleteUser(this.usuario).subscribe(
         data => {
-          this.apiService.mensajeSinError(data,4);
+          this.apiService.mensajeSinError(data, 4);
           this.router.navigate(['/setingsUser']);
         },
         err => {

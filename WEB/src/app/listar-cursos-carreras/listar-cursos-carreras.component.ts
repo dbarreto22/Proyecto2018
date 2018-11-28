@@ -3,10 +3,11 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { SelectableSettings } from '@progress/kendo-angular-grid';
+import { SelectableSettings, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { StorageService } from '../storage.service';
 import { asignaturaCarrera } from '../modelos/asignaturaCarrera.model';
 import { asignatura } from '../modelos/asignatura.model';
+import { State } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-listar-cursos-carreras',
@@ -79,7 +80,36 @@ export class ListarCursosCarrerasComponent implements OnInit {
   cancelar() {
     this.router.navigate(['/calificaciones']);
   }
+  public skip = 0;
+  public state: State = {
+    skip: 0,
+    take: 5
+  }
 
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.codigo;
+  }
+
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
+
+  change() {
+
+    this.listAsignaturas.forEach(asig => {
+      if (asig.codigo == this.mySelection[0]) {
+        this.asignatura = asig;
+        this.codigo = this.asignatura.codigo;
+        console.log(this.codigo);
+      }
+    })
+
+
+  }
+/*
   change(e) {
     if (e.selected != false) {
       this.asignatura = this.listAsignaturas[e.index];
@@ -89,7 +119,7 @@ export class ListarCursosCarrerasComponent implements OnInit {
     else {
       this.codigo = undefined;
     }
-  }
+  }*/
 
 
 

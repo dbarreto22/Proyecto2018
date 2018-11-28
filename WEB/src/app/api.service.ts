@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest,
-  HttpHandler, HttpEvent, HttpParams} from  '@angular/common/http';
+import {
+  HttpClient, HttpHeaders, HttpRequest,
+  HttpHandler, HttpEvent, HttpParams
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { URLSearchParams} from '@angular/http';
+import { URLSearchParams } from '@angular/http';
 import { _ } from 'ag-grid-community';
 import { _createNgProbe } from '@angular/platform-browser/src/dom/debug/ng_probe';
 import { Router } from '@angular/router';
@@ -15,16 +17,18 @@ import { examenes } from './modelos/examenes.model';
 import { DtCalificacion } from './modelos/DtCalificacion.model';
 import { asignaturaCarrera } from './modelos/asignaturaCarrera.model';
 
-const httpOptions : {
+const httpOptions: {
   headers?: HttpHeaders,
-            observe?: 'body',
-            params?: HttpParams,
-            reportProgress?: boolean,
-            responseType: 'text',
-            withCredentials?: boolean
+  observe?: 'body',
+  params?: HttpParams,
+  reportProgress?: boolean,
+  responseType: 'text',
+  withCredentials?: boolean
 
-}={headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
-responseType: 'text'};
+} = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  responseType: 'text'
+};
 
 var params = new HttpParams();
 var paramsA: URLSearchParams = new URLSearchParams();
@@ -36,239 +40,240 @@ paramsCalificaciones = paramsCalificaciones.append('idAsig_Carrera', localStorag
 export class ApiService {
   // API_URL  = 'http://localhost:8080/miudelar-server'; 
   // url = 'http://localhost:8080/miudelar-server/director/carrera/';  
-  API_URL = 'http://221a965c.ngrok.io/miudelar-server'; 
+  API_URL = 'http://5a35eb6b.ngrok.io/miudelar-server';
   //url = 'http://b0b9853a.ngrok.io/miudelar-server/director/carrera/';  
-    //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
+  //'http://tsi-diego.eastus.cloudapp.azure.com:8080/miudelar-server';
 
-    public cedula;
-constructor(private  httpClient:  HttpClient,private router: Router) {
-              this.cargarParametros();
-            }         
-
-public codigo = localStorage.getItem('codigoABM');
-
-getAllCarrera(): Observable<Array<Object>>{
-    return  this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera`);
-}
-
-getAllAsignatura(): Observable<Array<Object>>{
-  return  this.httpClient.get<Array<Object>>(`${this.API_URL}/director/asignatura`);
-}
-
-getAllUser(): Observable<Array<Object>>{
-  return  this.httpClient.get<Array<Object>>(`${this.API_URL}/admin/usuario`);
-}
- 
-getAsignaturaByCarrera(idCarrera){
-  let data = {idCarrera: idCarrera};
-  console.log(data);
-  return  this.httpClient.get(`${this.API_URL}/director/asignatura/carrera/`+idCarrera);
-}
-
-getAllAsignaturaCarrera(): Observable<Array<asignaturaCarrera>>{
-  return  this.httpClient.get<Array<asignaturaCarrera>>(`${this.API_URL}/director/asignaturacarrera`);
-}
-
-getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>>{
-  return  this.httpClient.get<Array<Object>>(`${this.API_URL}/bedelia/asignaturaCarrera/`+idCarrera);
-}
-
-//getAllCursos() : Observable<cursos[]>{
-//  return  this.httpClient.get<cursos[]>(`${this.API_URL}/estudiante/curso/` + this.cedula);
-getAllCursos() : Observable<Array<cursos>>{
-  return  this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso`+ this.cedula);
-}
-
-getCursosByCedula() : Observable<Array<cursos>>{
-  return  this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso/`+this.cedula);
-}
-
-getAllExamen(): Observable<Array<examenes>>{ 
-  return  this.httpClient.get<Array<examenes>>(`${this.API_URL}/estudiante/examen`);
-}
-
-getExamenByCedula(): Observable<Array<examenes>>{ 
-  return  this.httpClient.get<Array<examenes>>(`${this.API_URL}/estudiante/examen/`+this.cedula);
-}
- 
-getCalificacionesEstudiante(idAsigCarrera): Observable<Array<DtCalificacion>>{ 
-  return  this.httpClient.get<Array<DtCalificacion>>(`${this.API_URL}/estudiante/consultarCalificaciones/`+this.cedula+idAsigCarrera);
-}
-
-public getToken(){
-  var sesion:Sesion = JSON.parse(localStorage.getItem('session'));
-  return sesion!=null?sesion.token:null; 
-}
-
-setearSesion(cedula){
-  return this.httpClient.get(`${this.API_URL}/admin/usuario/`+cedula)
-}
-
-getUsuario(): Observable<usuario>{
-  return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/`+this.cedula)
-}
-
-getUsuarioRol(cedula): Observable<usuario>{
-  return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/`+cedula)
-}
-
-getCarrera(codigo): Observable<carrera>{
-  return this.httpClient.get<carrera>(`${this.API_URL}/director/carrera/`+codigo)
-}
-
-getAsignatura(codigo): Observable<asignatura>{
-  return this.httpClient.get<asignatura>(`${this.API_URL}/director/asignatura/`+codigo)
-}
-
-getprevias(idCurso){
-  return this.httpClient.get(`${this.API_URL}/director/previas/`+idCurso);
-}
-
-getUserRol(): Observable<Array<usuario>>{
-  return this.httpClient.get<Array<usuario>>(`${this.API_URL}/admin/rol`);
-}
- 
-intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  request = request.clone({
-    setHeaders: {
-      Authorization: `Bearer ${this.getToken()}`
-    }
-  });
-  return next.handle(request);
-}
-
-inscripcionCarrera(cedula,codigo){
-var a: any = {};
-a.cedula = cedula;
-a.codigo = codigo;
-  let json = JSON.stringify(a);
-  console.log(json);
-  return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCarrera`,json, httpOptions);
-}
-
-inscripcionCurso(cedula,idCurso){
-  var a: any = {};
-  a.cedula = cedula;
-  a.idCurso = idCurso;
-    let json = JSON.stringify(a);
-    console.log(json);
-    return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`,json,httpOptions);
+  public cedula;
+  constructor(private httpClient: HttpClient, private router: Router) {
+    this.cargarParametros();
   }
 
-  inscripcionExamen(cedula,idCurso){
+  public codigo = localStorage.getItem('codigoABM');
+
+  getAllCarrera(): Observable<Array<Object>> {
+    return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/carrera`);
+  }
+
+  getAllAsignatura(): Observable<Array<Object>> {
+    return this.httpClient.get<Array<Object>>(`${this.API_URL}/director/asignatura`);
+  }
+
+  getAllUser(): Observable<Array<Object>> {
+    return this.httpClient.get<Array<Object>>(`${this.API_URL}/admin/usuario`);
+  }
+
+  getAsignaturaByCarrera(idCarrera) {
+    let data = { idCarrera: idCarrera };
+    console.log(data);
+    return this.httpClient.get(`${this.API_URL}/director/asignatura/carrera/` + idCarrera);
+  }
+
+  getAllAsignaturaCarrera(): Observable<Array<asignaturaCarrera>> {
+    return this.httpClient.get<Array<asignaturaCarrera>>(`${this.API_URL}/director/asignaturacarrera`);
+  }
+
+  getAsignaturaCarreraByCarrera(idCarrera): Observable<Array<Object>> {
+    return this.httpClient.get<Array<Object>>(`${this.API_URL}/bedelia/asignaturaCarrera/` + idCarrera);
+  }
+
+  //getAllCursos() : Observable<cursos[]>{
+  //  return  this.httpClient.get<cursos[]>(`${this.API_URL}/estudiante/curso/` + this.cedula);
+  getAllCursos(): Observable<Array<cursos>> {
+    return this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso` + this.cedula);
+  }
+
+  getCursosByCedula(): Observable<Array<cursos>> {
+    return this.httpClient.get<Array<cursos>>(`${this.API_URL}/estudiante/curso/` + this.cedula);
+  }
+
+  getAllExamen(): Observable<Array<examenes>> {
+    return this.httpClient.get<Array<examenes>>(`${this.API_URL}/estudiante/examen`);
+  }
+
+  getExamenByCedula(): Observable<Array<examenes>> {
+    return this.httpClient.get<Array<examenes>>(`${this.API_URL}/estudiante/examen/` + this.cedula);
+  }
+
+  getCalificacionesEstudiante(idAsigCarrera): Observable<Array<DtCalificacion>> {
+    return this.httpClient.get<Array<DtCalificacion>>(`${this.API_URL}/estudiante/consultarCalificaciones/` + this.cedula + idAsigCarrera);
+  }
+
+  public getToken() {
+    var sesion: Sesion = JSON.parse(localStorage.getItem('session'));
+    return sesion != null ? sesion.token : null;
+  }
+
+  setearSesion(cedula) {
+    return this.httpClient.get(`${this.API_URL}/admin/usuario/` + cedula)
+  }
+
+  getUsuario(): Observable<usuario> {
+    return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/` + this.cedula)
+  }
+
+  getUsuarioRol(cedula): Observable<usuario> {
+    return this.httpClient.get<usuario>(`${this.API_URL}/admin/usuario/` + cedula)
+  }
+
+  getCarrera(codigo): Observable<carrera> {
+    return this.httpClient.get<carrera>(`${this.API_URL}/director/carrera/` + codigo)
+  }
+
+  getAsignatura(codigo): Observable<asignatura> {
+    return this.httpClient.get<asignatura>(`${this.API_URL}/director/asignatura/` + codigo)
+  }
+
+  getprevias(idCurso) {
+    return this.httpClient.get(`${this.API_URL}/director/previas/` + idCurso);
+  }
+
+  getUserRol(): Observable<Array<usuario>> {
+    return this.httpClient.get<Array<usuario>>(`${this.API_URL}/admin/rol`);
+  }
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${this.getToken()}`
+      }
+    });
+    return next.handle(request);
+  }
+
+  inscripcionCarrera(cedula, codigo) {
+    var a: any = {};
+    a.cedula = cedula;
+    a.codigo = codigo;
+    let json = JSON.stringify(a);
+    console.log(json);
+    return this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCarrera`, json, httpOptions);
+  }
+
+  inscripcionCurso(cedula, idCurso) {
     var a: any = {};
     a.cedula = cedula;
     a.idCurso = idCurso;
-      let json = JSON.stringify(a);
-      console.log(json);
-      return  this.httpClient.post(`${this.API_URL}/estudiante/inscripcionExamen`,json,httpOptions);
+    let json = JSON.stringify(a);
+    console.log(json);
+    return this.httpClient.post(`${this.API_URL}/estudiante/inscripcionCurso`, json, httpOptions);
   }
 
-  ingresarCarrera(DtCarrera :carrera){
+  inscripcionExamen(cedula, idCurso) {
+    var a: any = {};
+    a.cedula = cedula;
+    a.idCurso = idCurso;
+    let json = JSON.stringify(a);
+    console.log(json);
+    return this.httpClient.post(`${this.API_URL}/estudiante/inscripcionExamen`, json, httpOptions);
+  }
+
+  ingresarCarrera(DtCarrera: carrera) {
     console.log(DtCarrera);
-    return  this.httpClient.post(`${this.API_URL}/director/carrera`,DtCarrera,httpOptions);
+    return this.httpClient.post(`${this.API_URL}/director/carrera`, DtCarrera, httpOptions);
   }
 
-  ingresarAsignatura(DtAsignatura : asignatura){
-    return  this.httpClient.post(`${this.API_URL}/director/asignatura`,DtAsignatura,httpOptions);
+  ingresarAsignatura(DtAsignatura: asignatura) {
+    return this.httpClient.post(`${this.API_URL}/director/asignatura`, DtAsignatura, httpOptions);
   }
 
-  ingresarUsuario(DtUsuario : usuario){
-    return  this.httpClient.post(`${this.API_URL}/admin/usuario`,DtUsuario,httpOptions);
+  ingresarUsuario(DtUsuario: usuario) {
+    return this.httpClient.post(`${this.API_URL}/admin/usuario`, DtUsuario, httpOptions);
   }
 
-  asignarAsigCarrera(codAsig, codCarrera){
+  asignarAsigCarrera(codAsig, codCarrera) {
     var a: any = {};
     a.codigoAsignatura = codAsig;
     a.codigoCarrera = codCarrera;
-      let json = JSON.stringify(a);
-    return  this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`,json,httpOptions);
+    let json = JSON.stringify(a);
+    return this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`, json, httpOptions);
   }
 
-  deleteUser(usuario :usuario){
-    return  this.httpClient.post(`${this.API_URL}/admin/usuario.delete`,usuario,httpOptions);
+  deleteUser(usuario: usuario) {
+    return this.httpClient.post(`${this.API_URL}/admin/usuario.delete`, usuario, httpOptions);
   }
 
-  modificarUser(usuario :usuario){
-    return  this.httpClient.post(`${this.API_URL}/admin/usuario.edit`,usuario,httpOptions);
+  modificarUser(usuario: usuario) {
+    return this.httpClient.post(`${this.API_URL}/admin/usuario.edit`, usuario, httpOptions);
   }
 
-  deleteCarrera(codigo){
+  deleteCarrera(codigo) {
     var a: any = {};
     a.codigo = codigo;
-      let json = JSON.stringify(a);
+    let json = JSON.stringify(a);
     console.log(json);
-    return  this.httpClient.post(`${this.API_URL}/director/carrera.delete`,json, httpOptions);
+    return this.httpClient.post(`${this.API_URL}/director/carrera.delete`, json, httpOptions);
   }
 
-  deleteAsignatura(codigo){
+  deleteAsignatura(codigo) {
     var a: any = {};
     a.codigo = codigo;
-      let json = JSON.stringify(a);
+    let json = JSON.stringify(a);
     console.log(json);
-    return  this.httpClient.post(`${this.API_URL}/director/asignatura.delete`,json, httpOptions);
+    return this.httpClient.post(`${this.API_URL}/director/asignatura.delete`, json, httpOptions);
   }
 
-  modificarCarrera(carrera :carrera){
-    return  this.httpClient.post(`${this.API_URL}/director/carrera.edit`,carrera,httpOptions);
+  modificarCarrera(carrera: carrera) {
+    return this.httpClient.post(`${this.API_URL}/director/carrera.edit`, carrera, httpOptions);
   }
 
-  modificarAsignatura(dtAsignatura :asignatura){
-    return  this.httpClient.post(`${this.API_URL}/director/asignatura.edit`,dtAsignatura,httpOptions);
+  modificarAsignatura(dtAsignatura: asignatura) {
+    return this.httpClient.post(`${this.API_URL}/director/asigna                                                                                                                                                                                                                                                                                                                                                            tura.edit`, dtAsignatura, httpOptions);
   }
 
-  asignarRol(cedula,idRol){
+  asignarRol(cedula, idRol) {
     var a: any = {};
     a.cedula = cedula;
     a.idRol = idRol;
     let json = JSON.stringify(a);
-    return  this.httpClient.post(`${this.API_URL}/admim/usuario.addRol`, json, httpOptions);
+    console.log(json);
+    return this.httpClient.post(`${this.API_URL}/admin/usuario.addRol`, json, httpOptions);
   }
-//Obtengo los roles y demas datos del usuario que se logueó
-cargarParametros() {
-  if (JSON.parse(localStorage.getItem('session')) != null) {
-    params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
-    this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
-  }
-  paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
-}
-
-agregarPrevia(idMadre,idPrevia){
-  var a: any = {};
-  a.idMadre = idMadre;
-  a.idPrevia = idPrevia;
-  let json = JSON.stringify(a);
-  return this.httpClient.post(`${this.API_URL}/director/previas.addPrevia`, json, httpOptions);
-
-}
-
-mensajeSinError(mensaje:any,aux:number){
-  console.log(mensaje);
-  if (mensaje == 'OK'){
-    if(aux==1)  
-      alert("Objeto creado correctamente ");
-    if(aux==2)
-      alert("Objeto asignado correctamente");
-    if(aux==3)
-      alert("Inscripción correcta");
-    if(aux==4)  
-      alert("Objeto eliminado correctamente ");
-    if(aux==5)  
-      alert("Objeto modificado correctamente ");
+  //Obtengo los roles y demas datos del usuario que se logueó
+  cargarParametros() {
+    if (JSON.parse(localStorage.getItem('session')) != null) {
+      params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
+      this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
     }
-  else
-    alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde. ');
-}
+    paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
+  }
 
-mensajeConError(mensaje:any){
-  console.log(mensaje.status + ' ' + mensaje.message);
-  if (mensaje.status == 403) {
-    alert('Su sesión ha expirado.');
-    this.router.navigate(['/login']);
+  agregarPrevia(idMadre, idPrevia) {
+    var a: any = {};
+    a.idMadre = idMadre;
+    a.idPrevia = idPrevia;
+    let json = JSON.stringify(a);
+    return this.httpClient.post(`${this.API_URL}/director/previas.addPrevia`, json, httpOptions);
+
   }
-  else {
-    alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde ');
+
+  mensajeSinError(mensaje: any, aux: number) {
+    console.log(mensaje);
+    if (mensaje == 'OK') {
+      if (aux == 1)
+        alert("Objeto creado correctamente ");
+      if (aux == 2)
+        alert("Objeto asignado correctamente");
+      if (aux == 3)
+        alert("Inscripción correcta");
+      if (aux == 4)
+        alert("Objeto eliminado correctamente ");
+      if (aux == 5)
+        alert("Objeto modificado correctamente ");
+    }
+    else
+      alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde. ');
   }
-}
+
+  mensajeConError(mensaje: any) {
+    console.log(mensaje.status + ' ' + mensaje.message);
+    if (mensaje.status == 403) {
+      alert('Su sesión ha expirado.');
+      this.router.navigate(['/login']);
+    }
+    else {
+      alert('Ha sucedido un error al procesar su solicitud, vuelva a intentarlo mas tarde ');
+    }
+  }
 }
 

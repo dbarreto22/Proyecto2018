@@ -6,7 +6,7 @@ import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
 import { CompositeFilterDescriptor, State, process } from '@progress/kendo-data-query';
-import { GridDataResult, DataStateChangeEvent, SelectableSettings } from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent, SelectableSettings, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { cursos } from '../modelos/cursos.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -34,6 +34,7 @@ export class CursosComponent implements OnInit {
   public cursosGrid: Observable<Array<cursos>>;
   public cursosMostrar: Array<Curso>;
   public curso: cursos;
+  public skip = 0;
 
 
   //private  apiService:  ApiService
@@ -49,15 +50,7 @@ export class CursosComponent implements OnInit {
 
     this.cursosGrid.subscribe(
       () =>
-       this.loading = false,
- /*   this.cursos = this.apiService.getCursosByCedula();
-
-    this.cursos.subscribe(
-      (data: Array<cursos>) => {
-        this.cursosGrid = data
         this.loading = false,
-          console.log(this.cursosGrid)
-      },*/
       err => {
         this.apiService.mensajeConError(err)
         this.loading = false;
@@ -75,24 +68,47 @@ export class CursosComponent implements OnInit {
       mode: "single",
     };
   }
-  
+
   cancelar() {
     this.router.navigate(['/']);
   }
 
-  change({ index }) {
-    if (!!index || index == 0) {
+  public state: State = {
+    skip: 0,
+    take: 5
+  }
 
-      this.cursosGrid.subscribe(
-        (data: Array<cursos>)=> {
-          this.curso = data[index];
-          this.idCurso = this.curso.id;
-          console.log(this.idCurso);
-        },
-        err=>{
-          this.apiService.mensajeConError(err);
-        }
-      )}}
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.id;
+  }
+
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
+
+  change() {
+
+    this.cursosGrid.subscribe(
+      (data: Array<cursos>) => {
+        data.forEach(asig => {
+          if (asig.id = this.mySelection[0]) {
+            this.curso = asig;
+            this.idCurso = this.curso.id;
+            console.log(this.idCurso);
+          }
+        })
+
+      },
+      err => {
+        this.apiService.mensajeConError(err);
+      }
+    )
+  }
+
+
 
   public inscCursos() {
     if (this.idCurso != undefined) {
