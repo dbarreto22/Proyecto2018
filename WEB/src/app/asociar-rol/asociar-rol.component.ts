@@ -7,6 +7,7 @@ import { usuario } from '../modelos/usuario.model';
 import { StorageService } from '../storage.service';
 import { Rol } from '../modelos/rol.model';
 import { Observable } from 'rxjs';
+import { State } from '@progress/kendo-data-query';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class AsociarRolComponent implements OnInit {
   public show = false;
   public loading;
   public cantidad: number;
+  public rolMandar;
   public rolMostrar = [{
     "id": "1",
     "tipo": "Administrador"
@@ -72,6 +74,7 @@ export class AsociarRolComponent implements OnInit {
     )
   }
 
+
   setShow() {
 
     this.cantidad = 0;
@@ -84,7 +87,10 @@ export class AsociarRolComponent implements OnInit {
   }
 
   public ChangeRol(value: string) {
+    console.log(value);
     this.rolSelected = value;
+    this.rolMandar = this.rolSelected.id;
+    console.log(this.rolMandar);
   }
 
   cancelar() {
@@ -93,7 +99,7 @@ export class AsociarRolComponent implements OnInit {
 
   asociarRol() {
 
-    this.apiService.asignarRol(this.cedula, this.rolSelected).subscribe(
+    this.apiService.asignarRol(this.cedula, this.rolMandar).subscribe(
       data => {
         this.apiService.mensajeSinError(data, 2);
       }, err => {

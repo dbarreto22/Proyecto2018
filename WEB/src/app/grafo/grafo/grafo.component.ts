@@ -57,10 +57,10 @@ export class GrafoComponent implements OnInit {
         auxX=x;  
       }else 
       {
-        auxX=datos.previas.length*160;
+        auxX=datos.previas.length*180;
       }
       this.nodes.push(nodo);
-      auxY=y+160;
+      auxY=y+180;
       datos.previas.forEach(element=>
       {
        // this.x=this.x+60;

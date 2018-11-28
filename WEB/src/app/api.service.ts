@@ -185,8 +185,11 @@ inscripcionCurso(cedula,idCurso){
     return  this.httpClient.post(`${this.API_URL}/director/asignaturacarrera`,json,httpOptions);
   }
 
-  deleteUser(usuario :usuario){
-    return  this.httpClient.post(`${this.API_URL}/admin/usuario.delete`,usuario,httpOptions);
+  deleteUser(usuario :string){
+    var a: any = {}
+    a.cedula=usuario;
+    let json=JSON.stringify(a);
+    return  this.httpClient.post(`${this.API_URL}/admin/usuario.delete`,json,httpOptions);
   }
 
   modificarUser(usuario :usuario){
@@ -227,8 +230,9 @@ inscripcionCurso(cedula,idCurso){
 //Obtengo los roles y demas datos del usuario que se logueó
 cargarParametros() {
   if (JSON.parse(localStorage.getItem('session')) != null) {
-    params.set('cedula', JSON.parse(localStorage.getItem('session')).cedula);
-    this.cedula = JSON.parse(localStorage.getItem('session')).cedula;
+    
+    params.set('cedula', JSON.parse(localStorage.getItem('session')).usr.cedula);
+    this.cedula = JSON.parse(localStorage.getItem('session')).usr.cedula;
   }
   paramsA.set('idCarrera', localStorage.getItem('codigoCarreraSelecionada'));
 }
@@ -243,7 +247,7 @@ agregarPrevia(idMadre,idPrevia){
 }
 
 mensajeSinError(mensaje:any,aux:number){
-  console.log(mensaje);
+  alert(mensaje);
   if (mensaje == 'OK'){
     if(aux==1)  
       alert("Objeto creado correctamente ");
