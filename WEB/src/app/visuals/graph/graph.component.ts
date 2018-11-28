@@ -5,6 +5,8 @@ import { D3Service, ForceDirectedGraph, Node } from '../../d3';
   selector: 'graph',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+  
+  <button style="width: 100%; height:50px; background: rgba(129, 204, 253, 0.938);" (click)="grafear()">Mostrar Grafo</button>
     <svg #svg [attr.width]="_options.width" [attr.height]="_options.height">
       <g [zoomableOf]="svg">
         <g [linkVisual]="link" *ngFor="let link of links"></g>
@@ -45,6 +47,10 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.graph.initSimulation(this.options);
+  }
+
+  grafear(){
+    this.graph = this.d3Service.getForceDirectedGraph(this.nodes, this.links, this.options);
   }
 
   get options() {

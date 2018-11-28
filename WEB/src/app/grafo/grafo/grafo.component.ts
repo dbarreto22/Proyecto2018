@@ -15,14 +15,17 @@ export class GrafoComponent implements OnInit {
   idCurso;
   cursos:asignaturaCarrera;
   x:number=500;
-  y:number=50;
+  y:number=100;
+  asignatura:string;
+  carrera:string;
 
   constructor(private apiService:ApiService,private router:Router) {
     this.idCurso=localStorage.getItem('idCurso');
-    alert(this.idCurso);
+    //alert(this.idCurso);
     this.apiService.getprevias(this.idCurso).subscribe((datos : asignaturaCarrera)=>
-    //this.idCurso
     {
+      this.asignatura=datos.asignatura.codigo+' '+datos.asignatura.nombre;
+      this.carrera=datos.carrera.codigo+' '+datos.carrera.nombre;
      // alert(JSON.stringify(datos));
       var link = new Link(datos.asignatura.nombre,null);
       this.crearNodos(datos,link, this.x, this.y);
@@ -31,7 +34,7 @@ export class GrafoComponent implements OnInit {
       this.apiService.mensajeConError(err);
       this.router.navigate(['/inscCursos']);
     });
-    alert('entro una vez Nodo '+ JSON.stringify(this.nodes));
+    //alert('entro una vez Nodo '+ JSON.stringify(this.nodes));
   }
   ngOnInit(){
     let rolElegido=localStorage.getItem('rolElegido');
