@@ -50,8 +50,10 @@ export class CursosComponent implements OnInit {
     this.cursosGrid = this.apiService.getCursosByCedula();
 
     this.cursosGrid.subscribe(
-      () =>
-        this.loading = false,
+      (data) =>{
+        this.loading = false
+        console.log('dataaaa ',JSON.stringify(data));
+      },
       err => {
         this.apiService.mensajeConError(err)
         this.loading = false;
