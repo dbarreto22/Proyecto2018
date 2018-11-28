@@ -64,20 +64,6 @@ export class ListarUsuariosComponent implements OnInit {
     };
   }
 
-
-
-  /*
-  public  getusuarios(){
-    this.apiService.getAllUser().subscribe((data:  Array<usuario>) => {
-        this.usuarios  =  data;
-        console.log(this.usuarios);
-    },
-    err => {
-      this.apiService.mensajeConError(err);
-      this.router.navigate(['/listarUsuarios']);
-    });
-  }*/
-
   change({ index }) {
     this.dialogOpened = true;
     if (!!index || index == 0) {
