@@ -72,7 +72,7 @@ export class CursosPreviasComponent implements OnInit {
 
   public mySelection: string[] = [];
   public mySelectionKey(context: RowArgs): string {
-    return context.dataItem.codigo;
+    return context.dataItem.id;
   }
 
   public pageChange(event: PageChangeEvent): void {
@@ -99,6 +99,7 @@ export class CursosPreviasComponent implements OnInit {
       }
     )
   }
+
 
   cancelar() {
     this.router.navigate(['/']);
