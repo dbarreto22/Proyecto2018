@@ -11,7 +11,6 @@
 .node-name {
   font-family: 'Lato';
   text-anchor: middle;
-  alignment-baseline: central;
   fill: white;
   font-weight: bolder;
 }

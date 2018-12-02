@@ -66,6 +66,7 @@ import { ListarCursosCarrerasComponent } from './listar-cursos-carreras/listar-c
 import {MatSelectModule} from '@angular/material/select';
 import {CrearPreviasComponent} from './crearPrevias/crearPrevias.component';
 import { CursosPreviasComponent } from './CursosPrevias/cursosPrevias.component';
+import { NovedadesComponent } from './layouts/home-layout/novedades.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -110,7 +111,8 @@ export function tokenGetter() {
     ListarCarrerasComponent,
     ListarCursosCarrerasComponent,
     CrearPreviasComponent,
-    CursosPreviasComponent
+    CursosPreviasComponent,
+    NovedadesComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, GridModule ,FormsModule,
