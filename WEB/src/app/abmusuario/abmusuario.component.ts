@@ -8,7 +8,6 @@ import { SelectableSettings, PageChangeEvent, RowArgs } from '@progress/kendo-an
 import { State } from '@progress/kendo-data-query';
 import { usuario } from '../modelos/usuario.model';
 import { Observable } from 'rxjs';
-import { Rol } from '../modelos/rol.model';
 
 @Component({
   selector: 'app-abmusuario',

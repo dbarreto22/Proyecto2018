@@ -65,7 +65,7 @@ export class GrafoComponent implements OnInit {
       {
        // this.x=this.x+60;
         this.crearNodos(element,new Link(datos.asignatura.nombre,null),auxX,auxY);
-      auxX=auxX+160;
+      auxX=auxX+180;
         nodo.linkCount++;
       
       });

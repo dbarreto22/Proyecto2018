@@ -1,19 +1,24 @@
 <app-toolbar-administrador [rolElegido]="rolElegido">loading...</app-toolbar-administrador>
-  <app-toolbar-director [rolElegido]="rolElegido">loading...</app-toolbar-director>
-  <app-toolbar [rolElegido]="rolElegido">loading...</app-toolbar>
-  
- 
-   
-<div class="selectWrapper" style="float: right">
-  <label class="font-weight-normal" style="color: black " >Roles: </label>
-    <select (change)="selectRol($event.target.value)">
-        <option value="0">{{rolElegido}}</option>
-        <option *ngFor="let rol of roles" value={{rol.id}}>
-        {{rol.tipo}}
-        </option>
-    </select>
-</div>
+<app-toolbar-director [rolElegido]="rolElegido">loading...</app-toolbar-director>
+<app-toolbar [rolElegido]="rolElegido">loading...</app-toolbar>
 
+
+
+<div class="selectWrapper" style="float: right">
+  <i (mouseover)="mostrarRoles()" (mouseout)="ocultarRoles()" class="material-icons md-48 md-light">
+    supervisor_account
+  </i>
+
+  <div class="selectRoles" [ngStyle]="{'visibility':aux}" (mouseover)="mostrarRoles()" (mouseout)="ocultarRoles()">
+    <label class="font-weight-normal" style="color: black ">Roles: </label>
+    <select (change)="selectRol($event.target.value)">
+      <option value="0">{{rolElegido}}</option>
+      <option *ngFor="let rol of roles" value={{rol.id}}>
+        {{rol.tipo}}
+      </option>
+    </select>
+  </div>
+</div>
 <!-- 
 <mat-form-field style="float: right; font-weight: bold ">
   <label class="font-weight-normal" style="color: white; font-size: 16px" >Roles: </label> 
@@ -24,9 +29,9 @@
 </mat-form-field>-->
 
 
-  <div class="mat-sidenav-container" style="text-align:center">
-    <p class="font-weight-normal" style="color: white; font-size: 26px">Bienvenido a MiUdelar</p>
-    <router-outlet></router-outlet>
-  </div>
-
- 
+<div class="mat-sidenav-container" style="text-align:center">
+  <h1 class="font-weight-normal" style="color: rgb(17, 14, 14); font-size: 26px; font-weight: bolder">
+    Bienvenido a MiUdelar
+  </h1>
+  <router-outlet></router-outlet>
+</div>

@@ -23,15 +23,15 @@ export class Node implements d3.SimulationNodeDatum {
   }
 
   get r() {
-    return 70 ;
+    return 80 ;
   }
 
   get fontSize() {
-    return 12;
+    return 13;
   }
 
   get color() {
     let index = Math.floor(APP_CONFIG.SPECTRUM.length * this.normal());
-    return APP_CONFIG.SPECTRUM[index];
+    return 'black';
   }
 }

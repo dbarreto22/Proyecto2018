@@ -1,0 +1,59 @@
+.selectWrapper {
+    overflow: hidden;
+    position: relative;
+    border-radius: 2px;
+    background-color: "primary" ;
+    }
+
+.selectWrapper select {
+         
+        font-size: 14px;
+        line-height: 12px;
+        height: 20%;
+        border: none;
+        box-shadow: lightgray;
+        background: none;
+        background-image: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+        -moz-appearance: none;
+        text-indent: 0.01px;
+        text-overflow: ellipsis;
+    }
+    .selectRoles {
+        overflow: hidden;
+        width :150%;
+        height: 20%;
+        position: relative;
+        border: 1px solid lightgray;
+        border-radius: 2px;
+        background-color: whitesmoke ;
+        display:block;
+        font-weight:bold;
+        }
+    
+    .selectRoles select {
+             
+            font-size: 14px;
+            line-height: 12px;
+            width :150%;
+            height: 20%;
+            border: none;
+            box-shadow: lightgray;
+            background: none;
+            background-image: none;
+            -webkit-appearance: none;
+            outline: none;
+            cursor: pointer;
+            -moz-appearance: none;
+            text-indent: 0.01px;
+            text-overflow: ellipsis;
+        }
+    .material-icons.md-48 {
+         font-size: 48px;
+         border: 1px solid lightgray;
+         background-color: black ;
+    }
+    .material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }

@@ -4,11 +4,13 @@ import { Rol } from '../../modelos/rol.model';
 @Component({
   selector: 'app-home-layout',
   templateUrl: './home-layout.component.html',
-  styleUrls: ['./home.layout.component.css']
+  styleUrls: ['./home-layout.component.css']
 })
 export class HomeLayoutComponent implements OnInit {
   
   roles: Array<Rol>;
+  showRol:boolean=false;
+  aux='hidden';
   @Input() public rolElegido: string;
   constructor() { 
       //this.apiservice.cargarParametros();
@@ -24,8 +26,14 @@ export class HomeLayoutComponent implements OnInit {
       alert('El usuario de bedelias no tiene acceso a la web');
     localStorage.setItem('rolElegido', value);
     this.rolElegido = value;
-
-
   }
+mostrarRoles(){
+  this.showRol=true;
+  this.aux='visible';
+}
+ocultarRoles(){
+  this.showRol=false;
+  this.aux='hidden';
+}
 
 }
