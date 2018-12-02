@@ -20,6 +20,12 @@ export class GrafoComponent implements OnInit {
   carrera:string;
 
   constructor(private apiService:ApiService,private router:Router) {
+    let rolElegido=localStorage.getItem('rolElegido');
+    if( rolElegido!='3'&&rolElegido!='4')
+    {
+      alert('El rol actual no puede acceder a esta función.');
+      this.router.navigate(['/'])
+    }
     this.idCurso=localStorage.getItem('idCurso');
     //alert(this.idCurso);
     this.apiService.getprevias(this.idCurso).subscribe((datos : asignaturaCarrera)=>
@@ -37,12 +43,6 @@ export class GrafoComponent implements OnInit {
     //alert('entro una vez Nodo '+ JSON.stringify(this.nodes));
   }
   ngOnInit(){
-    let rolElegido=localStorage.getItem('rolElegido');
-    if( rolElegido!='3')
-    {
-      alert('El rol actual no puede acceder a esta función.');
-      this.router.navigate(['/'])
-    }
   };
     crearNodos(datos:asignaturaCarrera,link:Link, x:number, y:number){
       let auxX, auxY;

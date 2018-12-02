@@ -115,8 +115,8 @@ public obj = JSON.parse(this.text, this.reviver);
       (data: Array<cursos>) => {
         data.forEach(asig => {
           if (asig.id = this.mySelection[0]) {
-            this.reviver(this.curso.date)
             this.curso = asig;
+            this.reviver(this.curso.date)
             this.idCurso = this.curso.id;
             console.log(this.idCurso);
           }
@@ -147,6 +147,14 @@ public obj = JSON.parse(this.text, this.reviver);
     else
       alert('Debe seleccionar una carrera para continuar.');
 
+  }
+
+  public verPrevias() {
+    if (this.curso != undefined) {
+      localStorage.setItem('idCurso', this.curso.asignatura_Carrera.id);
+      this.router.navigate(['/grafo']);
+    }
+    else alert('Debe seleccionar una Asignatura');
   }
 
 }
