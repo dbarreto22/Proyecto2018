@@ -82,10 +82,8 @@ export class ABMCarreraComponent implements OnInit {
       data.forEach(asig=>{
         if(asig.codigo = this.mySelection[0]){
           this.codigo = asig.codigo;
-          this.nombreCarrera = asig.nombre;
-          console.log(asig);
-          
         }
+        console.log('codigo ',this.codigo)
       })
       
     },

@@ -54,7 +54,7 @@ export class CrearPreviasComponent implements OnInit {
   public definirContexto(){
     if(this.contexto=='1')
     {
-      this.titulo='Seleccionar curso madre para ';
+      this.titulo='Seleccione un curso y confirmar para continuar';
     }
     else
       this.titulo='Seleccionar previa ';      
@@ -96,14 +96,14 @@ export class CrearPreviasComponent implements OnInit {
       if(this.contexto=='1'){
         localStorage.setItem('idMadre',this.codigoAsignatura);
         this.selectAllState = 'unchecked';
+        console.log('Primer elemento ',this.codigoAsignatura);
         this.codigoAsignatura = undefined
         localStorage.setItem('variable1','2');
         this.contexto=2;
-        alert('Seleccioné un primer elemento');
       }
       else
       {
-        alert('En la seleccion del segundo');
+        console.log('Segundo elemento ',this.codigoAsignatura);
         let idMadre=localStorage.getItem('idMadre');
         let idPrevia=this.codigoAsignatura;
         if(idMadre==undefined || idPrevia==undefined)

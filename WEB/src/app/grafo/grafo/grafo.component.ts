@@ -15,7 +15,7 @@ export class GrafoComponent implements OnInit {
   idCurso;
   cursos:asignaturaCarrera;
   x:number=500;
-  y:number=100;
+  y:number=140;
   asignatura:string;
   carrera:string;
 
@@ -60,12 +60,12 @@ export class GrafoComponent implements OnInit {
         auxX=datos.previas.length*180;
       }
       this.nodes.push(nodo);
-      auxY=y+180;
+      auxY=y+225;
       datos.previas.forEach(element=>
       {
        // this.x=this.x+60;
         this.crearNodos(element,new Link(datos.asignatura.nombre,null),auxX,auxY);
-      auxX=auxX+180;
+      auxX=auxX+230;
         nodo.linkCount++;
       
       });
