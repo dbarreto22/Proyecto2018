@@ -80,7 +80,7 @@ export class ABMCarreraComponent implements OnInit {
     this.carreras.subscribe(
     (data: Array<carrera>)=> {
       data.forEach(asig=>{
-        if(asig.codigo = this.mySelection[0]){
+        if(asig.codigo == this.mySelection[0]){
           this.codigo = asig.codigo;
         }
         console.log('codigo ',this.codigo)

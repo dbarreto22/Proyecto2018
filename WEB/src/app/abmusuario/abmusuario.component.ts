@@ -78,7 +78,7 @@ export class ABMUsuarioComponent implements OnInit {
     this.usuarios.subscribe(
       (data: Array<usuario>) => {
         data.forEach(asig => {
-          if (asig.cedula = this.mySelection[0]) {
+          if (asig.cedula == this.mySelection[0]) {
             this.usuario = asig;
             this.cedulaSelect = asig.cedula;
             console.log(this.cedulaSelect);

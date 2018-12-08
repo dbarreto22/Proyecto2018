@@ -86,7 +86,7 @@ export class abmAsignaturaComponent implements OnInit {
     this.asignaturas.subscribe(
       (data: Array<asignatura>) => {
         data.forEach(asig => {
-          if (asig.codigo = this.mySelection[0]) {
+          if (asig.codigo == this.mySelection[0]) {
             this.codigo = asig.codigo;
             this.nombreAsignatura = asig.nombre;
             console.log(this.codigo);

@@ -114,7 +114,7 @@ public obj = JSON.parse(this.text, this.reviver);
     this.cursosGrid.subscribe(
       (data: Array<cursos>) => {
         data.forEach(asig => {
-          if (asig.id = this.mySelection[0]) {
+          if (asig.id == this.mySelection[0]) {
             this.curso = asig;
             this.reviver(this.curso.date)
             this.idCurso = this.curso.id;

@@ -86,7 +86,7 @@ export class CursosPreviasComponent implements OnInit {
     this.cursosGrid.subscribe(
       (data: Array<asignaturaCarrera>) => {
         data.forEach(asig => {
-          if (asig.id = this.mySelection[0]) {
+          if (asig.id == this.mySelection[0]) {
             this.curso = asig;
             this.idCurso = this.curso.id;
             console.log(this.idCurso);

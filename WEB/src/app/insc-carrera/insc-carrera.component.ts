@@ -82,7 +82,7 @@ export class InscCarreraComponent implements OnInit {
         this.carreras.subscribe(
           (data: Array<carrera>) => {
             data.forEach(asig => {
-              if (asig.codigo = this.mySelection[0]) {
+              if (asig.codigo == this.mySelection[0]) {
                 this.carrera = asig;
                 this.codigo = this.carrera.codigo;
                 console.log(this.codigo);

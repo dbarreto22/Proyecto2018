@@ -84,7 +84,7 @@ export class InscExamenComponent implements OnInit {
 
   change() {
 
-    this.idExamen = this.mySelection[0];
+    this.idExamen == this.mySelection[0];
     console.log(this.idExamen);
       
     
