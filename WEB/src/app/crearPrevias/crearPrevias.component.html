@@ -14,6 +14,10 @@
       [loading] = "loading"
       [selectable]="selectableSettings" 
       (selectionChange) = "change($event)"
+      [kendoGridSelectBy]="mySelectionKey"
+      [selectedKeys]="mySelection"
+      [skip]="skip"
+      (pageChange)="pageChange()"
       [height]="500"
     >
     <kendo-grid-column field="id" title="Codigo" width="80" [filterable]="false">

@@ -4,9 +4,10 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { SelectableSettings, SelectAllCheckboxState } from '@progress/kendo-angular-grid';
+import { SelectableSettings, SelectAllCheckboxState, RowArgs, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
 import { asignaturaCarrera } from '../modelos/asignaturaCarrera.model';
+import { State } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-crearPrevias',
@@ -26,6 +27,9 @@ export class CrearPreviasComponent implements OnInit {
   public checkboxOnly = true;
   public selectableSettings: SelectableSettings;
   public loading=true;
+  public skip = 0;
+  public idMadre;
+  public idPrevia;
 
   constructor(public http: HttpClient, private apiService: ApiService, private router: Router) {
     this.setSelectableSettings();
@@ -50,32 +54,53 @@ export class CrearPreviasComponent implements OnInit {
       this.router.navigate(['/'])
     }  
   }
+  public state: State = {
+    skip: 0,
+    take: 5
+  }
+
+  public mySelection: string[] = [];
+  public mySelectionKey(context: RowArgs): string {
+    return context.dataItem.id;
+  }
+
+  public pageChange(event: PageChangeEvent): void {
+    console.log(this.mySelection[0]);
+    this.skip = event.skip;
+
+  }
 
   public definirContexto(){
-    if(this.contexto=='1')
-    {
-      this.titulo='Seleccione un curso y confirmar para continuar';
-    }
-    else
-      this.titulo='Seleccionar previa ';      
+
+      this.titulo='Seleccione un curso madre y su previa, luego confirmar';
+ 
   }
   public setSelectableSettings(): void {
     this.selectableSettings = {
       checkboxOnly: this.checkboxOnly,
-      mode: "single",
+      mode: "multiple",
     };
   }
 
 
-  change({index}) {
+  change() {
    
-    if (!!index || index == 0) {
+    if (this.mySelection.length > 0) {
       this.asignaturas.subscribe(
         (data: Array<asignaturaCarrera>)=> {
-          this.asignatura = data[index];
-          this.codigoAsignatura = this.asignatura.id;
+          data.forEach(asig=>{
+            if(asig.id == this.mySelection[0]){
+              this.idMadre = asig.id;
+            }
+            if(asig.id == this.mySelection[1]){
+              this.idPrevia = asig.id;
+            }
+         // this.asignatura = data[index];
+        //  this.codigoAsignatura = this.asignatura.id;
       //    alert('putoooos'+JSON.stringify(this.codigoAsignatura));
-        },
+        
+        })
+      },
         err=>{
           this.apiService.mensajeConError(err);
         }
@@ -92,26 +117,24 @@ export class CrearPreviasComponent implements OnInit {
   }
 
   asignarACarrera() {
-    if (this.codigoAsignatura != undefined) {
-      if(this.contexto=='1'){
-        localStorage.setItem('idMadre',this.codigoAsignatura);
-        this.selectAllState = 'unchecked';
-        console.log('Primer elemento ',this.codigoAsignatura);
-        this.codigoAsignatura = undefined
-        localStorage.setItem('variable1','2');
-        this.contexto=2;
-      }
-      else
-      {
+    if (this.idMadre == undefined || this.idPrevia == undefined) {
+     
+        //localStorage.setItem('idMadre',this.codigoAsignatura);
+       // this.selectAllState = 'unchecked';
+       // console.log('Primer elemento ',this.codigoAsignatura);
+       // this.codigoAsignatura = undefined
+        //localStorage.setItem('variable1','2');
+      //  this.contexto=2;
+  
         console.log('Segundo elemento ',this.codigoAsignatura);
-        let idMadre=localStorage.getItem('idMadre');
-        let idPrevia=this.codigoAsignatura;
-        if(idMadre==undefined || idPrevia==undefined)
-        {
+        //let idMadre=localStorage.getItem('idMadre');
+        //let idPrevia=this.codigoAsignatura;
+    //    if(idMadre==undefined || idPrevia==undefined)
+     //   {
           alert('Algo salio mal, debe comenzar de nuevo');
           this.router.navigate(['/setingsCarrera']);
         }
-        this.apiService.agregarPrevia(idMadre, idPrevia).subscribe(
+        this.apiService.agregarPrevia(this.idMadre, this.idPrevia).subscribe(
         data => {
           this.apiService.mensajeSinError(data,2);
           this.router.navigate(['/setingsCarrera']);
@@ -120,10 +143,10 @@ export class CrearPreviasComponent implements OnInit {
           this.router.navigate(['/setingsCarrera']);
         });
       }
-    }
-    else
-      alert('Debe seleccionar una asignatura para continuar.');
-  }
+    
+   // else
+   //   alert('Debe seleccionar una asignatura para continuar.');
+ // }
 
 }
 
