@@ -43,8 +43,8 @@ export class ListarUsuariosComponent implements OnInit {
     this.usuarios = this.apiService.getAllUser();
 
     this.usuarios.subscribe(
-      () =>{ 
-        
+      () => {
+
         this.loading = false
       },
       err => {
@@ -87,12 +87,13 @@ export class ListarUsuariosComponent implements OnInit {
   }
 
   change() {
-    
+
     this.usuarios.subscribe((data: Array<usuario>) => {
       data.forEach(usr => {
         if (usr.cedula == this.mySelection[0]) {
-          this.usuario = usr;          
-          console.log(this.usuario);
+          this.usuario = usr;
+          this.roles = usr.roles;
+          console.log(this.usuario.roles);
         }
       })
 
@@ -104,14 +105,18 @@ export class ListarUsuariosComponent implements OnInit {
 
   }
 
- aceptar(){
-  this.dialogOpened = true;
- }
- 
+  aceptar() {
+    if (this.mySelection.length > 0) {
+      this.dialogOpened = true;
+    }
+    else
+      alert('Debe seleccionar un usuario para continuar.');
+  }
+
   public MostrarUsuario() {
     console.log(this.mySelection);
     if (this.mySelection.length > 0) {
-      
+
     }
     else
       alert('Debe seleccionar un usuario para continuar.');

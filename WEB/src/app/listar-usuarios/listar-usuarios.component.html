@@ -50,7 +50,7 @@
       <p style="margin: 30px; text-align: center;">Email: {{usuario.email}}</p>
       <p style="margin: 30px; text-align: center;">Roles</p>
       <li *ngFor="let rol of roles">
-        {{usuario.roles.id}} - {{usuario.roles.tipo}}
+        {{rol.id}} - {{rol.tipo}}
      </li>
       <kendo-dialog-actions>
         <button kendoButton (click)="action()" >Aceptar</button>  
