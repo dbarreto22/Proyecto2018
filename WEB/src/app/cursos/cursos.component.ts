@@ -106,7 +106,7 @@ public obj = JSON.parse(this.text, this.reviver);
   public pageChange(event: PageChangeEvent): void {
     console.log(this.mySelection[0]);
     this.skip = event.skip;
-
+    
   }
 
   change() {
@@ -137,11 +137,11 @@ public obj = JSON.parse(this.text, this.reviver);
       this.apiService.inscripcionCurso(this.idCurso).subscribe(
         data => {
           this.apiService.mensajeSinError(data, 3);
-          this.router.navigate(['/inscCursos']);
+          this.router.navigate(['/']);
         },
         err => {
           this.apiService.mensajeConError(err);
-          this.router.navigate(['/inscCursos']);
+          this.router.navigate(['/']);
         });
     }
     else

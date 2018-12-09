@@ -17,7 +17,7 @@
   [kendoGridSelectBy]="mySelectionKey"
   [selectedKeys]="mySelection"
   [skip]="skip"
-  (pageChange)="pageChange($event)"
+  (pageChange)="pageChange($event)" 
   [height]="500"
   >
   <kendo-grid-column field="asignatura_Carrera.carrera.codigo" title="Codigo Carrera" width="130" [filterable]="false">
@@ -27,6 +27,8 @@
   <kendo-grid-column field="asignatura_Carrera.asignatura.codigo" title="Codigo Examen" width="130" [filterable]="false">
   </kendo-grid-column>
   <kendo-grid-column field="asignatura_Carrera.asignatura.nombre" title="Examen">
+  </kendo-grid-column>
+  <kendo-grid-column field="fecha" title="Fecha"  [filterable]="false">
   </kendo-grid-column>
    <kendo-grid-checkbox-column ></kendo-grid-checkbox-column>
 

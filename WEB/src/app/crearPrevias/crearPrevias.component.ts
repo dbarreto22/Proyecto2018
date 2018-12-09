@@ -36,7 +36,8 @@ export class CrearPreviasComponent implements OnInit {
     this.nombreCarrera = localStorage.getItem('nombreCarreraAsignaturaABM');
     this.codigoCarrera = localStorage.getItem('codigoCarreraAsignaturaABM');
     this.asignaturas = this.apiService.getAsignaturaCarreraByCarrera(this.codigoCarrera);
-    
+    this.idMadre =  localStorage.getItem('idMadre');
+    console.log(this.idMadre);
     this.asignaturas.subscribe(
         () =>this.loading = false,
         ee => {
@@ -44,7 +45,7 @@ export class CrearPreviasComponent implements OnInit {
           apiService.mensajeConError(ee);
         }
     )
-    this.contexto=localStorage.getItem('variable1');
+   // this.contexto=localStorage.getItem('variable1');
     this.definirContexto();
   }
 
@@ -72,33 +73,26 @@ export class CrearPreviasComponent implements OnInit {
 
   public definirContexto(){
 
-      this.titulo='Seleccione un curso madre y su previa, luego confirmar';
+      this.titulo='Seleccione una Asignatura previa';
  
   }
   public setSelectableSettings(): void {
     this.selectableSettings = {
       checkboxOnly: this.checkboxOnly,
-      mode: "multiple",
+      mode: "single",
     };
   }
 
 
   change() {
    
-    if (this.mySelection.length > 0) {
+    if (this.idMadre!= undefined) {
       this.asignaturas.subscribe(
         (data: Array<asignaturaCarrera>)=> {
           data.forEach(asig=>{
             if(asig.id == this.mySelection[0]){
-              this.idMadre = asig.id;
+              this.idPrevia = this.mySelection[0];
             }
-            if(asig.id == this.mySelection[1]){
-              this.idPrevia = asig.id;
-            }
-         // this.asignatura = data[index];
-        //  this.codigoAsignatura = this.asignatura.id;
-      //    alert('putoooos'+JSON.stringify(this.codigoAsignatura));
-        
         })
       },
         err=>{
@@ -107,7 +101,7 @@ export class CrearPreviasComponent implements OnInit {
       )
     }
     else {
-      this.codigoAsignatura = undefined;
+      this.idPrevia = undefined;
     }
   }
 
@@ -117,20 +111,7 @@ export class CrearPreviasComponent implements OnInit {
   }
 
   asignarACarrera() {
-    if (this.idMadre == undefined || this.idPrevia == undefined) {
-     
-        //localStorage.setItem('idMadre',this.codigoAsignatura);
-       // this.selectAllState = 'unchecked';
-       // console.log('Primer elemento ',this.codigoAsignatura);
-       // this.codigoAsignatura = undefined
-        //localStorage.setItem('variable1','2');
-      //  this.contexto=2;
-  
-        console.log('Segundo elemento ',this.codigoAsignatura);
-        //let idMadre=localStorage.getItem('idMadre');
-        //let idPrevia=this.codigoAsignatura;
-    //    if(idMadre==undefined || idPrevia==undefined)
-     //   {
+    if ( this.idPrevia == undefined) {
           alert('Algo salio mal, debe comenzar de nuevo');
           this.router.navigate(['/setingsCarrera']);
         }
@@ -143,10 +124,6 @@ export class CrearPreviasComponent implements OnInit {
           this.router.navigate(['/setingsCarrera']);
         });
       }
-    
-   // else
-   //   alert('Debe seleccionar una asignatura para continuar.');
- // }
 
 }
 

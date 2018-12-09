@@ -138,7 +138,7 @@ export class ABMCarreraComponent implements OnInit {
       if(this.selector==1)
         this.router.navigate(['/asignarAsigCarrera']);
       if(this.selector==2)
-        this.router.navigate(['/crearPrevias']);  
+        this.router.navigate(['/definirAsigRaiz']);  
     }
     else
       alert('Debe seleccionar una carrera para continuar.');

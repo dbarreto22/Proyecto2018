@@ -27,6 +27,8 @@ import { ListarCursosCarrerasComponent } from '../listar-cursos-carreras/listar-
 import { ListarCarrerasComponent } from '../listar-carreras/listar-carreras.component';
 import { CrearPreviasComponent } from '../crearPrevias/crearPrevias.component';
 import { CursosPreviasComponent } from '../CursosPrevias/cursosPrevias.component';
+import { CrearAsigMadreComponent } from '../crear-asig-madre/crear-asig-madre.component';
+
 
 
 
@@ -57,7 +59,8 @@ const routes: Routes = [
       {path: 'listarCursos', component: ListarCursosCarrerasComponent},
       {path: 'calificaciones', component: CalificacionesComponent},
       {path: 'crearPrevias', component: CrearPreviasComponent},
-      {path: 'cursosPrevias', component: CursosPreviasComponent}      
+      {path: 'cursosPrevias', component: CursosPreviasComponent},
+      {path: 'definirAsigRaiz', component: CrearAsigMadreComponent}     
     ],
     
   },

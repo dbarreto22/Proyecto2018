@@ -67,6 +67,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {CrearPreviasComponent} from './crearPrevias/crearPrevias.component';
 import { CursosPreviasComponent } from './CursosPrevias/cursosPrevias.component';
 import { NovedadesComponent } from './layouts/home-layout/novedades.component';
+import { CrearAsigMadreComponent } from './crear-asig-madre/crear-asig-madre.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -112,7 +113,8 @@ export function tokenGetter() {
     ListarCursosCarrerasComponent,
     CrearPreviasComponent,
     CursosPreviasComponent,
-    NovedadesComponent
+    NovedadesComponent,
+    CrearAsigMadreComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, GridModule ,FormsModule,
