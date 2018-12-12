@@ -82,7 +82,6 @@ export class abmAsignaturaComponent implements OnInit {
   }
 
   change() {
-
     this.asignaturas.subscribe(
       (data: Array<asignatura>) => {
         data.forEach(asig => {
