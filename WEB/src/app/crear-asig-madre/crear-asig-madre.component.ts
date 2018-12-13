@@ -64,7 +64,6 @@ export class CrearAsigMadreComponent implements OnInit {
 
   public pageChange(event: PageChangeEvent): void {
     this.skip = event.skip;
-
   }
 
 
@@ -90,6 +89,7 @@ change() {
         data.forEach(asig=>{
           if(asig.id == this.mySelection[0]){
             this.idMadre = this.mySelection[0];
+            console.log(this.mySelection[0]);
             console.log(this.idMadre);
           } 
       })

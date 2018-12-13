@@ -93,3 +93,16 @@ table {
 .dropdown:ng-mouseenter .dropdown-content {
   display: block;
 } 
+
+a {   
+  color: white;   
+}
+
+a:active {
+  color: blue;
+}
+
+a[tabindex]:focus {
+  color:white;
+  outline: none;
+}
